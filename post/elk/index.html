@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<head>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
+
+    
+    
+    <title>ELK - 烟花散尽不问繁华</title>
+    
+    
+    <meta name="author" content="zoehuawang" /> 
+     
+    
+    
+    <meta property="og:title" content="ELK" />
+<meta property="og:description" content="安装Elasticsearch 官方下载地址：https://www.elastic.co/downloads/past-releases/elasticsearch-7-16-2 修改所有节点的默认内核参数 echo &#34;vm.swappiness=0&#34; &gt;&gt; /etc/sysctl.conf echo &#34;vm.max_map_count=655350&#34; &gt;&gt; /etc/sysctl.conf sysctl -p 修改所有节点的linux资源限制，永久生效 cat /etc/security/limits.conf|grep -v &#34;^#&#34; * soft nofile 1024000 * hard nofile 1024000 * soft nproc unlimited * hard nproc unlimited * soft core unlimited * hard core unlimited * soft memlock unlimited * hard memlock unlimited ulimit -SHn 1024000 修改配置文件，添加以下内容： cluster.name: ES-cluster #集群名称 node.name: f7ec9b80edc5 #节点名 node.attr.hotwarm_type: hot path.data: /data/elasticsearch-7.16.2/data path.logs: /data/elasticsearch-7.16.2/log network.host: 0.0.0.0 #允许外网访问 http.port: 9200 #服务端口 transport." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zoehuawang.github.io/post/elk/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-05-06T10:11:11+08:00" />
+<meta property="article:modified_time" content="2023-05-06T10:11:11+08:00" />
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ELK"/>
+<meta name="twitter:description" content="安装Elasticsearch 官方下载地址：https://www.elastic.co/downloads/past-releases/elasticsearch-7-16-2 修改所有节点的默认内核参数 echo &#34;vm.swappiness=0&#34; &gt;&gt; /etc/sysctl.conf echo &#34;vm.max_map_count=655350&#34; &gt;&gt; /etc/sysctl.conf sysctl -p 修改所有节点的linux资源限制，永久生效 cat /etc/security/limits.conf|grep -v &#34;^#&#34; * soft nofile 1024000 * hard nofile 1024000 * soft nproc unlimited * hard nproc unlimited * soft core unlimited * hard core unlimited * soft memlock unlimited * hard memlock unlimited ulimit -SHn 1024000 修改配置文件，添加以下内容： cluster.name: ES-cluster #集群名称 node.name: f7ec9b80edc5 #节点名 node.attr.hotwarm_type: hot path.data: /data/elasticsearch-7.16.2/data path.logs: /data/elasticsearch-7.16.2/log network.host: 0.0.0.0 #允许外网访问 http.port: 9200 #服务端口 transport."/>
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqusjs.css" />
+    
+    
+
+    
+    
+    <link rel="stylesheet" href="https://zoehuawang.github.io/scss/main.min.3796779d99b798f0ae24d49c5a420db134eef2207610ed71453e417ce3ab44ed.css" integrity="sha256-N5Z3nZm3mPCuJNScWkINsTTu8iB2EO1xRT5BfOOrRO0=" crossorigin="anonymous" media="screen">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+  
+</head>
+<body>
+  <span class="mobile btn-mobile-menu">
+
+    <i class="fa fa-list btn-mobile-menu__icon"></i>
+    <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+
+  </span>
+
+  <header class="  panel-cover panel-cover--collapsed " style="background-image: url('/images/background-cover.jpg')">
+
+    <div class="panel-main">
+  
+      <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+  
+          <a href="/#blog" title="Homepage of 烟花散尽不问繁华 " class="blog-button"><img src="/images/avatar.jpg" width="80" alt="烟花散尽不问繁华 logo" class="panel-cover__logo logo" /></a>
+          <h1 class="panel-cover__title panel-title"><a href="/#blog" title="Homepage of 烟花散尽不问繁华" class="blog-button">烟花散尽不问繁华</a></h1>
+          
+          <span class="panel-cover__subtitle panel-subtitle">最好的等待，叫来日可期！</span>
+          
+          <hr class="panel-cover__divider" />
+          <p class="panel-cover__description"></p>
+          <hr class="panel-cover__divider panel-cover__divider--secondary" />
+          
+          
+          
+          <div class="navigation-wrapper">
+            <div>
+              <nav class="cover-navigation cover-navigation--primary">
+                <ul class="navigation">
+                  <li class="navigation__item"><a href="/#blog" title="Blog" class="blog-button">Blog</a></li>
+                  
+                    <li class="navigation__item"><a href="https://blog.zoehuawang.cn" target="_blank" title="Projects">Projects</a></li>
+                  
+                    <li class="navigation__item"><a href="/tags/" target="_blank" title="Tags">Tags</a></li>
+                  
+                </ul>
+              </nav>
+            </div>
+            
+            <div><nav class="cover-navigation navigation--social">
+    <ul class="navigation">
+  
+    
+  
+    
+    
+    
+
+    
+  
+    
+  
+    
+    <li class="navigation__item">
+      <a href="/index.xml" rel="author" title="RSS" target="_blank">
+        <i class='social fa fa-rss'></i>
+        <span class="label">RSS</span>
+      </a>
+    </li>
+  
+    
+  
+    </ul>
+  </nav>
+  </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      <div class="panel-cover--overlay cover-red"></div>
+      
+    </div>
+  </header>
+  
+
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner">
+
+        
+<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+    <header class="post-header">
+        <div class="post-meta">
+            <time datetime=" 2023-05-06 10:11:11 &#43;0800 " itemprop="datePublished" class="post-meta__date date">2023-05-06</time>
+            
+        </div>
+        <h1 class="post-title">ELK</h1>
+    </header>
+    <section class="post">
+        <h4 id="安装elasticsearch">安装Elasticsearch</h4>
+<ul>
+<li>官方下载地址：https://www.elastic.co/downloads/past-releases/elasticsearch-7-16-2</li>
+<li>修改所有节点的默认内核参数</li>
+</ul>
+<pre tabindex="0"><code>echo &#34;vm.swappiness=0&#34; &gt;&gt; /etc/sysctl.conf
+echo &#34;vm.max_map_count=655350&#34; &gt;&gt; /etc/sysctl.conf
+sysctl -p
+</code></pre><ul>
+<li>修改所有节点的linux资源限制，永久生效</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>cat /etc/security/limits.conf|grep -v <span style="color:#e6db74">&#34;^#&#34;</span>
+</span></span><span style="display:flex;"><span>* soft    nofile  <span style="color:#ae81ff">1024000</span>
+</span></span><span style="display:flex;"><span>* hard    nofile  <span style="color:#ae81ff">1024000</span>
+</span></span><span style="display:flex;"><span>* soft    nproc   unlimited
+</span></span><span style="display:flex;"><span>* hard    nproc   unlimited
+</span></span><span style="display:flex;"><span>* soft    core    unlimited
+</span></span><span style="display:flex;"><span>* hard    core    unlimited
+</span></span><span style="display:flex;"><span>* soft    memlock unlimited
+</span></span><span style="display:flex;"><span>* hard    memlock unlimited
+</span></span><span style="display:flex;"><span>ulimit -SHn <span style="color:#ae81ff">1024000</span>
+</span></span></code></pre></div><ul>
+<li>修改配置文件，添加以下内容：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>cluster.name<span style="color:#960050;background-color:#1e0010">:</span> ES-cluster                            <span style="color:#75715e">#集群名称</span>
+</span></span><span style="display:flex;"><span>node.name<span style="color:#960050;background-color:#1e0010">:</span> f7ec9b80edc5                             <span style="color:#75715e">#节点名</span>
+</span></span><span style="display:flex;"><span>node.attr.hotwarm_type<span style="color:#960050;background-color:#1e0010">:</span> hot
+</span></span><span style="display:flex;"><span>path.data<span style="color:#960050;background-color:#1e0010">:</span> /data/elasticsearch-<span style="color:#ae81ff">7.16</span>.<span style="color:#ae81ff">2</span>/data
+</span></span><span style="display:flex;"><span>path.logs<span style="color:#960050;background-color:#1e0010">:</span> /data/elasticsearch-<span style="color:#ae81ff">7.16</span>.<span style="color:#ae81ff">2</span>/log
+</span></span><span style="display:flex;"><span>network.host<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">0.0</span>.0.0                               <span style="color:#75715e">#允许外网访问</span>
+</span></span><span style="display:flex;"><span>http.port<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">9200</span>                                     <span style="color:#75715e">#服务端口</span>
+</span></span><span style="display:flex;"><span>transport.port<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">9700</span>                                <span style="color:#75715e">#内部节点之间沟通端口</span>
+</span></span><span style="display:flex;"><span>discovery.seed_hosts<span style="color:#960050;background-color:#1e0010">:</span> [<span style="color:#e6db74">&#34;127.0.0.1:9700&#34;</span>]            <span style="color:#75715e">#节点发现,逗号隔开</span>
+</span></span><span style="display:flex;"><span>cluster.initial_master_nodes<span style="color:#960050;background-color:#1e0010">:</span> [<span style="color:#e6db74">&#34;f7ec9b80edc5&#34;</span>]      <span style="color:#75715e">#节点名,用于选举master,逗号隔开</span>
+</span></span><span style="display:flex;"><span>http.cors.enabled<span style="color:#960050;background-color:#1e0010">:</span> true
+</span></span><span style="display:flex;"><span>http.cors.allow-origin<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;*&#34;</span>
+</span></span></code></pre></div><ul>
+<li>启动并设置开机自启动</li>
+</ul>
+<pre tabindex="0"><code>systemctl enable elasticsearch &amp;&amp; systemctl start elasticsearch
+</code></pre><h4 id="安装kibana">安装Kibana</h4>
+<ul>
+<li>官方下载地址：https://www.elastic.co/downloads/past-releases/kibana-7-16-2</li>
+</ul>
+<pre tabindex="0"><code>#将默认配置改成如下：
+i18n.locale: &#34;zh-CN&#34;       #kibana默认文字是英文，变更成中文
+server.port: 5601          #浏览器访问端口
+server.host: &#34;0.0.0.0&#34;     #对外的服务地址
+elasticsearch.hosts: [&#34;http://127.0.0.1:9200&#34;]   #这里为你的elasticsearch集群的地址
+kibana.index: &#34;.kibana&#34;    #开启此选项
+xpack.reporting.encryptionKey: &#34;a_random_string&#34;  #随机密钥
+xpack.security.encryptionKey: &#34;something_at_least_32_characters&#34;  #最少32位随机字符
+
+#启动    bin/kibana
+</code></pre><ul>
+<li>启动并设置开机自启动</li>
+</ul>
+<pre tabindex="0"><code>systemctl enable kibana &amp;&amp; systemctl start kibana
+</code></pre><h4 id="安装logstash">安装Logstash</h4>
+<ul>
+<li>官方下载地址：https://www.elastic.co/downloads/past-releases/logstash-7-16-2</li>
+</ul>
+<pre tabindex="0"><code>/usr/share/logstash/bin/logstash  -e &#39;input { stdin { } } output { stdout {} }&#39; 
+#启动后随便输入内容测试看输出
+
+#在config下的主配置文件logstash.yml末尾添加以下内容：
+path.data: /data/logstash-7.16.2/data    #数据存储路径
+path.config: /data/logstash-7.16.2/conf.d/*.conf   #配置文件目录
+path.logs: /data/logstash-7.16.2/logs   #日志输出路径
+
+#创建配置文件目录：
+mkdir /data/logstash-7.16.2/conf.d
+#在conf.d下创建.conf结尾的配置文件，内容如下：
+input {
+#    stdin {}
+    kafka {
+        bootstrap_servers  =&gt; &#34;192.168.8.100:9092&#34;
+        topics =&gt; [&#34;logstash&#34;]
+        type =&gt; &#34;test&#34;
+    }
+}
+
+filter {
+    if [type] == &#34;test&#34; {
+        json {
+            source =&gt; &#34;message&#34;
+            target =&gt; &#34;jsoncontent&#34;
+        }
+        mutate {
+            split =&gt; [&#34;jsoncontent&#34;,&#34;,&#34;]
+            update =&gt; {&#34;message&#34; =&gt; &#34;%{[jsoncontent][message]}&#34;}
+            remove_field =&gt; [&#34;@timestamp&#34;,&#34;@version&#34;,&#34;jsoncontent&#34;]
+        }
+    }
+}
+
+
+output {
+    if [type] == &#34;test&#34; {
+#        stdout {codec =&gt; rubydebug}
+        elasticsearch {
+            hosts =&gt; &#34;http://172.17.0.2:9200&#34;
+            manage_template =&gt; false
+            index =&gt; &#34;test-%{+yyyy.MM}&#34;
+        }
+    }
+}
+
+
+bin/logstash -f logstash.conf --config.test_and_exit    #检查配置文件语法是否正确
+bin/logstash -f conf.d/logstash.conf --config.reload.automatic    
+#--config.reload.automatic可以在Logstash不重启的情况下自动加载配置文件
+</code></pre><h4 id="filebeat安装">filebeat安装</h4>
+<p>官方下载地址：<a href="https://www.elastic.co/downloads/past-releases/filebeat-7-6-0">https://www.elastic.co/downloads/past-releases/filebeat-7-6-0</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e">#解压 </span>
+</span></span><span style="display:flex;"><span>tar -zxvf filebeat-<span style="color:#ae81ff">7.6</span>.<span style="color:#ae81ff">0</span>-linux-x86_64.tar.gz
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#配置文件filebeat.yml里面的内容先全部注释掉，然后末尾添加以下内容：</span>
+</span></span><span style="display:flex;"><span>filebeat.inputs<span style="color:#960050;background-color:#1e0010">:</span>
+</span></span><span style="display:flex;"><span>- type<span style="color:#960050;background-color:#1e0010">:</span> log
+</span></span><span style="display:flex;"><span>  enabled<span style="color:#960050;background-color:#1e0010">:</span> true
+</span></span><span style="display:flex;"><span>  paths<span style="color:#960050;background-color:#1e0010">:</span>
+</span></span><span style="display:flex;"><span>    - /tmp/logs/*.log
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>output.kafka<span style="color:#960050;background-color:#1e0010">:</span>
+</span></span><span style="display:flex;"><span>  enabled<span style="color:#960050;background-color:#1e0010">:</span> true
+</span></span><span style="display:flex;"><span>  hosts<span style="color:#960050;background-color:#1e0010">:</span> [<span style="color:#e6db74">&#34;192.168.8.100:9092&#34;</span>]
+</span></span><span style="display:flex;"><span>  topic<span style="color:#960050;background-color:#1e0010">:</span> logstash
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#启动（最好先启动logstash不然没有消费者会崩）</span>
+</span></span><span style="display:flex;"><span>./filebeat -e -c filebeat.yml -d <span style="color:#e6db74">&#34;publish&#34;</span>
+</span></span></code></pre></div><h1 id="elk-820集群安装">ELK-8.2.0集群安装</h1>
+<ul>
+<li>官方下载地址：</li>
+</ul>
+<p><a href="https://www.elastic.co/downloads/past-releases/elasticsearch-8-2-0">https://www.elastic.co/downloads/past-releases/elasticsearch-8-2-0</a>
+<a href="https://www.elastic.co/downloads/past-releases/logstash-8-2-0">https://www.elastic.co/downloads/past-releases/logstash-8-2-0</a>
+<a href="https://www.elastic.co/downloads/past-releases/kibana-8-2-0">https://www.elastic.co/downloads/past-releases/kibana-8-2-0</a></p>
+<ul>
+<li>配置文件配置保留部分，其余的全部可以注释</li>
+<li>elasticsearch.yml</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">xpack.security.enabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">xpack.security.enrollment.enabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">xpack.security.http.ssl</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">keystore.path</span>: <span style="color:#ae81ff">certs/http.p12</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">xpack.security.transport.ssl</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">verification_mode</span>: <span style="color:#ae81ff">certificate</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">keystore.path</span>: <span style="color:#ae81ff">certs/transport.p12</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">truststore.path</span>: <span style="color:#ae81ff">certs/transport.p12</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">cluster.name</span>: <span style="color:#ae81ff">ES-cluster</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">node.name</span>: <span style="color:#ae81ff">f7ec9b80edc5</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">path.data</span>: <span style="color:#ae81ff">/data/elasticsearch/data</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">path.logs</span>: <span style="color:#ae81ff">/data/elasticsearch/log</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">network.host</span>: <span style="color:#ae81ff">0.0.0.0</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">http.port</span>: <span style="color:#ae81ff">9200</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">transport.port</span>: <span style="color:#ae81ff">9187</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">discovery.seed_hosts</span>: [<span style="color:#e6db74">&#34;127.0.0.1:9187&#34;</span>]
+</span></span><span style="display:flex;"><span><span style="color:#f92672">cluster.initial_master_nodes</span>: [<span style="color:#e6db74">&#34;f7ec9b80edc5&#34;</span>]
+</span></span></code></pre></div><ul>
+<li>
+<p>配置文件设置JVM
+jvm.options                #设置Xmx不要大于物理内存的50%</p>
+</li>
+<li>
+<p>logstash.yml</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">path.data</span>: <span style="color:#ae81ff">/data/logstash   </span> <span style="color:#75715e">#数据存储路径</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">path.config</span>: <span style="color:#ae81ff">/etc/logstash/conf.d/*.conf  </span> <span style="color:#75715e">#配置文件目录</span>
+</span></span></code></pre></div><ul>
+<li>logstash.conf</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>input <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    tcp <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        port <span style="color:#f92672">=</span>&gt; <span style="color:#ae81ff">9601</span>
+</span></span><span style="display:flex;"><span>        codec <span style="color:#f92672">=</span>&gt; <span style="color:#e6db74">&#34;json&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>output <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    elasticsearch <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        hosts <span style="color:#f92672">=</span>&gt; <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;127.0.0.1:9200&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>        index <span style="color:#f92672">=</span>&gt; <span style="color:#e6db74">&#34;logstash-%{+YYYY.MM.dd}&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><ul>
+<li>kibana.yml</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">server.port</span>: <span style="color:#ae81ff">5601</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">server.host</span>: <span style="color:#e6db74">&#34;0.0.0.0&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">pid.file</span>: <span style="color:#ae81ff">/run/kibana/kibana.pid</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">i18n.locale</span>: <span style="color:#e6db74">&#34;zh-CN&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">elasticsearch.hosts</span>: [<span style="color:#e6db74">&#34;http://127.0.0.1:9200&#34;</span>]
+</span></span></code></pre></div><h1 id="elasticsearch接口">Elasticsearch接口</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -s <span style="color:#e6db74">&#34;http://127.0.0.1:9200/_cat/nodes?v&#34;</span>        <span style="color:#75715e">#查看集群的节点</span>
+</span></span><span style="display:flex;"><span>curl -s <span style="color:#e6db74">&#34;http://127.0.0.1:9200/_cat/health?v&#34;</span>       <span style="color:#75715e">#查看集群健康状态</span>
+</span></span><span style="display:flex;"><span>curl -s <span style="color:#e6db74">&#34;http://127.0.0.1:9200/_cat/indices?v&#34;</span>      <span style="color:#75715e">#查看索引</span>
+</span></span><span style="display:flex;"><span>curl -s -X DELETE <span style="color:#e6db74">&#34;http://127.0.0.1:9200/索引名&#34;</span>     <span style="color:#75715e">#删除索引</span>
+</span></span><span style="display:flex;"><span>curl -s <span style="color:#e6db74">&#34;http://127.0.0.1:9200/索引名/_mapping&#34;</span>      <span style="color:#75715e">#查看索引数据结构</span>
+</span></span><span style="display:flex;"><span>curl -s <span style="color:#e6db74">&#34;http://127.0.0.1:9200/_cat/allocation?v&#34;</span>   <span style="color:#75715e">#查看集群所在磁盘的分配状况</span>
+</span></span></code></pre></div><h1 id="logstash接口">Logstash接口</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#往logstash写入数据，--max-time最长等待时间(秒)</span>
+</span></span><span style="display:flex;"><span>curl -X POST -H <span style="color:#e6db74">&#34;Content-Type: application/json&#34;</span> -d <span style="color:#e6db74">&#34;test888&#34;</span> --max-time <span style="color:#ae81ff">3</span> <span style="color:#e6db74">&#34;http://127.0.0.1:9601/input名&#34;</span>
+</span></span></code></pre></div><h1 id="logstash打包和离线安装插件">Logstash打包和离线安装插件</h1>
+<h4 id="打包">打包</h4>
+<p>打包前的注意事项</p>
+<p>1、确保需要打包的插件及其依赖插件都已经安装在中转机器上</p>
+<p>2、执行./bin/logstash-plugin prepare-offline-pack logstash-input-jdbc来打包</p>
+<p>打包命令支持通配符，如下都是可以的</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>bin/logstash-plugin prepare-offline-pack logstash-input-jdbc
+</span></span><span style="display:flex;"><span>bin/logstash-plugin prepare-offline-pack logstash-input-*
+</span></span><span style="display:flex;"><span>bin/logstash-plugin prepare-offline-pack logstash-output-* logstash-input-jdbc
+</span></span></code></pre></div><h4 id="安装">安装</h4>
+<p>1、下载打包好的文件，通过你最方便的方式上传到生产设备中，记住存放的目录和文件名，例如这里为logstash-input-plugins-5.5.1.zip</p>
+<p>2、执行bin/logstash-plugin install命令进行安装</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>bin/logstash-plugin install file<span style="color:#960050;background-color:#1e0010">:</span>///path/to/logstash-offline-input-<span style="color:#ae81ff">5.5</span>.1.zip
+</span></span></code></pre></div>
+    </section>
+</article>
+<section class="read-more">
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">Recent</span>
+        <h2 class="post-list__post-title post-title"><a href="/post/python/" title="link to Python">Python</a></h2>
+        <p class="excerpt">Python扩展包大全：https://www.lfd.uci.edu/~gohlke/pythonlibs
+python3常用进制转换： hex(16) # 10进制转16进制 oct(8) # 10进制转8进制 bin(8) # 10进制转2进制 int(&#39;10&#39;) # 字符串转换成10进制整数 int(&#39;10&#39;,16) # 字符串转换成16进制整数 int(&#39;0x10&#39;,16) # 字符串转换成16 …&hellip;</p>
+        <div class="post-list__meta">
+            <time datetime=" 2023-05-06 10:11:11 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+            
+            <a class="btn-border-small" href="/post/python/">Continue</a>
+        </div>
+    </div>
+    
+
+
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">Earlier</span>
+        <h2 class="post-list__post-title post-title"><a href="/post/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/" title="link to K8s离线部署">K8s离线部署</a></h2>
+        <p class="excerpt">一、前置准备 准备三台服务器，操作系统centos7.x
+硬件配置：CPU2核、内存2GB、硬盘30GB
+确保机器间网络互通，时钟同步，所需镜像及资源包下载链接：点击下载
+规划：
+节点名称 IP 安装组件 k8s-master 192.168.14.101 docker、etcd、kubelet、kube-proxy、kube-apiserver、kube-controller-manager、kube-scheduler k8s-node1 192.168.14.102 …&hellip;</p>
+        <div class="post-list__meta">
+            <time datetime=" 2023-05-06 10:11:11 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+            
+            <a class="btn-border-small" href="/post/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/">Continue</a>
+        </div>
+    </div>
+    
+ </section>
+ 
+<section class="post-comments">
+    
+      <div id="disqus_thread"></div>
+      <script>
+      
+      var disqus_config = function () {
+          this.page.url = "https:\/\/zoehuawang.github.io\/post\/elk\/";
+          this.page.identifier = "https:\/\/zoehuawang.github.io\/post\/elk\/";
+      };
+  
+      var disqus_shortname = 'vno-hugo';
+      
+      (function() { 
+          var d = document, s = d.createElement('script');
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+          })();
+      </script>
+      <noscript>To view comments from<a href="http://disqus.com/?ref_noscript"> Disqus </a>, please enable JavaScript.</noscript>
+      
+    
+
+    
+    
+  </section>
+  
+
+        <section class="footer">
+    <footer>
+        <span class="footer__copyright">This site is licensed under a <a href="<no value>"><no value></a> license.</span>
+        <span class="footer__copyright">Generated by <a href="https://gohugo.io/">Hugo</a> at 2023-05-06, themed with <a href="https://github.com/xslingcn/vno-hugo"> Vno - Hugo</a>.</span>
+    </footer>
+</section>
+
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script><script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'your_ga_id', 'your_host');
+    ga('send', 'pageview');
+</script>
+
+  
+</body>
+

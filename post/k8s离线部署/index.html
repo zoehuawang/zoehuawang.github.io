@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<head>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
+
+    
+    
+    <title>K8s离线部署 - 烟花散尽不问繁华</title>
+    
+    
+    <meta name="author" content="zoehuawang" /> 
+     
+    
+    
+    <meta property="og:title" content="K8s离线部署" />
+<meta property="og:description" content="一、前置准备 准备三台服务器，操作系统centos7.x
+硬件配置：CPU2核、内存2GB、硬盘30GB
+确保机器间网络互通，时钟同步，所需镜像及资源包下载链接：点击下载
+规划：
+节点名称 IP 安装组件 k8s-master 192.168.14.101 docker、etcd、kubelet、kube-proxy、kube-apiserver、kube-controller-manager、kube-scheduler k8s-node1 192.168.14.102 docker、etcd、kubelet、kube-proxy k8s-node2 192.168.14.103 docker、etcd、kubelet、kube-proxy docker私有仓库 192.168.14.100 docker（服务器配置可以低点） 三台服务器初始化操作
+# 关闭防火墙 systemctl stop firewalld systemctl disable firewalld # 关闭 selinux sed -i &#39;s/enforcing/disabled/&#39; /etc/selinux/config setenforce 0 # 关闭 swap swapoff -a sed -ri &#39;s/.*swap.*/#&amp;/&#39; /etc/fstab # master节点添加 hosts cat &gt;&gt; /etc/hosts &lt;&lt; EOF 192.168.14.101 k8s-master 192.168.14.102 k8s-node1 192.168.14.103 k8s-node2 EOF # 将桥接的 IPv4 流量传递到 iptables 的链 cat &gt; /etc/sysctl." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zoehuawang.github.io/post/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-05-06T10:08:48+08:00" />
+<meta property="article:modified_time" content="2023-05-06T10:08:48+08:00" />
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="K8s离线部署"/>
+<meta name="twitter:description" content="一、前置准备 准备三台服务器，操作系统centos7.x
+硬件配置：CPU2核、内存2GB、硬盘30GB
+确保机器间网络互通，时钟同步，所需镜像及资源包下载链接：点击下载
+规划：
+节点名称 IP 安装组件 k8s-master 192.168.14.101 docker、etcd、kubelet、kube-proxy、kube-apiserver、kube-controller-manager、kube-scheduler k8s-node1 192.168.14.102 docker、etcd、kubelet、kube-proxy k8s-node2 192.168.14.103 docker、etcd、kubelet、kube-proxy docker私有仓库 192.168.14.100 docker（服务器配置可以低点） 三台服务器初始化操作
+# 关闭防火墙 systemctl stop firewalld systemctl disable firewalld # 关闭 selinux sed -i &#39;s/enforcing/disabled/&#39; /etc/selinux/config setenforce 0 # 关闭 swap swapoff -a sed -ri &#39;s/.*swap.*/#&amp;/&#39; /etc/fstab # master节点添加 hosts cat &gt;&gt; /etc/hosts &lt;&lt; EOF 192.168.14.101 k8s-master 192.168.14.102 k8s-node1 192.168.14.103 k8s-node2 EOF # 将桥接的 IPv4 流量传递到 iptables 的链 cat &gt; /etc/sysctl."/>
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqusjs.css" />
+    
+    
+
+    
+    
+    <link rel="stylesheet" href="https://zoehuawang.github.io/scss/main.min.3796779d99b798f0ae24d49c5a420db134eef2207610ed71453e417ce3ab44ed.css" integrity="sha256-N5Z3nZm3mPCuJNScWkINsTTu8iB2EO1xRT5BfOOrRO0=" crossorigin="anonymous" media="screen">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+  
+</head>
+<body>
+  <span class="mobile btn-mobile-menu">
+
+    <i class="fa fa-list btn-mobile-menu__icon"></i>
+    <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+
+  </span>
+
+  <header class="  panel-cover panel-cover--collapsed " style="background-image: url('/images/background-cover.jpg')">
+
+    <div class="panel-main">
+  
+      <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+  
+          <a href="/#blog" title="Homepage of 烟花散尽不问繁华 " class="blog-button"><img src="/images/avatar.jpg" width="80" alt="烟花散尽不问繁华 logo" class="panel-cover__logo logo" /></a>
+          <h1 class="panel-cover__title panel-title"><a href="/#blog" title="Homepage of 烟花散尽不问繁华" class="blog-button">烟花散尽不问繁华</a></h1>
+          
+          <span class="panel-cover__subtitle panel-subtitle">最好的等待，叫来日可期！</span>
+          
+          <hr class="panel-cover__divider" />
+          <p class="panel-cover__description"></p>
+          <hr class="panel-cover__divider panel-cover__divider--secondary" />
+          
+          
+          
+          <div class="navigation-wrapper">
+            <div>
+              <nav class="cover-navigation cover-navigation--primary">
+                <ul class="navigation">
+                  <li class="navigation__item"><a href="/#blog" title="Blog" class="blog-button">Blog</a></li>
+                  
+                    <li class="navigation__item"><a href="https://blog.zoehuawang.cn" target="_blank" title="Projects">Projects</a></li>
+                  
+                    <li class="navigation__item"><a href="/tags/" target="_blank" title="Tags">Tags</a></li>
+                  
+                </ul>
+              </nav>
+            </div>
+            
+            <div><nav class="cover-navigation navigation--social">
+    <ul class="navigation">
+  
+    
+  
+    
+    
+    
+
+    
+  
+    
+  
+    
+    <li class="navigation__item">
+      <a href="/index.xml" rel="author" title="RSS" target="_blank">
+        <i class='social fa fa-rss'></i>
+        <span class="label">RSS</span>
+      </a>
+    </li>
+  
+    
+  
+    </ul>
+  </nav>
+  </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      <div class="panel-cover--overlay cover-red"></div>
+      
+    </div>
+  </header>
+  
+
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner">
+
+        
+<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+    <header class="post-header">
+        <div class="post-meta">
+            <time datetime=" 2023-05-06 10:08:48 &#43;0800 " itemprop="datePublished" class="post-meta__date date">2023-05-06</time>
+            
+        </div>
+        <h1 class="post-title">K8s离线部署</h1>
+    </header>
+    <section class="post">
+        <h2 id="一前置准备">一、前置准备</h2>
+<p>准备三台服务器，操作系统centos7.x</p>
+<p>硬件配置：CPU2核、内存2GB、硬盘30GB</p>
+<p>确保机器间网络互通，时钟同步，所需镜像及资源包下载链接：<a href="https://download.csdn.net/download/qq_40236138/82458652">点击下载</a></p>
+<p>规划：</p>
+<table>
+<thead>
+<tr>
+<th>节点名称</th>
+<th>IP</th>
+<th>安装组件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>k8s-master</td>
+<td>192.168.14.101</td>
+<td>docker、etcd、kubelet、kube-proxy、kube-apiserver、kube-controller-manager、kube-scheduler</td>
+</tr>
+<tr>
+<td>k8s-node1</td>
+<td>192.168.14.102</td>
+<td>docker、etcd、kubelet、kube-proxy</td>
+</tr>
+<tr>
+<td>k8s-node2</td>
+<td>192.168.14.103</td>
+<td>docker、etcd、kubelet、kube-proxy</td>
+</tr>
+<tr>
+<td>docker私有仓库</td>
+<td>192.168.14.100</td>
+<td>docker（服务器配置可以低点）</td>
+</tr>
+</tbody>
+</table>
+<p>三台服务器初始化操作</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># 关闭防火墙</span>
+</span></span><span style="display:flex;"><span>systemctl stop firewalld
+</span></span><span style="display:flex;"><span>systemctl disable firewalld
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 关闭 selinux</span>
+</span></span><span style="display:flex;"><span>sed -i <span style="color:#e6db74">&#39;s/enforcing/disabled/&#39;</span> /etc/selinux/config 
+</span></span><span style="display:flex;"><span>setenforce <span style="color:#ae81ff">0</span> 
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 关闭 swap</span>
+</span></span><span style="display:flex;"><span>swapoff -a   
+</span></span><span style="display:flex;"><span>sed -ri <span style="color:#e6db74">&#39;s/.*swap.*/#&amp;/&#39;</span> /etc/fstab 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># master节点添加 hosts</span>
+</span></span><span style="display:flex;"><span>cat &gt;&gt; /etc/hosts &lt;&lt; EOF
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">192.168</span>.14.101 k8s-master
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">192.168</span>.14.102 k8s-node1
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">192.168</span>.14.103 k8s-node2
+</span></span><span style="display:flex;"><span>EOF
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 将桥接的 IPv4 流量传递到 iptables 的链</span>
+</span></span><span style="display:flex;"><span>cat &gt; /etc/sysctl.d/k8s.conf &lt;&lt; EOF
+</span></span><span style="display:flex;"><span>net.bridge.bridge-nf-call-ip6tables = <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>net.bridge.bridge-nf-call-iptables = <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>EOF
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 生效</span>
+</span></span><span style="display:flex;"><span>sysctl -p
+</span></span></code></pre></div><ul>
+<li>部署docker本地私有镜像仓库  (192.168.14.100)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e">#将资源包里面的docker_绿色免安装版.tar.gz解压，把docker_inspkg下的所有文件放到 /usr/sbin/目录下</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#使用 systemd 管理 docker</span>
+</span></span><span style="display:flex;"><span>vim /usr/lib/systemd/system/docker.service
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Unit</span>]
+</span></span><span style="display:flex;"><span>Description=Docker Application Container Engine
+</span></span><span style="display:flex;"><span>Documentation=https<span style="color:#960050;background-color:#1e0010">:</span>//docs.docker.com
+</span></span><span style="display:flex;"><span>After=network-online.target firewalld.service
+</span></span><span style="display:flex;"><span>Wants=network-online.target
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Service</span>]
+</span></span><span style="display:flex;"><span>Type=notify
+</span></span><span style="display:flex;"><span>ExecStart=/usr/sbin/dockerd
+</span></span><span style="display:flex;"><span>ExecReload=/bin/kill -s HUP $MAINPID
+</span></span><span style="display:flex;"><span>LimitNOFILE=infinity
+</span></span><span style="display:flex;"><span>LimitNPROC=infinity
+</span></span><span style="display:flex;"><span>LimitCORE=infinity
+</span></span><span style="display:flex;"><span>TimeoutStartSec=<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>Delegate=yes
+</span></span><span style="display:flex;"><span>KillMode=<span style="color:#66d9ef">process</span>
+</span></span><span style="display:flex;"><span>Restart=on-failure
+</span></span><span style="display:flex;"><span>StartLimitBurst=<span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>StartLimitInterval=60s
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Install</span>]
+</span></span><span style="display:flex;"><span>WantedBy=multi-user.target
+</span></span><span style="display:flex;"><span><span style="color:#75715e">###########################分 割 线 #############################</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#启动并设置开机启动</span>
+</span></span><span style="display:flex;"><span>systemctl daemon-reload
+</span></span><span style="display:flex;"><span>systemctl start docker
+</span></span><span style="display:flex;"><span>systemctl enable docker
+</span></span><span style="display:flex;"><span><span style="color:#75715e">###########################分 割 线 #############################</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#新建或修改daemon.json</span>
+</span></span><span style="display:flex;"><span>vim /etc/docker/daemon.json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;registry-mirror&#34;</span> <span style="color:#960050;background-color:#1e0010">:</span> [<span style="color:#e6db74">&#34;https://hub-mirror.c.163.com&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;insecure-registries&#34;</span> <span style="color:#960050;background-color:#1e0010">:</span> [<span style="color:#e6db74">&#34;registry:5000&#34;</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">###########################分 割 线 #############################</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#重启docker服务</span>
+</span></span><span style="display:flex;"><span>systemctl restart docker
+</span></span><span style="display:flex;"><span><span style="color:#75715e">###########################分 割 线 #############################</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#将资源包里面的docker-images目录下registry镜像源导入</span>
+</span></span><span style="display:flex;"><span>docker load &lt; registry.docker
+</span></span><span style="display:flex;"><span><span style="color:#75715e">###########################分 割 线 #############################</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#启动容器</span>
+</span></span><span style="display:flex;"><span>mkdir -p /opt/data/registry
+</span></span><span style="display:flex;"><span>docker run -d --name private_registry -p <span style="color:#ae81ff">5000</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">5000</span> -v /opt/data/registry<span style="color:#960050;background-color:#1e0010">:</span>/var/lib/registry --restart=always registry
+</span></span></code></pre></div><ul>
+<li>上传资源包里面的镜像</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e">#将资源包里面的docker-images目录下所有镜像导入(registry.docker已经导过)</span>
+</span></span><span style="display:flex;"><span>docker load -i calico_3.8.8.tar
+</span></span><span style="display:flex;"><span>docker load -i dashboard-v2.0.4.docker
+</span></span><span style="display:flex;"><span>docker load -i metrics-scraper-v1.0.4.docker
+</span></span><span style="display:flex;"><span>docker load -i coredns-<span style="color:#ae81ff">1.6</span>.2.docker
+</span></span><span style="display:flex;"><span>docker load -i busybox.docker
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>docker images    <span style="color:#75715e">#查看镜像</span>
+</span></span><span style="display:flex;"><span>REPOSITORY                     TAG                 IMAGE ID            CREATED             SIZE
+</span></span><span style="display:flex;"><span>registry                       latest              1fd8e1b0bb7e        <span style="color:#ae81ff">13</span> days ago         <span style="color:#ae81ff">26.2</span>MB
+</span></span><span style="display:flex;"><span>kubernetesui/dashboard         v2.0.4              46d0a29c3f61        <span style="color:#ae81ff">7</span> months ago        <span style="color:#ae81ff">225</span>MB
+</span></span><span style="display:flex;"><span>kubernetesui/metrics-scraper   v1.0.4              86262685d9ab        <span style="color:#ae81ff">13</span> months ago       <span style="color:#ae81ff">36.9</span>MB
+</span></span><span style="display:flex;"><span>coredns/coredns                <span style="color:#ae81ff">1.6</span>.2               bf261d157914        <span style="color:#ae81ff">20</span> months ago       <span style="color:#ae81ff">44.1</span>MB
+</span></span><span style="display:flex;"><span>registry<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">5000</span>/calico/node                 v3.8.<span style="color:#ae81ff">8</span>-<span style="color:#ae81ff">1</span>            3610c051aa19        <span style="color:#ae81ff">23</span> months ago       <span style="color:#ae81ff">192</span>MB
+</span></span><span style="display:flex;"><span>registry<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">5000</span>/calico/cni                  v3.8.<span style="color:#ae81ff">8</span>-<span style="color:#ae81ff">1</span>            ca2a236d9210        <span style="color:#ae81ff">23</span> months ago       <span style="color:#ae81ff">161</span>MB
+</span></span><span style="display:flex;"><span>registry<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">5000</span>/calico/kube-controllers     v3.8.8              7125b7d47e9f        <span style="color:#ae81ff">23</span> months ago       <span style="color:#ae81ff">48.9</span>MB
+</span></span><span style="display:flex;"><span>registry<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">5000</span>/calico/pod2daemon-flexvol   v3.8.8              cacd6d732f12        <span style="color:#ae81ff">23</span> months ago       <span style="color:#ae81ff">9.38</span>MB
+</span></span><span style="display:flex;"><span>busybox                        <span style="color:#ae81ff">1.28</span>.4              8c811b4aec35        <span style="color:#ae81ff">2</span> years ago         <span style="color:#ae81ff">1.15</span>MB
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#给刚导入的镜像重新打标签</span>
+</span></span><span style="display:flex;"><span>docker tag busybox<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">1.28</span>.4 registry<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">5000</span>/busybox
+</span></span><span style="display:flex;"><span>docker tag coredns/coredns<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">1.6</span>.2 registry<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">5000</span>/coredns
+</span></span><span style="display:flex;"><span>docker tag kubernetesui/metrics-scraper<span style="color:#960050;background-color:#1e0010">:</span>v1.0.4 registry0<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">5000</span>/metrics-scraper
+</span></span><span style="display:flex;"><span>docker tag kubernetesui/dashboard<span style="color:#960050;background-color:#1e0010">:</span>v2.0.4 registry<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">5000</span>/dashboard
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#打完标签后的镜像上传到本地仓库</span>
+</span></span><span style="display:flex;"><span>docker push registry<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">5000</span>/busybox
+</span></span><span style="display:flex;"><span>docker push registry<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">5000</span>/flannel-amd64
+</span></span><span style="display:flex;"><span>docker push registry<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">5000</span>/flannel-arm
+</span></span><span style="display:flex;"><span>docker push registry<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">5000</span>/flannel-arm64
+</span></span><span style="display:flex;"><span>docker push registry<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">5000</span>/flannel-ppc64le
+</span></span><span style="display:flex;"><span>docker push registry<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">5000</span>/flannel-s390x
+</span></span><span style="display:flex;"><span>docker push registry<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">5000</span>/coredns
+</span></span><span style="display:flex;"><span>docker push registry<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">5000</span>/metrics-scraper
+</span></span><span style="display:flex;"><span>docker push registry<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">5000</span>/dashboard
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#删除不需要的镜像</span>
+</span></span><span style="display:flex;"><span>docker rmi busybox<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">1.28</span>.4
+</span></span><span style="display:flex;"><span>docker rmi docker rmi quay.io/coreos/flannel<span style="color:#960050;background-color:#1e0010">:</span>v0.11.<span style="color:#ae81ff">0</span>-amd64
+</span></span><span style="display:flex;"><span>docker rmi coredns/coredns<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">1.6</span>.2
+</span></span><span style="display:flex;"><span>docker rmi kubernetesui/metrics-scraper<span style="color:#960050;background-color:#1e0010">:</span>v1.0.4
+</span></span><span style="display:flex;"><span>docker rmi kubernetesui/dashboard<span style="color:#960050;background-color:#1e0010">:</span>v2.0.4
+</span></span></code></pre></div><ul>
+<li>本地镜像仓库及资源准备完成</li>
+</ul>
+<h2 id="二安装docker每个节点都要">二、安装docker(每个节点都要)</h2>
+<ul>
+<li>解压资源包 （docker_绿色免安装版.tar.gz），将docker_inspkg下的所有文件放到 /usr/sbin/目录下</li>
+<li>修改镜像源地址</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e">#新建或修改daemon.json</span>
+</span></span><span style="display:flex;"><span>vim /etc/docker/daemon.json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;registry-mirror&#34;</span> <span style="color:#960050;background-color:#1e0010">:</span> [<span style="color:#e6db74">&#34;https://hub-mirror.c.163.com&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;insecure-registries&#34;</span> <span style="color:#960050;background-color:#1e0010">:</span> [<span style="color:#e6db74">&#34;registry:5000&#34;</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>使用 systemd 管理 docker</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>vim /usr/lib/systemd/system/docker.service
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Unit</span>]
+</span></span><span style="display:flex;"><span>Description=Docker Application Container Engine
+</span></span><span style="display:flex;"><span>Documentation=https<span style="color:#960050;background-color:#1e0010">:</span>//docs.docker.com
+</span></span><span style="display:flex;"><span>After=network-online.target firewalld.service
+</span></span><span style="display:flex;"><span>Wants=network-online.target
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Service</span>]
+</span></span><span style="display:flex;"><span>Type=notify
+</span></span><span style="display:flex;"><span>ExecStart=/usr/sbin/dockerd
+</span></span><span style="display:flex;"><span>ExecReload=/bin/kill -s HUP $MAINPID
+</span></span><span style="display:flex;"><span>LimitNOFILE=infinity
+</span></span><span style="display:flex;"><span>LimitNPROC=infinity
+</span></span><span style="display:flex;"><span>LimitCORE=infinity
+</span></span><span style="display:flex;"><span>TimeoutStartSec=<span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>Delegate=yes
+</span></span><span style="display:flex;"><span>KillMode=<span style="color:#66d9ef">process</span>
+</span></span><span style="display:flex;"><span>Restart=on-failure
+</span></span><span style="display:flex;"><span>StartLimitBurst=<span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>StartLimitInterval=60s
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Install</span>]
+</span></span><span style="display:flex;"><span>WantedBy=multi-user.target
+</span></span></code></pre></div><ul>
+<li>启动并设置开机启动</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>systemctl daemon-reload
+</span></span><span style="display:flex;"><span>systemctl start docker
+</span></span><span style="display:flex;"><span>systemctl enable docker
+</span></span></code></pre></div><h2 id="三部署etcd集群">三、部署Etcd集群</h2>
+<blockquote>
+<p>注：为了节省机器，这里与 K8s 节点机器复用 ， 也可以独立于 k8s 集群之外部署，只要 apiserver 能连接到就行</p>
+</blockquote>
+<ul>
+<li>准备 cfssl 证书生成工具 ， 找任意一台服务器操作，这里用 Master 节点</li>
+</ul>
+<p>进入下载下来的资源包路径下，将cfssl_linux-amd64目录中的所有文件复制到 /usr/local/bin/ 下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>chmod +x cfssl_linux-amd64/*
+</span></span><span style="display:flex;"><span>cp cfssl_linux-amd64/* /usr/local/bin/
+</span></span></code></pre></div><ul>
+<li>创建Etcd目录并解压二进制包</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>mkdir /opt/etcd/{bin,cfg,ssl} -p
+</span></span><span style="display:flex;"><span>tar -zxf etcd-v3.4.<span style="color:#ae81ff">9</span>-linux-amd64.tar.gz
+</span></span><span style="display:flex;"><span>mv etcd-v3.4.<span style="color:#ae81ff">9</span>-linux-amd64/{etcd,etcdctl} /opt/etcd/bin/
+</span></span></code></pre></div><ul>
+<li>创建配置文件</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>cat &gt; /opt/etcd/cfg/etcd.conf &lt;&lt; EOF
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#[Member]</span>
+</span></span><span style="display:flex;"><span>ETCD_NAME=<span style="color:#e6db74">&#34;etcd-1&#34;</span>
+</span></span><span style="display:flex;"><span>ETCD_DATA_DIR=<span style="color:#e6db74">&#34;/var/lib/etcd/default.etcd&#34;</span>
+</span></span><span style="display:flex;"><span>ETCD_LISTEN_PEER_URLS=<span style="color:#e6db74">&#34;https://192.168.14.101:2380&#34;</span>
+</span></span><span style="display:flex;"><span>ETCD_LISTEN_CLIENT_URLS=<span style="color:#e6db74">&#34;https://192.168.14.101:2379&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#[Clustering]</span>
+</span></span><span style="display:flex;"><span>ETCD_INITIAL_ADVERTISE_PEER_URLS=<span style="color:#e6db74">&#34;https://192.168.14.101:2380&#34;</span>
+</span></span><span style="display:flex;"><span>ETCD_ADVERTISE_CLIENT_URLS=<span style="color:#e6db74">&#34;https://192.168.14.101:2379&#34;</span>
+</span></span><span style="display:flex;"><span>ETCD_INITIAL_CLUSTER=<span style="color:#e6db74">&#34;etcd-1=https://192.168.14.101:2380,etcd-2=https://192.168.14.102:2380,etcd-3=https://192.168.14.103:2380&#34;</span>
+</span></span><span style="display:flex;"><span>ETCD_INITIAL_CLUSTER_TOKEN=<span style="color:#e6db74">&#34;etcd-cluster&#34;</span>
+</span></span><span style="display:flex;"><span>ETCD_INITIAL_CLUSTER_STATE=<span style="color:#e6db74">&#34;new&#34;</span>
+</span></span><span style="display:flex;"><span>EOF
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">################################################################################</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ETCD_NAME：节点名称，集群中唯一 </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ETCD_DATA_DIR：数据目录 </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ETCD_LISTEN_PEER_URLS：集群通信监听地址 </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ETCD_LISTEN_CLIENT_URLS：客户端访问监听地址</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ETCD_INITIAL_ADVERTISE_PEER_URLS：集群通告地址</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ETCD_ADVERTISE_CLIENT_URLS：客户端通告地址</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ETCD_INITIAL_CLUSTER：集群节点地址</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ETCD_INITIAL_CLUSTER_TOKEN：集群 Token</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ETCD_INITIAL_CLUSTER_STATE：加入集群的当前状态，new 是新集群，existing 表示加入已有集群</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">################################################################################</span>
+</span></span></code></pre></div><ul>
+<li>生成自签 CA证书</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>mkdir -p   /usr/local/ssl/{etcd_ssl,k8s_ssl}
+</span></span><span style="display:flex;"><span>cd /usr/local/ssl/etcd_ssl
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>vim ca-config.json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;signing&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;default&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;expiry&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;438000h&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;profiles&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;kubernetes&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;usages&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;signing&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;key encipherment&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;server auth&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;client auth&#34;</span>
+</span></span><span style="display:flex;"><span>        ],
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;expiry&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;438000h&#34;</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;profiles&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;kcfg&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;usages&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;signing&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;key encipherment&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;client auth&#34;</span>
+</span></span><span style="display:flex;"><span>        ],
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;expiry&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;438000h&#34;</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">###########################分 割 线 #############################</span>
+</span></span><span style="display:flex;"><span>vim ca-csr.json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;CN&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;kubernetes&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;key&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;algo&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;rsa&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;size&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">2048</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;names&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;C&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;CN&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;ST&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;HangZhou&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;L&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;XS&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;O&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;k8s&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;OU&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;System&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ],
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;ca&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;expiry&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;876000h&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>cfssl gencert -initca ca-csr.json | cfssljson -bare ca -
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ls *pem
+</span></span><span style="display:flex;"><span>ca-key.pem ca.pem
+</span></span></code></pre></div><ul>
+<li>使用自签 CA 签发 Etcd HTTPS 证书</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>vim etcd-csr.json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;CN&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;etcd&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;hosts&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;192.168.14.101&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;192.168.14.102&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;192.168.14.103&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;127.0.0.1&#34;</span>
+</span></span><span style="display:flex;"><span>  ],
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;key&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;algo&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;rsa&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;size&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">2048</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;names&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;C&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;CN&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;ST&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;HangZhou&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;L&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;XS&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;O&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;k8s&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;OU&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;System&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><blockquote>
+<p>注： 上述文件 hosts 字段中 IP 为所有 etcd 节点的集群内部通信 IP，一个都不能少！为了方便 后期扩容可以多写几个预留的 IP</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=kubernetes etcd-csr.json | cfssljson -bare etcd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ls etcd*pem
+</span></span><span style="display:flex;"><span>etcd-key.pem etcd.pem
+</span></span></code></pre></div><ul>
+<li>拷贝刚才生成的证书到配置文件中的路径</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>cp /usr/local/ssl/etcd_ssl/*pem /opt/etcd/ssl/
+</span></span></code></pre></div><ul>
+<li>systemd 管理 Etcd</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>vim /usr/lib/systemd/system/etcd.service
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Unit</span>]
+</span></span><span style="display:flex;"><span>Description=Etcd Server
+</span></span><span style="display:flex;"><span>After=network.target
+</span></span><span style="display:flex;"><span>After=network-online.target
+</span></span><span style="display:flex;"><span>Wants=network-online.target
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Service</span>]
+</span></span><span style="display:flex;"><span>Type=notify
+</span></span><span style="display:flex;"><span>EnvironmentFile=/opt/etcd/cfg/etcd.conf
+</span></span><span style="display:flex;"><span>ExecStart=/opt/etcd/bin/etcd \
+</span></span><span style="display:flex;"><span>--cert<span style="color:#f92672">-file</span>=/opt/etcd/ssl/etcd.pem \
+</span></span><span style="display:flex;"><span>--key<span style="color:#f92672">-file</span>=/opt/etcd/ssl/etcd-key.pem \
+</span></span><span style="display:flex;"><span>--peer-cert<span style="color:#f92672">-file</span>=/opt/etcd/ssl/etcd.pem \
+</span></span><span style="display:flex;"><span>--peer-key<span style="color:#f92672">-file</span>=/opt/etcd/ssl/etcd-key.pem \
+</span></span><span style="display:flex;"><span>--trusted-ca<span style="color:#f92672">-file</span>=/opt/etcd/ssl/ca.pem \
+</span></span><span style="display:flex;"><span>--peer-trusted-ca<span style="color:#f92672">-file</span>=/opt/etcd/ssl/ca.pem \
+</span></span><span style="display:flex;"><span>--logger=zap
+</span></span><span style="display:flex;"><span>Restart=on-failure
+</span></span><span style="display:flex;"><span>LimitNOFILE=<span style="color:#ae81ff">65536</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Install</span>]
+</span></span><span style="display:flex;"><span>WantedBy=multi-user.target
+</span></span></code></pre></div><ul>
+<li>设置开机启动</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>systemctl daemon-reload
+</span></span><span style="display:flex;"><span>systemctl start etcd
+</span></span><span style="display:flex;"><span>systemctl enable etcd
+</span></span></code></pre></div><ul>
+<li>将上面节点 所有生成的文件拷贝到 另外两个节点</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>scp -r /opt/etcd root@192.168.14.<span style="color:#ae81ff">102</span><span style="color:#960050;background-color:#1e0010">:</span>/opt/
+</span></span><span style="display:flex;"><span>scp -r /opt/etcd root@192.168.14.<span style="color:#ae81ff">103</span><span style="color:#960050;background-color:#1e0010">:</span>/opt/
+</span></span><span style="display:flex;"><span>scp /usr/lib/systemd/system/etcd.service root@192.168.14.<span style="color:#ae81ff">102</span><span style="color:#960050;background-color:#1e0010">:</span>/usr/lib/systemd/system/
+</span></span><span style="display:flex;"><span>scp /usr/lib/systemd/system/etcd.service root@192.168.14.<span style="color:#ae81ff">103</span><span style="color:#960050;background-color:#1e0010">:</span>/usr/lib/systemd/system/
+</span></span></code></pre></div><ul>
+<li>分别修改另外两个节点的 etcd.conf 配置文件中的节点名称和当前服务器 IP</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>vim /opt/etcd/cfg/etcd.conf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ETCD_NAME=<span style="color:#e6db74">&#34;etcd-1&#34;</span>                        <span style="color:#75715e"># 修改此处为不同的名字</span>
+</span></span><span style="display:flex;"><span>ETCD_DATA_DIR=<span style="color:#e6db74">&#34;/var/lib/etcd/default.etcd&#34;</span>
+</span></span><span style="display:flex;"><span>ETCD_LISTEN_PEER_URLS=<span style="color:#e6db74">&#34;https://192.168.14.101:2380&#34;</span>       <span style="color:#75715e"># 修改此处为当前服务器 IP</span>
+</span></span><span style="display:flex;"><span>ETCD_LISTEN_CLIENT_URLS=<span style="color:#e6db74">&#34;https://192.168.14.101:2379&#34;</span>       <span style="color:#75715e"># 修改此处为当前服务器 IP</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#[Clustering]</span>
+</span></span><span style="display:flex;"><span>ETCD_INITIAL_ADVERTISE_PEER_URLS=<span style="color:#e6db74">&#34;https://192.168.14.101:2380&#34;</span>   <span style="color:#75715e"># 修改此处为当前服务器 IP</span>
+</span></span><span style="display:flex;"><span>ETCD_ADVERTISE_CLIENT_URLS=<span style="color:#e6db74">&#34;https://192.168.14.101:2379&#34;</span>     <span style="color:#75715e"># 修改此处为当前服务器 IP</span>
+</span></span><span style="display:flex;"><span>ETCD_INITIAL_CLUSTER=<span style="color:#e6db74">&#34;etcd-1=https://192.168.14.101:2380,etcd-2=https://192.168.14.102:2380,etcd-3=https://192.168.14.103:2380&#34;</span>
+</span></span><span style="display:flex;"><span>ETCD_INITIAL_CLUSTER_TOKEN=<span style="color:#e6db74">&#34;etcd-cluster&#34;</span>
+</span></span><span style="display:flex;"><span>ETCD_INITIAL_CLUSTER_STATE=<span style="color:#e6db74">&#34;new&#34;</span>
+</span></span></code></pre></div><ul>
+<li>设置开机启动</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>systemctl daemon-reload
+</span></span><span style="display:flex;"><span>systemctl start etcd
+</span></span><span style="display:flex;"><span>systemctl enable etcd
+</span></span></code></pre></div><ul>
+<li>查看集群状态</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>ETCDCTL_API=<span style="color:#ae81ff">3</span> /opt/etcd/bin/etcdctl --cacert=/opt/etcd/ssl/ca.pem --cert=/opt/etcd/ssl/etcd.pem --key=/opt/etcd/ssl/etcd-key.pem --endpoints=<span style="color:#e6db74">&#34;https://192.168.14.101:2379,https://192.168.14.102:2379,https://192.168.14.103:2379&#34;</span> endpoint health
+</span></span></code></pre></div><p>如果输出healthy： successfully 等字样， 就说明Etcd集群部署成功 。如果有问题第一步先看日志：/var/log/message</p>
+<h2 id="四部署master节点">四、部署Master节点</h2>
+<h3 id="1部署-kube-apiserver">1、部署 kube-apiserver</h3>
+<ul>
+<li>生成 kube-apiserver自签CA证书</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>cd /usr/local/ssl/k8s_ssl
+</span></span><span style="display:flex;"><span>vim ca-config.json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;signing&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;default&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;expiry&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;438000h&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;profiles&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;kubernetes&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;usages&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;signing&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;key encipherment&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;server auth&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;client auth&#34;</span>
+</span></span><span style="display:flex;"><span>        ],
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;expiry&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;438000h&#34;</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;profiles&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;kcfg&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;usages&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;signing&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;key encipherment&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;client auth&#34;</span>
+</span></span><span style="display:flex;"><span>        ],
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;expiry&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;438000h&#34;</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">###########################分 割 线 #############################</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>vim ca-csr.json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;CN&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;kubernetes&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;key&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;algo&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;rsa&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;size&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">2048</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;names&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;C&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;CN&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;ST&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;HangZhou&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;L&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;XS&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;O&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;k8s&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;OU&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;System&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ],
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;ca&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;expiry&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;876000h&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>cfssl gencert -initca ca-csr.json | cfssljson -bare ca -
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ls *pem
+</span></span><span style="display:flex;"><span>ca-key.pem ca.pem
+</span></span></code></pre></div><ul>
+<li>使用自签 CA 签发 kube-apiserver HTTPS 证书</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>vim server-csr.json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;CN&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;kubernetes&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;hosts&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;10.69.0.1&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;127.0.0.1&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;192.168.14.101&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;kubernetes&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;kubernetes.default&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;kubernetes.default.svc&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;kubernetes.default.svc.cluster&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;kubernetes.default.svc.cluster.local&#34;</span>
+</span></span><span style="display:flex;"><span>  ],
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;key&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;algo&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;rsa&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;size&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">2048</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;names&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;C&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;CN&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;L&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;BeiJing&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;ST&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;BeiJing&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;O&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;k8s&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;OU&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;System&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><blockquote>
+<p>注：上述文件 hosts 字段中 IP 为所有 Master/LB/VIP IP，一个都不能少！为了方便后期扩容 可以多写几个预留的 IP</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=kubernetes server-csr.json | cfssljson -bare server
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ls server*pem
+</span></span><span style="display:flex;"><span>server-key.pem server.pem
+</span></span></code></pre></div><ul>
+<li>创建kube-apiserver目录并解压二进制包</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>mkdir -p /opt/kubernetes/{bin,cfg,ssl,logs}
+</span></span><span style="display:flex;"><span>tar zxvf kubernetes-<span style="color:#ae81ff">1.18</span>.<span style="color:#ae81ff">3</span>-linux-amd64.tar.gz
+</span></span><span style="display:flex;"><span>cd kubernetes/server/bin
+</span></span><span style="display:flex;"><span>cp kube-apiserver kube-scheduler kube-controller-manager kubelet kube-proxy /opt/kubernetes/bin
+</span></span><span style="display:flex;"><span>cp kubectl /usr/bin/
+</span></span></code></pre></div><ul>
+<li>创建配置文件</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>vim /opt/kubernetes/cfg/kube-apiserver.conf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>KUBE_APISERVER_OPTS=<span style="color:#e6db74">&#34;--logtostderr=false \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--v=2 \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--log-dir=/opt/kubernetes/logs \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--etcd-servers=https://192.168.14.101:2379,https://192.168.14.102:2379,https://192.168.14.103:2379 \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--bind-address=192.168.14.101 \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--secure-port=6443 \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--advertise-address=192.168.14.101 \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--allow-privileged=true \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--service-cluster-ip-range=10.69.0.0/16 \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,ResourceQuota,NodeRestriction \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--authorization-mode=RBAC,Node \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--enable-bootstrap-token-auth=true \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--token-auth-file=/opt/kubernetes/cfg/token.csv \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--service-node-port-range=30000-32767 \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--kubelet-client-certificate=/opt/kubernetes/ssl/server.pem \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--kubelet-client-key=/opt/kubernetes/ssl/server-key.pem \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--tls-cert-file=/opt/kubernetes/ssl/server.pem \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--tls-private-key-file=/opt/kubernetes/ssl/server-key.pem \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--client-ca-file=/opt/kubernetes/ssl/ca.pem \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--service-account-key-file=/opt/kubernetes/ssl/ca-key.pem \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--etcd-cafile=/opt/etcd/ssl/ca.pem \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--etcd-certfile=/opt/etcd/ssl/etcd.pem \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--etcd-keyfile=/opt/etcd/ssl/etcd-key.pem \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--audit-log-maxage=30 \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--audit-log-maxbackup=3 \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--audit-log-maxsize=100 \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--audit-log-path=/opt/kubernetes/logs/k8s-audit.log&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">##########################################################################</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#–-logtostderr：启用日志</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#—-v：日志等级</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–log-dir：日志目录</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#--etcd-servers：etcd 集群地址</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–bind-address：监听地址</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–secure-port：https 安全端口</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–advertise-address：集群通告地址</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–allow-privileged：启用授权</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–service-cluster-ip-range：Service 虚拟 IP 地址段</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–enable-admission-plugins：准入控制模块</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–authorization-mode：认证授权，启用 RBAC 授权和节点自管理</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–enable-bootstrap-token-auth：启用 TLS bootstrap 机制</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–token-auth-file：bootstrap token 文件</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–service-node-port-range：Service nodeport 类型默认分配端口范围</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–kubelet-client-xxx：apiserver 访问 kubelet 客户端证书</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#--–tls-xxx-file：apiserver https证书</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–etcd-xxxfile：连接 Etcd 集群证书</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–audit-log-xxx：审计日志</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">##########################################################################</span>
+</span></span></code></pre></div><ul>
+<li>证书拷贝到配置文件中的路径</li>
+</ul>
+<pre tabindex="0"><code>cp /usr/local/ssl/k8s_ssl/*pem /opt/kubernetes/ssl/
+</code></pre><h4 id="11使用-tls-bootstraping-机制来自动颁发客户端证书">1.1、使用 TLS bootstraping 机制来自动颁发客户端证书</h4>
+<blockquote>
+<p>TLS Bootstraping：Master apiserver 启用 TLS 认证后，Node 节点 kubelet 和 kube-proxy 要 与 kube-apiserver 进行通信，必须使用 CA 签发的有效证书才可以，当 Node 节点很多时，这 种客户端证书颁发需要大量工作，同样也会增加集群扩展复杂度。为了简化流程，Kubernetes 引入了 TLS bootstraping 机制来自动颁发客户端证书，kubelet 会以一个低权限用户自动向 apiserver 申请证书，kubelet 的证书由 apiserver 动态签署。所以强烈建议在 Node 上使用这 种方式，目前主要用于 kubelet，kube-proxy 还是由我们统一颁发一个证书。</p>
+</blockquote>
+<ul>
+<li>创建 token 文件</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>cat &gt; /opt/kubernetes/cfg/token.csv &lt;&lt; EOF
+</span></span><span style="display:flex;"><span>ce571d7d7d2f0ff49456fb3469331dd0,kubelet-bootstrap,<span style="color:#ae81ff">10001</span>,<span style="color:#e6db74">&#34;system:node-bootstrappe&#34;</span>
+</span></span><span style="display:flex;"><span>EOF
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#格式：token，用户名，UID，用户组</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#token 也可用下面命令自行生成替换</span>
+</span></span><span style="display:flex;"><span>head -c <span style="color:#ae81ff">16</span> /dev/urandom | od -An
+</span></span></code></pre></div><ul>
+<li>systemd 管理 kube-apiserver</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>vim /usr/lib/systemd/system/kube-apiserver.service
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Unit</span>]
+</span></span><span style="display:flex;"><span>Description=Kubernetes API Server
+</span></span><span style="display:flex;"><span>Documentation=https<span style="color:#960050;background-color:#1e0010">:</span>//github.com/kubernetes/kubernetes
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Service</span>]
+</span></span><span style="display:flex;"><span>EnvironmentFile=/opt/kubernetes/cfg/kube-apiserver.conf
+</span></span><span style="display:flex;"><span>ExecStart=/opt/kubernetes/bin/kube-apiserver $KUBE_APISERVER_OPTS
+</span></span><span style="display:flex;"><span>Restart=on-failure
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Install</span>]
+</span></span><span style="display:flex;"><span>WantedBy=multi-user.target
+</span></span></code></pre></div><ul>
+<li>启动并设置开机启动</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>systemctl daemon-reload
+</span></span><span style="display:flex;"><span>systemctl start kube-apiserver
+</span></span><span style="display:flex;"><span>systemctl enable kube-apiserver
+</span></span></code></pre></div><h4 id="12-授权-kubelet-bootstrap-用户允许请求证书">1.2、 授权 kubelet-bootstrap 用户允许请求证书</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>kubectl create clusterrolebinding kubelet-bootstrap --clusterrole=system<span style="color:#960050;background-color:#1e0010">:</span>node-bootstrapper --user=kubelet-bootstrap
+</span></span></code></pre></div><h3 id="2-部署-kube-controller-manager">2、 部署 kube-controller-manager</h3>
+<ul>
+<li>创建配置文件</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>vim /opt/kubernetes/cfg/kube-controller-manager.conf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>KUBE_CONTROLLER_MANAGER_OPTS=<span style="color:#e6db74">&#34;--logtostderr=false \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--v=2 \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--log-dir=/opt/kubernetes/logs \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--leader-elect=true \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--master=127.0.0.1:8080 \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--bind-address=127.0.0.1 \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--allocate-node-cidrs=true \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--cluster-cidr=172.23.0.0/16 \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--service-cluster-ip-range=10.69.0.0/16 \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--cluster-signing-cert-file=/opt/kubernetes/ssl/ca.pem \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--cluster-signing-key-file=/opt/kubernetes/ssl/ca-key.pem \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--root-ca-file=/opt/kubernetes/ssl/ca.pem \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--service-account-private-key-file=/opt/kubernetes/ssl/ca-key.pem \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--experimental-cluster-signing-duration=87600h0m0s&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">########################################################################################################</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#–-master：通过本地非安全本地端口 8080 连接 apiserver。</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–leader-elect：当该组件启动多个时，自动选举（HA）</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–cluster-signing-cert-file/–-cluster-signing-key-file：自动为 kubelet 颁发证书的 CA，与 apiserver 保持一致</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">########################################################################################################</span>
+</span></span></code></pre></div><ul>
+<li>systemd 管理 kube-controller-manager</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>vim /usr/lib/systemd/system/kube-controller-manager.service
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Unit</span>]
+</span></span><span style="display:flex;"><span>Description=Kubernetes Controller Manager
+</span></span><span style="display:flex;"><span>Documentation=https<span style="color:#960050;background-color:#1e0010">:</span>//github.com/kubernetes/kubernetes
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Service</span>]
+</span></span><span style="display:flex;"><span>EnvironmentFile=/opt/kubernetes/cfg/kube-controller-manager.conf
+</span></span><span style="display:flex;"><span>ExecStart=/opt/kubernetes/bin/kube-controller-manager $KUBE_CONTROLLER_MANAGER_OPTS
+</span></span><span style="display:flex;"><span>Restart=on-failure
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Install</span>]
+</span></span><span style="display:flex;"><span>WantedBy=multi-user.target
+</span></span></code></pre></div><ul>
+<li>启动并设置开机启动</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>systemctl daemon-reload
+</span></span><span style="display:flex;"><span>systemctl start kube-controller-manager
+</span></span><span style="display:flex;"><span>systemctl enable kube-controller-manager
+</span></span></code></pre></div><h3 id="3-部署-kube-scheduler">3、 部署 kube-scheduler</h3>
+<ul>
+<li>创建配置文件</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>vim /opt/kubernetes/cfg/kube-scheduler.conf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>KUBE_SCHEDULER_OPTS=<span style="color:#e6db74">&#34;--logtostderr=false \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--v=2 \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--log-dir=/opt/kubernetes/logs \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--leader-elect \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--master=127.0.0.1:8080 \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--bind-address=127.0.0.1&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">######################################################</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–master：通过本地非安全本地端口 8080 连接 apiserver。</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–leader-elect：当该组件启动多个时，自动选举（HA）</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">######################################################</span>
+</span></span></code></pre></div><ul>
+<li>systemd 管理 kube-scheduler</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>vim /usr/lib/systemd/system/kube-scheduler.service
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Unit</span>]
+</span></span><span style="display:flex;"><span>Description=Kubernetes Scheduler
+</span></span><span style="display:flex;"><span>Documentation=https<span style="color:#960050;background-color:#1e0010">:</span>//github.com/kubernetes/kubernetes
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Service</span>]
+</span></span><span style="display:flex;"><span>EnvironmentFile=/opt/kubernetes/cfg/kube-scheduler.conf
+</span></span><span style="display:flex;"><span>ExecStart=/opt/kubernetes/bin/kube-scheduler $KUBE_SCHEDULER_OPTS
+</span></span><span style="display:flex;"><span>Restart=on-failure
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Install</span>]
+</span></span><span style="display:flex;"><span>WantedBy=multi-user.target
+</span></span></code></pre></div><ul>
+<li>启动并设置开机启动</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>systemctl daemon-reload
+</span></span><span style="display:flex;"><span>systemctl start kube-scheduler
+</span></span><span style="display:flex;"><span>systemctl enable kube-scheduler
+</span></span></code></pre></div><ul>
+<li>查看集群状态 , 如下输出说明 Master 节点组件运行正常</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>kubectl get cs
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NAME                 STATUS    MESSAGE             ERROR
+</span></span><span style="display:flex;"><span>controller-manager   Healthy   ok                  
+</span></span><span style="display:flex;"><span>scheduler            Healthy   ok                  
+</span></span><span style="display:flex;"><span>etcd-<span style="color:#ae81ff">1</span>               Healthy   {<span style="color:#e6db74">&#34;health&#34;</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#e6db74">&#34;true&#34;</span>}   
+</span></span><span style="display:flex;"><span>etcd-<span style="color:#ae81ff">0</span>               Healthy   {<span style="color:#e6db74">&#34;health&#34;</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#e6db74">&#34;true&#34;</span>}   
+</span></span><span style="display:flex;"><span>etcd-<span style="color:#ae81ff">2</span>               Healthy   {<span style="color:#e6db74">&#34;health&#34;</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#e6db74">&#34;true&#34;</span>}
+</span></span></code></pre></div><ul>
+<li>为master添加禁止调度污点，不让pod调度到master上</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>kubectl taint node k8s-master node-role.kubernetes.io/master=<span style="color:#960050;background-color:#1e0010">:</span>NoSchedule    <span style="color:#75715e">#添加污点</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>kubectl describe node k8s-master | grep Taints                  <span style="color:#75715e">#查看</span>
+</span></span><span style="display:flex;"><span>Taints<span style="color:#960050;background-color:#1e0010">:</span>             node-role.kubernetes.io/master<span style="color:#960050;background-color:#1e0010">:</span>NoSchedule
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#容忍调度yaml示例</span>
+</span></span><span style="display:flex;"><span>tolerations<span style="color:#960050;background-color:#1e0010">:</span>
+</span></span><span style="display:flex;"><span>- key<span style="color:#960050;background-color:#1e0010">:</span> node-role.kubernetes.io/master
+</span></span><span style="display:flex;"><span>  operator<span style="color:#960050;background-color:#1e0010">:</span> Exists
+</span></span><span style="display:flex;"><span>  effect<span style="color:#960050;background-color:#1e0010">:</span> NoSchedule
+</span></span></code></pre></div><h2 id="五-部署-worker节点">五、 部署 Worker节点</h2>
+<ul>
+<li>在所有 worker node 创建工作目录</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>mkdir -p /opt/kubernetes/{bin,cfg,ssl,logs}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#从 master 节点拷贝</span>
+</span></span><span style="display:flex;"><span>scp root@192.168.14.<span style="color:#ae81ff">101</span><span style="color:#960050;background-color:#1e0010">:</span>/opt/kubernetes/bin/{kubelet,kube-proxy} /opt/kubernetes/bin/
+</span></span><span style="display:flex;"><span>scp root@192.168.14.<span style="color:#ae81ff">101</span><span style="color:#960050;background-color:#1e0010">:</span>/opt/kubernetes/ssl/*pem /opt/kubernetes/ssl/
+</span></span></code></pre></div><h3 id="1部署-kubelet">1、部署 kubelet</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>vim /opt/kubernetes/cfg/kubelet.conf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>KUBELET_OPTS=<span style="color:#e6db74">&#34;--logtostderr=false \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--v=2 \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--log-dir=/opt/kubernetes/logs \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--hostname-override=k8s-node1 \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--network-plugin=cni \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--kubeconfig=/opt/kubernetes/cfg/kubelet.kubeconfig \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--bootstrap-kubeconfig=/opt/kubernetes/cfg/bootstrap.kubeconfig \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--config=/opt/kubernetes/cfg/kubelet-config.yml \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--cert-dir=/opt/kubernetes/ssl \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--pod-infra-container-image=registry:5000/easzlab/pause-amd64:3.2&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">####################################################################################</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–hostname-override：显示名称，集群中唯一，不同节点记得修改</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–network-plugin：启用 CNI</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–kubeconfig：空路径，会自动生成，后面用于连接 apiserver</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–bootstrap-kubeconfig：首次启动向 apiserver 申请证书</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–config：配置参数文件</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–cert-dir：kubelet 证书生成目录</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-–pod-infra-container-image：管理 Pod 网络容器的镜像，注意修改镜像地址为本地镜像仓库的地址</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">####################################################################################</span>
+</span></span></code></pre></div><ul>
+<li>配置参数文件</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ae81ff">vim /opt/kubernetes/cfg/kubelet-config.yml</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">KubeletConfiguration</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">kubelet.config.k8s.io/v1beta1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">address</span>: <span style="color:#ae81ff">0.0.0.0</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">port</span>: <span style="color:#ae81ff">10250</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">readOnlyPort</span>: <span style="color:#ae81ff">10255</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">cgroupDriver</span>: <span style="color:#ae81ff">cgroupfs</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">clusterDNS</span>:
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">10.69.0.2</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">clusterDomain</span>: <span style="color:#ae81ff">cluster.local</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">failSwapOn</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">authentication</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">anonymous</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">webhook</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">cacheTTL</span>: <span style="color:#ae81ff">2m0s</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">x509</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">clientCAFile</span>: <span style="color:#ae81ff">/opt/kubernetes/ssl/ca.pem</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">authorization</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">mode</span>: <span style="color:#ae81ff">Webhook</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">webhook</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">cacheAuthorizedTTL</span>: <span style="color:#ae81ff">5m0s</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">cacheUnauthorizedTTL</span>: <span style="color:#ae81ff">30s</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">evictionHard</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">imagefs.available</span>: <span style="color:#ae81ff">15</span><span style="color:#ae81ff">%</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">memory.available</span>: <span style="color:#ae81ff">100Mi</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">nodefs.available</span>: <span style="color:#ae81ff">10</span><span style="color:#ae81ff">%</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">nodefs.inodesFree</span>: <span style="color:#ae81ff">5</span><span style="color:#ae81ff">%</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">maxOpenFiles</span>: <span style="color:#ae81ff">1000000</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">maxPods</span>: <span style="color:#ae81ff">110</span>
+</span></span></code></pre></div><ul>
+<li>生成 bootstrap.kubeconfig 文件</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>vim /opt/kubernetes/cfg/bootstrap.kubeconfig
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>apiVersion<span style="color:#960050;background-color:#1e0010">:</span> v1
+</span></span><span style="display:flex;"><span>clusters<span style="color:#960050;background-color:#1e0010">:</span>
+</span></span><span style="display:flex;"><span>- cluster<span style="color:#960050;background-color:#1e0010">:</span>
+</span></span><span style="display:flex;"><span>    certificate-authority<span style="color:#960050;background-color:#1e0010">:</span> /opt/kubernetes/ssl/ca.pem
+</span></span><span style="display:flex;"><span>    server<span style="color:#960050;background-color:#1e0010">:</span> https<span style="color:#960050;background-color:#1e0010">:</span>//<span style="color:#ae81ff">192.168</span>.14.<span style="color:#ae81ff">101</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">6443</span>
+</span></span><span style="display:flex;"><span>  name<span style="color:#960050;background-color:#1e0010">:</span> kubernetes
+</span></span><span style="display:flex;"><span>contexts<span style="color:#960050;background-color:#1e0010">:</span>
+</span></span><span style="display:flex;"><span>- context<span style="color:#960050;background-color:#1e0010">:</span>
+</span></span><span style="display:flex;"><span>    cluster<span style="color:#960050;background-color:#1e0010">:</span> kubernetes
+</span></span><span style="display:flex;"><span>    user<span style="color:#960050;background-color:#1e0010">:</span> kubelet-bootstrap
+</span></span><span style="display:flex;"><span>  name<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#66d9ef">default</span>
+</span></span><span style="display:flex;"><span>current-context<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#66d9ef">default</span>
+</span></span><span style="display:flex;"><span>kind<span style="color:#960050;background-color:#1e0010">:</span> Config
+</span></span><span style="display:flex;"><span>preferences<span style="color:#960050;background-color:#1e0010">:</span> {}
+</span></span><span style="display:flex;"><span>users<span style="color:#960050;background-color:#1e0010">:</span>
+</span></span><span style="display:flex;"><span>- name<span style="color:#960050;background-color:#1e0010">:</span> kubelet-bootstrap
+</span></span><span style="display:flex;"><span>  user<span style="color:#960050;background-color:#1e0010">:</span>
+</span></span><span style="display:flex;"><span>    token<span style="color:#960050;background-color:#1e0010">:</span> ce571d7d7d2f0ff49456fb3469331dd0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">###############################</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#token与 token.csv 里保持一致</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#server是apiserver IP:PORT</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">###############################</span>
+</span></span></code></pre></div><ul>
+<li>systemd 管理 kubelet</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>vim /usr/lib/systemd/system/kubelet.service
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Unit</span>]
+</span></span><span style="display:flex;"><span>Description=Kubernetes Kubelet
+</span></span><span style="display:flex;"><span>After=docker.service
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Service</span>]
+</span></span><span style="display:flex;"><span>EnvironmentFile=/opt/kubernetes/cfg/kubelet.conf
+</span></span><span style="display:flex;"><span>ExecStart=/opt/kubernetes/bin/kubelet $KUBELET_OPTS
+</span></span><span style="display:flex;"><span>Restart=on-failure
+</span></span><span style="display:flex;"><span>LimitNOFILE=<span style="color:#ae81ff">65536</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Install</span>]
+</span></span><span style="display:flex;"><span>WantedBy=multi-user.target
+</span></span></code></pre></div><ul>
+<li>启动并设置开机启动</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>systemctl daemon-reload
+</span></span><span style="display:flex;"><span>systemctl start kubelet
+</span></span><span style="display:flex;"><span>systemctl enable kubelet
+</span></span></code></pre></div><h3 id="2部署-kube-proxy">2、部署 kube-proxy</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>vim /opt/kubernetes/cfg/kube-proxy.conf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>KUBE_PROXY_OPTS=<span style="color:#e6db74">&#34;--logtostderr=false \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--v=2 \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--log-dir=/opt/kubernetes/logs \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">--config=/opt/kubernetes/cfg/kube-proxy-config.yml&#34;</span>
+</span></span></code></pre></div><ul>
+<li>配置参数文件 (注意hostnameOverride对应的hostname)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ae81ff">vim /opt/kubernetes/cfg/kube-proxy-config.yml</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">KubeProxyConfiguration</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">kubeproxy.config.k8s.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">bindAddress</span>: <span style="color:#ae81ff">0.0.0.0</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metricsBindAddress</span>: <span style="color:#ae81ff">0.0.0.0</span>:<span style="color:#ae81ff">10249</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">clientConnection</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">kubeconfig</span>: <span style="color:#ae81ff">/opt/kubernetes/cfg/kube-proxy.kubeconfig</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">hostnameOverride</span>: <span style="color:#ae81ff">k8s-node1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">clusterCIDR</span>: <span style="color:#ae81ff">10.69.0.0</span><span style="color:#ae81ff">/16</span>
+</span></span></code></pre></div><ul>
+<li>生成 kube-proxy 证书  (master节点操作)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>cd /usr/local/ssl/k8s_ssl/
+</span></span><span style="display:flex;"><span>vim kube-proxy-csr.json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;CN&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;system:kube-proxy&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;hosts&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [],
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;key&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;algo&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;rsa&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;size&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">2048</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;names&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;C&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;CN&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;L&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;BeiJing&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;ST&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;BeiJing&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;O&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;k8s&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;OU&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;System&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=kubernetes kube-proxy-csr.json | cfssljson -bare kube-proxy
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>scp kube-proxy*pem root@192.168.14.<span style="color:#ae81ff">102</span><span style="color:#960050;background-color:#1e0010">:</span>/opt/kubernetes/ssl/
+</span></span><span style="display:flex;"><span>scp kube-proxy*pem root@192.168.14.<span style="color:#ae81ff">103</span><span style="color:#960050;background-color:#1e0010">:</span>/opt/kubernetes/ssl/
+</span></span></code></pre></div><ul>
+<li>生成 kube-proxy.kubeconfig 文件</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ae81ff">vim /opt/kubernetes/cfg/kube-proxy.kubeconfig</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">clusters</span>:
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">cluster</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">certificate-authority</span>: <span style="color:#ae81ff">/opt/kubernetes/ssl/ca.pem</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">server</span>: <span style="color:#ae81ff">https://192.168.14.101:6443</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">kubernetes</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">contexts</span>:
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">context</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">cluster</span>: <span style="color:#ae81ff">kubernetes</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">user</span>: <span style="color:#ae81ff">kube-proxy</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">default</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">current-context</span>: <span style="color:#ae81ff">default</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Config</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">preferences</span>: {}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">users</span>:
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">kube-proxy</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">user</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">client-certificate</span>: <span style="color:#ae81ff">/opt/kubernetes/ssl/kube-proxy.pem</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">client-key</span>: <span style="color:#ae81ff">/opt/kubernetes/ssl/kube-proxy-key.pem</span>
+</span></span></code></pre></div><ul>
+<li>systemd 管理 kube-proxy</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>vim /usr/lib/systemd/system/kube-proxy.service
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Unit</span>]
+</span></span><span style="display:flex;"><span>Description=Kubernetes Proxy
+</span></span><span style="display:flex;"><span>After=network.target
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Service</span>]
+</span></span><span style="display:flex;"><span>EnvironmentFile=/opt/kubernetes/cfg/kube-proxy.conf
+</span></span><span style="display:flex;"><span>ExecStart=/opt/kubernetes/bin/kube-proxy $KUBE_PROXY_OPTS
+</span></span><span style="display:flex;"><span>Restart=on-failure
+</span></span><span style="display:flex;"><span>LimitNOFILE=<span style="color:#ae81ff">65536</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">Install</span>]
+</span></span><span style="display:flex;"><span>WantedBy=multi-user.target
+</span></span></code></pre></div><ul>
+<li>启动并设置开机启动</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>systemctl daemon-reload
+</span></span><span style="display:flex;"><span>systemctl start kube-proxy
+</span></span><span style="display:flex;"><span>systemctl enable kube-proxy
+</span></span></code></pre></div><ul>
+<li>批准 kubelet 证书申请并加入集群 (在master上操作)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e">#查看 kubelet 证书请求</span>
+</span></span><span style="display:flex;"><span>kubectl get csr
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NAME                                                   AGE   SIGNERNAME                                    REQUESTOR           CONDITION
+</span></span><span style="display:flex;"><span>node-csr-R_LO5xq1403TuvHbUD-feenbi5H2YLX5Y2mqeqU1WTA   26s   kubernetes.io/kube-apiserver-client-kubelet   kubelet-bootstrap   Pending
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#批准申请</span>
+</span></span><span style="display:flex;"><span>kubectl certificate approve node-csr-R_LO5xq1403TuvHbUD-feenbi5H2YLX5Y2mqeqU1WTA
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#查看节点</span>
+</span></span><span style="display:flex;"><span>kubectl get node
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NAME         STATUS     ROLES    AGE   VERSION
+</span></span><span style="display:flex;"><span>k8s-node1   NotReady   &lt;none&gt;    <span style="color:#ae81ff">1m</span>   v1.18.3
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#由于网络插件还没有部署，节点会没有准备就绪 NotReady</span>
+</span></span></code></pre></div><h3 id="3-部署-cni-网络">3、 部署 CNI 网络</h3>
+<ul>
+<li>解压二进制包并移动到默认工作目录</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>mkdir -p /opt/cni/bin
+</span></span><span style="display:flex;"><span>tar zxvf cni-plugins-linux-amd64-v0.8.6.tgz -C /opt/cni/bin
+</span></span></code></pre></div><ul>
+<li>修改flannel.yaml</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  net-conf.json: |
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;Network&#34;</span>: <span style="color:#e6db74">&#34;172.23.0.0/16&#34;</span>,      <span style="color:#75715e">#Network改成和kube-controller-manager.conf的--cluster-cidr一样</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;Backend&#34;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;Type&#34;</span>: <span style="color:#e6db74">&#34;vxlan&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span></code></pre></div><ul>
+<li>应用资源配置文件(资源包路径下yaml目录下的 kube-flannel.yaml )</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>kubectl apply <span style="color:#f92672">-f</span> kube-flannel.yaml   <span style="color:#75715e">#在master上操作，注意修改镜像地址为本地镜像仓库的地址</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#等待flannel运行的pod都ready，再次查看Node，准备就绪</span>
+</span></span><span style="display:flex;"><span>kubectl get node
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NAME         STATUS   ROLES    AGE   VERSION
+</span></span><span style="display:flex;"><span>k8s-node1   Ready    &lt;none&gt;   4m2s   v1.18.3
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#查看pod运在哪些节点上、状态等信息</span>
+</span></span><span style="display:flex;"><span>kubectl get pod -n kube-system -o wide
+</span></span></code></pre></div><ul>
+<li>授权 apiserver 访问 kubelet (资源包路径下yaml目录下的 apiserver-to-kubelet-rbac.yaml)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>kubectl apply <span style="color:#f92672">-f</span> apiserver-to-kubelet-rbac.yaml      <span style="color:#75715e">#在master上操作</span>
+</span></span></code></pre></div><h3 id="4新增加-worker-node">4、新增加 Worker Node</h3>
+<ul>
+<li>拷贝已部署好的 Node 相关文件到新节点</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>scp -r root@192.168.14.<span style="color:#ae81ff">102</span><span style="color:#960050;background-color:#1e0010">:</span>/opt/kubernetes /opt/
+</span></span><span style="display:flex;"><span>scp -r root@192.168.14.<span style="color:#ae81ff">102</span><span style="color:#960050;background-color:#1e0010">:</span>/opt/cni /opt/
+</span></span><span style="display:flex;"><span>scp root@192.168.14.<span style="color:#ae81ff">102</span><span style="color:#960050;background-color:#1e0010">:</span>/usr/lib/systemd/system/{kubelet,kube-proxy}.service /usr/lib/systemd/system/
+</span></span></code></pre></div><ul>
+<li>删除 kubelet 证书和 kubeconfig 文件</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>rm <span style="color:#f92672">-f</span> /opt/kubernetes/cfg/kubelet.kubeconfig
+</span></span><span style="display:flex;"><span>rm <span style="color:#f92672">-f</span> /opt/kubernetes/ssl/kubelet*
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#注：这几个文件是证书申请审批后自动生成的，每个 Node 不同，必须删除重新生成。</span>
+</span></span></code></pre></div><ul>
+<li>修改配置文件主机名</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>vim /opt/kubernetes/cfg/kubelet.conf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--hostname-override=k8s-node2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>vim /opt/kubernetes/cfg/kube-proxy-config.yml
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>hostnameOverride<span style="color:#960050;background-color:#1e0010">:</span> k8s-node2
+</span></span></code></pre></div><ul>
+<li>启动并设置开机启动</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>systemctl daemon-reload
+</span></span><span style="display:flex;"><span>systemctl start kubelet
+</span></span><span style="display:flex;"><span>systemctl enable kubelet
+</span></span><span style="display:flex;"><span>systemctl start kube-proxy
+</span></span><span style="display:flex;"><span>systemctl enable kube-proxy
+</span></span></code></pre></div><ul>
+<li>批准 kubelet 证书申请并加入集群 (在master上操作)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e">#查看 kubelet 证书请求</span>
+</span></span><span style="display:flex;"><span>kubectl get csr
+</span></span><span style="display:flex;"><span>NAME                                                   AGE     SIGNERNAME                                    REQUESTOR           CONDITION
+</span></span><span style="display:flex;"><span>node-csr-4C7LfCkvTYVxwHskjHJPyqOZ802lN8VXbWR16-Ev9rQ   11s     kubernetes.io/kube-apiserver-client-kubelet   kubelet-bootstrap   Pending
+</span></span><span style="display:flex;"><span>node-csr-R_LO5xq1403TuvHbUD-feenbi5H2YLX5Y2mqeqU1WTA   7m26s   kubernetes.io/kube-apiserver-client-kubelet   kubelet-bootstrap   Approved,Issued
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#批准申请</span>
+</span></span><span style="display:flex;"><span>kubectl certificate approve node-csr-4C7LfCkvTYVxwHskjHJPyqOZ802lN8VXbWR16-Ev9rQ
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#查看节点</span>
+</span></span><span style="display:flex;"><span>kubectl get node      
+</span></span><span style="display:flex;"><span>NAME        STATUS   ROLES    AGE     VERSION
+</span></span><span style="display:flex;"><span>k8s-node1   Ready    &lt;none&gt;   5m49s   v1.18.3
+</span></span><span style="display:flex;"><span>k8s-node2   Ready    &lt;none&gt;   43s     v1.18.3
+</span></span></code></pre></div><ul>
+<li>修改节点roles名</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl label node k8s-node1  node-role.kubernetes.io/master<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>kubectl label node k8s-node2  node-role.kubernetes.io/node<span style="color:#f92672">=</span>
+</span></span></code></pre></div><h2 id="六-部署-dashboard-和-coredns-在master上操作">六、 部署 Dashboard 和 CoreDNS (在master上操作)</h2>
+<h3 id="1部署dashboard">1、部署Dashboard</h3>
+<ul>
+<li>复制woker节点上的kubelet和kube-proxy所有相关文件到master上</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>scp root@192.168.14.<span style="color:#ae81ff">102</span><span style="color:#960050;background-color:#1e0010">:</span>/opt/kubernetes/cfg/* /opt/kubernetes/cfg/
+</span></span><span style="display:flex;"><span>scp root@192.168.14.<span style="color:#ae81ff">102</span><span style="color:#960050;background-color:#1e0010">:</span>/opt/kubernetes/ssl/kube-proxy*pem /opt/kubernetes/ssl/
+</span></span><span style="display:flex;"><span>scp root@192.168.14.<span style="color:#ae81ff">102</span><span style="color:#960050;background-color:#1e0010">:</span>/usr/lib/systemd/system/{kubelet,kube-proxy}.service /usr/lib/systemd/system/
+</span></span><span style="display:flex;"><span>scp -r root@192.168.14.<span style="color:#ae81ff">102</span><span style="color:#960050;background-color:#1e0010">:</span>/opt/cni /opt/
+</span></span><span style="display:flex;"><span>rm <span style="color:#f92672">-f</span> /opt/kubernetes/cfg/kubelet.kubeconfig
+</span></span><span style="display:flex;"><span>rm <span style="color:#f92672">-f</span> /opt/kubernetes/ssl/kubelet*
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#修改配置文件名</span>
+</span></span><span style="display:flex;"><span>vim /opt/kubernetes/cfg/kubelet.conf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--hostname-override=k8s-master
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>vim /opt/kubernetes/cfg/kube-proxy-config.yml
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>hostnameOverride<span style="color:#960050;background-color:#1e0010">:</span> k8s-master
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#启动并设置开机启动 </span>
+</span></span><span style="display:flex;"><span>systemctl daemon-reload
+</span></span><span style="display:flex;"><span>systemctl start kubelet
+</span></span><span style="display:flex;"><span>systemctl enable kubelet
+</span></span><span style="display:flex;"><span>systemctl start kube-proxy
+</span></span><span style="display:flex;"><span>systemctl enable kube-proxy
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#查看 kubelet 证书请求</span>
+</span></span><span style="display:flex;"><span>kubectl get csr
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#批准申请</span>
+</span></span><span style="display:flex;"><span>kubectl certificate approve node-csr-PIZOcdpw4lBn2SPfwSrYTXCPh-9ZnBawmkbtvy6AZwc
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#查看节点</span>
+</span></span><span style="display:flex;"><span>kubectl get node
+</span></span><span style="display:flex;"><span>k8s-master   Ready    &lt;none&gt;   2m6s   v1.18.3
+</span></span><span style="display:flex;"><span>k8s-node1    Ready    &lt;none&gt;   <span style="color:#ae81ff">84m</span>    v1.18.3
+</span></span><span style="display:flex;"><span>k8s-node2    Ready    &lt;none&gt;   <span style="color:#ae81ff">79m</span>    v1.18.3
+</span></span></code></pre></div><ul>
+<li>指定Dashboad的pod只部署到master节点（如果不想指定可忽略这步）</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e">#给master节点添加标签</span>
+</span></span><span style="display:flex;"><span>kubectl label node k8s-master kubernetes.dashboard.requset=enabled
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#查看node包含的label</span>
+</span></span><span style="display:flex;"><span>kubectl get nodes --show-labels
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#修改recommended.yaml的nodeSelector指定刚添加的标签</span>
+</span></span><span style="display:flex;"><span>vim recommended.yaml
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>nodeSelector<span style="color:#960050;background-color:#1e0010">:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;kubernetes.dashboard.requset&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> enabled
+</span></span></code></pre></div><ul>
+<li>默认 Dashboard 只能集群内部访问，修改 Service 为 NodePort 类型，暴露到外部</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e">#直接使用资源包路径下yaml目录下的recommended.yaml，注意修改镜像地址为本地镜像仓库的地址</span>
+</span></span><span style="display:flex;"><span>vim recommended.yaml
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>kind<span style="color:#960050;background-color:#1e0010">:</span> Service
+</span></span><span style="display:flex;"><span>apiVersion<span style="color:#960050;background-color:#1e0010">:</span> v1
+</span></span><span style="display:flex;"><span>metadata<span style="color:#960050;background-color:#1e0010">:</span>
+</span></span><span style="display:flex;"><span>  labels<span style="color:#960050;background-color:#1e0010">:</span>
+</span></span><span style="display:flex;"><span>    k8s-app<span style="color:#960050;background-color:#1e0010">:</span> kubernetes-dashboard
+</span></span><span style="display:flex;"><span>  name<span style="color:#960050;background-color:#1e0010">:</span> kubernetes-dashboard
+</span></span><span style="display:flex;"><span>  namespace<span style="color:#960050;background-color:#1e0010">:</span> kubernetes-dashboard
+</span></span><span style="display:flex;"><span>spec<span style="color:#960050;background-color:#1e0010">:</span>
+</span></span><span style="display:flex;"><span>  ports<span style="color:#960050;background-color:#1e0010">:</span>
+</span></span><span style="display:flex;"><span>    - port<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>      targetPort<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">8443</span>
+</span></span><span style="display:flex;"><span>      nodePort<span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">30001</span>
+</span></span><span style="display:flex;"><span>  type<span style="color:#960050;background-color:#1e0010">:</span> NodePort
+</span></span><span style="display:flex;"><span>  selector<span style="color:#960050;background-color:#1e0010">:</span>
+</span></span><span style="display:flex;"><span>    k8s-app<span style="color:#960050;background-color:#1e0010">:</span> kubernetes-dashboard
+</span></span></code></pre></div><ul>
+<li>应用资源配置文件，生成pod</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>kubectl apply <span style="color:#f92672">-f</span> recommended.yaml      <span style="color:#75715e">#注意修改镜像地址为本地镜像仓库的地址</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>kubectl get pods,svc -n kubernetes-dashboard
+</span></span><span style="display:flex;"><span>NAME                                             READY   STATUS    RESTARTS   AGE
+</span></span><span style="display:flex;"><span>pod/dashboard-metrics-scraper-<span style="color:#ae81ff">694557449d</span>-przxl   <span style="color:#ae81ff">1</span>/<span style="color:#ae81ff">1</span>     Running   <span style="color:#ae81ff">0</span>          5s
+</span></span><span style="display:flex;"><span>pod/kubernetes-dashboard-5f98bdb684-v4krk        <span style="color:#ae81ff">1</span>/<span style="color:#ae81ff">1</span>     Running   <span style="color:#ae81ff">0</span>          6s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NAME                                TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)         AGE
+</span></span><span style="display:flex;"><span>service/dashboard-metrics-scraper   ClusterIP   <span style="color:#ae81ff">10.69</span>.0.239   &lt;none&gt;        <span style="color:#ae81ff">8000</span>/TCP        5s
+</span></span><span style="display:flex;"><span>service/kubernetes-dashboard        NodePort    <span style="color:#ae81ff">10.69</span>.0.81    &lt;none&gt;        <span style="color:#ae81ff">443</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">30001</span>/TCP   6s
+</span></span><span style="display:flex;"><span><span style="color:#75715e">###########################分 割 线 #############################</span>
+</span></span><span style="display:flex;"><span>kubectl get pods -n kubernetes-dashboard -o wide    <span style="color:#75715e">#查看dashboard的pod是否在master节点上</span>
+</span></span><span style="display:flex;"><span>NAME                                         READY   STATUS    RESTARTS   AGE     IP           NODE         NOMINATED NODE   READINESS GATES
+</span></span><span style="display:flex;"><span>dashboard-metrics-scraper-849c6b8f5c-qvvcs   <span style="color:#ae81ff">1</span>/<span style="color:#ae81ff">1</span>     Running   <span style="color:#ae81ff">0</span>          5m24s   <span style="color:#ae81ff">172.23</span>.1.5   k8s-master   &lt;none&gt;           &lt;none&gt;
+</span></span><span style="display:flex;"><span>kubernetes-dashboard-7fb54f5f74-hbxvj        <span style="color:#ae81ff">1</span>/<span style="color:#ae81ff">1</span>     Running   <span style="color:#ae81ff">0</span>          5m25s   <span style="color:#ae81ff">172.23</span>.1.6   k8s-master   &lt;none&gt;           &lt;none&gt;
+</span></span></code></pre></div><ul>
+<li>访问地址：<a href="https://NodeIP:30001">https://NodeIP:30001</a></li>
+<li>创建 service account 并绑定默认 cluster-admin 管理员集群角色</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>kubectl create serviceaccount dashboard-admin -n kube-system
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>kubectl create clusterrolebinding dashboard-admin --clusterrole=cluster-admin --serviceaccount=kube-system<span style="color:#960050;background-color:#1e0010">:</span>dashboard-admin
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#使用输出的 token 登录 Dashboard</span>
+</span></span><span style="display:flex;"><span>kubectl describe secrets -n kube-system $(kubectl -n kube-system get secret | awk <span style="color:#e6db74">&#39;/dashboard-admin/{print $1}&#39;</span>)
+</span></span></code></pre></div><h3 id="2-部署-coredns">2、 部署 CoreDNS</h3>
+<blockquote>
+<p>CoreDNS 用于集群内部 Service 名称解析</p>
+</blockquote>
+<ul>
+<li>修改资源包路径下yaml目录下的 coredns.yaml</li>
+</ul>
+<p>a、修改集群域名</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">data</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">Corefile</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    .:53 {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        errors
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        health
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        ready
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        kubernetes $DNS_DOMAIN in-addr.arpa ip6.arpa {   //$DNS_DOMAIN修改为集群的域名 ，可从kubelet-config.yml文件查看
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            pods insecure
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            fallthrough in-addr.arpa ip6.arpa
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            ttl 30
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        }
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        prometheus :9153
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        forward . /etc/resolv.conf
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        cache 30
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        loop
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        reload
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        loadbalance
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    }</span>    
+</span></span></code></pre></div><p>b、 修改coredns 容器资源限制</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">coredns</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">image</span>: <span style="color:#ae81ff">registry:5000/coredns   //修改下载地址为本地镜像</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">imagePullPolicy</span>: <span style="color:#ae81ff">IfNotPresent</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">resources</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">limits</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">memory</span>: <span style="color:#ae81ff">$DNS_MEMORY_LIMIT        //修改容器使用的最大内存</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">requests</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">cpu</span>: <span style="color:#ae81ff">100m</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">memory</span>: <span style="color:#ae81ff">70Mi</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">args</span>: [ <span style="color:#e6db74">&#34;-conf&#34;</span>, <span style="color:#e6db74">&#34;/etc/coredns/Corefile&#34;</span> ]
+</span></span></code></pre></div><p>c、 修改集群使用的dnsip</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector:</span>: <span style="color:#ae81ff">coredns</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">k8s-app: kube-dns     //所有的k8s-app: kube-dns修改成k8s-app</span>: <span style="color:#ae81ff">coredns</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">clusterIP</span>: <span style="color:#ae81ff">$DNS_SERVER_IP  //修改为集群使用的dnsip, 可从kubelet-config.yml文件中查看</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">dns</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">port</span>: <span style="color:#ae81ff">53</span>
+</span></span></code></pre></div><ul>
+<li>应用资源配置文件coredns.yaml</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>kubectl apply <span style="color:#f92672">-f</span> coredns.yaml    <span style="color:#75715e">#注意修改镜像地址为本地镜像仓库的地址</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#查看pod状态</span>
+</span></span><span style="display:flex;"><span>kubectl get pods,svc -l k8s-app=coredns -n kube-system
+</span></span><span style="display:flex;"><span>NAME                           READY   STATUS    RESTARTS   AGE
+</span></span><span style="display:flex;"><span>pod/coredns-856d9669c5-zmws2   <span style="color:#ae81ff">1</span>/<span style="color:#ae81ff">1</span>     Running   <span style="color:#ae81ff">0</span>          24s
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>NAME              TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)                  AGE
+</span></span><span style="display:flex;"><span>service/coredns   ClusterIP   <span style="color:#ae81ff">10.69</span>.0.2    &lt;none&gt;        <span style="color:#ae81ff">53</span>/UDP,<span style="color:#ae81ff">53</span>/TCP,<span style="color:#ae81ff">9153</span>/TCP   24s
+</span></span></code></pre></div><ul>
+<li>DNS解析测试</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>kubectl run -it --rm dns-test --image=registry<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">5000</span>/busybox sh
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">If</span> you don<span style="color:#960050;background-color:#1e0010">&#39;</span>t see a command prompt, <span style="color:#66d9ef">try</span> pressing enter.
+</span></span><span style="display:flex;"><span>/ <span style="color:#75715e"># nslookup kubernetes</span>
+</span></span><span style="display:flex;"><span>Server<span style="color:#960050;background-color:#1e0010">:</span>    <span style="color:#ae81ff">10.69</span>.0.2
+</span></span><span style="display:flex;"><span>Address <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">10.69</span>.0.2 coredns.kube-system.svc.cluster.local
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Name<span style="color:#960050;background-color:#1e0010">:</span>      kubernetes
+</span></span><span style="display:flex;"><span>Address <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">10.69</span>.0.1 kubernetes.<span style="color:#66d9ef">default</span>.svc.cluster.local
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#测试通过</span>
+</span></span></code></pre></div>
+    </section>
+</article>
+<section class="read-more">
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">Recent</span>
+        <h2 class="post-list__post-title post-title"><a href="/post/elk/" title="link to ELK">ELK</a></h2>
+        <p class="excerpt">安装Elasticsearch 官方下载地址：https://www.elastic.co/downloads/past-releases/elasticsearch-7-16-2 修改所有节点的默认内核参数 echo &#34;vm.swappiness=0&#34; &gt;&gt; /etc/sysctl.conf echo &#34;vm.max_map_count=655350&#34; &gt;&gt; /etc/sysctl.conf sysctl -p 修改所有节点的linux资 …&hellip;</p>
+        <div class="post-list__meta">
+            <time datetime=" 2023-05-06 10:08:48 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+            
+            <a class="btn-border-small" href="/post/elk/">Continue</a>
+        </div>
+    </div>
+    
+
+
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">Earlier</span>
+        <h2 class="post-list__post-title post-title"><a href="/post/sip%E5%BA%94%E7%AD%94%E6%B6%88%E6%81%AF%E7%8A%B6%E6%80%81%E7%A0%81/" title="link to Sip应答消息状态码">Sip应答消息状态码</a></h2>
+        <p class="excerpt">1. 临时应答(1XX) 100 Trying 正在处理中 180 Ringing 振铃 181 call being forwarder 呼叫正在前向 182 queue 排队 183 session progress 会话进行 2. 会话成功(2XX) 200 OK 会话成功 3. 重定向(3XX) 300 multiple 多重选择 301 moved permanently 永久移动 302 moved temporaily 临时移动 305 use proxy 用户代理 380 …&hellip;</p>
+        <div class="post-list__meta">
+            <time datetime=" 2023-05-06 10:08:48 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+            
+            <a class="btn-border-small" href="/post/sip%E5%BA%94%E7%AD%94%E6%B6%88%E6%81%AF%E7%8A%B6%E6%80%81%E7%A0%81/">Continue</a>
+        </div>
+    </div>
+    
+ </section>
+ 
+<section class="post-comments">
+    
+      <div id="disqus_thread"></div>
+      <script>
+      
+      var disqus_config = function () {
+          this.page.url = "https:\/\/zoehuawang.github.io\/post\/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2\/";
+          this.page.identifier = "https:\/\/zoehuawang.github.io\/post\/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2\/";
+      };
+  
+      var disqus_shortname = 'vno-hugo';
+      
+      (function() { 
+          var d = document, s = d.createElement('script');
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+          })();
+      </script>
+      <noscript>To view comments from<a href="http://disqus.com/?ref_noscript"> Disqus </a>, please enable JavaScript.</noscript>
+      
+    
+
+    
+    
+  </section>
+  
+
+        <section class="footer">
+    <footer>
+        <span class="footer__copyright">This site is licensed under a <a href="<no value>"><no value></a> license.</span>
+        <span class="footer__copyright">Generated by <a href="https://gohugo.io/">Hugo</a> at 2023-05-06, themed with <a href="https://github.com/xslingcn/vno-hugo"> Vno - Hugo</a>.</span>
+    </footer>
+</section>
+
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script><script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'your_ga_id', 'your_host');
+    ga('send', 'pageview');
+</script>
+
+  
+</body>
+

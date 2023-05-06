@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<head>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
+
+    
+    
+    <title>Kubernetes之proxysql集群 - 烟花散尽不问繁华</title>
+    
+    
+    <meta name="author" content="zoehuawang" /> 
+     
+    
+    
+    <meta property="og:title" content="Kubernetes之proxysql集群" />
+<meta property="og:description" content="1.创建配置文件 proxysql-cnf.yaml apiVersion: v1 kind: Service metadata: labels: app: proxysql name: proxysqlcluster namespace: cloud2 spec: clusterIP: None ports: - name: proxysql-admin port: 6032 protocol: TCP targetPort: 6032 selector: app: proxysql sessionAffinity: None type: ClusterIP --- apiVersion: v1 kind: ConfigMap metadata: name: proxysql-cnf namespace: cloud2 data: proxysql.cnf: | datadir=&#34;/var/lib/proxysql&#34; # 配置管理账号，即 6032 端口登陆的管理员账号密码。默认账号 admin 无法远程登陆，不适用于容器环境 admin_variables= { admin_credentials=&#34;admin:admin;proxysql-admin:Aa123456&#34; mysql_ifaces=&#34;0.0.0.0:6032&#34; } #全局配置 mysql_variables= { threads=4 max_connections=2048 default_query_delay=0 default_query_timeout=36000000 have_compress=true poll_timeout=2000 interfaces=&#34;0.0.0.0:6033&#34; default_schema=&#34;information_schema&#34; stacksize=1048576 #mysql数据库版本 server_version=&#34;8." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zoehuawang.github.io/post/kubernetes%E4%B9%8Bproxysql%E9%9B%86%E7%BE%A4/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-05-06T10:18:00+08:00" />
+<meta property="article:modified_time" content="2023-05-06T10:18:00+08:00" />
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Kubernetes之proxysql集群"/>
+<meta name="twitter:description" content="1.创建配置文件 proxysql-cnf.yaml apiVersion: v1 kind: Service metadata: labels: app: proxysql name: proxysqlcluster namespace: cloud2 spec: clusterIP: None ports: - name: proxysql-admin port: 6032 protocol: TCP targetPort: 6032 selector: app: proxysql sessionAffinity: None type: ClusterIP --- apiVersion: v1 kind: ConfigMap metadata: name: proxysql-cnf namespace: cloud2 data: proxysql.cnf: | datadir=&#34;/var/lib/proxysql&#34; # 配置管理账号，即 6032 端口登陆的管理员账号密码。默认账号 admin 无法远程登陆，不适用于容器环境 admin_variables= { admin_credentials=&#34;admin:admin;proxysql-admin:Aa123456&#34; mysql_ifaces=&#34;0.0.0.0:6032&#34; } #全局配置 mysql_variables= { threads=4 max_connections=2048 default_query_delay=0 default_query_timeout=36000000 have_compress=true poll_timeout=2000 interfaces=&#34;0.0.0.0:6033&#34; default_schema=&#34;information_schema&#34; stacksize=1048576 #mysql数据库版本 server_version=&#34;8."/>
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqusjs.css" />
+    
+    
+
+    
+    
+    <link rel="stylesheet" href="https://zoehuawang.github.io/scss/main.min.3796779d99b798f0ae24d49c5a420db134eef2207610ed71453e417ce3ab44ed.css" integrity="sha256-N5Z3nZm3mPCuJNScWkINsTTu8iB2EO1xRT5BfOOrRO0=" crossorigin="anonymous" media="screen">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+  
+</head>
+<body>
+  <span class="mobile btn-mobile-menu">
+
+    <i class="fa fa-list btn-mobile-menu__icon"></i>
+    <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+
+  </span>
+
+  <header class="  panel-cover panel-cover--collapsed " style="background-image: url('/images/background-cover.jpg')">
+
+    <div class="panel-main">
+  
+      <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+  
+          <a href="/#blog" title="Homepage of 烟花散尽不问繁华 " class="blog-button"><img src="/images/avatar.jpg" width="80" alt="烟花散尽不问繁华 logo" class="panel-cover__logo logo" /></a>
+          <h1 class="panel-cover__title panel-title"><a href="/#blog" title="Homepage of 烟花散尽不问繁华" class="blog-button">烟花散尽不问繁华</a></h1>
+          
+          <span class="panel-cover__subtitle panel-subtitle">最好的等待，叫来日可期！</span>
+          
+          <hr class="panel-cover__divider" />
+          <p class="panel-cover__description"></p>
+          <hr class="panel-cover__divider panel-cover__divider--secondary" />
+          
+          
+          
+          <div class="navigation-wrapper">
+            <div>
+              <nav class="cover-navigation cover-navigation--primary">
+                <ul class="navigation">
+                  <li class="navigation__item"><a href="/#blog" title="Blog" class="blog-button">Blog</a></li>
+                  
+                    <li class="navigation__item"><a href="https://blog.zoehuawang.cn" target="_blank" title="Projects">Projects</a></li>
+                  
+                    <li class="navigation__item"><a href="/tags/" target="_blank" title="Tags">Tags</a></li>
+                  
+                </ul>
+              </nav>
+            </div>
+            
+            <div><nav class="cover-navigation navigation--social">
+    <ul class="navigation">
+  
+    
+  
+    
+    
+    
+
+    
+  
+    
+  
+    
+    <li class="navigation__item">
+      <a href="/index.xml" rel="author" title="RSS" target="_blank">
+        <i class='social fa fa-rss'></i>
+        <span class="label">RSS</span>
+      </a>
+    </li>
+  
+    
+  
+    </ul>
+  </nav>
+  </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      <div class="panel-cover--overlay cover-red"></div>
+      
+    </div>
+  </header>
+  
+
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner">
+
+        
+<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+    <header class="post-header">
+        <div class="post-meta">
+            <time datetime=" 2023-05-06 10:18:00 &#43;0800 " itemprop="datePublished" class="post-meta__date date">2023-05-06</time>
+            
+        </div>
+        <h1 class="post-title">Kubernetes之proxysql集群</h1>
+    </header>
+    <section class="post">
+        <ul>
+<li>1.创建配置文件 proxysql-cnf.yaml</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">proxysql</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">proxysqlcluster</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">cloud2</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">clusterIP</span>: <span style="color:#ae81ff">None</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">proxysql-admin</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">port</span>: <span style="color:#ae81ff">6032</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">6032</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">proxysql</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">sessionAffinity</span>: <span style="color:#ae81ff">None</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">type</span>: <span style="color:#ae81ff">ClusterIP</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ConfigMap</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">proxysql-cnf</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">cloud2</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">data</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">proxysql.cnf</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    datadir=&#34;/var/lib/proxysql&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    # 配置管理账号，即 6032 端口登陆的管理员账号密码。默认账号 admin 无法远程登陆，不适用于容器环境
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    admin_variables=
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        admin_credentials=&#34;admin:admin;proxysql-admin:Aa123456&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        mysql_ifaces=&#34;0.0.0.0:6032&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    }
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    #全局配置
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    mysql_variables=
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        threads=4
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        max_connections=2048
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        default_query_delay=0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        default_query_timeout=36000000
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        have_compress=true
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        poll_timeout=2000
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        interfaces=&#34;0.0.0.0:6033&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        default_schema=&#34;information_schema&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        stacksize=1048576
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        #mysql数据库版本
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        server_version=&#34;8.0.30&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        connect_timeout_server=3000
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        #mysql中创建i并授权的监控用户密码
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        monitor_username=&#34;proxysql_monitor&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        monitor_password=&#34;Aa.123456&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        monitor_history=600000
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        monitor_connect_interval=2000
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        monitor_ping_interval=2000
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        monitor_read_only_interval=2000
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        monitor_read_only_timeout=500
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        ping_interval_server_msec=120000
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        ping_timeout_server=500
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        commands_stats=true
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        sessions_sort=true
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        connect_retries_on_failure=10
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    }
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    # Mysql地址, hostgroup_id=4设置为离线组,会自动探测节点角色进行分组
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    mysql_servers =
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    (
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        { address=&#34;192.168.7.52&#34; , port=3306 , hostgroup_id=4 , max_connections=2000 },
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        { address=&#34;192.168.7.53&#34; , port=3306 , hostgroup_id=4 , max_connections=2000 },
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        { address=&#34;192.168.7.54&#34; , port=3306 , hostgroup_id=4 , max_connections=2000 }
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    )
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    # 定义了MySQL连接的用户，这里需要在数据库中已经存在的用户以及密码
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    mysql_users =
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    (
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        { username = &#34;test_w&#34;, password = &#34;Aa.123456&#34;, default_hostgroup = 1, transaction_persistent = 0, active = 1 },
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        { username = &#34;test_r&#34;, password = &#34;Aa.123456&#34;, default_hostgroup = 3, transaction_persistent = 0, active = 1 }
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    )
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    # 定义mgr组
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    mysql_group_replication_hostgroups =
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    (
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            writer_hostgroup=1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            backup_writer_hostgroup=2
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            reader_hostgroup=3
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            offline_hostgroup=4
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            active=1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            max_writers=1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            writer_is_also_reader=0
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            max_transactions_behind=10800000
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        }
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    )
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    #定义proxysql集群
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    proxysql_servers =
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    (
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        { hostname = &#34;proxysql-0.proxysqlcluster&#34;, port = 6032, weight = 1 },
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        { hostname = &#34;proxysql-1.proxysqlcluster&#34;, port = 6032, weight = 1 },
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        { hostname = &#34;proxysql-2.proxysqlcluster&#34;, port = 6032, weight = 1 }
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    )</span>    
+</span></span></code></pre></div><ul>
+<li>2.创建StatefulSet文件</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">annotations</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">proxysql</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">proxysql</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">cloud2</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">proxysql-mysql</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">port</span>: <span style="color:#ae81ff">6033</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">6033</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">nodePort</span>: <span style="color:#ae81ff">30633</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">proxysql-admin</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">nodePort</span>: <span style="color:#ae81ff">30632</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">port</span>: <span style="color:#ae81ff">6032</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">6032</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">proxysql</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">type</span>: <span style="color:#ae81ff">NodePort</span>
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">StatefulSet</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">proxysql</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">proxysql</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">cloud2</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">serviceName</span>: <span style="color:#ae81ff">proxysqlcluster</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">matchLabels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">app</span>: <span style="color:#ae81ff">proxysql</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">updateStrategy</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">type</span>: <span style="color:#ae81ff">RollingUpdate</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">template</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">proxysql</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">restartPolicy</span>: <span style="color:#ae81ff">Always</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">nodeSelector</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">feature</span>: <span style="color:#ae81ff">app</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">image</span>: <span style="color:#ae81ff">ccr.ccs.tencentyun.com/zoehuawang/proxysql:2.5.1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">imagePullPolicy</span>: <span style="color:#ae81ff">IfNotPresent</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">name</span>: <span style="color:#ae81ff">proxysql</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">volumeMounts</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">proxysql-cnf</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/etc/proxysql.cnf</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">subPath</span>: <span style="color:#ae81ff">proxysql.cnf</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">6033</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">name</span>: <span style="color:#ae81ff">proxysql-mysql</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">6032</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">name</span>: <span style="color:#ae81ff">proxysql-admin</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">proxysql-cnf</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">configMap</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">name</span>: <span style="color:#ae81ff">proxysql-cnf</span>
+</span></span></code></pre></div><ul>
+<li>3.在MGR模式MySQL主库上创建视图</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">DELIMITER</span> <span style="color:#960050;background-color:#1e0010">$$</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">FUNCTION</span> my_id() <span style="color:#66d9ef">RETURNS</span> TEXT(<span style="color:#ae81ff">36</span>) <span style="color:#66d9ef">DETERMINISTIC</span> <span style="color:#66d9ef">NO</span> <span style="color:#66d9ef">SQL</span> <span style="color:#66d9ef">RETURN</span> (<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">@@</span><span style="color:#66d9ef">global</span>.server_uuid <span style="color:#66d9ef">as</span> my_id);<span style="color:#960050;background-color:#1e0010">$$</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">FUNCTION</span> gr_member_in_primary_partition()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">RETURNS</span> VARCHAR(<span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">DETERMINISTIC</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">BEGIN</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">RETURN</span> (<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">IF</span>( MEMBER_STATE<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ONLINE&#39;</span> <span style="color:#66d9ef">AND</span> ((<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">FROM</span>
+</span></span><span style="display:flex;"><span>    performance_schema.replication_group_members <span style="color:#66d9ef">WHERE</span> MEMBER_STATE <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">IN</span> (<span style="color:#e6db74">&#39;ONLINE&#39;</span>, <span style="color:#e6db74">&#39;RECOVERING&#39;</span>)) <span style="color:#f92672">&gt;=</span>
+</span></span><span style="display:flex;"><span>    ((<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">FROM</span> performance_schema.replication_group_members)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;YES&#39;</span>, <span style="color:#e6db74">&#39;NO&#39;</span> ) <span style="color:#66d9ef">FROM</span> performance_schema.replication_group_members <span style="color:#66d9ef">JOIN</span>
+</span></span><span style="display:flex;"><span>    performance_schema.replication_group_member_stats <span style="color:#66d9ef">USING</span>(member_id) <span style="color:#66d9ef">where</span> member_id<span style="color:#f92672">=</span>my_id());
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">END</span><span style="color:#960050;background-color:#1e0010">$$</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">VIEW</span> gr_member_routing_candidate_status <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">SELECT</span>
+</span></span><span style="display:flex;"><span>sys.gr_member_in_primary_partition() <span style="color:#66d9ef">as</span> viable_candidate,
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">IF</span>( (<span style="color:#66d9ef">SELECT</span> (<span style="color:#66d9ef">SELECT</span> GROUP_CONCAT(variable_value) <span style="color:#66d9ef">FROM</span>
+</span></span><span style="display:flex;"><span>performance_schema.global_variables <span style="color:#66d9ef">WHERE</span> variable_name <span style="color:#66d9ef">IN</span> (<span style="color:#e6db74">&#39;read_only&#39;</span>,
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;super_read_only&#39;</span>)) <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;OFF,OFF&#39;</span>), <span style="color:#e6db74">&#39;YES&#39;</span>, <span style="color:#e6db74">&#39;NO&#39;</span>) <span style="color:#66d9ef">as</span> read_only,
+</span></span><span style="display:flex;"><span>Count_Transactions_Remote_In_Applier_Queue <span style="color:#66d9ef">as</span> transactions_behind, Count_Transactions_in_queue <span style="color:#66d9ef">as</span> <span style="color:#e6db74">&#39;transactions_to_cert&#39;</span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span> performance_schema.replication_group_member_stats <span style="color:#66d9ef">where</span> member_id<span style="color:#f92672">=</span>my_id();<span style="color:#960050;background-color:#1e0010">$$</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">DELIMITER</span> ;
+</span></span></code></pre></div><ul>
+<li>4.启动</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl apply -f proxysql-cnf.yaml -f proxysql.yaml
+</span></span></code></pre></div><ul>
+<li>5.查询</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql <span style="color:#f92672">-</span>hproxysql <span style="color:#f92672">-</span>P6032 <span style="color:#f92672">-</span>uproxysql<span style="color:#f92672">-</span><span style="color:#66d9ef">admin</span> <span style="color:#f92672">-</span>pAa123456 <span style="color:#75715e">--prompt &#39;ProxySQL Admin&gt;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ProxySQL <span style="color:#66d9ef">Admin</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> monitor.mysql_server_connect_log <span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> time_start_us <span style="color:#66d9ef">desc</span> <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span>ProxySQL <span style="color:#66d9ef">Admin</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> mysql_server_group_replication_log <span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> time_start_us <span style="color:#66d9ef">desc</span> <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span>ProxySQL <span style="color:#66d9ef">Admin</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> runtime_mysql_servers;
+</span></span></code></pre></div><ul>
+<li>6.pod通过域名访问：proxysql.cloud2:6033</li>
+</ul>
+
+    </section>
+</article>
+<section class="read-more">
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">Recent</span>
+        <h2 class="post-list__post-title post-title"><a href="/post/%E9%93%B6%E8%A1%8C%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6/" title="link to 银行项目实现微信告警">银行项目实现微信告警</a></h2>
+        <p class="excerpt">背景说明 银行项目的服务器都是处于行方的内网环境中，运维的监控告警手段只有邮件和电话；每次收到邮件又没有很好的提醒效果，而电话告警方式播报告警内容的时候不够明确，且接听麻烦。因此可以增加微信告警方式（告警内容清晰明确且收到微信也能及时提醒）。虽然内网环境的服务器不能直接通过zabbix调用微信接口发送告警,但可以利用邮件与外网联通。具体做法就是把告警邮件发送给自己的邮箱，然后利用自己服务器通过python扫描邮件，一旦发现有新的告警邮件就通过企业微信接口发送消息到微信
+准备工作 1、去企业微信官 …&hellip;</p>
+        <div class="post-list__meta">
+            <time datetime=" 2023-05-06 10:18:00 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+            
+            <a class="btn-border-small" href="/post/%E9%93%B6%E8%A1%8C%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6/">Continue</a>
+        </div>
+    </div>
+    
+
+
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">Earlier</span>
+        <h2 class="post-list__post-title post-title"><a href="/post/mgr%E5%8D%95%E4%B8%BB%E9%83%A8%E7%BD%B2/" title="link to MGR单主部署">MGR单主部署</a></h2>
+        <p class="excerpt">1.每个节点设置hostname，并添加/etc/hosts 2.下载 gperftools-devel 和 mysql 安装包 yum install --downloadonly --downloaddir=/root gperftools-devel https://downloads.mysql.com/archives/community/ 3.安装步骤 yum remove mariadb-libs-5.5.60-1.el7_5.x86_64 -y rpm -ivh …&hellip;</p>
+        <div class="post-list__meta">
+            <time datetime=" 2023-05-06 10:18:00 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+            
+            <a class="btn-border-small" href="/post/mgr%E5%8D%95%E4%B8%BB%E9%83%A8%E7%BD%B2/">Continue</a>
+        </div>
+    </div>
+    
+ </section>
+ 
+<section class="post-comments">
+    
+      <div id="disqus_thread"></div>
+      <script>
+      
+      var disqus_config = function () {
+          this.page.url = "https:\/\/zoehuawang.github.io\/post\/kubernetes%E4%B9%8Bproxysql%E9%9B%86%E7%BE%A4\/";
+          this.page.identifier = "https:\/\/zoehuawang.github.io\/post\/kubernetes%E4%B9%8Bproxysql%E9%9B%86%E7%BE%A4\/";
+      };
+  
+      var disqus_shortname = 'vno-hugo';
+      
+      (function() { 
+          var d = document, s = d.createElement('script');
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+          })();
+      </script>
+      <noscript>To view comments from<a href="http://disqus.com/?ref_noscript"> Disqus </a>, please enable JavaScript.</noscript>
+      
+    
+
+    
+    
+  </section>
+  
+
+        <section class="footer">
+    <footer>
+        <span class="footer__copyright">This site is licensed under a <a href="<no value>"><no value></a> license.</span>
+        <span class="footer__copyright">Generated by <a href="https://gohugo.io/">Hugo</a> at 2023-05-06, themed with <a href="https://github.com/xslingcn/vno-hugo"> Vno - Hugo</a>.</span>
+    </footer>
+</section>
+
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script><script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'your_ga_id', 'your_host');
+    ga('send', 'pageview');
+</script>
+
+  
+</body>
+

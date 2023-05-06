@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<head>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
+
+    
+    
+    <title>Sip应答消息状态码 - 烟花散尽不问繁华</title>
+    
+    
+    <meta name="author" content="zoehuawang" /> 
+     
+    
+    
+    <meta property="og:title" content="Sip应答消息状态码" />
+<meta property="og:description" content="1. 临时应答(1XX) 100 Trying 正在处理中 180 Ringing 振铃 181 call being forwarder 呼叫正在前向 182 queue 排队 183 session progress 会话进行 2. 会话成功(2XX) 200 OK 会话成功 3. 重定向(3XX) 300 multiple 多重选择 301 moved permanently 永久移动 302 moved temporaily 临时移动 305 use proxy 用户代理 380 alternative service 替代服务 4. 请求失败(4XX) 400 bad request 错误请求 401 unauthorized 未授权 402 payment required 付费要求 403 forbidden 禁止 404 not found 未发现 405 method no allowed 方法不允许 406 not acceptable 不可接受 407 proxy authentication required 代理需要认证 408 request timeout 请求超时 410 gone 离开 413 request entity too large 请求实体太大 414 request-url too long 请求URL太长 415 unsupported media type 不支持的媒体类型 416 unsupported url scheme 不支持的URL计划 420 bad extension 不良扩展 421 extension required 需要扩展 423 interval too brief 间隔太短 480 temporarily unavailable 临时失效 481 call/transaction does not exist 呼叫/事务不存在 482 loop detected 发现环路 483 too many hops 跳数太多 484 address incomplete 地址不完整 485 ambiguous 不明朗 486 busy here 这里忙 487 request terminated 请求终止 488 not acceptable here 这里请求不可接受 491 request pending 未决请求 493 undecipherable 不可辨识 5." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zoehuawang.github.io/post/sip%E5%BA%94%E7%AD%94%E6%B6%88%E6%81%AF%E7%8A%B6%E6%80%81%E7%A0%81/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-05-06T10:08:02+08:00" />
+<meta property="article:modified_time" content="2023-05-06T10:08:02+08:00" />
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Sip应答消息状态码"/>
+<meta name="twitter:description" content="1. 临时应答(1XX) 100 Trying 正在处理中 180 Ringing 振铃 181 call being forwarder 呼叫正在前向 182 queue 排队 183 session progress 会话进行 2. 会话成功(2XX) 200 OK 会话成功 3. 重定向(3XX) 300 multiple 多重选择 301 moved permanently 永久移动 302 moved temporaily 临时移动 305 use proxy 用户代理 380 alternative service 替代服务 4. 请求失败(4XX) 400 bad request 错误请求 401 unauthorized 未授权 402 payment required 付费要求 403 forbidden 禁止 404 not found 未发现 405 method no allowed 方法不允许 406 not acceptable 不可接受 407 proxy authentication required 代理需要认证 408 request timeout 请求超时 410 gone 离开 413 request entity too large 请求实体太大 414 request-url too long 请求URL太长 415 unsupported media type 不支持的媒体类型 416 unsupported url scheme 不支持的URL计划 420 bad extension 不良扩展 421 extension required 需要扩展 423 interval too brief 间隔太短 480 temporarily unavailable 临时失效 481 call/transaction does not exist 呼叫/事务不存在 482 loop detected 发现环路 483 too many hops 跳数太多 484 address incomplete 地址不完整 485 ambiguous 不明朗 486 busy here 这里忙 487 request terminated 请求终止 488 not acceptable here 这里请求不可接受 491 request pending 未决请求 493 undecipherable 不可辨识 5."/>
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqusjs.css" />
+    
+    
+
+    
+    
+    <link rel="stylesheet" href="https://zoehuawang.github.io/scss/main.min.3796779d99b798f0ae24d49c5a420db134eef2207610ed71453e417ce3ab44ed.css" integrity="sha256-N5Z3nZm3mPCuJNScWkINsTTu8iB2EO1xRT5BfOOrRO0=" crossorigin="anonymous" media="screen">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+  
+</head>
+<body>
+  <span class="mobile btn-mobile-menu">
+
+    <i class="fa fa-list btn-mobile-menu__icon"></i>
+    <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+
+  </span>
+
+  <header class="  panel-cover panel-cover--collapsed " style="background-image: url('/images/background-cover.jpg')">
+
+    <div class="panel-main">
+  
+      <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+  
+          <a href="/#blog" title="Homepage of 烟花散尽不问繁华 " class="blog-button"><img src="/images/avatar.jpg" width="80" alt="烟花散尽不问繁华 logo" class="panel-cover__logo logo" /></a>
+          <h1 class="panel-cover__title panel-title"><a href="/#blog" title="Homepage of 烟花散尽不问繁华" class="blog-button">烟花散尽不问繁华</a></h1>
+          
+          <span class="panel-cover__subtitle panel-subtitle">最好的等待，叫来日可期！</span>
+          
+          <hr class="panel-cover__divider" />
+          <p class="panel-cover__description"></p>
+          <hr class="panel-cover__divider panel-cover__divider--secondary" />
+          
+          
+          
+          <div class="navigation-wrapper">
+            <div>
+              <nav class="cover-navigation cover-navigation--primary">
+                <ul class="navigation">
+                  <li class="navigation__item"><a href="/#blog" title="Blog" class="blog-button">Blog</a></li>
+                  
+                    <li class="navigation__item"><a href="https://blog.zoehuawang.cn" target="_blank" title="Projects">Projects</a></li>
+                  
+                    <li class="navigation__item"><a href="/tags/" target="_blank" title="Tags">Tags</a></li>
+                  
+                </ul>
+              </nav>
+            </div>
+            
+            <div><nav class="cover-navigation navigation--social">
+    <ul class="navigation">
+  
+    
+  
+    
+    
+    
+
+    
+  
+    
+  
+    
+    <li class="navigation__item">
+      <a href="/index.xml" rel="author" title="RSS" target="_blank">
+        <i class='social fa fa-rss'></i>
+        <span class="label">RSS</span>
+      </a>
+    </li>
+  
+    
+  
+    </ul>
+  </nav>
+  </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      <div class="panel-cover--overlay cover-red"></div>
+      
+    </div>
+  </header>
+  
+
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner">
+
+        
+<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+    <header class="post-header">
+        <div class="post-meta">
+            <time datetime=" 2023-05-06 10:08:02 &#43;0800 " itemprop="datePublished" class="post-meta__date date">2023-05-06</time>
+            
+        </div>
+        <h1 class="post-title">Sip应答消息状态码</h1>
+    </header>
+    <section class="post">
+        <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ae81ff">1</span><span style="color:#ae81ff">. 临时应答(1XX)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">100</span> <span style="color:#ae81ff">Trying 正在处理中</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">180</span> <span style="color:#ae81ff">Ringing 振铃</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">181</span> <span style="color:#ae81ff">call being forwarder 呼叫正在前向</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">182</span> <span style="color:#ae81ff">queue 排队</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">183</span> <span style="color:#ae81ff">session progress 会话进行</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span><span style="color:#ae81ff">. 会话成功(2XX)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">200</span> <span style="color:#ae81ff">OK 会话成功</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span><span style="color:#ae81ff">. 重定向(3XX)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">300</span> <span style="color:#ae81ff">multiple 多重选择</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">301</span> <span style="color:#ae81ff">moved permanently 永久移动</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">302</span> <span style="color:#ae81ff">moved temporaily 临时移动</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">305</span> <span style="color:#ae81ff">use proxy 用户代理</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">380</span> <span style="color:#ae81ff">alternative service 替代服务</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span><span style="color:#ae81ff">. 请求失败(4XX)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">400</span> <span style="color:#ae81ff">bad request 错误请求</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">401</span> <span style="color:#ae81ff">unauthorized 未授权</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">402</span> <span style="color:#ae81ff">payment required 付费要求</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">403</span> <span style="color:#ae81ff">forbidden 禁止</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">404</span> <span style="color:#ae81ff">not found 未发现</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">405</span> <span style="color:#ae81ff">method no allowed 方法不允许</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">406</span> <span style="color:#ae81ff">not acceptable 不可接受</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">407</span> <span style="color:#ae81ff">proxy authentication required 代理需要认证</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">408</span> <span style="color:#ae81ff">request timeout 请求超时</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">410</span> <span style="color:#ae81ff">gone 离开</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">413</span> <span style="color:#ae81ff">request entity too large 请求实体太大</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">414</span> <span style="color:#ae81ff">request-url too long 请求URL太长</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">415</span> <span style="color:#ae81ff">unsupported media type 不支持的媒体类型</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">416</span> <span style="color:#ae81ff">unsupported url scheme 不支持的URL计划</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">420</span> <span style="color:#ae81ff">bad extension 不良扩展</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">421</span> <span style="color:#ae81ff">extension required 需要扩展</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">423</span> <span style="color:#ae81ff">interval too brief 间隔太短</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">480</span> <span style="color:#ae81ff">temporarily unavailable 临时失效</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">481</span> <span style="color:#ae81ff">call/transaction does not exist 呼叫/事务不存在</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">482</span> <span style="color:#ae81ff">loop detected 发现环路</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">483</span> <span style="color:#ae81ff">too many hops 跳数太多</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">484</span> <span style="color:#ae81ff">address incomplete 地址不完整</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">485</span> <span style="color:#ae81ff">ambiguous 不明朗</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">486</span> <span style="color:#ae81ff">busy here 这里忙</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">487</span> <span style="color:#ae81ff">request terminated 请求终止</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">488</span> <span style="color:#ae81ff">not acceptable here 这里请求不可接受</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">491</span> <span style="color:#ae81ff">request pending 未决请求</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">493</span> <span style="color:#ae81ff">undecipherable 不可辨识</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span><span style="color:#ae81ff">. 服务器失败(5XX)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">500</span> <span style="color:#ae81ff">server internal error 服务器内部错误</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">501</span> <span style="color:#ae81ff">not implemented 不可执行</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">502</span> <span style="color:#ae81ff">bad gateway 坏网关</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">503</span> <span style="color:#ae81ff">service unavailable 服务无效</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">504</span> <span style="color:#ae81ff">server time-out 服务器超时</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">505</span> <span style="color:#ae81ff">version not supported 版本不支持</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">513</span> <span style="color:#ae81ff">message too large 消息太大</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span><span style="color:#ae81ff">. 全局性错误(6XX)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">600</span> <span style="color:#ae81ff">busy everywhere 全忙</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">603</span> <span style="color:#ae81ff">decline 丢弃</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">604</span> <span style="color:#ae81ff">does not exist anywhere 不存在</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">606</span> <span style="color:#ae81ff">not acceptable 不可接受</span>
+</span></span></code></pre></div>
+    </section>
+</article>
+<section class="read-more">
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">Recent</span>
+        <h2 class="post-list__post-title post-title"><a href="/post/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/" title="link to K8s离线部署">K8s离线部署</a></h2>
+        <p class="excerpt">一、前置准备 准备三台服务器，操作系统centos7.x
+硬件配置：CPU2核、内存2GB、硬盘30GB
+确保机器间网络互通，时钟同步，所需镜像及资源包下载链接：点击下载
+规划：
+节点名称 IP 安装组件 k8s-master 192.168.14.101 docker、etcd、kubelet、kube-proxy、kube-apiserver、kube-controller-manager、kube-scheduler k8s-node1 192.168.14.102 …&hellip;</p>
+        <div class="post-list__meta">
+            <time datetime=" 2023-05-06 10:08:02 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+            
+            <a class="btn-border-small" href="/post/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/">Continue</a>
+        </div>
+    </div>
+    
+
+
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">Earlier</span>
+        <h2 class="post-list__post-title post-title"><a href="/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/" title="link to Freeswitch 1.10.6的docker镜像构建">Freeswitch 1.10.6的docker镜像构建</a></h2>
+        <p class="excerpt">Dockerfile文件内容
+FROM debian:10-slim ENV TZ=Asia/Shanghai RUN apt-get update RUN apt-get install apt-transport-https ca-certificates -y RUN echo &#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian/ buster main contrib non-free&#34; &gt; …&hellip;</p>
+        <div class="post-list__meta">
+            <time datetime=" 2023-05-06 10:08:02 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+            
+            <a class="btn-border-small" href="/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/">Continue</a>
+        </div>
+    </div>
+    
+ </section>
+ 
+<section class="post-comments">
+    
+      <div id="disqus_thread"></div>
+      <script>
+      
+      var disqus_config = function () {
+          this.page.url = "https:\/\/zoehuawang.github.io\/post\/sip%E5%BA%94%E7%AD%94%E6%B6%88%E6%81%AF%E7%8A%B6%E6%80%81%E7%A0%81\/";
+          this.page.identifier = "https:\/\/zoehuawang.github.io\/post\/sip%E5%BA%94%E7%AD%94%E6%B6%88%E6%81%AF%E7%8A%B6%E6%80%81%E7%A0%81\/";
+      };
+  
+      var disqus_shortname = 'vno-hugo';
+      
+      (function() { 
+          var d = document, s = d.createElement('script');
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+          })();
+      </script>
+      <noscript>To view comments from<a href="http://disqus.com/?ref_noscript"> Disqus </a>, please enable JavaScript.</noscript>
+      
+    
+
+    
+    
+  </section>
+  
+
+        <section class="footer">
+    <footer>
+        <span class="footer__copyright">This site is licensed under a <a href="<no value>"><no value></a> license.</span>
+        <span class="footer__copyright">Generated by <a href="https://gohugo.io/">Hugo</a> at 2023-05-06, themed with <a href="https://github.com/xslingcn/vno-hugo"> Vno - Hugo</a>.</span>
+    </footer>
+</section>
+
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script><script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'your_ga_id', 'your_host');
+    ga('send', 'pageview');
+</script>
+
+  
+</body>
+

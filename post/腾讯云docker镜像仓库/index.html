@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<head>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
+
+    
+    
+    <title>腾讯云docker镜像仓库 - 烟花散尽不问繁华</title>
+    
+    
+    <meta name="author" content="zoehuawang" /> 
+     
+    
+    
+    <meta property="og:title" content="腾讯云docker镜像仓库" />
+<meta property="og:description" content="#登陆： docker login --username=100004240476 ccr.ccs.tencentyun.com 密码:wzh4*******6 #mysql镜像 #-e MYSQL_ROOT_PASSWORD=Aa123456 -v /home/test/conf:/etc/mysql/mysql.conf.d -v /home/mysql01/data:/var/lib/mysql docker pull ccr.ccs.tencentyun.com/zoehuawang/mysql:5.7 #-e MYSQL_ROOT_PASSWORD=Aa123456 -v /home/test/conf:/etc/mysql/conf.d -v /home/mysql01/data:/var/lib/mysql docker pull ccr.ccs.tencentyun.com/zoehuawang/mysql:8.0.26 #centos6.8镜像 docker pull ccr.ccs.tencentyun.com/zoehuawang/centos6.8 #centos7.4支持中文镜像，--privileged=true docker pull ccr.ccs.tencentyun.com/zoehuawang/centos:7.4chinese #python3.7镜像 docker pull ccr.ccs.tencentyun.com/zoehuawang/python:3.7 #最小化镜像 docker pull ccr.ccs.tencentyun.com/zoehuawang/python:3.7_all #基于centos镜像 #freeswitch1.10.6镜像 docker pull ccr.ccs.tencentyun.com/zoehuawang/freeswitch:1.10.6 #k8s集群部署etcd镜像 docker pull ccr.ccs.tencentyun.com/zoehuawang/etcd:v3.4.13 " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zoehuawang.github.io/post/%E8%85%BE%E8%AE%AF%E4%BA%91docker%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-05-06T10:19:27+08:00" />
+<meta property="article:modified_time" content="2023-05-06T10:19:27+08:00" />
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="腾讯云docker镜像仓库"/>
+<meta name="twitter:description" content="#登陆： docker login --username=100004240476 ccr.ccs.tencentyun.com 密码:wzh4*******6 #mysql镜像 #-e MYSQL_ROOT_PASSWORD=Aa123456 -v /home/test/conf:/etc/mysql/mysql.conf.d -v /home/mysql01/data:/var/lib/mysql docker pull ccr.ccs.tencentyun.com/zoehuawang/mysql:5.7 #-e MYSQL_ROOT_PASSWORD=Aa123456 -v /home/test/conf:/etc/mysql/conf.d -v /home/mysql01/data:/var/lib/mysql docker pull ccr.ccs.tencentyun.com/zoehuawang/mysql:8.0.26 #centos6.8镜像 docker pull ccr.ccs.tencentyun.com/zoehuawang/centos6.8 #centos7.4支持中文镜像，--privileged=true docker pull ccr.ccs.tencentyun.com/zoehuawang/centos:7.4chinese #python3.7镜像 docker pull ccr.ccs.tencentyun.com/zoehuawang/python:3.7 #最小化镜像 docker pull ccr.ccs.tencentyun.com/zoehuawang/python:3.7_all #基于centos镜像 #freeswitch1.10.6镜像 docker pull ccr.ccs.tencentyun.com/zoehuawang/freeswitch:1.10.6 #k8s集群部署etcd镜像 docker pull ccr.ccs.tencentyun.com/zoehuawang/etcd:v3.4.13 "/>
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqusjs.css" />
+    
+    
+
+    
+    
+    <link rel="stylesheet" href="https://zoehuawang.github.io/scss/main.min.3796779d99b798f0ae24d49c5a420db134eef2207610ed71453e417ce3ab44ed.css" integrity="sha256-N5Z3nZm3mPCuJNScWkINsTTu8iB2EO1xRT5BfOOrRO0=" crossorigin="anonymous" media="screen">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+  
+</head>
+<body>
+  <span class="mobile btn-mobile-menu">
+
+    <i class="fa fa-list btn-mobile-menu__icon"></i>
+    <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+
+  </span>
+
+  <header class="  panel-cover panel-cover--collapsed " style="background-image: url('/images/background-cover.jpg')">
+
+    <div class="panel-main">
+  
+      <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+  
+          <a href="/#blog" title="Homepage of 烟花散尽不问繁华 " class="blog-button"><img src="/images/avatar.jpg" width="80" alt="烟花散尽不问繁华 logo" class="panel-cover__logo logo" /></a>
+          <h1 class="panel-cover__title panel-title"><a href="/#blog" title="Homepage of 烟花散尽不问繁华" class="blog-button">烟花散尽不问繁华</a></h1>
+          
+          <span class="panel-cover__subtitle panel-subtitle">最好的等待，叫来日可期！</span>
+          
+          <hr class="panel-cover__divider" />
+          <p class="panel-cover__description"></p>
+          <hr class="panel-cover__divider panel-cover__divider--secondary" />
+          
+          
+          
+          <div class="navigation-wrapper">
+            <div>
+              <nav class="cover-navigation cover-navigation--primary">
+                <ul class="navigation">
+                  <li class="navigation__item"><a href="/#blog" title="Blog" class="blog-button">Blog</a></li>
+                  
+                    <li class="navigation__item"><a href="https://blog.zoehuawang.cn" target="_blank" title="Projects">Projects</a></li>
+                  
+                    <li class="navigation__item"><a href="/tags/" target="_blank" title="Tags">Tags</a></li>
+                  
+                </ul>
+              </nav>
+            </div>
+            
+            <div><nav class="cover-navigation navigation--social">
+    <ul class="navigation">
+  
+    
+  
+    
+    
+    
+
+    
+  
+    
+  
+    
+    <li class="navigation__item">
+      <a href="/index.xml" rel="author" title="RSS" target="_blank">
+        <i class='social fa fa-rss'></i>
+        <span class="label">RSS</span>
+      </a>
+    </li>
+  
+    
+  
+    </ul>
+  </nav>
+  </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      <div class="panel-cover--overlay cover-red"></div>
+      
+    </div>
+  </header>
+  
+
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner">
+
+        
+<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+    <header class="post-header">
+        <div class="post-meta">
+            <time datetime=" 2023-05-06 10:19:27 &#43;0800 " itemprop="datePublished" class="post-meta__date date">2023-05-06</time>
+            
+        </div>
+        <h1 class="post-title">腾讯云docker镜像仓库</h1>
+    </header>
+    <section class="post">
+        <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#登陆：</span>
+</span></span><span style="display:flex;"><span>docker login --username<span style="color:#f92672">=</span><span style="color:#ae81ff">100004240476</span> ccr.ccs.tencentyun.com
+</span></span><span style="display:flex;"><span>密码:wzh4*******6
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#mysql镜像</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-e MYSQL_ROOT_PASSWORD=Aa123456 -v /home/test/conf:/etc/mysql/mysql.conf.d -v /home/mysql01/data:/var/lib/mysql</span>
+</span></span><span style="display:flex;"><span>docker pull ccr.ccs.tencentyun.com/zoehuawang/mysql:5.7
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-e MYSQL_ROOT_PASSWORD=Aa123456 -v /home/test/conf:/etc/mysql/conf.d -v /home/mysql01/data:/var/lib/mysql</span>
+</span></span><span style="display:flex;"><span>docker pull ccr.ccs.tencentyun.com/zoehuawang/mysql:8.0.26
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#centos6.8镜像</span>
+</span></span><span style="display:flex;"><span>docker pull ccr.ccs.tencentyun.com/zoehuawang/centos6.8
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#centos7.4支持中文镜像，--privileged=true</span>
+</span></span><span style="display:flex;"><span>docker pull ccr.ccs.tencentyun.com/zoehuawang/centos:7.4chinese
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#python3.7镜像</span>
+</span></span><span style="display:flex;"><span>docker pull ccr.ccs.tencentyun.com/zoehuawang/python:3.7        <span style="color:#75715e">#最小化镜像</span>
+</span></span><span style="display:flex;"><span>docker pull ccr.ccs.tencentyun.com/zoehuawang/python:3.7_all    <span style="color:#75715e">#基于centos镜像    </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#freeswitch1.10.6镜像</span>
+</span></span><span style="display:flex;"><span>docker pull ccr.ccs.tencentyun.com/zoehuawang/freeswitch:1.10.6
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#k8s集群部署etcd镜像</span>
+</span></span><span style="display:flex;"><span>docker pull ccr.ccs.tencentyun.com/zoehuawang/etcd:v3.4.13
+</span></span></code></pre></div>
+    </section>
+</article>
+<section class="read-more">
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">Recent</span>
+        <h2 class="post-list__post-title post-title"><a href="/post/kafka/" title="link to Kafka">Kafka</a></h2>
+        <p class="excerpt">#kafka服务启动： ./kafka-server-start.sh ../config/server.properties #查看有哪些topic： ./kafka-topics.sh --list --zookeeper zk服务IP:2181 #创建topic： ./kafka-topics.sh --create --zookeeper zk服务IP:2181 --replication-factor 1 --partitions 1 --topic test1 #topic分区数修 …&hellip;</p>
+        <div class="post-list__meta">
+            <time datetime=" 2023-05-06 10:19:27 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+            
+            <a class="btn-border-small" href="/post/kafka/">Continue</a>
+        </div>
+    </div>
+    
+
+
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">Earlier</span>
+        <h2 class="post-list__post-title post-title"><a href="/post/%E9%93%B6%E8%A1%8C%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6/" title="link to 银行项目实现微信告警">银行项目实现微信告警</a></h2>
+        <p class="excerpt">背景说明 银行项目的服务器都是处于行方的内网环境中，运维的监控告警手段只有邮件和电话；每次收到邮件又没有很好的提醒效果，而电话告警方式播报告警内容的时候不够明确，且接听麻烦。因此可以增加微信告警方式（告警内容清晰明确且收到微信也能及时提醒）。虽然内网环境的服务器不能直接通过zabbix调用微信接口发送告警,但可以利用邮件与外网联通。具体做法就是把告警邮件发送给自己的邮箱，然后利用自己服务器通过python扫描邮件，一旦发现有新的告警邮件就通过企业微信接口发送消息到微信
+准备工作 1、去企业微信官 …&hellip;</p>
+        <div class="post-list__meta">
+            <time datetime=" 2023-05-06 10:19:27 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+            
+            <a class="btn-border-small" href="/post/%E9%93%B6%E8%A1%8C%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6/">Continue</a>
+        </div>
+    </div>
+    
+ </section>
+ 
+<section class="post-comments">
+    
+      <div id="disqus_thread"></div>
+      <script>
+      
+      var disqus_config = function () {
+          this.page.url = "https:\/\/zoehuawang.github.io\/post\/%E8%85%BE%E8%AE%AF%E4%BA%91docker%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93\/";
+          this.page.identifier = "https:\/\/zoehuawang.github.io\/post\/%E8%85%BE%E8%AE%AF%E4%BA%91docker%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93\/";
+      };
+  
+      var disqus_shortname = 'vno-hugo';
+      
+      (function() { 
+          var d = document, s = d.createElement('script');
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+          })();
+      </script>
+      <noscript>To view comments from<a href="http://disqus.com/?ref_noscript"> Disqus </a>, please enable JavaScript.</noscript>
+      
+    
+
+    
+    
+  </section>
+  
+
+        <section class="footer">
+    <footer>
+        <span class="footer__copyright">This site is licensed under a <a href="<no value>"><no value></a> license.</span>
+        <span class="footer__copyright">Generated by <a href="https://gohugo.io/">Hugo</a> at 2023-05-06, themed with <a href="https://github.com/xslingcn/vno-hugo"> Vno - Hugo</a>.</span>
+    </footer>
+</section>
+
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script><script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'your_ga_id', 'your_host');
+    ga('send', 'pageview');
+</script>
+
+  
+</body>
+

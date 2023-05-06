@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<head>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
+
+    
+    
+    <title>Linux&amp;Shell - 烟花散尽不问繁华</title>
+    
+    
+    <meta name="author" content="zoehuawang" /> 
+     
+    
+    
+    <meta property="og:title" content="Linux&amp;Shell" />
+<meta property="og:description" content="#home目录下所有文件更新时间距现在时刻大于120分钟的文件删除(-mtime -3 表示3天以内) find /home/* -mmin &#43;120 -exec rm -rf {} \; #home目录下所有文件创建时间距现在时刻大于120分钟的文件删除(-ctime -3 表示3天以内) find /home/* -cmin &#43;120 -exec rm -rf {} \; tar -zcf XXX.tar.gz XXX --remove-files #打包成tar包之后删除原文件 #替换jar内文件(包内要和包外的路径对应一致，不然会说没有这个文件) jar -uvf XXX.jar 包内文件 包外文件 #添加swap分区(创建swap文件、修改权限、设置交换空间、启用交换空间、开机自动挂载) dd if=/dev/zero of=/tmp/swap bs=1MB count=1024 chmod 0600 /tmp/swap mkswap /tmp/swap swapon /tmp/swap echo &#34;/tmp/swap swap swap defaults 0 0&#34; &gt;&gt; /etc/fstab #查看当前目录下各文件夹占用空间，深度1。（-h后面可以指定目录参数） du -h --max-depth=1 #查看目录下所有文件的大小并按照大小排序 du -sh * | sort -rh sort file1 file2 | uniq -u #去除两个文件重复部分 ln –s 源文件 目标文件 #软链接 ls --full-time filename #查看文件生成全部时间 ls -lR | grep &#34;^-&#34; | wc -l #查看当前目录下的文件数量（包含子目录中的文件） 注意：R，代表子目录 ls -l | grep &#34;^-&#34; | wc -l #查看当前目录下的文件数量（不包含子目录中的文件） ls -l | grep &#34;^d&#34; | wc -l #查看当前目录下的文件夹数量（不包含子目录中的目录），同上述理，如果需要查看子目录的，加上R #不解压筛选查看tar." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zoehuawang.github.io/post/linuxshell/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-05-06T09:42:42+08:00" />
+<meta property="article:modified_time" content="2023-05-06T09:42:42+08:00" />
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux&amp;Shell"/>
+<meta name="twitter:description" content="#home目录下所有文件更新时间距现在时刻大于120分钟的文件删除(-mtime -3 表示3天以内) find /home/* -mmin &#43;120 -exec rm -rf {} \; #home目录下所有文件创建时间距现在时刻大于120分钟的文件删除(-ctime -3 表示3天以内) find /home/* -cmin &#43;120 -exec rm -rf {} \; tar -zcf XXX.tar.gz XXX --remove-files #打包成tar包之后删除原文件 #替换jar内文件(包内要和包外的路径对应一致，不然会说没有这个文件) jar -uvf XXX.jar 包内文件 包外文件 #添加swap分区(创建swap文件、修改权限、设置交换空间、启用交换空间、开机自动挂载) dd if=/dev/zero of=/tmp/swap bs=1MB count=1024 chmod 0600 /tmp/swap mkswap /tmp/swap swapon /tmp/swap echo &#34;/tmp/swap swap swap defaults 0 0&#34; &gt;&gt; /etc/fstab #查看当前目录下各文件夹占用空间，深度1。（-h后面可以指定目录参数） du -h --max-depth=1 #查看目录下所有文件的大小并按照大小排序 du -sh * | sort -rh sort file1 file2 | uniq -u #去除两个文件重复部分 ln –s 源文件 目标文件 #软链接 ls --full-time filename #查看文件生成全部时间 ls -lR | grep &#34;^-&#34; | wc -l #查看当前目录下的文件数量（包含子目录中的文件） 注意：R，代表子目录 ls -l | grep &#34;^-&#34; | wc -l #查看当前目录下的文件数量（不包含子目录中的文件） ls -l | grep &#34;^d&#34; | wc -l #查看当前目录下的文件夹数量（不包含子目录中的目录），同上述理，如果需要查看子目录的，加上R #不解压筛选查看tar."/>
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqusjs.css" />
+    
+    
+
+    
+    
+    <link rel="stylesheet" href="https://zoehuawang.github.io/scss/main.min.3796779d99b798f0ae24d49c5a420db134eef2207610ed71453e417ce3ab44ed.css" integrity="sha256-N5Z3nZm3mPCuJNScWkINsTTu8iB2EO1xRT5BfOOrRO0=" crossorigin="anonymous" media="screen">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+  
+</head>
+<body>
+  <span class="mobile btn-mobile-menu">
+
+    <i class="fa fa-list btn-mobile-menu__icon"></i>
+    <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+
+  </span>
+
+  <header class="  panel-cover panel-cover--collapsed " style="background-image: url('/images/background-cover.jpg')">
+
+    <div class="panel-main">
+  
+      <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+  
+          <a href="/#blog" title="Homepage of 烟花散尽不问繁华 " class="blog-button"><img src="/images/avatar.jpg" width="80" alt="烟花散尽不问繁华 logo" class="panel-cover__logo logo" /></a>
+          <h1 class="panel-cover__title panel-title"><a href="/#blog" title="Homepage of 烟花散尽不问繁华" class="blog-button">烟花散尽不问繁华</a></h1>
+          
+          <span class="panel-cover__subtitle panel-subtitle">最好的等待，叫来日可期！</span>
+          
+          <hr class="panel-cover__divider" />
+          <p class="panel-cover__description"></p>
+          <hr class="panel-cover__divider panel-cover__divider--secondary" />
+          
+          
+          
+          <div class="navigation-wrapper">
+            <div>
+              <nav class="cover-navigation cover-navigation--primary">
+                <ul class="navigation">
+                  <li class="navigation__item"><a href="/#blog" title="Blog" class="blog-button">Blog</a></li>
+                  
+                    <li class="navigation__item"><a href="https://blog.zoehuawang.cn" target="_blank" title="Projects">Projects</a></li>
+                  
+                    <li class="navigation__item"><a href="/tags/" target="_blank" title="Tags">Tags</a></li>
+                  
+                </ul>
+              </nav>
+            </div>
+            
+            <div><nav class="cover-navigation navigation--social">
+    <ul class="navigation">
+  
+    
+  
+    
+    
+    
+
+    
+  
+    
+  
+    
+    <li class="navigation__item">
+      <a href="/index.xml" rel="author" title="RSS" target="_blank">
+        <i class='social fa fa-rss'></i>
+        <span class="label">RSS</span>
+      </a>
+    </li>
+  
+    
+  
+    </ul>
+  </nav>
+  </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      <div class="panel-cover--overlay cover-red"></div>
+      
+    </div>
+  </header>
+  
+
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner">
+
+        
+<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+    <header class="post-header">
+        <div class="post-meta">
+            <time datetime=" 2023-05-06 09:42:42 &#43;0800 " itemprop="datePublished" class="post-meta__date date">2023-05-06</time>
+            
+        </div>
+        <h1 class="post-title">Linux&amp;Shell</h1>
+    </header>
+    <section class="post">
+        <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e">#home目录下所有文件更新时间距现在时刻大于120分钟的文件删除(-mtime -3 表示3天以内)</span>
+</span></span><span style="display:flex;"><span>find /home/* -mmin +120 -exec rm -rf <span style="color:#f92672">{}</span> <span style="color:#ae81ff">\;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#home目录下所有文件创建时间距现在时刻大于120分钟的文件删除(-ctime -3 表示3天以内)</span>
+</span></span><span style="display:flex;"><span>find /home/* -cmin +120 -exec rm -rf <span style="color:#f92672">{}</span> <span style="color:#ae81ff">\;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tar -zcf XXX.tar.gz XXX --remove-files    <span style="color:#75715e">#打包成tar包之后删除原文件</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#替换jar内文件(包内要和包外的路径对应一致，不然会说没有这个文件)</span>
+</span></span><span style="display:flex;"><span>jar -uvf XXX.jar 包内文件 包外文件
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#添加swap分区(创建swap文件、修改权限、设置交换空间、启用交换空间、开机自动挂载)</span>
+</span></span><span style="display:flex;"><span>dd <span style="color:#66d9ef">if</span><span style="color:#f92672">=</span>/dev/zero of<span style="color:#f92672">=</span>/tmp/swap bs<span style="color:#f92672">=</span>1MB count<span style="color:#f92672">=</span><span style="color:#ae81ff">1024</span>
+</span></span><span style="display:flex;"><span>chmod <span style="color:#ae81ff">0600</span> /tmp/swap
+</span></span><span style="display:flex;"><span>mkswap /tmp/swap
+</span></span><span style="display:flex;"><span>swapon /tmp/swap
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;/tmp/swap swap swap defaults 0 0&#34;</span> &gt;&gt; /etc/fstab
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#查看当前目录下各文件夹占用空间，深度1。（-h后面可以指定目录参数）</span>
+</span></span><span style="display:flex;"><span>du -h --max-depth<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#查看目录下所有文件的大小并按照大小排序</span>
+</span></span><span style="display:flex;"><span>du -sh * | sort -rh
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sort file1 file2 | uniq -u    <span style="color:#75715e">#去除两个文件重复部分</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ln –s 源文件 目标文件        <span style="color:#75715e">#软链接</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ls --full-time filename      <span style="color:#75715e">#查看文件生成全部时间</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ls -lR | grep <span style="color:#e6db74">&#34;^-&#34;</span> | wc -l    <span style="color:#75715e">#查看当前目录下的文件数量（包含子目录中的文件） 注意：R，代表子目录</span>
+</span></span><span style="display:flex;"><span>ls -l | grep <span style="color:#e6db74">&#34;^-&#34;</span> | wc -l     <span style="color:#75715e">#查看当前目录下的文件数量（不包含子目录中的文件）</span>
+</span></span><span style="display:flex;"><span>ls -l | grep <span style="color:#e6db74">&#34;^d&#34;</span> | wc -l     <span style="color:#75715e">#查看当前目录下的文件夹数量（不包含子目录中的目录），同上述理，如果需要查看子目录的，加上R</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#不解压筛选查看tar.gz包(或zgrep --binary-files=text &#34;Read time out&#34; X.tar.gz)</span>
+</span></span><span style="display:flex;"><span>zcat XXX.tar.gz | grep --binary-files<span style="color:#f92672">=</span>text <span style="color:#e6db74">&#34;Read time out&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#抓包命令</span>
+</span></span><span style="display:flex;"><span>tcpdump -s <span style="color:#ae81ff">0</span> -iany host 127.0.0.1 -XNnn        <span style="color:#75715e"># -s 0表示包不截断，抓完整的数据包</span>
+</span></span><span style="display:flex;"><span>tcpdump -s <span style="color:#ae81ff">0</span> -iany port <span style="color:#ae81ff">80</span> -XNnn
+</span></span><span style="display:flex;"><span>tcpdump -s <span style="color:#ae81ff">0</span> -i eth0 icmp
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#nc端口测试,-u UDP端口(不指定默认为TCP)</span>
+</span></span><span style="display:flex;"><span>nc -lu <span style="color:#ae81ff">20682</span>                              <span style="color:#75715e">#-l 开启监听模式</span>
+</span></span><span style="display:flex;"><span>nc -u 192.168.7.51 <span style="color:#ae81ff">20682</span>                  <span style="color:#75715e">#与对端192.168.7.51可以交互</span>
+</span></span><span style="display:flex;"><span>nc -uvz 192.168.7.51 <span style="color:#ae81ff">20682</span>                <span style="color:#75715e">#检测udp端口20862是否可通  </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#mysql查询结果以utf8编码导出到txt文件</span>
+</span></span><span style="display:flex;"><span>mysql -h 127.0.0.1 -u用户名 -p密码 --default-character-set<span style="color:#f92672">=</span>utf8 -e <span style="color:#e6db74">&#34;sql语句&#34;</span> &gt; tt.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#/home/oracle/下存放连接mysql的用户名密码文件.my.cnf，然后以安全方式连接mysql</span>
+</span></span><span style="display:flex;"><span>HOME<span style="color:#f92672">=</span>/home/oracle mysql -e <span style="color:#e6db74">&#34;sql语句&#34;</span>  或 mysql --defaults-file<span style="color:#f92672">=</span>/home/oracle
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#判断$var变量是否有值(有)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$var<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>;<span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#xargs 用作替换工具，读取输入数据重新格式化后输出</span>
+</span></span><span style="display:flex;"><span>|xargs -i -t    <span style="color:#75715e">#-t 表示先打印命令，然后再执行；-i 一般是一行一行赋值给 {}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Linux下清除文件系统缓存</span>
+</span></span><span style="display:flex;"><span>1、sync
+</span></span><span style="display:flex;"><span>2、echo <span style="color:#ae81ff">3</span> &gt; /proc/sys/vm/drop_caches  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#修改max_user_watches值的方法，直接修改文件/proc/sys/fs/inotify/max_user_watches或</span>
+</span></span><span style="display:flex;"><span>sysctl -w fs.inotify.max_user_watches<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;99999999&#34;</span>
+</span></span><span style="display:flex;"><span>sysctl -p
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#D的状态一般是I/O出现了问题，说明进程在等待I/O，可以是磁盘I/O，网络I/O或者其他</span>
+</span></span><span style="display:flex;"><span>ps -eo state,pid,cmd | grep <span style="color:#e6db74">&#34;^D&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#大文件分割，test_line_、test_size_为新文件的前缀</span>
+</span></span><span style="display:flex;"><span>split -l <span style="color:#ae81ff">5</span> large.txt test_line_      <span style="color:#75715e">#指定行数分割</span>
+</span></span><span style="display:flex;"><span>split -b 10k large.txt test_size_    <span style="color:#75715e">#指定大小分割</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#查看哪个安装包包含该库：</span>
+</span></span><span style="display:flex;"><span>yum provides 库名
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#yum只下载不安装并指定包存放路径</span>
+</span></span><span style="display:flex;"><span>yum install --downloadonly --downloaddir<span style="color:#f92672">=</span>/tmp &lt;package-name&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#inode使用率过高解决办法</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i in /*;<span style="color:#66d9ef">do</span> echo $i;find $i | wc -l;<span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#调整swappiness参数来设置内存使用多少后开始使用swap分区</span>
+</span></span><span style="display:flex;"><span>vim /etc/sysctl.conf 添加 vm.swappiness <span style="color:#f92672">=</span> <span style="color:#ae81ff">40</span> ,然后sysctl -p生效
+</span></span><span style="display:flex;"><span>cat /proc/sys/vm/swappiness 值为40，表示使用到 100-40<span style="color:#f92672">=</span>60% 的时候开始swap分区的使用
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#打印出当前进程详细的情况，其中，内存是VmRSS</span>
+</span></span><span style="display:flex;"><span>cat /proc/<span style="color:#f92672">[</span>pid<span style="color:#f92672">]</span>/status
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ping命令结果后面添加时间</span>
+</span></span><span style="display:flex;"><span>ping www.baidu.com | awk <span style="color:#e6db74">&#39;{print $0&#34;\t&#34; strftime(&#34;%Y-%m-%d %H:%M:%S&#34;,systime());fflush()}&#39;</span> &gt; ping.log
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#对于所有3306端口的TCP访问，一律转发到 192.168.7.51:3306 上</span>
+</span></span><span style="display:flex;"><span>socat -d -d -lf /var/log/socat.log TCP4-LISTEN:3306,bind<span style="color:#f92672">=</span>0.0.0.0,reuseaddr,fork TCP4:192.168.7.51:3306
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#检测http状态</span>
+</span></span><span style="display:flex;"><span>curl -I -m <span style="color:#ae81ff">10</span> -o /dev/null -s -w %<span style="color:#f92672">{</span>http_code<span style="color:#f92672">}</span> www.baidu.com
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#查看证书有效期</span>
+</span></span><span style="display:flex;"><span>openssl x509 -in /tmp/test.pem -noout -dates
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#rsync减少主服务器的io占用,启动时设置降低IO使用</span>
+</span></span><span style="display:flex;"><span>ionice -c <span style="color:#ae81ff">2</span> -n <span style="color:#ae81ff">7</span> rsync --daemon
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#rsync同步目录，test目录后面有 &#34;/&#34;,表示test这个目录下面的所有内容同步到目标目录dest_test下面</span>
+</span></span><span style="display:flex;"><span>rsync -avH --progress --password-file<span style="color:#f92672">=</span>/etc/rsyncd.passwd /home/test/ abc@192.168.1.10::bak/dest_test
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#rsync同步目录，test目录后面没有 &#34;/&#34;,表示test这个目录本身同步到目标目录dest_test下面</span>
+</span></span><span style="display:flex;"><span>rsync -avH --progress --password-file<span style="color:#f92672">=</span>/etc/rsyncd.passwd /home/test abc@192.168.1.10::bak/dest_test
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#非LVM方式扩容根目录文件系统</span>
+</span></span><span style="display:flex;"><span>fdisk /dev/sda
+</span></span><span style="display:flex;"><span>输入: p （便于记住起始和结束扇区）
+</span></span><span style="display:flex;"><span>输入: d  <span style="color:#f92672">(</span>千万不能保存<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>输入: n  <span style="color:#f92672">(</span>重新创建起始和结束扇区<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>输入: p  <span style="color:#f92672">(</span>查看<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>输入: w  <span style="color:#f92672">(</span>保存<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>重启机器
+</span></span><span style="display:flex;"><span>刷新根分区（使用 resize2fs或xfs_growfs）
+</span></span></code></pre></div><ul>
+<li>shell脚本字符串截取的8种方法</li>
+</ul>
+<pre tabindex="0"><code>#  假设有变量 var=http://www.aaa.com/123.htm.
+
+#  1. # 号截取，删除左边字符，保留右边字符。**
+echo ${var#*``//}
+#  其中 var 是变量名，# 号是运算符，*// 表示从左边开始删除第一个 // 号及左边的所有字符
+#  即删除 http://
+#  结果是 ：www.aaa.com/123.htm
+
+#  2. ## 号截取，删除左边字符，保留右边字符。**
+echo ${var##*/}
+#  \##*/ 表示从左边开始删除最后（最右边）一个 / 号及左边的所有字符
+#  即删除 http://www.aaa.com/
+#  结果是 123.htm
+
+#  3. %号截取，删除右边字符，保留左边字符**
+echo ${var%/*}
+#  %/* 表示从右边开始，删除第一个 / 号及右边的字符
+#  结果是：http://www.aaa.com
+
+#  4. %% 号截取，删除右边字符，保留左边字符**
+echo ${var%%/*}
+#  %%/* 表示从右边开始，删除最后（最左边）一个 / 号及右边的字符
+#  结果是：http:
+
+#  5. 从左边第几个字符开始，及字符的个数**
+echo ${var:0:5}
+#  其中的 0 表示左边第一个字符开始，5 表示字符的总个数。
+#  结果是：http:
+
+#  6. 从左边第几个字符开始，一直到结束。**
+echo ${var:7}
+#  其中的 7 表示左边第8个字符开始，一直到结束。
+#  结果是 ：www.aaa.com/123.htm
+
+#  7. 从右边第几个字符开始，及字符的个数**
+echo ${var:0-7:3}
+#  其中的 0-7 表示右边算起第七个字符开始，3 表示字符的个数。
+#  结果是：123
+
+#  8. 从右边第几个字符开始，一直到结束。**
+echo ${var:0-7}
+#  表示从右边第七个字符开始，一直到结束。
+#  结果是：123.htm
+#  注：（左边的第一个字符是用 0 表示，右边的第一个字符用 0-1 表示）
+</code></pre><ul>
+<li>AWK</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e">#awk打印除某些列之外的所有列：</span>
+</span></span><span style="display:flex;"><span>awk <span style="color:#e6db74">&#39;{ $3=&#34;&#34;;$4=&#34;&#34;; print $0 }&#39;</span> a.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#awk修改指定列的内容(以逗号分割)：</span>
+</span></span><span style="display:flex;"><span>awk  <span style="color:#e6db74">&#39;BEGIN{FS=OFS=&#34;,&#34;} {if ($4==1700870) $4=1700888}1&#39;</span>  test.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#默认每行按空格或TAB分割：</span>
+</span></span><span style="display:flex;"><span>awk <span style="color:#e6db74">&#39;{print $1,$4}&#39;</span> log.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-F,指定分割字符：</span>
+</span></span><span style="display:flex;"><span>awk -F : <span style="color:#e6db74">&#39;{print $1,$4}&#39;</span> log.txt
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#指定多个分割字符,先用:分割,然后再用,分割：</span>
+</span></span><span style="display:flex;"><span>awk -F <span style="color:#e6db74">&#39;[:,]&#39;</span> <span style="color:#e6db74">&#39;{print $1,$4}&#39;</span> log.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-v,指定变量：</span>
+</span></span><span style="display:flex;"><span>awk -v a<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> -v b<span style="color:#f92672">=</span>s <span style="color:#e6db74">&#39;{print $1,$1+a,$1b}&#39;</span> log.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#-f,调用awk脚本：</span>
+</span></span><span style="display:flex;"><span>awk -f script.awk log.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#纯字符匹配，//：</span>
+</span></span><span style="display:flex;"><span>awk <span style="color:#e6db74">&#39;/dockerroot/&#39;</span> /etc/passwd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#纯字符不匹配，!//：</span>
+</span></span><span style="display:flex;"><span>awk <span style="color:#e6db74">&#39;!/dockerroot/&#39;</span> /etc/passwd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#匹配a1或a2，/|/：</span>
+</span></span><span style="display:flex;"><span>awk <span style="color:#e6db74">&#39;!/a1|a2/&#39;</span> /etc/passwd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#字段值匹配，~//：</span>
+</span></span><span style="display:flex;"><span>awk <span style="color:#e6db74">&#39;$1~/root/&#39;</span> /etc/passwd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#字段值不匹配，!~//：</span>
+</span></span><span style="display:flex;"><span>awk -F : <span style="color:#e6db74">&#39;$1!~/root/&#39;</span> /etc/passwd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#IF语句,必须用在{}中，且比较内容用()扩起来if...else...：</span>
+</span></span><span style="display:flex;"><span>awk -F: <span style="color:#e6db74">&#39;{if($1~/root/) {print $1} else {print $2}}&#39;</span> /etc/passwd            
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#while语句：</span>
+</span></span><span style="display:flex;"><span>awk -F: <span style="color:#e6db74">&#39;BEGIN{i=1} {while(i&lt;8) print $i,i++}&#39;</span> /etc/passwd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#逻辑运算符：&amp;&amp;?|| </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#条件表达式：==   !=   &gt;   &gt;=  </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#NF、NR：NF代表每行字段数，NR代表行号```</span>
+</span></span></code></pre></div>
+    </section>
+</article>
+<section class="read-more">
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">Recent</span>
+        <h2 class="post-list__post-title post-title"><a href="/post/kubernetes/" title="link to Kubernetes">Kubernetes</a></h2>
+        <p class="excerpt"> 命令收集 #设置节点roles名(master、node) kubectl label node k8s-node1 node-role.kubernetes.io/master= kubectl label node k8s-node2 node-role.kubernetes.io/node= #1、设置节点不可调度、可调度 kubectl cordon k8s-node-1 #不可调度 kubectl uncordon k8s-node-1 #取消不可调度 #2、 …&hellip;</p>
+        <div class="post-list__meta">
+            <time datetime=" 2023-05-06 09:42:42 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+            
+            <a class="btn-border-small" href="/post/kubernetes/">Continue</a>
+        </div>
+    </div>
+    
+
+
+    
+ </section>
+ 
+<section class="post-comments">
+    
+      <div id="disqus_thread"></div>
+      <script>
+      
+      var disqus_config = function () {
+          this.page.url = "https:\/\/zoehuawang.github.io\/post\/linuxshell\/";
+          this.page.identifier = "https:\/\/zoehuawang.github.io\/post\/linuxshell\/";
+      };
+  
+      var disqus_shortname = 'vno-hugo';
+      
+      (function() { 
+          var d = document, s = d.createElement('script');
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+          })();
+      </script>
+      <noscript>To view comments from<a href="http://disqus.com/?ref_noscript"> Disqus </a>, please enable JavaScript.</noscript>
+      
+    
+
+    
+    
+  </section>
+  
+
+        <section class="footer">
+    <footer>
+        <span class="footer__copyright">This site is licensed under a <a href="<no value>"><no value></a> license.</span>
+        <span class="footer__copyright">Generated by <a href="https://gohugo.io/">Hugo</a> at 2023-05-06, themed with <a href="https://github.com/xslingcn/vno-hugo"> Vno - Hugo</a>.</span>
+    </footer>
+</section>
+
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script><script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'your_ga_id', 'your_host');
+    ga('send', 'pageview');
+</script>
+
+  
+</body>
+

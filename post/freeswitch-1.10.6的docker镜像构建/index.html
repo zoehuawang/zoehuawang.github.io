@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<head>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
+
+    
+    
+    <title>Freeswitch 1.10.6的docker镜像构建 - 烟花散尽不问繁华</title>
+    
+    
+    <meta name="author" content="zoehuawang" /> 
+     
+    
+    
+    <meta property="og:title" content="Freeswitch 1.10.6的docker镜像构建" />
+<meta property="og:description" content="Dockerfile文件内容
+FROM debian:10-slim ENV TZ=Asia/Shanghai RUN apt-get update RUN apt-get install apt-transport-https ca-certificates -y RUN echo &#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian/ buster main contrib non-free&#34; &gt; /etc/apt/sources.list RUN echo &#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian/ buster-updates main contrib non-free&#34; &gt;&gt; /etc/apt/sources.list RUN echo &#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian/ buster-backports main contrib non-free&#34; &gt;&gt; /etc/apt/sources.list RUN echo &#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian-security buster/updates main contrib non-free&#34; &gt;&gt; /etc/apt/sources.list RUN apt-get update RUN apt-get install gcc g&#43;&#43; autoconf automake make libtool libtool-bin pkg-config \ sngrep uuid-dev libtiff-dev libsqlite3-dev libcurl4-openssl-dev \ libpcre3-dev libspeex-dev libedit-dev libcurl4-openssl-dev libshout3-dev \ libavformat-dev libswscale-dev \ libspeexdsp-dev libssl-dev yasm liblua5." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zoehuawang.github.io/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-05-06T10:06:59+08:00" />
+<meta property="article:modified_time" content="2023-05-06T10:06:59+08:00" />
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Freeswitch 1.10.6的docker镜像构建"/>
+<meta name="twitter:description" content="Dockerfile文件内容
+FROM debian:10-slim ENV TZ=Asia/Shanghai RUN apt-get update RUN apt-get install apt-transport-https ca-certificates -y RUN echo &#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian/ buster main contrib non-free&#34; &gt; /etc/apt/sources.list RUN echo &#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian/ buster-updates main contrib non-free&#34; &gt;&gt; /etc/apt/sources.list RUN echo &#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian/ buster-backports main contrib non-free&#34; &gt;&gt; /etc/apt/sources.list RUN echo &#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian-security buster/updates main contrib non-free&#34; &gt;&gt; /etc/apt/sources.list RUN apt-get update RUN apt-get install gcc g&#43;&#43; autoconf automake make libtool libtool-bin pkg-config \ sngrep uuid-dev libtiff-dev libsqlite3-dev libcurl4-openssl-dev \ libpcre3-dev libspeex-dev libedit-dev libcurl4-openssl-dev libshout3-dev \ libavformat-dev libswscale-dev \ libspeexdsp-dev libssl-dev yasm liblua5."/>
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqusjs.css" />
+    
+    
+
+    
+    
+    <link rel="stylesheet" href="https://zoehuawang.github.io/scss/main.min.3796779d99b798f0ae24d49c5a420db134eef2207610ed71453e417ce3ab44ed.css" integrity="sha256-N5Z3nZm3mPCuJNScWkINsTTu8iB2EO1xRT5BfOOrRO0=" crossorigin="anonymous" media="screen">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+  
+</head>
+<body>
+  <span class="mobile btn-mobile-menu">
+
+    <i class="fa fa-list btn-mobile-menu__icon"></i>
+    <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+
+  </span>
+
+  <header class="  panel-cover panel-cover--collapsed " style="background-image: url('/images/background-cover.jpg')">
+
+    <div class="panel-main">
+  
+      <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+  
+          <a href="/#blog" title="Homepage of 烟花散尽不问繁华 " class="blog-button"><img src="/images/avatar.jpg" width="80" alt="烟花散尽不问繁华 logo" class="panel-cover__logo logo" /></a>
+          <h1 class="panel-cover__title panel-title"><a href="/#blog" title="Homepage of 烟花散尽不问繁华" class="blog-button">烟花散尽不问繁华</a></h1>
+          
+          <span class="panel-cover__subtitle panel-subtitle">最好的等待，叫来日可期！</span>
+          
+          <hr class="panel-cover__divider" />
+          <p class="panel-cover__description"></p>
+          <hr class="panel-cover__divider panel-cover__divider--secondary" />
+          
+          
+          
+          <div class="navigation-wrapper">
+            <div>
+              <nav class="cover-navigation cover-navigation--primary">
+                <ul class="navigation">
+                  <li class="navigation__item"><a href="/#blog" title="Blog" class="blog-button">Blog</a></li>
+                  
+                    <li class="navigation__item"><a href="https://blog.zoehuawang.cn" target="_blank" title="Projects">Projects</a></li>
+                  
+                    <li class="navigation__item"><a href="/tags/" target="_blank" title="Tags">Tags</a></li>
+                  
+                </ul>
+              </nav>
+            </div>
+            
+            <div><nav class="cover-navigation navigation--social">
+    <ul class="navigation">
+  
+    
+  
+    
+    
+    
+
+    
+  
+    
+  
+    
+    <li class="navigation__item">
+      <a href="/index.xml" rel="author" title="RSS" target="_blank">
+        <i class='social fa fa-rss'></i>
+        <span class="label">RSS</span>
+      </a>
+    </li>
+  
+    
+  
+    </ul>
+  </nav>
+  </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      <div class="panel-cover--overlay cover-red"></div>
+      
+    </div>
+  </header>
+  
+
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner">
+
+        
+<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+    <header class="post-header">
+        <div class="post-meta">
+            <time datetime=" 2023-05-06 10:06:59 &#43;0800 " itemprop="datePublished" class="post-meta__date date">2023-05-06</time>
+            
+        </div>
+        <h1 class="post-title">Freeswitch 1.10.6的docker镜像构建</h1>
+    </header>
+    <section class="post">
+        <p>Dockerfile文件内容</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#ae81ff">FROM debian:10-slim</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">ENV TZ=Asia/Shanghai</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">RUN apt-get update</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">RUN apt-get install apt-transport-https ca-certificates -y</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">RUN echo &#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian/ buster main contrib non-free&#34; &gt; /etc/apt/sources.list</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">RUN echo &#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian/ buster-updates main contrib non-free&#34; &gt;&gt; /etc/apt/sources.list</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">RUN echo &#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian/ buster-backports main contrib non-free&#34; &gt;&gt; /etc/apt/sources.list</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">RUN echo &#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian-security buster/updates main contrib non-free&#34; &gt;&gt; /etc/apt/sources.list</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">RUN apt-get update</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">RUN apt-get install gcc g++ autoconf automake make libtool libtool-bin pkg-config \</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">sngrep uuid-dev libtiff-dev libsqlite3-dev libcurl4-openssl-dev \</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">libpcre3-dev libspeex-dev libedit-dev libcurl4-openssl-dev libshout3-dev \</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">libavformat-dev libswscale-dev \</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">libspeexdsp-dev libssl-dev yasm liblua5.1-0-dev libopus-dev libmpg123-dev \</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">libmp3lame-dev libsndfile1-dev git -y --no-install-recommends \</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&amp;&amp;</span> <span style="color:#ae81ff">rm -rf /var/lib/apt/lists/*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">RUN cd /usr/local/ \</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&amp;&amp;</span> <span style="color:#ae81ff">git clone https://gitee.com/zoewang/spandsp.git \</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&amp;&amp;</span> <span style="color:#ae81ff">git clone https://gitee.com/zoewang/sofia-sip.git \</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&amp;&amp;</span> <span style="color:#ae81ff">git clone https://gitee.com/zoewang/freeswitch.git freeswitch-1.10.6</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">RUN cd /usr/local/spandsp/ \</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&amp;&amp;</span> <span style="color:#ae81ff">./bootstrap.sh -j &amp;&amp; ./configure &amp;&amp; make &amp;&amp; make install &amp;&amp; ldconfig</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">RUN cd /usr/local/sofia-sip/ \</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&amp;&amp;</span> <span style="color:#ae81ff">./bootstrap.sh -j &amp;&amp; ./configure.gnu &amp;&amp; make &amp;&amp; make install &amp;&amp; ldconfig</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">COPY modules.conf /usr/local/freeswitch-1.10.6</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">WORKDIR /usr/local/freeswitch-1.10.6</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">RUN ./bootstrap.sh</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">RUN ./configure --disable-dependency-tracking</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">RUN make &amp;&amp; make install</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">RUN rm -rf /etc/localtime \</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&amp;&amp;</span> <span style="color:#ae81ff">ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&amp;&amp;</span> <span style="color:#ae81ff">echo &#39;export PATH=&#34;/usr/local/freeswitch/bin:$PATH&#34;&#39; &gt;&gt; /root/.bashrc</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">ENTRYPOINT [&#34;/usr/local/freeswitch/bin/freeswitch&#34;,&#34;-c&#34;,&#34;-nonat&#34;]</span>
+</span></span></code></pre></div><p>modules.conf文件内容</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_abstraction</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_avmd</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">applications/mod_av</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_bert</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_blacklist</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_callcenter</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_cidlookup</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_cluechoo</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">applications/mod_commands</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">applications/mod_conference</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_curl</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">applications/mod_db</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_directory</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">applications/mod_distributor</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">applications/mod_dptools</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_easyroute</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_enum</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">applications/mod_esf</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_esl</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">applications/mod_expr</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">applications/mod_fifo</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_fsk</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">applications/mod_fsv</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">applications/mod_hash</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">applications/mod_httapi</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_http_cache</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_ladspa</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_lcr</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_memcache</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_mongo</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_mp4</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_nibblebill</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_oreka</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_osp</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_prefix</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_rad_auth</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_redis</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_rss</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_sonar</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">applications/mod_sms</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_snapshot</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_snipe_hunt</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_snom</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_soundtouch</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">applications/mod_spandsp</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_spy</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_stress</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_translate</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">applications/mod_valet_parking</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_vmd</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">applications/mod_voicemail</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_voicemail_ivr</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#applications/mod_random</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#asr_tts/mod_cepstral</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#asr_tts/mod_flite</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#asr_tts/mod_pocketsphinx</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#asr_tts/mod_tts_commandline</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">asr_tts/mod_unimrcp</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">codecs/mod_amr</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#codecs/mod_amrwb</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#codecs/mod_bv</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#codecs/mod_b64</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#codecs/mod_celt</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#codecs/mod_codec2</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#codecs/mod_com_g729</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#codecs/mod_dahdi_codec</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">codecs/mod_g723_1</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">codecs/mod_g729</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">codecs/mod_h26x</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">codecs/mod_vp8</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#codecs/mod_ilbc</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#codecs/mod_isac</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#codecs/mod_mp4v</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">codecs/mod_opus</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#codecs/mod_sangoma_codec</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#codecs/mod_silk</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#codecs/mod_siren</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#codecs/mod_theora</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">dialplans/mod_dialplan_asterisk</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#dialplans/mod_dialplan_directory</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">dialplans/mod_dialplan_xml</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#directories/mod_ldap</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endpoints/mod_alsa</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endpoints/mod_dingaling</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endpoints/mod_gsmopen</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endpoints/mod_h323</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endpoints/mod_khomp</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">endpoints/mod_rtc</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">endpoints/mod_verto</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">endpoints/mod_loopback</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endpoints/mod_opal</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endpoints/mod_portaudio</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">endpoints/mod_rtmp</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">endpoints/mod_skinny</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endpoints/mod_skypopen</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">endpoints/mod_sofia</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endpoints/mod_unicall</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#event_handlers/mod_amqp</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#event_handlers/mod_cdr_csv</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#event_handlers/mod_cdr_mongodb</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#event_handlers/mod_cdr_pg_csv</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">event_handlers/mod_cdr_sqlite</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#event_handlers/mod_erlang_event</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#event_handlers/mod_event_multicast</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">event_handlers/mod_event_socket</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#event_handlers/mod_event_zmq</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#event_handlers/mod_format_cdr</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#event_handlers/mod_json_cdr</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#event_handlers/mod_radius_cdr</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#event_handlers/mod_odbc_cdr</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#event_handlers/mod_rayo</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#event_handlers/mod_snmp</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">formats/mod_local_stream</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">formats/mod_native_file</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#formats/mod_portaudio_stream</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#formats/mod_shell_stream</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">formats/mod_shout</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">formats/mod_sndfile</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#formats/mod_ssml</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">formats/mod_tone_stream</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">formats/mod_png</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#formats/mod_vlc</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#languages/mod_basic</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#languages/mod_java</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">languages/mod_lua</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#languages/mod_managed</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#languages/mod_perl</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#languages/mod_python</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#languages/mod_v8</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#languages/mod_yaml</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">loggers/mod_console</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#loggers/mod_graylog2</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">loggers/mod_logfile</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">loggers/mod_syslog</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#say/mod_say_de</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">say/mod_say_en</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#say/mod_say_es</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#say/mod_say_es_ar</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#say/mod_say_fa</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#say/mod_say_fr</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#say/mod_say_he</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#say/mod_say_hr</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#say/mod_say_hu</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#say/mod_say_it</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#say/mod_say_ja</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#say/mod_say_nl</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#say/mod_say_pl</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#say/mod_say_pt</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#say/mod_say_ru</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#say/mod_say_th</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#say/mod_say_zh</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#say/mod_say_sv</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#timers/mod_posix_timer</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#timers/mod_timerfd</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">xml_int/mod_xml_cdr</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">xml_int/mod_xml_curl</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#xml_int/mod_xml_ldap</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#xml_int/mod_xml_radius</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">xml_int/mod_xml_rpc</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">xml_int/mod_xml_scgi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#../../libs/freetdm/mod_freetdm</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Experimental Modules (don&#39;t cry if they&#39;re broken)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#../../contrib/mod/xml_int/mod_xml_odbc</span>
+</span></span></code></pre></div><p><strong>构建命令：</strong> docker build -t freeswitch:1.10.6 .</p>
+<p>Makefile文件内容</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># Makefile Version 1.2.0</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 路径映射</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># /usr/local/freeswitch/conf</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># /usr/local/freeswitch/sounds</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># /usr/local/freeswitch/scripts</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># /usr/local/freeswitch/log</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># /usr/local/freeswitch/recordings</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">init</span>:
+</span></span><span style="display:flex;"><span>        -<span style="color:#ae81ff">docker rm -f fs;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">docker run -d --network host \</span>
+</span></span><span style="display:flex;"><span>        --<span style="color:#ae81ff">name fs freeswitch:1.10.6</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">copy-conf</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">docker cp fs:/usr/local/freeswitch/conf ./</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">run</span>:
+</span></span><span style="display:flex;"><span>        -<span style="color:#ae81ff">docker rm -f fs;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">docker run -d --network host \</span>
+</span></span><span style="display:flex;"><span>        -<span style="color:#ae81ff">v $$PWD/conf:/usr/local/freeswitch/conf \</span>
+</span></span><span style="display:flex;"><span>        -<span style="color:#ae81ff">v $$PWD/log:/usr/local/freeswitch/log \</span>
+</span></span><span style="display:flex;"><span>        --<span style="color:#ae81ff">name fs freeswitch:1.10.6</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#fs_cli:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#        docker exec -it fs /usr/local/freeswitch/bin/fs_cli</span>
+</span></span></code></pre></div>
+    </section>
+</article>
+<section class="read-more">
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">Recent</span>
+        <h2 class="post-list__post-title post-title"><a href="/post/sip%E5%BA%94%E7%AD%94%E6%B6%88%E6%81%AF%E7%8A%B6%E6%80%81%E7%A0%81/" title="link to Sip应答消息状态码">Sip应答消息状态码</a></h2>
+        <p class="excerpt">1. 临时应答(1XX) 100 Trying 正在处理中 180 Ringing 振铃 181 call being forwarder 呼叫正在前向 182 queue 排队 183 session progress 会话进行 2. 会话成功(2XX) 200 OK 会话成功 3. 重定向(3XX) 300 multiple 多重选择 301 moved permanently 永久移动 302 moved temporaily 临时移动 305 use proxy 用户代理 380 …&hellip;</p>
+        <div class="post-list__meta">
+            <time datetime=" 2023-05-06 10:06:59 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+            
+            <a class="btn-border-small" href="/post/sip%E5%BA%94%E7%AD%94%E6%B6%88%E6%81%AF%E7%8A%B6%E6%80%81%E7%A0%81/">Continue</a>
+        </div>
+    </div>
+    
+
+
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">Earlier</span>
+        <h2 class="post-list__post-title post-title"><a href="/post/freeswitch-1.4.26%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" title="link to Freeswitch 1.4.26基本安装使用">Freeswitch 1.4.26基本安装使用</a></h2>
+        <p class="excerpt">#下载源码包 wget https://files.freeswitch.org/releases/freeswitch/freeswitch-1.4.26.tar.gz #安装依赖 yum install -y autoconf automake libtool gcc-c++ ncurses-devel make zlib-devel \ libjpeg-devel openssl-devel e2fsprogs-devel curl-devel pcre-devel speex-devel …&hellip;</p>
+        <div class="post-list__meta">
+            <time datetime=" 2023-05-06 10:06:59 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+            
+            <a class="btn-border-small" href="/post/freeswitch-1.4.26%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/">Continue</a>
+        </div>
+    </div>
+    
+ </section>
+ 
+<section class="post-comments">
+    
+      <div id="disqus_thread"></div>
+      <script>
+      
+      var disqus_config = function () {
+          this.page.url = "https:\/\/zoehuawang.github.io\/post\/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA\/";
+          this.page.identifier = "https:\/\/zoehuawang.github.io\/post\/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA\/";
+      };
+  
+      var disqus_shortname = 'vno-hugo';
+      
+      (function() { 
+          var d = document, s = d.createElement('script');
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+          })();
+      </script>
+      <noscript>To view comments from<a href="http://disqus.com/?ref_noscript"> Disqus </a>, please enable JavaScript.</noscript>
+      
+    
+
+    
+    
+  </section>
+  
+
+        <section class="footer">
+    <footer>
+        <span class="footer__copyright">This site is licensed under a <a href="<no value>"><no value></a> license.</span>
+        <span class="footer__copyright">Generated by <a href="https://gohugo.io/">Hugo</a> at 2023-05-06, themed with <a href="https://github.com/xslingcn/vno-hugo"> Vno - Hugo</a>.</span>
+    </footer>
+</section>
+
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script><script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'your_ga_id', 'your_host');
+    ga('send', 'pageview');
+</script>
+
+  
+</body>
+

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<head>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
+
+    
+    
+    <title>Docker - 烟花散尽不问繁华</title>
+    
+    
+    <meta name="author" content="zoehuawang" /> 
+     
+    
+    
+    <meta property="og:title" content="Docker" />
+<meta property="og:description" content="资源链接：http://www.rpmfind.net/linux/rpm2html/search.php?query=docker
+docker inspect CONTAINER_NAME #查看容器所有信息 docker container port CONTAINER_NAME #查看容器端口映射信息 docker logs CONTAINER_NAME #查看启动日志 容器启动自动执行~/.bashrc #内部取得root权限(centos7) 在docker run的时候加上--privileged=true参数，然后在最后面加上/usr/sbin/init。 #指定hostname --hostname &lt;hostname&gt; #指定网络，host模式，容器将不会获得一个独立的Network，和宿主机共享网络IP和端口 --network=host #修改hosts文件 在docker run的时候加上--add-host machine:ip #修改hosts文件 或在/etc/bashrc文件末尾添加 echo &#34;ip hostname&#34; &gt;&gt; /etc/hosts #windows添加永久静态路由 route add 10.10.0.0 mask 255.255.255.0 10.0.75.2 IF 接口号 route add 172.17.0.0 mask 255.255.255.0 10.0.75.2 IF 接口号 接口号通过 route -4 print 查看，最左边一列就是接口号 #夸宿主机与容器网路互通添加路由（宿主机IP为10.1.24.*） 主机1：route add -net 172.16.12.0/16 gw 10.1.24.225 主机2：route add -net 172.16.12.0/16 gw 10.1.24.223 如果要添加为永久路由：就在在/etc/rc.local里添加 #php容器中添加pdo_mysql扩展模块 docker-php-ext-install pdo_mysql #docker删除none标签镜像 docker images|grep none|awk &#39;{print $3 }&#39;|xargs docker rmi #docker容器指定固定ip 1、创建自定义网络 docker network create --driver bridge --subnet=172." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zoehuawang.github.io/post/docker/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-05-06T10:12:14+08:00" />
+<meta property="article:modified_time" content="2023-05-06T10:12:14+08:00" />
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Docker"/>
+<meta name="twitter:description" content="资源链接：http://www.rpmfind.net/linux/rpm2html/search.php?query=docker
+docker inspect CONTAINER_NAME #查看容器所有信息 docker container port CONTAINER_NAME #查看容器端口映射信息 docker logs CONTAINER_NAME #查看启动日志 容器启动自动执行~/.bashrc #内部取得root权限(centos7) 在docker run的时候加上--privileged=true参数，然后在最后面加上/usr/sbin/init。 #指定hostname --hostname &lt;hostname&gt; #指定网络，host模式，容器将不会获得一个独立的Network，和宿主机共享网络IP和端口 --network=host #修改hosts文件 在docker run的时候加上--add-host machine:ip #修改hosts文件 或在/etc/bashrc文件末尾添加 echo &#34;ip hostname&#34; &gt;&gt; /etc/hosts #windows添加永久静态路由 route add 10.10.0.0 mask 255.255.255.0 10.0.75.2 IF 接口号 route add 172.17.0.0 mask 255.255.255.0 10.0.75.2 IF 接口号 接口号通过 route -4 print 查看，最左边一列就是接口号 #夸宿主机与容器网路互通添加路由（宿主机IP为10.1.24.*） 主机1：route add -net 172.16.12.0/16 gw 10.1.24.225 主机2：route add -net 172.16.12.0/16 gw 10.1.24.223 如果要添加为永久路由：就在在/etc/rc.local里添加 #php容器中添加pdo_mysql扩展模块 docker-php-ext-install pdo_mysql #docker删除none标签镜像 docker images|grep none|awk &#39;{print $3 }&#39;|xargs docker rmi #docker容器指定固定ip 1、创建自定义网络 docker network create --driver bridge --subnet=172."/>
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqusjs.css" />
+    
+    
+
+    
+    
+    <link rel="stylesheet" href="https://zoehuawang.github.io/scss/main.min.3796779d99b798f0ae24d49c5a420db134eef2207610ed71453e417ce3ab44ed.css" integrity="sha256-N5Z3nZm3mPCuJNScWkINsTTu8iB2EO1xRT5BfOOrRO0=" crossorigin="anonymous" media="screen">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+  
+</head>
+<body>
+  <span class="mobile btn-mobile-menu">
+
+    <i class="fa fa-list btn-mobile-menu__icon"></i>
+    <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+
+  </span>
+
+  <header class="  panel-cover panel-cover--collapsed " style="background-image: url('/images/background-cover.jpg')">
+
+    <div class="panel-main">
+  
+      <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+  
+          <a href="/#blog" title="Homepage of 烟花散尽不问繁华 " class="blog-button"><img src="/images/avatar.jpg" width="80" alt="烟花散尽不问繁华 logo" class="panel-cover__logo logo" /></a>
+          <h1 class="panel-cover__title panel-title"><a href="/#blog" title="Homepage of 烟花散尽不问繁华" class="blog-button">烟花散尽不问繁华</a></h1>
+          
+          <span class="panel-cover__subtitle panel-subtitle">最好的等待，叫来日可期！</span>
+          
+          <hr class="panel-cover__divider" />
+          <p class="panel-cover__description"></p>
+          <hr class="panel-cover__divider panel-cover__divider--secondary" />
+          
+          
+          
+          <div class="navigation-wrapper">
+            <div>
+              <nav class="cover-navigation cover-navigation--primary">
+                <ul class="navigation">
+                  <li class="navigation__item"><a href="/#blog" title="Blog" class="blog-button">Blog</a></li>
+                  
+                    <li class="navigation__item"><a href="https://blog.zoehuawang.cn" target="_blank" title="Projects">Projects</a></li>
+                  
+                    <li class="navigation__item"><a href="/tags/" target="_blank" title="Tags">Tags</a></li>
+                  
+                </ul>
+              </nav>
+            </div>
+            
+            <div><nav class="cover-navigation navigation--social">
+    <ul class="navigation">
+  
+    
+  
+    
+    
+    
+
+    
+  
+    
+  
+    
+    <li class="navigation__item">
+      <a href="/index.xml" rel="author" title="RSS" target="_blank">
+        <i class='social fa fa-rss'></i>
+        <span class="label">RSS</span>
+      </a>
+    </li>
+  
+    
+  
+    </ul>
+  </nav>
+  </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      <div class="panel-cover--overlay cover-red"></div>
+      
+    </div>
+  </header>
+  
+
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner">
+
+        
+<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+    <header class="post-header">
+        <div class="post-meta">
+            <time datetime=" 2023-05-06 10:12:14 &#43;0800 " itemprop="datePublished" class="post-meta__date date">2023-05-06</time>
+            
+        </div>
+        <h1 class="post-title">Docker</h1>
+    </header>
+    <section class="post">
+        <p>资源链接：<a href="http://www.rpmfind.net/linux/rpm2html/search.php?query=docker">http://www.rpmfind.net/linux/rpm2html/search.php?query=docker</a></p>
+<pre tabindex="0"><code>docker inspect CONTAINER_NAME                    #查看容器所有信息
+docker container port CONTAINER_NAME             #查看容器端口映射信息
+docker logs CONTAINER_NAME                       #查看启动日志
+
+容器启动自动执行~/.bashrc
+
+#内部取得root权限(centos7)
+在docker run的时候加上--privileged=true参数，然后在最后面加上/usr/sbin/init。
+
+#指定hostname
+--hostname &lt;hostname&gt;
+
+#指定网络，host模式，容器将不会获得一个独立的Network，和宿主机共享网络IP和端口
+--network=host
+
+#修改hosts文件
+在docker run的时候加上--add-host machine:ip  
+
+#修改hosts文件
+或在/etc/bashrc文件末尾添加 echo &#34;ip hostname&#34; &gt;&gt; /etc/hosts  
+
+#windows添加永久静态路由
+route add 10.10.0.0 mask 255.255.255.0 10.0.75.2 IF 接口号
+route add 172.17.0.0 mask 255.255.255.0 10.0.75.2 IF 接口号
+接口号通过 route -4 print 查看，最左边一列就是接口号
+
+#夸宿主机与容器网路互通添加路由（宿主机IP为10.1.24.*）
+主机1：route add -net 172.16.12.0/16 gw 10.1.24.225
+主机2：route add -net 172.16.12.0/16 gw 10.1.24.223
+如果要添加为永久路由：就在在/etc/rc.local里添加
+
+#php容器中添加pdo_mysql扩展模块
+docker-php-ext-install pdo_mysql
+
+#docker删除none标签镜像
+docker images|grep none|awk &#39;{print $3 }&#39;|xargs docker rmi
+
+#docker容器指定固定ip
+1、创建自定义网络
+docker network create --driver bridge --subnet=172.16.12.0/16 --gateway=172.16.1.1 newnet
+2、创建容器制定ip
+docker run -dit --name test --network=newnet --ip 172.16.12.12 centos
+
+#修改已创建容器的端口映射
+#（1）修改相对应容器的hostcongfig.json（如果有config.v2.json文件也要修改）
+vim /var/lib/docker/containers/[容器hash]/hostconfig.json
+#（2）修改PortBinding参数，宿主机8001端口映射到容器80端口示例：
+&#34;PortBinding&#34;:&#34;{&#34;80/tcp&#34;[{&#34;HostIp&#34;:&#34;&#34;,&#34;HostPort&#34;:&#34;8001&#34;}]},&#34;
+#（3）重启docker
+
+#docker镜像离线下载与上传
+docker save mynginx:latest  -o  /home/mynginx.tar     #保存镜像
+docker load -i mynginx.tar                            #加载镜像
+
+docker system prune           #清理磁盘，删除关闭的容器、无用的数据卷和网络，以及dangling镜像(即无tag的镜像)
+docker system prune -a        #清理得更加彻底，可以将没有容器使用Docker镜像都删掉
+
+#修改容器默认时区与主机一致
+-v /etc/localtime:/etc/localtime         #也可以在Dockerfile中指定
+
+#镜像仓库API（也可参考：https://www.cnblogs.com/Tempted/p/7768694.html）
+curl http://registry:5000/v2/_catalog                                         #获得当前仓库中的镜像列表
+curl http://registry:5000/v2/&lt;name&gt;/tags/list                                 #获取镜像标签
+curl -I http://registry:5000/v2/&lt;name&gt;/manifests/&lt;tag&gt;                        #获得一个镜像的Manifest
+curl -I -X DELETE http://registry:5000/v2/&lt;name&gt;/manifests/&lt;Etag的值&gt;         #删除镜像
+#在删除registry2.3或以上版本的docker镜像时，我们通过使用GET或HEAD获取镜像的digest时，必须要加如下参数： -H &#34;Accept: application/vnd.docker.distribution.manifest.v2+json&#34;
+</code></pre><ul>
+<li>
+<h1 id="dockerfile简单介绍">Dockerfile简单介绍</h1>
+</li>
+</ul>
+<p>组成部分</p>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基础镜像信息</td>
+<td>FROM</td>
+</tr>
+<tr>
+<td>维护者信息</td>
+<td>MAINTAINER</td>
+</tr>
+<tr>
+<td>镜像操作指令</td>
+<td>RUN,COPY,ADD,EXPOSE,WORKDIR,ONBUILD,VOLUME,USER等</td>
+</tr>
+<tr>
+<td>容器启动时执行指令</td>
+<td>CMD、ENTRYPOINT</td>
+</tr>
+</tbody>
+</table>
+<p>各命令详解</p>
+<p><strong>FROM</strong></p>
+<p>指定哪种镜像作为新镜像的基础镜像，如：</p>
+<pre tabindex="0"><code>FROM ubuntu:14.04
+</code></pre><p><strong>MAINTAINER</strong></p>
+<p>指明该镜像的作者和其电子邮件，如：</p>
+<pre tabindex="0"><code>MAINTAINER Zoe.wang &#34;xxxxxxx@qq.com&#34;
+</code></pre><p><strong>RUN</strong></p>
+<p>在新镜像内部执行的命令，比如安装一些软件、配置一些基础环境（可使用\来换行）如：</p>
+<pre tabindex="0"><code>RUN echo &#39;hello docker!&#39; &gt; /usr/local/file.txt
+</code></pre><p>也可以使用exec格式RUN [&ldquo;executable&rdquo;, &ldquo;param1&rdquo;, &ldquo;param2&rdquo;]的命令，如：</p>
+<pre tabindex="0"><code>RUN [&#34;apt-get&#34;,&#34;install&#34;,&#34;-y&#34;,&#34;nginx&#34;]
+</code></pre><p>要注意的是，executable是命令，后面的param是参数</p>
+<p><strong>COPY</strong></p>
+<p>将主机的文件复制到镜像内，如果目的位置不存在，Docker会自动创建所有需要的目录结构，但是它只是单纯的复制，并不会去做文件提取和解压工作。如：</p>
+<pre tabindex="0"><code>COPY application.yml /etc/springboot/hello-service/src/resources
+</code></pre><p>注意：需要复制的目录一定要放在Dockerfile文件的同级目录下</p>
+<p><strong>ADD</strong></p>
+<p>将主机的文件复制到镜像中，跟COPY一样，限制条件和使用方式都一样，如：</p>
+<pre tabindex="0"><code>ADD application.yml /etc/springboot/hello-service/src/resources
+</code></pre><p><strong>EXPOSE</strong></p>
+<p>暴露镜像的端口供主机做映射，启动镜像时，使用-P参数来讲镜像端口与宿主机的随机端口做映射。使用方式（可指定多个）：</p>
+<pre tabindex="0"><code>EXPOSE 8080 
+EXPOSE 8081
+...
+</code></pre><p><strong>WORKDIR</strong></p>
+<p>在构建镜像时，指定镜像的工作目录，之后的命令都是基于此工作目录，如果不存在，则会创建目录。如</p>
+<pre tabindex="0"><code>WORKDIR /usr/local
+WORKDIR webservice
+RUN echo &#39;hello docker&#39; &gt; text.txt
+...
+</code></pre><p>最终会在/usr/local/webservice/目录下生成text.txt文件</p>
+<p><strong>ONBUILD</strong></p>
+<p>当一个包含ONBUILD命令的镜像被用作其他镜像的基础镜像时(比如用户的镜像需要从某为准备好的位置添加源代码，或者用户需要执行特定于构建镜像的环境的构建脚本)，该命令就会执行。</p>
+<p>如创建镜像image-A</p>
+<pre tabindex="0"><code>FROM ubuntu
+...
+ONBUILD ADD . /var/www
+...
+</code></pre><p>然后创建镜像image-B，指定image-A为基础镜像，如</p>
+<pre tabindex="0"><code>FROM image-A
+...
+</code></pre><p>然后在构建image-B的时候，日志上显示如下:</p>
+<pre tabindex="0"><code>Step 0 : FROM image-A
+# Execting 1 build triggers
+Step onbuild-0 : ADD . /var/www
+...
+</code></pre><p><strong>USER</strong></p>
+<p>指定该镜像以什么样的用户去执行，如：</p>
+<pre tabindex="0"><code>USER mongo
+</code></pre><p><strong>VOLUME</strong></p>
+<p>用来向基于镜像创建的容器添加卷。比如你可以将mongodb镜像中存储数据的data文件指定为主机的某个文件。(容器内部建议不要存储任何数据)</p>
+<p>如：</p>
+<pre tabindex="0"><code>VOLUME /data/db /data/configdb
+</code></pre><p>注意: VOLUME 主机目录 容器目录</p>
+<p><strong>CMD</strong></p>
+<p>容器启动时需要执行的命令，如：</p>
+<pre tabindex="0"><code>CMD /bin/bash
+</code></pre><p>同样可以使用exec语法，如</p>
+<pre tabindex="0"><code>CMD [&#34;/bin/bash&#34;]
+</code></pre><p>当有多个CMD的时候，只有最后一个生效。</p>
+<p><strong>ENTRYPOINT</strong></p>
+<p>作用和用法和CMD一模一样</p>
+<p>CMD和ENTRYPOINT的区别</p>
+<p>敲黑板！！！非常重要</p>
+<p>一定要注意！</p>
+<p>一定要注意！</p>
+<p>一定要注意</p>
+<p>CMD的命令会被 docker run 的命令覆盖而ENTRYPOINT不会</p>
+<p>CMD和ENTRYPOINT都存在时，CMD的指令变成了ENTRYPOINT的参数，并且此CMD提供的参数会被 docker run 后面的命令覆盖，如：</p>
+<pre tabindex="0"><code>...
+ENTRYPOINT [&#34;echo&#34;,&#34;hello&#34;,&#34;i am&#34;]
+CMD [&#34;docker&#34;]
+</code></pre><p>之后启动构建之后的容器</p>
+<p>docker run -ti image</p>
+<p>输出“hello i am docker”</p>
+<p>使用docker run -ti image world</p>
+<p>输出“hello i am world”</p>
+<ul>
+<li>创建centos中文镜像</li>
+</ul>
+<pre tabindex="0"><code># 基于官方centos7精简版基础镜像，添加中文支持
+FROM centos:centos7.4.1708
+# 更新软件
+RUN yum -y upgrade
+# 安装中文包
+RUN yum install -y kde-l10n-Chinese
+# 重新安装glibc-common
+RUN yum -y reinstall glibc-common
+# 编译生成语言库
+RUN localedef -c -f UTF-8 -i zh_CN zh_CN.utf8
+# 设置语言默认值为中文，时区改为东八区
+RUN echo &#39;LANG=&#34;zh_CN.UTF-8&#34;&#39; &gt; /etc/locale.conf
+RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+ENV LANG zh_CN.UTF-8
+ENV LC_ALL zh_CN.UTF-8
+</code></pre>
+    </section>
+</article>
+<section class="read-more">
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">Recent</span>
+        <h2 class="post-list__post-title post-title"><a href="/post/golang/" title="link to Golang">Golang</a></h2>
+        <p class="excerpt">编译成Linux可执行文件 先设置环境：
+SET GOARCH=amd64
+SET GOOS=linux
+SET CGO_ENABLED=0
+然后运行： go build -o 编译成的文件名
+Golang的格式化输出 # 定义示例类型和变量 type Human struct { Name string } var people = Human{Name:&#34;zhangsan&#34;} 普通占位符 占位符 说明 举例 输出 %v 相应值的默认格式。 …&hellip;</p>
+        <div class="post-list__meta">
+            <time datetime=" 2023-05-06 10:12:14 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+            
+            <a class="btn-border-small" href="/post/golang/">Continue</a>
+        </div>
+    </div>
+    
+
+
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">Earlier</span>
+        <h2 class="post-list__post-title post-title"><a href="/post/python/" title="link to Python">Python</a></h2>
+        <p class="excerpt">Python扩展包大全：https://www.lfd.uci.edu/~gohlke/pythonlibs
+python3常用进制转换： hex(16) # 10进制转16进制 oct(8) # 10进制转8进制 bin(8) # 10进制转2进制 int(&#39;10&#39;) # 字符串转换成10进制整数 int(&#39;10&#39;,16) # 字符串转换成16进制整数 int(&#39;0x10&#39;,16) # 字符串转换成16 …&hellip;</p>
+        <div class="post-list__meta">
+            <time datetime=" 2023-05-06 10:12:14 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+            
+            <a class="btn-border-small" href="/post/python/">Continue</a>
+        </div>
+    </div>
+    
+ </section>
+ 
+<section class="post-comments">
+    
+      <div id="disqus_thread"></div>
+      <script>
+      
+      var disqus_config = function () {
+          this.page.url = "https:\/\/zoehuawang.github.io\/post\/docker\/";
+          this.page.identifier = "https:\/\/zoehuawang.github.io\/post\/docker\/";
+      };
+  
+      var disqus_shortname = 'vno-hugo';
+      
+      (function() { 
+          var d = document, s = d.createElement('script');
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+          })();
+      </script>
+      <noscript>To view comments from<a href="http://disqus.com/?ref_noscript"> Disqus </a>, please enable JavaScript.</noscript>
+      
+    
+
+    
+    
+  </section>
+  
+
+        <section class="footer">
+    <footer>
+        <span class="footer__copyright">This site is licensed under a <a href="<no value>"><no value></a> license.</span>
+        <span class="footer__copyright">Generated by <a href="https://gohugo.io/">Hugo</a> at 2023-05-06, themed with <a href="https://github.com/xslingcn/vno-hugo"> Vno - Hugo</a>.</span>
+    </footer>
+</section>
+
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script><script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'your_ga_id', 'your_host');
+    ga('send', 'pageview');
+</script>
+
+  
+</body>
+

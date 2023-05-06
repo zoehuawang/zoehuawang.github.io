@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on 烟花散尽不问繁华</title>
+    <link>https://zoehuawang.github.io/post/</link>
+    <description>Recent content in Posts on 烟花散尽不问繁华</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 06 May 2023 10:22:49 +0800</lastBuildDate><atom:link href="https://zoehuawang.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ansible</title>
+      <link>https://zoehuawang.github.io/post/ansible/</link>
+      <pubDate>Sat, 06 May 2023 10:22:49 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/ansible/</guid>
+      <description>命令行
+#只操作一台机器,IP后面有一个逗号,多个IP用逗号连接 ansible all -i 192.168.X.X, -m ping #拷贝本机文件到远程客户端 ansible all -m copy -a &amp;#34;src=https://zoehuawang.github.io/etc/passwd dest=/tmp/passwd&amp;#34; #创建目录，如果testdir目录已经存在，则不进行任何操作 ansible all -m file -a &amp;#34;path=/testdir/testdir state=directory&amp;#34; #删除文件或目录 ansible all -m file -a &amp;#34;path=/testdir/testdir state=absent&amp;#34; #安装包,类似执行 yum install -y httpd ansible all -m yum -a &amp;#39;name=httpd state=present&amp;#39; #debug模块，输出目标机器对应变量 ansible all -m debug -a &amp;#34;msg={{ hostvars[inventory_hostname] }}&amp;#34; #支持shell特性，包括执行脚本、管道命令，script和shell模块的区别是script执行控制端的脚本，shell执行远程端的脚本 ansible all -m shell -a &amp;#34;/root/test.sh&amp;#34; #支持shell特性，包括执行脚本、管道命令 ansible all -m shell -a &amp;#34;cat /etc/passwd | grep root&amp;#34; 剧本</description>
+    </item>
+    
+    <item>
+      <title>Git</title>
+      <link>https://zoehuawang.github.io/post/git/</link>
+      <pubDate>Sat, 06 May 2023 10:22:26 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/git/</guid>
+      <description>#将本地仓库关联到名为&amp;#34;origin&amp;#34;的远程仓库 git remote add origin https://gitee.com/zoewang/repo.git #将本地重置为服务器端的版本 git reset --hard origin/master #添加当前目录下的所有文件到暂存区 git add . #提交暂存区文件到本地仓库 git commit -m &amp;#34;[message]&amp;#34; #修改文件后不需要执行 git add 命令，直接来提交 git commit -a #将本地的分支版本上传到远程并合并 git push #配置用户名 git config --global user.name &amp;#34;your name&amp;#34; #配置邮箱 git config --global user.email &amp;#34;your email&amp;#34; </description>
+    </item>
+    
+    <item>
+      <title>Keepalived主备配置</title>
+      <link>https://zoehuawang.github.io/post/keepalived%E4%B8%BB%E5%A4%87%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Sat, 06 May 2023 10:21:48 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/keepalived%E4%B8%BB%E5%A4%87%E9%85%8D%E7%BD%AE/</guid>
+      <description>yum -y install keepalived ! Configuration File for keepalived global_defs { vrrp_skip_check_adv_addr } vrrp_script check_Mysqld { script &amp;#34;killall -0 mysqld&amp;#34; interval 5 fall 2 rise 2 weight -50 } vrrp_instance VI_1 { state BACKUP interface ens192 virtual_router_id 66 priority 90 advert_int 1 authentication { auth_type PASS auth_pass Aa123456 } virtual_ipaddress { 192.168.7.58 } track_script { check_Mysqld } } 两个节点的配置文件除了 priority 这个代表权重的参数不一样，其他都一致，值越大权重越高的为主节点; interface为网卡名称，不一样的话注意修改; 如果script脚本执行结果为0（即执行结果正常），并且weight配置的值大于0，则优先级相应的增加; 如果script脚本执行结果非0（即执行结果异常），并且weight配置的值小于0，则优先级相应的减少;</description>
+    </item>
+    
+    <item>
+      <title>RabbitMQ集群部署</title>
+      <link>https://zoehuawang.github.io/post/rabbitmq%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</link>
+      <pubDate>Sat, 06 May 2023 10:21:18 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/rabbitmq%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</guid>
+      <description>配置hosts(3个节点) 192.168.100.1 VM_100_1_centos 192.168.100.2 VM_100_2_centos 192.168.100.3 VM_100_3_centos 安装 下载链接：点击下载
+rpm -ivh erlang-19.0.4-1.el7.centos.x86_64.rpm rabbitmq-server-3.6.12-1.el7.noarch.rpm 配置启动(3个节点都操作) vim /usr/lib/systemd/system/rabbitmq-server.service [Unit] Description=RabbitMQ broker After=syslog.target network.target [Service] Type=notify User=rabbitmq Group=rabbitmq WorkingDirectory=/var/lib/rabbitmq ExecStart=/usr/sbin/rabbitmq-server ExecStop=/usr/sbin/rabbitmqctl stop ExecStop=/bin/sh -c &amp;#34;while ps -p $MAINPID &amp;gt;/dev/null 2&amp;gt;&amp;amp;1; do sleep 1; done&amp;#34; NotifyAccess=all TimeoutStartSec=3600 LimitNOFILE=300000 [Install] WantedBy=multi-user.target systemctl daemon-reload systemctl start rabbitmq-server.service systemctl status rabbitmq-server.service 配置插件(3个节点都操作) rabbitmq-plugins enable rabbitmq_management rabbitmq-plugins enable rabbitmq_stomp rabbitmq-plugins enable rabbitmq_top 配置集群 vim /var/lib/rabbitmq/.erlang.cookie UUPJPTKFQPZPDSORCBMS #文件内容保持一致组成同一集群，文件权限400，要保证.erlang.cookie文件的所属用户及组都为rabbitmq scp /var/lib/rabbitmq/.</description>
+    </item>
+    
+    <item>
+      <title>Kafka</title>
+      <link>https://zoehuawang.github.io/post/kafka/</link>
+      <pubDate>Sat, 06 May 2023 10:20:29 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/kafka/</guid>
+      <description>#kafka服务启动： ./kafka-server-start.sh ../config/server.properties #查看有哪些topic： ./kafka-topics.sh --list --zookeeper zk服务IP:2181 #创建topic： ./kafka-topics.sh --create --zookeeper zk服务IP:2181 --replication-factor 1 --partitions 1 --topic test1 #topic分区数修改： ./kafka-topics.sh --zookeeper zk服务IP:2181 -alter --partitions 4 --topic test1 #kafka生产(无key型消息)： ./kafka-console-producer.sh --broker-list kafka服务IP:9092 --topic test1 #kafka生产(有key型消息，key与value间默认使用“Tab键”进行分隔，--property key.separator=&amp;#39;分隔符合&amp;#39;)： ./kafka-console-producer.sh --broker-list kafka服务IP:9092 --topic test1 --property parse.key=true --property key.separator=&amp;#39;@&amp;#39; #kafka消费(不输出key) ./kafka-console-consumer.sh --bootstrap-server kafka服务IP:9092 --from-beginning --topic test1 #kafka消费(输出key) ./kafka-console-consumer.sh --bootstrap-server kafka服务IP:9092 --from-beginning --topic test1 --property print.key=true #删除topic：(要彻底删除必须把kafka中与当前topic相关的数据目录和zookeeper中与当前topic相关的路径一并删除) ./kafka-topics.sh --zookeeper zk服务IP:2181 --delete --topic test1 #查看topic分区数 ./bin/kafka-topics.sh --zookeeper zk服务IP:2181 --describe --topic 主题名称 #查看日志 .</description>
+    </item>
+    
+    <item>
+      <title>腾讯云docker镜像仓库</title>
+      <link>https://zoehuawang.github.io/post/%E8%85%BE%E8%AE%AF%E4%BA%91docker%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93/</link>
+      <pubDate>Sat, 06 May 2023 10:19:27 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/%E8%85%BE%E8%AE%AF%E4%BA%91docker%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93/</guid>
+      <description>#登陆： docker login --username=100004240476 ccr.ccs.tencentyun.com 密码:wzh4*******6 #mysql镜像 #-e MYSQL_ROOT_PASSWORD=Aa123456 -v /home/test/conf:/etc/mysql/mysql.conf.d -v /home/mysql01/data:/var/lib/mysql docker pull ccr.ccs.tencentyun.com/zoehuawang/mysql:5.7 #-e MYSQL_ROOT_PASSWORD=Aa123456 -v /home/test/conf:/etc/mysql/conf.d -v /home/mysql01/data:/var/lib/mysql docker pull ccr.ccs.tencentyun.com/zoehuawang/mysql:8.0.26 #centos6.8镜像 docker pull ccr.ccs.tencentyun.com/zoehuawang/centos6.8 #centos7.4支持中文镜像，--privileged=true docker pull ccr.ccs.tencentyun.com/zoehuawang/centos:7.4chinese #python3.7镜像 docker pull ccr.ccs.tencentyun.com/zoehuawang/python:3.7 #最小化镜像 docker pull ccr.ccs.tencentyun.com/zoehuawang/python:3.7_all #基于centos镜像 #freeswitch1.10.6镜像 docker pull ccr.ccs.tencentyun.com/zoehuawang/freeswitch:1.10.6 #k8s集群部署etcd镜像 docker pull ccr.ccs.tencentyun.com/zoehuawang/etcd:v3.4.13 </description>
+    </item>
+    
+    <item>
+      <title>银行项目实现微信告警</title>
+      <link>https://zoehuawang.github.io/post/%E9%93%B6%E8%A1%8C%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6/</link>
+      <pubDate>Sat, 06 May 2023 10:18:44 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/%E9%93%B6%E8%A1%8C%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6/</guid>
+      <description>背景说明 银行项目的服务器都是处于行方的内网环境中，运维的监控告警手段只有邮件和电话；每次收到邮件又没有很好的提醒效果，而电话告警方式播报告警内容的时候不够明确，且接听麻烦。因此可以增加微信告警方式（告警内容清晰明确且收到微信也能及时提醒）。虽然内网环境的服务器不能直接通过zabbix调用微信接口发送告警,但可以利用邮件与外网联通。具体做法就是把告警邮件发送给自己的邮箱，然后利用自己服务器通过python扫描邮件，一旦发现有新的告警邮件就通过企业微信接口发送消息到微信
+准备工作 1、去企业微信官网注册用户，点此进入官方链接（注册个人的就行，不需要企业），注册完之后并登录在应用管理里面创建应用，该应用就是用于发送告警消息的，创建好应用点击进入就可以看到有API发送消息的能力。然后就可以通过企业微信API里面的发送消息接口给创建好的应用发送消息，具体调用方法请移步企业微信开放平台
+2、一个专门用于接收告警邮件的邮箱，我这里需要用的是IMAP服务，所以使用QQ邮箱。邮箱设置里面的账户需要开启POP，开启后会提供一个授权码（python脚本里面登陆邮箱的时候需要用到这个授权码），并设置收件规则把告警邮件都转移到master文件夹内
+3、准备一台能通公网的服务器，通过这个服务器登陆邮箱并发送告警消息
+脚本参考 1、调用发送应用消息接口需要接口调用凭证(access_token)，access_token有时间限制，有效期为两小时（有效期内无限制使用），过期后需要重新获取，所以把获取凭证脚本(get_token.py)添加到定时任务，每小时获取一次就可以了。
+50 * * * * python3 /home/channelsoft/get_token.py import requests import json appid = &amp;#34;wwc4xxxxxxxxxx62b&amp;#34; #企业corpid secret = &amp;#34;mZzBuOxYQs4xxxxxxxxxxxxcAy_zM6PmhbCmFTI84&amp;#34; #企业应用secret url = &amp;#34;https://qyapi.weixin.qq.com/cgi-bin/gettoken?orpid=&amp;#34;+appid+&amp;#34;&amp;amp;corpsecret=&amp;#34;+secret+&amp;#34;&amp;#34; #接口地址 response = requests.get(url) #发送get请求调用接口 result = json.loads(response.content) access_token = result[&amp;#39;access_token&amp;#39;] with open(&amp;#39;/home/channelsoft/access_token.txt&amp;#39;,&amp;#39;w&amp;#39;) as f: #把获取到的token保存下来 f.write(access_token) 其中企业corpid在企业微信后台企业信息里面可以看到，企业应用secret在企业微信创建的应用里面也可以看到
+2、登陆邮箱扫描并解析邮件和发送消息脚本(master.py)
+#coding=utf-8 import zmail import time import asyncio import requests import json def get_token(): with open(&amp;#39;/home/channelsoft/access_token.txt&amp;#39;,&amp;#39;r&amp;#39;) as f: return f.read() def send_msg(content): if content == &amp;#39;&amp;#39;: return access_token = get_token() send_url = &amp;#39;https://qyapi.</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes之proxysql集群</title>
+      <link>https://zoehuawang.github.io/post/kubernetes%E4%B9%8Bproxysql%E9%9B%86%E7%BE%A4/</link>
+      <pubDate>Sat, 06 May 2023 10:18:00 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/kubernetes%E4%B9%8Bproxysql%E9%9B%86%E7%BE%A4/</guid>
+      <description>1.创建配置文件 proxysql-cnf.yaml apiVersion: v1 kind: Service metadata: labels: app: proxysql name: proxysqlcluster namespace: cloud2 spec: clusterIP: None ports: - name: proxysql-admin port: 6032 protocol: TCP targetPort: 6032 selector: app: proxysql sessionAffinity: None type: ClusterIP --- apiVersion: v1 kind: ConfigMap metadata: name: proxysql-cnf namespace: cloud2 data: proxysql.cnf: | datadir=&amp;#34;/var/lib/proxysql&amp;#34; # 配置管理账号，即 6032 端口登陆的管理员账号密码。默认账号 admin 无法远程登陆，不适用于容器环境 admin_variables= { admin_credentials=&amp;#34;admin:admin;proxysql-admin:Aa123456&amp;#34; mysql_ifaces=&amp;#34;0.0.0.0:6032&amp;#34; } #全局配置 mysql_variables= { threads=4 max_connections=2048 default_query_delay=0 default_query_timeout=36000000 have_compress=true poll_timeout=2000 interfaces=&amp;#34;0.0.0.0:6033&amp;#34; default_schema=&amp;#34;information_schema&amp;#34; stacksize=1048576 #mysql数据库版本 server_version=&amp;#34;8.</description>
+    </item>
+    
+    <item>
+      <title>MGR单主部署</title>
+      <link>https://zoehuawang.github.io/post/mgr%E5%8D%95%E4%B8%BB%E9%83%A8%E7%BD%B2/</link>
+      <pubDate>Sat, 06 May 2023 10:16:36 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/mgr%E5%8D%95%E4%B8%BB%E9%83%A8%E7%BD%B2/</guid>
+      <description>1.每个节点设置hostname，并添加/etc/hosts 2.下载 gperftools-devel 和 mysql 安装包 yum install --downloadonly --downloaddir=/root gperftools-devel https://downloads.mysql.com/archives/community/ 3.安装步骤 yum remove mariadb-libs-5.5.60-1.el7_5.x86_64 -y rpm -ivh mysql-community-client-plugins-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-common-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-libs-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-client-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-debuginfo-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-embedded-compat-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-icu-data-files-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-libs-compat-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-devel-8.0.30-1.el7.x86_64.rpm --force --nodeps rpm -ivh mysql-community-server-8.0.30-1.el7.x86_64.rpm --force --nodeps rpm -ivh mysql-community-server-debug-8.0.30-1.el7.x86_64.rpm --force --nodeps rpm -ivh mysql-community-test-8.0.30-1.el7.x86_64.rpm --force --nodeps rpm -ivh /root/gperftools-libs-2.6.1-1.el7.x86_64.rpm rpm -ivh /root/gperftools-devel-2.6.1-1.el7.x86_64.rpm echo &amp;#39;LD_PRELOAD=/usr/lib64/libtcmalloc.so&amp;#39; &amp;gt;&amp;gt; /etc/sysconfig/mysql 4.</description>
+    </item>
+    
+    <item>
+      <title>Mysql</title>
+      <link>https://zoehuawang.github.io/post/mysql/</link>
+      <pubDate>Sat, 06 May 2023 10:15:49 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/mysql/</guid>
+      <description>select version(); #查看mysql版本 stop slave;set global sql_slave_skip_counter=1;start slave; #从库不同步处理，第二句表示跳过一步错误,后面的数字可变 #从库不同步处理，复制的时候忽略指定的表 stop slave ; CHANGE REPLICATION FILTER REPLICATE_WILD_IGNORE_TABLE = (&amp;#39;库.表&amp;#39;); start slave; #去掉忽略表 CHANGE REPLICATION FILTER REPLICATE_WILD_IGNORE_TABLE = (); #主从同步change master to语法 change master to master_host=&amp;#39;192.168.1.4&amp;#39;,master_user=&amp;#39;slave&amp;#39;,master_password=&amp;#39;Aa123456&amp;#39;,master_port=13306,master_log_file=&amp;#39;mysql-bin.000201&amp;#39;,master_log_pos=628152168; #设置MySQL为只读模式 show global variables like &amp;#34;%read_only%&amp;#34;; flush tables with read lock; #备份锁表 set global read_only=1; show global variables like &amp;#34;%read_only%&amp;#34;; #将MySQL从只读设置为读写状态 unlock tables; #解锁 set global read_only=0; select a.id,a.column,b.id,b.column from a left join b on a.</description>
+    </item>
+    
+    <item>
+      <title>Oracle</title>
+      <link>https://zoehuawang.github.io/post/oracle/</link>
+      <pubDate>Sat, 06 May 2023 10:14:41 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/oracle/</guid>
+      <description>lsnrctl start #打开oracle监听 sqlplus #进入oracle sqlplus / as sysdba #以dba身份连接到sql控制台 shutdown immediate #停止服务 startup #启动服务 #oracle查看表空间： SELECT a.tablespace_name &amp;#34;表空间名&amp;#34;, total &amp;#34;表空间大小&amp;#34;, free &amp;#34;表空间剩余大小&amp;#34;, (total - free) &amp;#34;表空间使用大小&amp;#34;, total / (1024 * 1024 * 1024) &amp;#34;表空间大小(G)&amp;#34;, free / (1024 * 1024 * 1024) &amp;#34;表空间剩余大小(G)&amp;#34;, (total - free) / (1024 * 1024 * 1024) &amp;#34;表空间使用大小(G)&amp;#34;, round((total - free) / total, 4) * 100 &amp;#34;使用率 %&amp;#34; FROM (SELECT tablespace_name, SUM(bytes) free FROM dba_free_space GROUP BY tablespace_name) a, (SELECT tablespace_name, SUM(bytes) total FROM dba_data_files GROUP BY tablespace_name) b WHERE a.</description>
+    </item>
+    
+    <item>
+      <title>Loki</title>
+      <link>https://zoehuawang.github.io/post/loki/</link>
+      <pubDate>Sat, 06 May 2023 10:13:17 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/loki/</guid>
+      <description>一、简 介 Loki是受Prometheus启发由Grafana Labs团队开源的水平可扩展，高度可用的多租户日志聚合系统。 开发语言: Google Go。它的设计具有很高的成本效益，并且易于操作。使用标签来作为索引，而不是对全文进行检索，也就是说，你通过这些标签既可以查询日志的内容也可以查询到监控的数据签，极大地降低了日志索引的存储。系统架构十分简单，由以下3个部分组成 ：
+Loki 是主服务器，负责存储日志和处理查询 。 promtail 是代理，负责收集日志并将其发送给 loki 。 Grafana 用于 UI 展示。 只要在应用程序服务器上安装promtail来收集日志然后发送给Loki存储，就可以在Grafana UI界面通过添加Loki为数据源进行日志查询（如果Loki服务器性能不够，可以部署多个Loki进行存储及查询）。作为一个日志系统不关只有查询分析日志的能力，还能对日志进行监控和报警
+二、系 统 架 构 promtail收集并将日志发送给loki的 Distributor 组件 Distributor会对接收到的日志流进行正确性校验，并将验证后的日志分批并行发送到Ingester Ingester 接受日志流并构建数据块，压缩后存放到所连接的存储后端 Querier 收到HTTP查询请求，并将请求发送至Ingester 用以获取内存数据 ，Ingester 收到请求后返回符合条件的数据 ； 如果 Ingester 没有返回数据，Querier 会从后端存储加载数据并遍历去重执行查询 ，通过HTTP返回查询结果 三、与 ELK 比 较 ELK虽然功能丰富，但规模复杂，资源占用高，操作苦难，很多功能往往用不上，有点杀鸡用牛刀的感觉。 不对日志进行全文索引。通过存储压缩非结构化日志和仅索引元数据，Loki 操作起来会更简单，更省成本。 通过使用与 Prometheus 相同的标签记录流对日志进行索引和分组，这使得日志的扩展和操作效率更高。 安装部署简单快速，且受 Grafana 原生支持。 四、安 装 示 例 1）下载安装包（loki、promtail、grafana官网）：
+curl -O -L &amp;#34;https://github.com/grafana/loki/releases/download/v1.5.0/loki-linux-amd64.zip&amp;#34; curl -O -L &amp;#34;https://github.com/grafana/loki/releases/download/v1.5.0/promtail-linux-amd64.zip&amp;#34; wget https://dl.grafana.com/oss/release/grafana-6.7.4-1.x86_64.rpm 2）自定义配置文件（loki.</description>
+    </item>
+    
+    <item>
+      <title>Golang</title>
+      <link>https://zoehuawang.github.io/post/golang/</link>
+      <pubDate>Sat, 06 May 2023 10:12:43 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/golang/</guid>
+      <description>编译成Linux可执行文件 先设置环境：
+SET GOARCH=amd64
+SET GOOS=linux
+SET CGO_ENABLED=0
+然后运行： go build -o 编译成的文件名
+Golang的格式化输出 # 定义示例类型和变量 type Human struct { Name string } var people = Human{Name:&amp;#34;zhangsan&amp;#34;} 普通占位符 占位符 说明 举例 输出 %v 相应值的默认格式。 Printf(&amp;#34;%v&amp;#34;, people) {zhangsan}， %+v 打印结构体时，会添加字段名 Printf(&amp;#34;%+v&amp;#34;, people) {Name:zhangsan} %#v 相应值的Go语法表示 Printf(&amp;#34;#v&amp;#34;, people) main.Human{Name:&amp;#34;zhangsan&amp;#34;} %T 相应值的类型的Go语法表示 Printf(&amp;#34;%T&amp;#34;, people) main.Human %% 字面上的百分号，并非值的占位符 Printf(&amp;#34;%%&amp;#34;) % 布尔占位符 占位符 说明 举例 输出 %t true 或 false。 Printf(&amp;#34;%t&amp;#34;, true) true 整数占位符 占位符 说明 举例 输出 %b 二进制表示 Printf(&amp;#34;%b&amp;#34;, 5) 101 %c 相应Unicode码点所表示的字符 Printf(&amp;#34;%c&amp;#34;, 0x4E2D) 中 %d 十进制表示 Printf(&amp;#34;%d&amp;#34;, 0x12) 18 %o 八进制表示 Printf(&amp;#34;%d&amp;#34;, 10) 12 %q 单引号围绕的字符字面值，由Go语法安全地转义 Printf(&amp;#34;%q&amp;#34;, 0x4E2D) &amp;#39;中&amp;#39; %x 十六进制表示，字母形式为小写 a-f Printf(&amp;#34;%x&amp;#34;, 13) d %X 十六进制表示，字母形式为大写 A-F Printf(&amp;#34;%x&amp;#34;, 13) D %U Unicode格式：U+1234，等同于 &amp;#34;U+%04X&amp;#34; Printf(&amp;#34;%U&amp;#34;, 0x4E2D) U+4E2D 浮点数和复数的组成部分（实部和虚部） 占位符 说明 举例 输出 %b 无小数部分的，指数为二的幂的科学计数法， 与 strconv.</description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://zoehuawang.github.io/post/docker/</link>
+      <pubDate>Sat, 06 May 2023 10:12:14 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/docker/</guid>
+      <description>资源链接：http://www.rpmfind.net/linux/rpm2html/search.php?query=docker
+docker inspect CONTAINER_NAME #查看容器所有信息 docker container port CONTAINER_NAME #查看容器端口映射信息 docker logs CONTAINER_NAME #查看启动日志 容器启动自动执行~/.bashrc #内部取得root权限(centos7) 在docker run的时候加上--privileged=true参数，然后在最后面加上/usr/sbin/init。 #指定hostname --hostname &amp;lt;hostname&amp;gt; #指定网络，host模式，容器将不会获得一个独立的Network，和宿主机共享网络IP和端口 --network=host #修改hosts文件 在docker run的时候加上--add-host machine:ip #修改hosts文件 或在/etc/bashrc文件末尾添加 echo &amp;#34;ip hostname&amp;#34; &amp;gt;&amp;gt; /etc/hosts #windows添加永久静态路由 route add 10.10.0.0 mask 255.255.255.0 10.0.75.2 IF 接口号 route add 172.17.0.0 mask 255.255.255.0 10.0.75.2 IF 接口号 接口号通过 route -4 print 查看，最左边一列就是接口号 #夸宿主机与容器网路互通添加路由（宿主机IP为10.1.24.*） 主机1：route add -net 172.16.12.0/16 gw 10.1.24.225 主机2：route add -net 172.16.12.0/16 gw 10.1.24.223 如果要添加为永久路由：就在在/etc/rc.local里添加 #php容器中添加pdo_mysql扩展模块 docker-php-ext-install pdo_mysql #docker删除none标签镜像 docker images|grep none|awk &amp;#39;{print $3 }&amp;#39;|xargs docker rmi #docker容器指定固定ip 1、创建自定义网络 docker network create --driver bridge --subnet=172.</description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>https://zoehuawang.github.io/post/python/</link>
+      <pubDate>Sat, 06 May 2023 10:11:36 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/python/</guid>
+      <description>Python扩展包大全：https://www.lfd.uci.edu/~gohlke/pythonlibs
+python3常用进制转换： hex(16) # 10进制转16进制 oct(8) # 10进制转8进制 bin(8) # 10进制转2进制 int(&amp;#39;10&amp;#39;) # 字符串转换成10进制整数 int(&amp;#39;10&amp;#39;,16) # 字符串转换成16进制整数 int(&amp;#39;0x10&amp;#39;,16) # 字符串转换成16进制整数 int(&amp;#39;10&amp;#39;,8) # 字符串转换成8进制整数 int(&amp;#39;010&amp;#39;,8) # 字符串转换成8进制整数 int(&amp;#39;10&amp;#39;,2) # 字符串转换成2进制整数 python时间格式 time.strftime(&amp;#39;%Y-%m-%d %H:%M:%S&amp;#39;,time.localtime()) # &amp;#39;1900-01-01 08:00:01&amp;#39; time.strftime(&amp;#39;%X&amp;#39;) # &amp;#39;08:00:01&amp;#39; datetime.datetime.now().strftime(&amp;#39;%Y-%m-%d %H:%M:%S&amp;#39;)	# &amp;#39;1900-01-01 08:00:01&amp;#39; pip安装包临时提速方法 #在 pip install 包名 后面加上 -i + 镜像地址，这样 pip 安装时即可成倍的提速了,国内主要镜像地址如下： 清华：https://pypi.tuna.tsinghua.edu.cn/simple 阿里云：https://mirrors.aliyun.com/pypi/simple/ 中国科技大学: https://pypi.mirrors.ustc.edu.cn/simple/ 华中理工大学：http://pypi.hustunique.com/ 山东理工大学：http://pypi.sdutlinux.org/ 豆瓣：http://pypi.douban.com/simple/ Python中yield的用法详解 首先，如果你还没有对yield有个初步分认识，那么你先把yield看做“return”，这个是直观的，它首先是个return，普通的return是什么意思，就是在程序中返回某个值，返回之后程序就不再往下运行了。看做return之后再把它看做一个是生成器（generator）的一部分（带yield的函数才是真正的迭代器），好了，如果你对这些不明白的话，那先把yield看做return,然后直接看下面的程序：
+def foo(): print(&amp;#34;starting...&amp;#34;) while True: res = yield 4 print(&amp;#34;res:&amp;#34;,res) g = foo() print(next(g)) print(&amp;#34;*&amp;#34;*20) print(next(g)) 就这么简单的几行代码就让你明白什么是yield，代码的输出这个：</description>
+    </item>
+    
+    <item>
+      <title>ELK</title>
+      <link>https://zoehuawang.github.io/post/elk/</link>
+      <pubDate>Sat, 06 May 2023 10:11:11 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/elk/</guid>
+      <description>安装Elasticsearch 官方下载地址：https://www.elastic.co/downloads/past-releases/elasticsearch-7-16-2 修改所有节点的默认内核参数 echo &amp;#34;vm.swappiness=0&amp;#34; &amp;gt;&amp;gt; /etc/sysctl.conf echo &amp;#34;vm.max_map_count=655350&amp;#34; &amp;gt;&amp;gt; /etc/sysctl.conf sysctl -p 修改所有节点的linux资源限制，永久生效 cat /etc/security/limits.conf|grep -v &amp;#34;^#&amp;#34; * soft nofile 1024000 * hard nofile 1024000 * soft nproc unlimited * hard nproc unlimited * soft core unlimited * hard core unlimited * soft memlock unlimited * hard memlock unlimited ulimit -SHn 1024000 修改配置文件，添加以下内容： cluster.name: ES-cluster #集群名称 node.name: f7ec9b80edc5 #节点名 node.attr.hotwarm_type: hot path.data: /data/elasticsearch-7.16.2/data path.logs: /data/elasticsearch-7.16.2/log network.host: 0.0.0.0 #允许外网访问 http.port: 9200 #服务端口 transport.</description>
+    </item>
+    
+    <item>
+      <title>K8s离线部署</title>
+      <link>https://zoehuawang.github.io/post/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/</link>
+      <pubDate>Sat, 06 May 2023 10:08:48 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/</guid>
+      <description>一、前置准备 准备三台服务器，操作系统centos7.x
+硬件配置：CPU2核、内存2GB、硬盘30GB
+确保机器间网络互通，时钟同步，所需镜像及资源包下载链接：点击下载
+规划：
+节点名称 IP 安装组件 k8s-master 192.168.14.101 docker、etcd、kubelet、kube-proxy、kube-apiserver、kube-controller-manager、kube-scheduler k8s-node1 192.168.14.102 docker、etcd、kubelet、kube-proxy k8s-node2 192.168.14.103 docker、etcd、kubelet、kube-proxy docker私有仓库 192.168.14.100 docker（服务器配置可以低点） 三台服务器初始化操作
+# 关闭防火墙 systemctl stop firewalld systemctl disable firewalld # 关闭 selinux sed -i &amp;#39;s/enforcing/disabled/&amp;#39; /etc/selinux/config setenforce 0 # 关闭 swap swapoff -a sed -ri &amp;#39;s/.*swap.*/#&amp;amp;/&amp;#39; /etc/fstab # master节点添加 hosts cat &amp;gt;&amp;gt; /etc/hosts &amp;lt;&amp;lt; EOF 192.168.14.101 k8s-master 192.168.14.102 k8s-node1 192.168.14.103 k8s-node2 EOF # 将桥接的 IPv4 流量传递到 iptables 的链 cat &amp;gt; /etc/sysctl.</description>
+    </item>
+    
+    <item>
+      <title>Sip应答消息状态码</title>
+      <link>https://zoehuawang.github.io/post/sip%E5%BA%94%E7%AD%94%E6%B6%88%E6%81%AF%E7%8A%B6%E6%80%81%E7%A0%81/</link>
+      <pubDate>Sat, 06 May 2023 10:08:02 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/sip%E5%BA%94%E7%AD%94%E6%B6%88%E6%81%AF%E7%8A%B6%E6%80%81%E7%A0%81/</guid>
+      <description>1. 临时应答(1XX) 100 Trying 正在处理中 180 Ringing 振铃 181 call being forwarder 呼叫正在前向 182 queue 排队 183 session progress 会话进行 2. 会话成功(2XX) 200 OK 会话成功 3. 重定向(3XX) 300 multiple 多重选择 301 moved permanently 永久移动 302 moved temporaily 临时移动 305 use proxy 用户代理 380 alternative service 替代服务 4. 请求失败(4XX) 400 bad request 错误请求 401 unauthorized 未授权 402 payment required 付费要求 403 forbidden 禁止 404 not found 未发现 405 method no allowed 方法不允许 406 not acceptable 不可接受 407 proxy authentication required 代理需要认证 408 request timeout 请求超时 410 gone 离开 413 request entity too large 请求实体太大 414 request-url too long 请求URL太长 415 unsupported media type 不支持的媒体类型 416 unsupported url scheme 不支持的URL计划 420 bad extension 不良扩展 421 extension required 需要扩展 423 interval too brief 间隔太短 480 temporarily unavailable 临时失效 481 call/transaction does not exist 呼叫/事务不存在 482 loop detected 发现环路 483 too many hops 跳数太多 484 address incomplete 地址不完整 485 ambiguous 不明朗 486 busy here 这里忙 487 request terminated 请求终止 488 not acceptable here 这里请求不可接受 491 request pending 未决请求 493 undecipherable 不可辨识 5.</description>
+    </item>
+    
+    <item>
+      <title>Freeswitch 1.10.6的docker镜像构建</title>
+      <link>https://zoehuawang.github.io/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/</link>
+      <pubDate>Sat, 06 May 2023 10:06:59 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/</guid>
+      <description>Dockerfile文件内容
+FROM debian:10-slim ENV TZ=Asia/Shanghai RUN apt-get update RUN apt-get install apt-transport-https ca-certificates -y RUN echo &amp;#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian/ buster main contrib non-free&amp;#34; &amp;gt; /etc/apt/sources.list RUN echo &amp;#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian/ buster-updates main contrib non-free&amp;#34; &amp;gt;&amp;gt; /etc/apt/sources.list RUN echo &amp;#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian/ buster-backports main contrib non-free&amp;#34; &amp;gt;&amp;gt; /etc/apt/sources.list RUN echo &amp;#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian-security buster/updates main contrib non-free&amp;#34; &amp;gt;&amp;gt; /etc/apt/sources.list RUN apt-get update RUN apt-get install gcc g++ autoconf automake make libtool libtool-bin pkg-config \ sngrep uuid-dev libtiff-dev libsqlite3-dev libcurl4-openssl-dev \ libpcre3-dev libspeex-dev libedit-dev libcurl4-openssl-dev libshout3-dev \ libavformat-dev libswscale-dev \ libspeexdsp-dev libssl-dev yasm liblua5.</description>
+    </item>
+    
+    <item>
+      <title>Freeswitch 1.4.26基本安装使用</title>
+      <link>https://zoehuawang.github.io/post/freeswitch-1.4.26%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Sat, 06 May 2023 10:05:18 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/freeswitch-1.4.26%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</guid>
+      <description>#下载源码包 wget https://files.freeswitch.org/releases/freeswitch/freeswitch-1.4.26.tar.gz #安装依赖 yum install -y autoconf automake libtool gcc-c++ ncurses-devel make zlib-devel \ libjpeg-devel openssl-devel e2fsprogs-devel curl-devel pcre-devel speex-devel \ sqlite-devel ldns ldns-devel libedit-devel #解压进入源码包 tar -zxf freeswitch-1.4.26.tar.gz &amp;amp;&amp;amp; cd freeswitch-1.4.26 #配置，默认路径/usr/local/freeswitch ./configure #编译安装 make &amp;amp;&amp;amp; make install #修改客户端可以远程连接配置 (密码、监听端口也是这里面修改) sed -i &amp;#39;s/127.0.0.1/0.0.0.0/g&amp;#39; /usr/local/freeswitch/conf/autoload_configs/event_socket.conf.xml #修改sip注册默认密码，可加快拨打响应时间，default_password /usr/local/freeswitch/conf/vars.xml #如果机器不支持ipv6把相关配置删除 rm -rf /usr/local/freeswitch/conf/sip_profiles/external-ipv6* /usr/local/freeswitch/conf/sip_profiles/internal-ipv6* #后台启动 freeswitch -nc -nonat #停止 /usr/local/freeswitch/bin/freeswitch -stop #登陆控制台 /usr/local/freeswitch/bin/fs_cli -P端口 -p密码 -l日志级别 #-x执行命令 /usr/local/freeswitch/bin/fs_cli -x &amp;#34;show calls as json&amp;#34; #控制台日志级别，级别从0-7，级别越高日志越大。比如6设置成INFO级别；7设置成DEBUG级别，几乎每个操作都有很多日志。 freeswitch@internal&amp;gt; console loglevel 级别 #加载模块,控制台执行 load 模块名 #确认模块是否正常，控制台执行 module_exists 模块名 #更新鉴权,控制台执行 reloadacl #重新加载xml配置,控制台执行 reloadxml，或者控制台按 F6 #查看全局变量local_ip_v4的值 freeswitch@internal&amp;gt; global_getvar local_ip_v4 #各配置文件作用 vars.</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes之StatefulSet部署etcd集群</title>
+      <link>https://zoehuawang.github.io/post/kubernetes%E4%B9%8Bstatefulset%E9%83%A8%E7%BD%B2etcd%E9%9B%86%E7%BE%A4/</link>
+      <pubDate>Sat, 06 May 2023 10:00:11 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/kubernetes%E4%B9%8Bstatefulset%E9%83%A8%E7%BD%B2etcd%E9%9B%86%E7%BE%A4/</guid>
+      <description>0、etcd版本镜像构建Dockerfile # wget https://github.com/etcd-io/etcd/releases/download/v3.5.7/etcd-v3.5.7-linux-amd64.tar.gz FROM ccr.ccs.tencentyun.com/zoehuawang/etcd:v3.4.13 #FROM centos:7 COPY etcd-v3.5.7-linux-amd64/etcd* /usr/local/bin/ COPY ca.pem /root/ COPY etcd.pem /root/ COPY etcd-key.pem /root/ RUN chmod 777 /usr/local/bin/etcd RUN chmod 777 /usr/local/bin/etcdctl 1、在指定node打上需要的标签（pv和pod都需要） 2、创建pv和sc apiVersion: v1 kind: PersistentVolume metadata: name: apisix-etcd-pv1 spec: capacity: storage: 2Gi accessModes: - ReadWriteOnce volumeMode: Filesystem persistentVolumeReclaimPolicy: Delete storageClassName: apisix-etcd-storage local: path: /mnt/etcd nodeAffinity: required: nodeSelectorTerms: - matchExpressions: - key: apisixetcd operator: In values: - pv1 --- apiVersion: v1 kind: PersistentVolume metadata: name: apisix-etcd-pv2 spec: capacity: storage: 2Gi accessModes: - ReadWriteOnce volumeMode: Filesystem persistentVolumeReclaimPolicy: Delete storageClassName: apisix-etcd-storage local: path: /mnt/etcd nodeAffinity: required: nodeSelectorTerms: - matchExpressions: - key: apisixetcd operator: In values: - pv2 --- apiVersion: v1 kind: PersistentVolume metadata: name: apisix-etcd-pv3 spec: capacity: storage: 2Gi accessModes: - ReadWriteOnce volumeMode: Filesystem persistentVolumeReclaimPolicy: Delete storageClassName: apisix-etcd-storage local: path: /mnt/etcd nodeAffinity: required: nodeSelectorTerms: - matchExpressions: - key: apisixetcd operator: In values: - pv3 --- kind: StorageClass apiVersion: storage.</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes之Service代理外部服务</title>
+      <link>https://zoehuawang.github.io/post/kubernetes%E4%B9%8Bservice%E4%BB%A3%E7%90%86%E5%A4%96%E9%83%A8%E6%9C%8D%E5%8A%A1/</link>
+      <pubDate>Sat, 06 May 2023 09:55:58 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/kubernetes%E4%B9%8Bservice%E4%BB%A3%E7%90%86%E5%A4%96%E9%83%A8%E6%9C%8D%E5%8A%A1/</guid>
+      <description>apiVersion: v1 kind: Service metadata: name: rabbitmq-proxy namespace: cloud2 spec: ports: - port: 15672 name: http targetPort: 15672	- port: 5672 name: amqp targetPort: 5672 --- kind: Endpoints apiVersion: v1 metadata: name: rabbitmq-proxy namespace: cloud2 subsets: - addresses: - ip: 192.168.7.54 - ip: 192.168.7.55 - ip: 192.168.7.56 ports: - port: 15672 name: http - port: 5672 name: amqp </description>
+    </item>
+    
+    <item>
+      <title>Kubernetes</title>
+      <link>https://zoehuawang.github.io/post/kubernetes/</link>
+      <pubDate>Sat, 06 May 2023 09:51:13 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/kubernetes/</guid>
+      <description> 命令收集 #设置节点roles名(master、node) kubectl label node k8s-node1 node-role.kubernetes.io/master= kubectl label node k8s-node2 node-role.kubernetes.io/node= #1、设置节点不可调度、可调度 kubectl cordon k8s-node-1 #不可调度 kubectl uncordon k8s-node-1 #取消不可调度 #2、驱逐已经运行的业务容器 kubectl drain --ignore-daemonsets k8s-node-1 #3、伸缩Deployment中pod的副本数 kubectl scale deployment nginx-deployment --replicas 4 #4、给节点添加标签、删除标签 kubectl label node 192.168.1.205 mem=large kubectl label node 192.168.1.205 mem- #5、给节点添加污点、删除污点 kubectl taint nodes node02 key1=value1:NoSchedule kubectl taint nodes node1 key1:NoSchedule- #6、查看现有node及label kubectl get node 192.168.1.205 --show-labels #7、查看污点 kubectl describe nodes 节点名称 #8、查看pod的cpu和内存 kubectl top pod -n namespace #9、强制删除pod kubectl delete pod -n namespace --grace-period=0 --force #10、查看常驻集群内的后台程序 kubectl get daemonset -A yaml示例 apiVersion: v1 kind: Service metadata: name: appname namespace: namespacename labels: name: appname spec: type: NodePort ports: - name: tcp protocol: TCP port: 8080 nodePort: 30000 selector: app: appname	--- apiVersion: apps/v1 kind: Deployment metadata: name: appname namespace: namespacename labels: app: appname spec: replicas: 1 selector: matchLabels: app: appname template: metadata: labels: app: appname version: v1 spec: containers: - name: appname image: registry:5000/imagename:tag imagePullPolicy: Always env: - name: NODE_ENV value: production volumeMounts: - name: logs mountPath: /home/Apps/logs volumes: - name: logs hostPath: path: /logs/ Pod 拓扑分布约束 kind: Deployment apiVersion: apps/v1 metadata: name: mypod labels: foo: bar spec: topologySpreadConstraints: - maxSkew: 1 topologyKey: zone whenUnsatisfiable: DoNotSchedule labelSelector: matchLabels: foo: bar # maxSkew 是pod之间个数的最大允许差值。它必须大于零 # topologyKey 是节点标签 # labelSelector 用于查找匹配此标签的pod </description>
+    </item>
+    
+    <item>
+      <title>Linux&amp;Shell</title>
+      <link>https://zoehuawang.github.io/post/linuxshell/</link>
+      <pubDate>Sat, 06 May 2023 09:42:42 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/linuxshell/</guid>
+      <description>#home目录下所有文件更新时间距现在时刻大于120分钟的文件删除(-mtime -3 表示3天以内) find /home/* -mmin +120 -exec rm -rf {} \; #home目录下所有文件创建时间距现在时刻大于120分钟的文件删除(-ctime -3 表示3天以内) find /home/* -cmin +120 -exec rm -rf {} \; tar -zcf XXX.tar.gz XXX --remove-files #打包成tar包之后删除原文件 #替换jar内文件(包内要和包外的路径对应一致，不然会说没有这个文件) jar -uvf XXX.jar 包内文件 包外文件 #添加swap分区(创建swap文件、修改权限、设置交换空间、启用交换空间、开机自动挂载) dd if=/dev/zero of=/tmp/swap bs=1MB count=1024 chmod 0600 /tmp/swap mkswap /tmp/swap swapon /tmp/swap echo &amp;#34;/tmp/swap swap swap defaults 0 0&amp;#34; &amp;gt;&amp;gt; /etc/fstab #查看当前目录下各文件夹占用空间，深度1。（-h后面可以指定目录参数） du -h --max-depth=1 #查看目录下所有文件的大小并按照大小排序 du -sh * | sort -rh sort file1 file2 | uniq -u #去除两个文件重复部分 ln –s 源文件 目标文件 #软链接 ls --full-time filename #查看文件生成全部时间 ls -lR | grep &amp;#34;^-&amp;#34; | wc -l #查看当前目录下的文件数量（包含子目录中的文件） 注意：R，代表子目录 ls -l | grep &amp;#34;^-&amp;#34; | wc -l #查看当前目录下的文件数量（不包含子目录中的文件） ls -l | grep &amp;#34;^d&amp;#34; | wc -l #查看当前目录下的文件夹数量（不包含子目录中的目录），同上述理，如果需要查看子目录的，加上R #不解压筛选查看tar.</description>
+    </item>
+    
+  </channel>
+</rss>

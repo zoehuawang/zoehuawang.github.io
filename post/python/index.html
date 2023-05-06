@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<head>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
+
+    
+    
+    <title>Python - 烟花散尽不问繁华</title>
+    
+    
+    <meta name="author" content="zoehuawang" /> 
+     
+    
+    
+    <meta property="og:title" content="Python" />
+<meta property="og:description" content="Python扩展包大全：https://www.lfd.uci.edu/~gohlke/pythonlibs
+python3常用进制转换： hex(16) # 10进制转16进制 oct(8) # 10进制转8进制 bin(8) # 10进制转2进制 int(&#39;10&#39;) # 字符串转换成10进制整数 int(&#39;10&#39;,16) # 字符串转换成16进制整数 int(&#39;0x10&#39;,16) # 字符串转换成16进制整数 int(&#39;10&#39;,8) # 字符串转换成8进制整数 int(&#39;010&#39;,8) # 字符串转换成8进制整数 int(&#39;10&#39;,2) # 字符串转换成2进制整数 python时间格式 time.strftime(&#39;%Y-%m-%d %H:%M:%S&#39;,time.localtime()) # &#39;1900-01-01 08:00:01&#39; time.strftime(&#39;%X&#39;) # &#39;08:00:01&#39; datetime.datetime.now().strftime(&#39;%Y-%m-%d %H:%M:%S&#39;)	# &#39;1900-01-01 08:00:01&#39; pip安装包临时提速方法 #在 pip install 包名 后面加上 -i &#43; 镜像地址，这样 pip 安装时即可成倍的提速了,国内主要镜像地址如下： 清华：https://pypi.tuna.tsinghua.edu.cn/simple 阿里云：https://mirrors.aliyun.com/pypi/simple/ 中国科技大学: https://pypi.mirrors.ustc.edu.cn/simple/ 华中理工大学：http://pypi.hustunique.com/ 山东理工大学：http://pypi.sdutlinux.org/ 豆瓣：http://pypi.douban.com/simple/ Python中yield的用法详解 首先，如果你还没有对yield有个初步分认识，那么你先把yield看做“return”，这个是直观的，它首先是个return，普通的return是什么意思，就是在程序中返回某个值，返回之后程序就不再往下运行了。看做return之后再把它看做一个是生成器（generator）的一部分（带yield的函数才是真正的迭代器），好了，如果你对这些不明白的话，那先把yield看做return,然后直接看下面的程序：
+def foo(): print(&#34;starting...&#34;) while True: res = yield 4 print(&#34;res:&#34;,res) g = foo() print(next(g)) print(&#34;*&#34;*20) print(next(g)) 就这么简单的几行代码就让你明白什么是yield，代码的输出这个：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zoehuawang.github.io/post/python/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-05-06T10:11:36+08:00" />
+<meta property="article:modified_time" content="2023-05-06T10:11:36+08:00" />
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Python"/>
+<meta name="twitter:description" content="Python扩展包大全：https://www.lfd.uci.edu/~gohlke/pythonlibs
+python3常用进制转换： hex(16) # 10进制转16进制 oct(8) # 10进制转8进制 bin(8) # 10进制转2进制 int(&#39;10&#39;) # 字符串转换成10进制整数 int(&#39;10&#39;,16) # 字符串转换成16进制整数 int(&#39;0x10&#39;,16) # 字符串转换成16进制整数 int(&#39;10&#39;,8) # 字符串转换成8进制整数 int(&#39;010&#39;,8) # 字符串转换成8进制整数 int(&#39;10&#39;,2) # 字符串转换成2进制整数 python时间格式 time.strftime(&#39;%Y-%m-%d %H:%M:%S&#39;,time.localtime()) # &#39;1900-01-01 08:00:01&#39; time.strftime(&#39;%X&#39;) # &#39;08:00:01&#39; datetime.datetime.now().strftime(&#39;%Y-%m-%d %H:%M:%S&#39;)	# &#39;1900-01-01 08:00:01&#39; pip安装包临时提速方法 #在 pip install 包名 后面加上 -i &#43; 镜像地址，这样 pip 安装时即可成倍的提速了,国内主要镜像地址如下： 清华：https://pypi.tuna.tsinghua.edu.cn/simple 阿里云：https://mirrors.aliyun.com/pypi/simple/ 中国科技大学: https://pypi.mirrors.ustc.edu.cn/simple/ 华中理工大学：http://pypi.hustunique.com/ 山东理工大学：http://pypi.sdutlinux.org/ 豆瓣：http://pypi.douban.com/simple/ Python中yield的用法详解 首先，如果你还没有对yield有个初步分认识，那么你先把yield看做“return”，这个是直观的，它首先是个return，普通的return是什么意思，就是在程序中返回某个值，返回之后程序就不再往下运行了。看做return之后再把它看做一个是生成器（generator）的一部分（带yield的函数才是真正的迭代器），好了，如果你对这些不明白的话，那先把yield看做return,然后直接看下面的程序：
+def foo(): print(&#34;starting...&#34;) while True: res = yield 4 print(&#34;res:&#34;,res) g = foo() print(next(g)) print(&#34;*&#34;*20) print(next(g)) 就这么简单的几行代码就让你明白什么是yield，代码的输出这个："/>
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqusjs.css" />
+    
+    
+
+    
+    
+    <link rel="stylesheet" href="https://zoehuawang.github.io/scss/main.min.3796779d99b798f0ae24d49c5a420db134eef2207610ed71453e417ce3ab44ed.css" integrity="sha256-N5Z3nZm3mPCuJNScWkINsTTu8iB2EO1xRT5BfOOrRO0=" crossorigin="anonymous" media="screen">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+  
+</head>
+<body>
+  <span class="mobile btn-mobile-menu">
+
+    <i class="fa fa-list btn-mobile-menu__icon"></i>
+    <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+
+  </span>
+
+  <header class="  panel-cover panel-cover--collapsed " style="background-image: url('/images/background-cover.jpg')">
+
+    <div class="panel-main">
+  
+      <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+  
+          <a href="/#blog" title="Homepage of 烟花散尽不问繁华 " class="blog-button"><img src="/images/avatar.jpg" width="80" alt="烟花散尽不问繁华 logo" class="panel-cover__logo logo" /></a>
+          <h1 class="panel-cover__title panel-title"><a href="/#blog" title="Homepage of 烟花散尽不问繁华" class="blog-button">烟花散尽不问繁华</a></h1>
+          
+          <span class="panel-cover__subtitle panel-subtitle">最好的等待，叫来日可期！</span>
+          
+          <hr class="panel-cover__divider" />
+          <p class="panel-cover__description"></p>
+          <hr class="panel-cover__divider panel-cover__divider--secondary" />
+          
+          
+          
+          <div class="navigation-wrapper">
+            <div>
+              <nav class="cover-navigation cover-navigation--primary">
+                <ul class="navigation">
+                  <li class="navigation__item"><a href="/#blog" title="Blog" class="blog-button">Blog</a></li>
+                  
+                    <li class="navigation__item"><a href="https://blog.zoehuawang.cn" target="_blank" title="Projects">Projects</a></li>
+                  
+                    <li class="navigation__item"><a href="/tags/" target="_blank" title="Tags">Tags</a></li>
+                  
+                </ul>
+              </nav>
+            </div>
+            
+            <div><nav class="cover-navigation navigation--social">
+    <ul class="navigation">
+  
+    
+  
+    
+    
+    
+
+    
+  
+    
+  
+    
+    <li class="navigation__item">
+      <a href="/index.xml" rel="author" title="RSS" target="_blank">
+        <i class='social fa fa-rss'></i>
+        <span class="label">RSS</span>
+      </a>
+    </li>
+  
+    
+  
+    </ul>
+  </nav>
+  </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      <div class="panel-cover--overlay cover-red"></div>
+      
+    </div>
+  </header>
+  
+
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner">
+
+        
+<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+    <header class="post-header">
+        <div class="post-meta">
+            <time datetime=" 2023-05-06 10:11:36 &#43;0800 " itemprop="datePublished" class="post-meta__date date">2023-05-06</time>
+            
+        </div>
+        <h1 class="post-title">Python</h1>
+    </header>
+    <section class="post">
+        <p><a href="https://www.lfd.uci.edu/~gohlke/pythonlibs">Python扩展包大全</a>：<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs">https://www.lfd.uci.edu/~gohlke/pythonlibs</a></p>
+<h4 id="python3常用进制转换">python3常用进制转换：</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>hex(<span style="color:#ae81ff">16</span>)       	<span style="color:#75715e"># 10进制转16进制</span>
+</span></span><span style="display:flex;"><span>oct(<span style="color:#ae81ff">8</span>)        	<span style="color:#75715e"># 10进制转8进制</span>
+</span></span><span style="display:flex;"><span>bin(<span style="color:#ae81ff">8</span>)        	<span style="color:#75715e"># 10进制转2进制</span>
+</span></span><span style="display:flex;"><span>int(<span style="color:#e6db74">&#39;10&#39;</span>)       <span style="color:#75715e"># 字符串转换成10进制整数</span>
+</span></span><span style="display:flex;"><span>int(<span style="color:#e6db74">&#39;10&#39;</span>,<span style="color:#ae81ff">16</span>)    <span style="color:#75715e"># 字符串转换成16进制整数</span>
+</span></span><span style="display:flex;"><span>int(<span style="color:#e6db74">&#39;0x10&#39;</span>,<span style="color:#ae81ff">16</span>)  <span style="color:#75715e"># 字符串转换成16进制整数</span>
+</span></span><span style="display:flex;"><span>int(<span style="color:#e6db74">&#39;10&#39;</span>,<span style="color:#ae81ff">8</span>)     <span style="color:#75715e"># 字符串转换成8进制整数</span>
+</span></span><span style="display:flex;"><span>int(<span style="color:#e6db74">&#39;010&#39;</span>,<span style="color:#ae81ff">8</span>)    <span style="color:#75715e"># 字符串转换成8进制整数</span>
+</span></span><span style="display:flex;"><span>int(<span style="color:#e6db74">&#39;10&#39;</span>,<span style="color:#ae81ff">2</span>)     <span style="color:#75715e"># 字符串转换成2进制整数</span>
+</span></span></code></pre></div><h4 id="python时间格式">python时间格式</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>time<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%Y-%m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> %H:%M:%S&#39;</span>,time<span style="color:#f92672">.</span>localtime())  	<span style="color:#75715e"># &#39;1900-01-01 08:00:01&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>time<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%X</span><span style="color:#e6db74">&#39;</span>)        <span style="color:#75715e"># &#39;08:00:01&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>datetime<span style="color:#f92672">.</span>datetime<span style="color:#f92672">.</span>now()<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%Y-%m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> %H:%M:%S&#39;</span>)	<span style="color:#75715e"># &#39;1900-01-01 08:00:01&#39;</span>
+</span></span></code></pre></div><h4 id="pip安装包临时提速方法">pip安装包临时提速方法</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#在 pip install 包名 后面加上 -i + 镜像地址，这样 pip 安装时即可成倍的提速了,国内主要镜像地址如下：</span>
+</span></span><span style="display:flex;"><span>清华：https://pypi.tuna.tsinghua.edu.cn/simple
+</span></span><span style="display:flex;"><span>阿里云：https://mirrors.aliyun.com/pypi/simple/
+</span></span><span style="display:flex;"><span>中国科技大学: https://pypi.mirrors.ustc.edu.cn/simple/
+</span></span><span style="display:flex;"><span>华中理工大学：http://pypi.hustunique.com/
+</span></span><span style="display:flex;"><span>山东理工大学：http://pypi.sdutlinux.org/
+</span></span><span style="display:flex;"><span>豆瓣：http://pypi.douban.com/simple/
+</span></span></code></pre></div><h1 id="python中yield的用法详解">Python中yield的用法详解</h1>
+<p>首先，如果你还没有对yield有个初步分认识，那么你先把yield看做“return”，这个是直观的，它首先是个return，普通的return是什么意思，就是在程序中返回某个值，返回之后程序就不再往下运行了。看做return之后再把它看做一个是生成器（generator）的一部分（带yield的函数才是真正的迭代器），好了，如果你对这些不明白的话，那先把yield看做return,然后直接看下面的程序：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">foo</span>():
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;starting...&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>        res <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;res:&#34;</span>,res)
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">=</span> foo()
+</span></span><span style="display:flex;"><span>print(next(g))
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;*&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">20</span>)
+</span></span><span style="display:flex;"><span>print(next(g))
+</span></span></code></pre></div><p>就这么简单的几行代码就让你明白什么是yield，代码的输出这个：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>starting<span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">********************</span>
+</span></span><span style="display:flex;"><span>res: <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
+</span></span></code></pre></div><p>下面直接解释代码运行顺序，相当于代码单步调试：</p>
+<p>1.程序开始执行以后，因为foo函数中有yield关键字，所以foo函数并不会真的执行，而是先得到一个生成器g(相当于一个对象)</p>
+<p>2.直到调用next方法，foo函数正式开始执行，先执行foo函数中的print方法，然后进入while循环</p>
+<p>3.程序遇到yield关键字，然后把yield想想成return,return了一个4之后，程序停止，并没有执行赋值给res操作，此时next(g)语句执行完成，所以输出的前两行（第一个是while上面的print的结果,第二个是return出的结果）是执行print(next(g))的结果，</p>
+<p>4.程序执行print(&quot;*&quot;<em>20)，输出20个</em></p>
+<p>5.又开始执行下面的print(next(g)),这个时候和上面那个差不多，不过不同的是，这个时候是从刚才那个next程序停止的地方开始执行的，也就是要执行res的赋值操作，这时候要注意，这个时候赋值操作的右边是没有值的（因为刚才那个是return出去了，并没有给赋值操作的左边传参数），所以这个时候res赋值是None,所以接着下面的输出就是res:None,</p>
+<p>6.程序会继续在while里执行，又一次碰到yield,这个时候同样return 出4，然后程序停止，print函数输出的4就是这次return出的4.</p>
+<p>再看一个这个生成器的send函数的例子，这个例子就把上面那个例子的最后一行换掉了:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">foo</span>():
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;starting...&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>        res <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;res:&#34;</span>,res)
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">=</span> foo()
+</span></span><span style="display:flex;"><span>print(next(g))
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;*&#34;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">20</span>)
+</span></span><span style="display:flex;"><span>print(g<span style="color:#f92672">.</span>send(<span style="color:#ae81ff">7</span>))
+</span></span></code></pre></div><p>输出结果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>starting<span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">********************</span>
+</span></span><span style="display:flex;"><span>res: <span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>
+</span></span></code></pre></div><p>程序执行g.send(7)，程序会从yield关键字那一行继续向下运行，send会把7这个值赋值给res变量。</p>
+<p>第一次使用生成器需要send(None)或者next()唤醒</p>
+<p>next() 只唤醒yiedl不传递值</p>
+<p>send() 唤醒yiedl并传递值</p>
+<h1 id="基于python3的flask教程中文版">基于Python3的Flask教程中文版</h1>
+<p><a href="https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%E7%AC%AC%E4%B8%80%E7%AB%A0%EF%BC%9AHello%2C%20World!.md">第一章：Hello, World!</a>
+<a href="https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%E7%AC%AC%E4%BA%8C%E7%AB%A0%EF%BC%9A%E6%A8%A1%E6%9D%BF.md">第二章：模板</a>
+<a href="https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%E7%AC%AC%E4%B8%89%E7%AB%A0%EF%BC%9AWeb%E8%A1%A8%E5%8D%95.md">第三章：Web表单</a>
+<a href="https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%E7%AC%AC%E5%9B%9B%E7%AB%A0%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%BA%93.md">第四章：数据库</a>
+<a href="https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%E7%AC%AC%E4%BA%94%E7%AB%A0%EF%BC%9A%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95.md">第五章：用户登录</a>
+<a href="https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%E7%AC%AC%E5%85%AD%E7%AB%A0%EF%BC%9A%E4%B8%AA%E4%BA%BA%E4%B8%BB%E9%A1%B5%E5%92%8C%E5%A4%B4%E5%83%8F.md">第六章：个人主页和头像</a>
+<a href="https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%E7%AC%AC%E4%B8%83%E7%AB%A0%EF%BC%9A%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86.md">第七章：错误处理</a>
+<a href="https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%E7%AC%AC%E5%85%AB%E7%AB%A0%EF%BC%9A%E7%B2%89%E4%B8%9D.md">第八章：粉丝</a>
+<a href="https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%E7%AC%AC%E4%B9%9D%E7%AB%A0%EF%BC%9A%E5%88%86%E9%A1%B5.md">第九章：分页</a>
+<a href="https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%E7%AC%AC%E5%8D%81%E7%AB%A0%EF%BC%9A%E9%82%AE%E4%BB%B6%E6%94%AF%E6%8C%81.md">第十章：邮件支持</a>
+<a href="https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0%EF%BC%9A%E7%BE%8E%E5%8C%96.md">第十一章：美化</a>
+<a href="https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%EF%BC%9A%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4.md">第十二章：日期和时间</a>
+<a href="https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0%EF%BC%9A%E5%9B%BD%E9%99%85%E5%8C%96%E5%92%8C%E6%9C%AC%E5%9C%B0%E5%8C%96.md">第十三章：国际化和本地化</a>
+<a href="https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%EF%BC%9AAjax.md">第十四章：Ajax</a>
+<a href="https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AB%A0%EF%BC%9A%E4%BC%98%E5%8C%96%E5%BA%94%E7%94%A8%E7%BB%93%E6%9E%84.md">第十五章：优化应用结构</a>
+<a href="https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0%EF%BC%9A%E5%85%A8%E6%96%87%E6%90%9C%E7%B4%A2.md">第十六章：全文搜索</a>
+<a href="https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%E7%AC%AC%E5%8D%81%E4%B8%83%E7%AB%A0%EF%BC%9ALinux%E4%B8%8A%E7%9A%84%E9%83%A8%E7%BD%B2.md">第十七章：Linux上的部署</a>
+<a href="https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%E7%AC%AC%E5%8D%81%E5%85%AB%E7%AB%A0%EF%BC%9AHeroku%E4%B8%8A%E7%9A%84%E9%83%A8%E7%BD%B2.md">第十八章：Heroku上的部署</a>
+<a href="https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%E7%AC%AC%E5%8D%81%E4%B9%9D%E7%AB%A0%EF%BC%9ADocker%E5%AE%B9%E5%99%A8%E4%B8%8A%E7%9A%84%E9%83%A8%E7%BD%B2.md">第十九章：Docker容器上的部署</a>
+<a href="https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%E7%AC%AC%E4%BA%8C%E5%8D%81%E7%AB%A0%EF%BC%9A%E5%8A%A0%E7%82%B9JavaScript%E9%AD%94%E6%B3%95.md">第二十章：加点JavaScript魔法</a>
+<a href="https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%B8%80%E7%AB%A0%EF%BC%9A%E7%94%A8%E6%88%B7%E9%80%9A%E7%9F%A5.md">第二十一章：用户通知</a>
+<a href="https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%BA%8C%E7%AB%A0%EF%BC%9A%E5%90%8E%E5%8F%B0%E4%BD%9C%E4%B8%9A.md">第二十二章：后台作业</a>
+<a href="https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%B8%89%E7%AB%A0%EF%BC%9A%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3%EF%BC%88API%EF%BC%89.md">第二十三章：应用程序编程接口（API）</a></p>
+
+    </section>
+</article>
+<section class="read-more">
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">Recent</span>
+        <h2 class="post-list__post-title post-title"><a href="/post/docker/" title="link to Docker">Docker</a></h2>
+        <p class="excerpt">资源链接：http://www.rpmfind.net/linux/rpm2html/search.php?query=docker
+docker inspect CONTAINER_NAME #查看容器所有信息 docker container port CONTAINER_NAME #查看容器端口映射信息 docker logs CONTAINER_NAME #查看启动日志 容器启动自动执行~/.bashrc #内部取得root权限(centos7) 在docker run的时候加 …&hellip;</p>
+        <div class="post-list__meta">
+            <time datetime=" 2023-05-06 10:11:36 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+            
+            <a class="btn-border-small" href="/post/docker/">Continue</a>
+        </div>
+    </div>
+    
+
+
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">Earlier</span>
+        <h2 class="post-list__post-title post-title"><a href="/post/elk/" title="link to ELK">ELK</a></h2>
+        <p class="excerpt">安装Elasticsearch 官方下载地址：https://www.elastic.co/downloads/past-releases/elasticsearch-7-16-2 修改所有节点的默认内核参数 echo &#34;vm.swappiness=0&#34; &gt;&gt; /etc/sysctl.conf echo &#34;vm.max_map_count=655350&#34; &gt;&gt; /etc/sysctl.conf sysctl -p 修改所有节点的linux资 …&hellip;</p>
+        <div class="post-list__meta">
+            <time datetime=" 2023-05-06 10:11:36 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+            
+            <a class="btn-border-small" href="/post/elk/">Continue</a>
+        </div>
+    </div>
+    
+ </section>
+ 
+<section class="post-comments">
+    
+      <div id="disqus_thread"></div>
+      <script>
+      
+      var disqus_config = function () {
+          this.page.url = "https:\/\/zoehuawang.github.io\/post\/python\/";
+          this.page.identifier = "https:\/\/zoehuawang.github.io\/post\/python\/";
+      };
+  
+      var disqus_shortname = 'vno-hugo';
+      
+      (function() { 
+          var d = document, s = d.createElement('script');
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+          })();
+      </script>
+      <noscript>To view comments from<a href="http://disqus.com/?ref_noscript"> Disqus </a>, please enable JavaScript.</noscript>
+      
+    
+
+    
+    
+  </section>
+  
+
+        <section class="footer">
+    <footer>
+        <span class="footer__copyright">This site is licensed under a <a href="<no value>"><no value></a> license.</span>
+        <span class="footer__copyright">Generated by <a href="https://gohugo.io/">Hugo</a> at 2023-05-06, themed with <a href="https://github.com/xslingcn/vno-hugo"> Vno - Hugo</a>.</span>
+    </footer>
+</section>
+
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script><script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'your_ga_id', 'your_host');
+    ga('send', 'pageview');
+</script>
+
+  
+</body>
+
