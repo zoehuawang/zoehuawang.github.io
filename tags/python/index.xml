@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>python on 烟花散尽不问繁华</title>
+    <link>https://zoehuawang.github.io/tags/python/</link>
+    <description>Recent content in python on 烟花散尽不问繁华</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 06 May 2023 10:11:36 +0800</lastBuildDate><atom:link href="https://zoehuawang.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python</title>
+      <link>https://zoehuawang.github.io/post/python/</link>
+      <pubDate>Sat, 06 May 2023 10:11:36 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/python/</guid>
+      <description>Python扩展包大全：https://www.lfd.uci.edu/~gohlke/pythonlibs
+python3常用进制转换： hex(16) # 10进制转16进制 oct(8) # 10进制转8进制 bin(8) # 10进制转2进制 int(&amp;#39;10&amp;#39;) # 字符串转换成10进制整数 int(&amp;#39;10&amp;#39;,16) # 字符串转换成16进制整数 int(&amp;#39;0x10&amp;#39;,16) # 字符串转换成16进制整数 int(&amp;#39;10&amp;#39;,8) # 字符串转换成8进制整数 int(&amp;#39;010&amp;#39;,8) # 字符串转换成8进制整数 int(&amp;#39;10&amp;#39;,2) # 字符串转换成2进制整数 python时间格式 time.strftime(&amp;#39;%Y-%m-%d %H:%M:%S&amp;#39;,time.localtime()) # &amp;#39;1900-01-01 08:00:01&amp;#39; time.strftime(&amp;#39;%X&amp;#39;) # &amp;#39;08:00:01&amp;#39; datetime.datetime.now().strftime(&amp;#39;%Y-%m-%d %H:%M:%S&amp;#39;)	# &amp;#39;1900-01-01 08:00:01&amp;#39; pip安装包临时提速方法 #在 pip install 包名 后面加上 -i + 镜像地址，这样 pip 安装时即可成倍的提速了,国内主要镜像地址如下： 清华：https://pypi.tuna.tsinghua.edu.cn/simple 阿里云：https://mirrors.aliyun.com/pypi/simple/ 中国科技大学: https://pypi.mirrors.ustc.edu.cn/simple/ 华中理工大学：http://pypi.hustunique.com/ 山东理工大学：http://pypi.sdutlinux.org/ 豆瓣：http://pypi.douban.com/simple/ Python中yield的用法详解 首先，如果你还没有对yield有个初步分认识，那么你先把yield看做“return”，这个是直观的，它首先是个return，普通的return是什么意思，就是在程序中返回某个值，返回之后程序就不再往下运行了。看做return之后再把它看做一个是生成器（generator）的一部分（带yield的函数才是真正的迭代器），好了，如果你对这些不明白的话，那先把yield看做return,然后直接看下面的程序：
+def foo(): print(&amp;#34;starting...&amp;#34;) while True: res = yield 4 print(&amp;#34;res:&amp;#34;,res) g = foo() print(next(g)) print(&amp;#34;*&amp;#34;*20) print(next(g)) 就这么简单的几行代码就让你明白什么是yield，代码的输出这个：</description>
+    </item>
+    
+  </channel>
+</rss>

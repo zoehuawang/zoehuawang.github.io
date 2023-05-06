@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>elk on 烟花散尽不问繁华</title>
+    <link>https://zoehuawang.github.io/tags/elk/</link>
+    <description>Recent content in elk on 烟花散尽不问繁华</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 06 May 2023 10:11:11 +0800</lastBuildDate><atom:link href="https://zoehuawang.github.io/tags/elk/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ELK</title>
+      <link>https://zoehuawang.github.io/post/elk/</link>
+      <pubDate>Sat, 06 May 2023 10:11:11 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/elk/</guid>
+      <description>安装Elasticsearch 官方下载地址：https://www.elastic.co/downloads/past-releases/elasticsearch-7-16-2 修改所有节点的默认内核参数 echo &amp;#34;vm.swappiness=0&amp;#34; &amp;gt;&amp;gt; /etc/sysctl.conf echo &amp;#34;vm.max_map_count=655350&amp;#34; &amp;gt;&amp;gt; /etc/sysctl.conf sysctl -p 修改所有节点的linux资源限制，永久生效 cat /etc/security/limits.conf|grep -v &amp;#34;^#&amp;#34; * soft nofile 1024000 * hard nofile 1024000 * soft nproc unlimited * hard nproc unlimited * soft core unlimited * hard core unlimited * soft memlock unlimited * hard memlock unlimited ulimit -SHn 1024000 修改配置文件，添加以下内容： cluster.name: ES-cluster #集群名称 node.name: f7ec9b80edc5 #节点名 node.attr.hotwarm_type: hot path.data: /data/elasticsearch-7.16.2/data path.logs: /data/elasticsearch-7.16.2/log network.host: 0.0.0.0 #允许外网访问 http.port: 9200 #服务端口 transport.</description>
+    </item>
+    
+  </channel>
+</rss>

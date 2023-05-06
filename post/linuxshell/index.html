@@ -19,6 +19,8 @@
      
     
     
+    <meta name="keywords" content="linux" />
+    
     <meta property="og:title" content="Linux&amp;Shell" />
 <meta property="og:description" content="#home目录下所有文件更新时间距现在时刻大于120分钟的文件删除(-mtime -3 表示3天以内) find /home/* -mmin &#43;120 -exec rm -rf {} \; #home目录下所有文件创建时间距现在时刻大于120分钟的文件删除(-ctime -3 表示3天以内) find /home/* -cmin &#43;120 -exec rm -rf {} \; tar -zcf XXX.tar.gz XXX --remove-files #打包成tar包之后删除原文件 #替换jar内文件(包内要和包外的路径对应一致，不然会说没有这个文件) jar -uvf XXX.jar 包内文件 包外文件 #添加swap分区(创建swap文件、修改权限、设置交换空间、启用交换空间、开机自动挂载) dd if=/dev/zero of=/tmp/swap bs=1MB count=1024 chmod 0600 /tmp/swap mkswap /tmp/swap swapon /tmp/swap echo &#34;/tmp/swap swap swap defaults 0 0&#34; &gt;&gt; /etc/fstab #查看当前目录下各文件夹占用空间，深度1。（-h后面可以指定目录参数） du -h --max-depth=1 #查看目录下所有文件的大小并按照大小排序 du -sh * | sort -rh sort file1 file2 | uniq -u #去除两个文件重复部分 ln –s 源文件 目标文件 #软链接 ls --full-time filename #查看文件生成全部时间 ls -lR | grep &#34;^-&#34; | wc -l #查看当前目录下的文件数量（包含子目录中的文件） 注意：R，代表子目录 ls -l | grep &#34;^-&#34; | wc -l #查看当前目录下的文件数量（不包含子目录中的文件） ls -l | grep &#34;^d&#34; | wc -l #查看当前目录下的文件夹数量（不包含子目录中的目录），同上述理，如果需要查看子目录的，加上R #不解压筛选查看tar." />
 <meta property="og:type" content="article" />
@@ -128,7 +130,7 @@
     <header class="post-header">
         <div class="post-meta">
             <time datetime=" 2023-05-06 09:42:42 &#43;0800 " itemprop="datePublished" class="post-meta__date date">2023-05-06</time>
-            
+             <span class="post-meta__tags tags">   • <a href="https://zoehuawang.github.io/tags/linux">linux</a>  </span> 
         </div>
         <h1 class="post-title">Linux&amp;Shell</h1>
     </header>

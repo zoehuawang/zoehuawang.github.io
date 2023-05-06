@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>docker on 烟花散尽不问繁华</title>
+    <link>https://zoehuawang.github.io/tags/docker/</link>
+    <description>Recent content in docker on 烟花散尽不问繁华</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 06 May 2023 10:12:14 +0800</lastBuildDate><atom:link href="https://zoehuawang.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker</title>
+      <link>https://zoehuawang.github.io/post/docker/</link>
+      <pubDate>Sat, 06 May 2023 10:12:14 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/docker/</guid>
+      <description>资源链接：http://www.rpmfind.net/linux/rpm2html/search.php?query=docker
+docker inspect CONTAINER_NAME #查看容器所有信息 docker container port CONTAINER_NAME #查看容器端口映射信息 docker logs CONTAINER_NAME #查看启动日志 容器启动自动执行~/.bashrc #内部取得root权限(centos7) 在docker run的时候加上--privileged=true参数，然后在最后面加上/usr/sbin/init。 #指定hostname --hostname &amp;lt;hostname&amp;gt; #指定网络，host模式，容器将不会获得一个独立的Network，和宿主机共享网络IP和端口 --network=host #修改hosts文件 在docker run的时候加上--add-host machine:ip #修改hosts文件 或在/etc/bashrc文件末尾添加 echo &amp;#34;ip hostname&amp;#34; &amp;gt;&amp;gt; /etc/hosts #windows添加永久静态路由 route add 10.10.0.0 mask 255.255.255.0 10.0.75.2 IF 接口号 route add 172.17.0.0 mask 255.255.255.0 10.0.75.2 IF 接口号 接口号通过 route -4 print 查看，最左边一列就是接口号 #夸宿主机与容器网路互通添加路由（宿主机IP为10.1.24.*） 主机1：route add -net 172.16.12.0/16 gw 10.1.24.225 主机2：route add -net 172.16.12.0/16 gw 10.1.24.223 如果要添加为永久路由：就在在/etc/rc.local里添加 #php容器中添加pdo_mysql扩展模块 docker-php-ext-install pdo_mysql #docker删除none标签镜像 docker images|grep none|awk &amp;#39;{print $3 }&amp;#39;|xargs docker rmi #docker容器指定固定ip 1、创建自定义网络 docker network create --driver bridge --subnet=172.</description>
+    </item>
+    
+  </channel>
+</rss>

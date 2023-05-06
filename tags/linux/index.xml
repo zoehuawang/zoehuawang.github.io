@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>linux on 烟花散尽不问繁华</title>
+    <link>https://zoehuawang.github.io/tags/linux/</link>
+    <description>Recent content in linux on 烟花散尽不问繁华</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 06 May 2023 09:42:42 +0800</lastBuildDate><atom:link href="https://zoehuawang.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux&amp;Shell</title>
+      <link>https://zoehuawang.github.io/post/linuxshell/</link>
+      <pubDate>Sat, 06 May 2023 09:42:42 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/linuxshell/</guid>
+      <description>#home目录下所有文件更新时间距现在时刻大于120分钟的文件删除(-mtime -3 表示3天以内) find /home/* -mmin +120 -exec rm -rf {} \; #home目录下所有文件创建时间距现在时刻大于120分钟的文件删除(-ctime -3 表示3天以内) find /home/* -cmin +120 -exec rm -rf {} \; tar -zcf XXX.tar.gz XXX --remove-files #打包成tar包之后删除原文件 #替换jar内文件(包内要和包外的路径对应一致，不然会说没有这个文件) jar -uvf XXX.jar 包内文件 包外文件 #添加swap分区(创建swap文件、修改权限、设置交换空间、启用交换空间、开机自动挂载) dd if=/dev/zero of=/tmp/swap bs=1MB count=1024 chmod 0600 /tmp/swap mkswap /tmp/swap swapon /tmp/swap echo &amp;#34;/tmp/swap swap swap defaults 0 0&amp;#34; &amp;gt;&amp;gt; /etc/fstab #查看当前目录下各文件夹占用空间，深度1。（-h后面可以指定目录参数） du -h --max-depth=1 #查看目录下所有文件的大小并按照大小排序 du -sh * | sort -rh sort file1 file2 | uniq -u #去除两个文件重复部分 ln –s 源文件 目标文件 #软链接 ls --full-time filename #查看文件生成全部时间 ls -lR | grep &amp;#34;^-&amp;#34; | wc -l #查看当前目录下的文件数量（包含子目录中的文件） 注意：R，代表子目录 ls -l | grep &amp;#34;^-&amp;#34; | wc -l #查看当前目录下的文件数量（不包含子目录中的文件） ls -l | grep &amp;#34;^d&amp;#34; | wc -l #查看当前目录下的文件夹数量（不包含子目录中的目录），同上述理，如果需要查看子目录的，加上R #不解压筛选查看tar.</description>
+    </item>
+    
+  </channel>
+</rss>

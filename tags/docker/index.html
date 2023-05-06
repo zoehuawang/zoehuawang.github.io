@@ -12,21 +12,21 @@
 
     
     
-    <title>freeswitch - 烟花散尽不问繁华</title>
+    <title>docker - 烟花散尽不问繁华</title>
     
     
     <meta name="author" content="zoehuawang" /> 
      
     
     
-    <link rel="alternate" type="application/rss+xml" href="https://zoehuawang.github.io/tags/freeswitch/index.xml" title="烟花散尽不问繁华" />         
-    <meta property="og:title" content="freeswitch" />
+    <link rel="alternate" type="application/rss+xml" href="https://zoehuawang.github.io/tags/docker/index.xml" title="烟花散尽不问繁华" />         
+    <meta property="og:title" content="docker" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://zoehuawang.github.io/tags/freeswitch/" />
+<meta property="og:url" content="https://zoehuawang.github.io/tags/docker/" />
 
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="freeswitch"/>
+<meta name="twitter:title" content="docker"/>
 <meta name="twitter:description" content=""/>
 
 
@@ -127,33 +127,13 @@
     <ol class="post-list">
         
         <li>
-            <h2 class="post-list__post-title post-title"><a href="/post/sip%E5%BA%94%E7%AD%94%E6%B6%88%E6%81%AF%E7%8A%B6%E6%80%81%E7%A0%81/" title="To /post/sip%E5%BA%94%E7%AD%94%E6%B6%88%E6%81%AF%E7%8A%B6%E6%80%81%E7%A0%81/">Sip应答消息状态码</a></h2>
-            <p class="excerpt">1. 临时应答(1XX) 100 Trying 正在处理中 180 Ringing 振铃 181 call being forwarder 呼叫正在前向 182 queue 排队 183 session progress 会话进行 2. 会话成功(2XX) 200 OK 会话成功 3. 重定向(3XX) 300 multiple 多重选择 301 moved permanently 永久移动 302 moved temporaily 临时移动 305 use proxy 用户代理 380 …&hellip;</p>
+            <h2 class="post-list__post-title post-title"><a href="/post/docker/" title="To /post/docker/">Docker</a></h2>
+            <p class="excerpt">资源链接：http://www.rpmfind.net/linux/rpm2html/search.php?query=docker
+docker inspect CONTAINER_NAME #查看容器所有信息 docker container port CONTAINER_NAME #查看容器端口映射信息 docker logs CONTAINER_NAME #查看启动日志 容器启动自动执行~/.bashrc #内部取得root权限(centos7) 在docker run的时候加 …&hellip;</p>
             <div class="post-list__meta">
-                <time datetime=" 2023-05-06 10:08:02 &#43;0800 " class="post-list__meta--date date">2023-05-06</time>
-                 <span class="post-list__meta--tags tags">   • <a href="https://zoehuawang.github.io/tags/freeswitch">freeswitch</a>  </span> 
-                <a class="btn-border-small" href=/post/sip%E5%BA%94%E7%AD%94%E6%B6%88%E6%81%AF%E7%8A%B6%E6%80%81%E7%A0%81/>Continue</a></div>
-            <hr class="post-list__divider" />
-        </li>
-        
-        <li>
-            <h2 class="post-list__post-title post-title"><a href="/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/" title="To /post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/">Freeswitch 1.10.6的docker镜像构建</a></h2>
-            <p class="excerpt">Dockerfile文件内容
-FROM debian:10-slim ENV TZ=Asia/Shanghai RUN apt-get update RUN apt-get install apt-transport-https ca-certificates -y RUN echo &#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian/ buster main contrib non-free&#34; &gt; …&hellip;</p>
-            <div class="post-list__meta">
-                <time datetime=" 2023-05-06 10:06:59 &#43;0800 " class="post-list__meta--date date">2023-05-06</time>
-                 <span class="post-list__meta--tags tags">   • <a href="https://zoehuawang.github.io/tags/freeswitch">freeswitch</a>  </span> 
-                <a class="btn-border-small" href=/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/>Continue</a></div>
-            <hr class="post-list__divider" />
-        </li>
-        
-        <li>
-            <h2 class="post-list__post-title post-title"><a href="/post/freeswitch-1.4.26%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" title="To /post/freeswitch-1.4.26%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/">Freeswitch 1.4.26基本安装使用</a></h2>
-            <p class="excerpt">#下载源码包 wget https://files.freeswitch.org/releases/freeswitch/freeswitch-1.4.26.tar.gz #安装依赖 yum install -y autoconf automake libtool gcc-c++ ncurses-devel make zlib-devel \ libjpeg-devel openssl-devel e2fsprogs-devel curl-devel pcre-devel speex-devel …&hellip;</p>
-            <div class="post-list__meta">
-                <time datetime=" 2023-05-06 10:05:18 &#43;0800 " class="post-list__meta--date date">2023-05-06</time>
-                 <span class="post-list__meta--tags tags">   • <a href="https://zoehuawang.github.io/tags/freeswitch">freeswitch</a>  </span> 
-                <a class="btn-border-small" href=/post/freeswitch-1.4.26%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/>Continue</a></div>
+                <time datetime=" 2023-05-06 10:12:14 &#43;0800 " class="post-list__meta--date date">2023-05-06</time>
+                 <span class="post-list__meta--tags tags">   • <a href="https://zoehuawang.github.io/tags/docker">docker</a>  </span> 
+                <a class="btn-border-small" href=/post/docker/>Continue</a></div>
             <hr class="post-list__divider" />
         </li>
         

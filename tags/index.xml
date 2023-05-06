@@ -5,7 +5,16 @@
     <link>https://zoehuawang.github.io/tags/</link>
     <description>Recent content in Tags on 烟花散尽不问繁华</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 06 May 2023 10:18:00 +0800</lastBuildDate><atom:link href="https://zoehuawang.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 06 May 2023 10:22:49 +0800</lastBuildDate><atom:link href="https://zoehuawang.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ansible</title>
+      <link>https://zoehuawang.github.io/tags/ansible/</link>
+      <pubDate>Sat, 06 May 2023 10:22:49 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/tags/ansible/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>k8s</title>
       <link>https://zoehuawang.github.io/tags/k8s/</link>
@@ -25,11 +34,47 @@
     </item>
     
     <item>
+      <title>docker</title>
+      <link>https://zoehuawang.github.io/tags/docker/</link>
+      <pubDate>Sat, 06 May 2023 10:12:14 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://zoehuawang.github.io/tags/python/</link>
+      <pubDate>Sat, 06 May 2023 10:11:36 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>elk</title>
+      <link>https://zoehuawang.github.io/tags/elk/</link>
+      <pubDate>Sat, 06 May 2023 10:11:11 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/tags/elk/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>freeswitch</title>
       <link>https://zoehuawang.github.io/tags/freeswitch/</link>
-      <pubDate>Sat, 06 May 2023 10:06:59 +0800</pubDate>
+      <pubDate>Sat, 06 May 2023 10:08:02 +0800</pubDate>
       
       <guid>https://zoehuawang.github.io/tags/freeswitch/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>https://zoehuawang.github.io/tags/linux/</link>
+      <pubDate>Sat, 06 May 2023 09:42:42 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/tags/linux/</guid>
       <description></description>
     </item>
     

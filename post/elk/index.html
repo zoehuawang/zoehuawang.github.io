@@ -19,6 +19,8 @@
      
     
     
+    <meta name="keywords" content="elk" />
+    
     <meta property="og:title" content="ELK" />
 <meta property="og:description" content="安装Elasticsearch 官方下载地址：https://www.elastic.co/downloads/past-releases/elasticsearch-7-16-2 修改所有节点的默认内核参数 echo &#34;vm.swappiness=0&#34; &gt;&gt; /etc/sysctl.conf echo &#34;vm.max_map_count=655350&#34; &gt;&gt; /etc/sysctl.conf sysctl -p 修改所有节点的linux资源限制，永久生效 cat /etc/security/limits.conf|grep -v &#34;^#&#34; * soft nofile 1024000 * hard nofile 1024000 * soft nproc unlimited * hard nproc unlimited * soft core unlimited * hard core unlimited * soft memlock unlimited * hard memlock unlimited ulimit -SHn 1024000 修改配置文件，添加以下内容： cluster.name: ES-cluster #集群名称 node.name: f7ec9b80edc5 #节点名 node.attr.hotwarm_type: hot path.data: /data/elasticsearch-7.16.2/data path.logs: /data/elasticsearch-7.16.2/log network.host: 0.0.0.0 #允许外网访问 http.port: 9200 #服务端口 transport." />
 <meta property="og:type" content="article" />
@@ -128,7 +130,7 @@
     <header class="post-header">
         <div class="post-meta">
             <time datetime=" 2023-05-06 10:11:11 &#43;0800 " itemprop="datePublished" class="post-meta__date date">2023-05-06</time>
-            
+             <span class="post-meta__tags tags">   • <a href="https://zoehuawang.github.io/tags/elk">elk</a>  </span> 
         </div>
         <h1 class="post-title">ELK</h1>
     </header>
@@ -365,7 +367,7 @@ jvm.options                #设置Xmx不要大于物理内存的50%</p>
 python3常用进制转换： hex(16) # 10进制转16进制 oct(8) # 10进制转8进制 bin(8) # 10进制转2进制 int(&#39;10&#39;) # 字符串转换成10进制整数 int(&#39;10&#39;,16) # 字符串转换成16进制整数 int(&#39;0x10&#39;,16) # 字符串转换成16 …&hellip;</p>
         <div class="post-list__meta">
             <time datetime=" 2023-05-06 10:11:11 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
-            
+             <span class="post-list__meta--tags tags">   • <a href="https://zoehuawang.github.io/tags/python">python</a>  </span> 
             <a class="btn-border-small" href="/post/python/">Continue</a>
         </div>
     </div>
