@@ -19,6 +19,8 @@
      
     
     
+    <meta name="keywords" content="k8s" />
+    
     <meta property="og:title" content="Kubernetes之Service代理外部服务" />
 <meta property="og:description" content="apiVersion: v1 kind: Service metadata: name: rabbitmq-proxy namespace: cloud2 spec: ports: - port: 15672 name: http targetPort: 15672	- port: 5672 name: amqp targetPort: 5672 --- kind: Endpoints apiVersion: v1 metadata: name: rabbitmq-proxy namespace: cloud2 subsets: - addresses: - ip: 192.168.7.54 - ip: 192.168.7.55 - ip: 192.168.7.56 ports: - port: 15672 name: http - port: 5672 name: amqp " />
 <meta property="og:type" content="article" />
@@ -128,7 +130,7 @@
     <header class="post-header">
         <div class="post-meta">
             <time datetime=" 2023-05-06 09:55:58 &#43;0800 " itemprop="datePublished" class="post-meta__date date">2023-05-06</time>
-            
+             <span class="post-meta__tags tags">   • <a href="https://zoehuawang.github.io/tags/k8s">k8s</a>  </span> 
         </div>
         <h1 class="post-title">Kubernetes之Service代理外部服务</h1>
     </header>
@@ -173,7 +175,7 @@
         <p class="excerpt">0、etcd版本镜像构建Dockerfile # wget https://github.com/etcd-io/etcd/releases/download/v3.5.7/etcd-v3.5.7-linux-amd64.tar.gz FROM ccr.ccs.tencentyun.com/zoehuawang/etcd:v3.4.13 #FROM centos:7 COPY etcd-v3.5.7-linux-amd64/etcd* /usr/local/bin/ COPY ca.pem …&hellip;</p>
         <div class="post-list__meta">
             <time datetime=" 2023-05-06 09:55:58 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
-            
+             <span class="post-list__meta--tags tags">   • <a href="https://zoehuawang.github.io/tags/k8s">k8s</a>  </span> 
             <a class="btn-border-small" href="/post/kubernetes%E4%B9%8Bstatefulset%E9%83%A8%E7%BD%B2etcd%E9%9B%86%E7%BE%A4/">Continue</a>
         </div>
     </div>
@@ -187,6 +189,10 @@
         <p class="excerpt"> 命令收集 #设置节点roles名(master、node) kubectl label node k8s-node1 node-role.kubernetes.io/master= kubectl label node k8s-node2 node-role.kubernetes.io/node= #1、设置节点不可调度、可调度 kubectl cordon k8s-node-1 #不可调度 kubectl uncordon k8s-node-1 #取消不可调度 #2、 …&hellip;</p>
         <div class="post-list__meta">
             <time datetime=" 2023-05-06 09:55:58 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+             
+            <span class="post-list__meta--tags tags"> 
+                  • <a href="https://zoehuawang.github.io/tags/k8s">k8s</a>  
+            </span>
             
             <a class="btn-border-small" href="/post/kubernetes/">Continue</a>
         </div>

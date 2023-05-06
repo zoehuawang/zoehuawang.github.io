@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <head>
-	<meta name="generator" content="Hugo 0.111.3">
 
   <head>
     <meta charset="utf-8">
@@ -13,20 +12,21 @@
 
     
     
-    <title>烟花散尽不问繁华 - 最好的等待，叫来日可期！</title>
+    <title>db - 烟花散尽不问繁华</title>
     
     
     <meta name="author" content="zoehuawang" /> 
      
     
     
-    <meta property="og:title" content="烟花散尽不问繁华" />
+    <link rel="alternate" type="application/rss+xml" href="https://zoehuawang.github.io/tags/db/index.xml" title="烟花散尽不问繁华" />         
+    <meta property="og:title" content="db" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://zoehuawang.github.io/" />
+<meta property="og:url" content="https://zoehuawang.github.io/tags/db/" />
 
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="烟花散尽不问繁华"/>
+<meta name="twitter:title" content="db"/>
 <meta name="twitter:description" content=""/>
 
 
@@ -50,7 +50,7 @@
 
   </span>
 
-  <header class="  panel-cover " style="background-image: url('/images/background-cover.jpg')">
+  <header class="  panel-cover panel-cover--collapsed " style="background-image: url('/images/background-cover.jpg')">
 
     <div class="panel-main">
   
@@ -127,42 +127,32 @@
     <ol class="post-list">
         
         <li>
-            <h2 class="post-list__post-title post-title"><a href="/post/kubernetes%E4%B9%8Bstatefulset%E9%83%A8%E7%BD%B2etcd%E9%9B%86%E7%BE%A4/" title="To /post/kubernetes%E4%B9%8Bstatefulset%E9%83%A8%E7%BD%B2etcd%E9%9B%86%E7%BE%A4/">Kubernetes之StatefulSet部署etcd集群</a></h2>
-            <p class="excerpt">0、etcd版本镜像构建Dockerfile # wget https://github.com/etcd-io/etcd/releases/download/v3.5.7/etcd-v3.5.7-linux-amd64.tar.gz FROM ccr.ccs.tencentyun.com/zoehuawang/etcd:v3.4.13 #FROM centos:7 COPY etcd-v3.5.7-linux-amd64/etcd* /usr/local/bin/ COPY ca.pem …&hellip;</p>
+            <h2 class="post-list__post-title post-title"><a href="/post/mgr%E5%8D%95%E4%B8%BB%E9%83%A8%E7%BD%B2/" title="To /post/mgr%E5%8D%95%E4%B8%BB%E9%83%A8%E7%BD%B2/">MGR单主部署</a></h2>
+            <p class="excerpt">1.每个节点设置hostname，并添加/etc/hosts 2.下载 gperftools-devel 和 mysql 安装包 yum install --downloadonly --downloaddir=/root gperftools-devel https://downloads.mysql.com/archives/community/ 3.安装步骤 yum remove mariadb-libs-5.5.60-1.el7_5.x86_64 -y rpm -ivh …&hellip;</p>
             <div class="post-list__meta">
-                <time datetime=" 2023-05-06 10:00:11 &#43;0800 " class="post-list__meta--date date">2023-05-06</time>
-                 <span class="post-list__meta--tags tags">   • <a href="https://zoehuawang.github.io/tags/k8s">k8s</a>  </span> 
-                <a class="btn-border-small" href=/post/kubernetes%E4%B9%8Bstatefulset%E9%83%A8%E7%BD%B2etcd%E9%9B%86%E7%BE%A4/>Continue</a></div>
+                <time datetime=" 2023-05-06 10:16:36 &#43;0800 " class="post-list__meta--date date">2023-05-06</time>
+                 <span class="post-list__meta--tags tags">   • <a href="https://zoehuawang.github.io/tags/db">db</a>  </span> 
+                <a class="btn-border-small" href=/post/mgr%E5%8D%95%E4%B8%BB%E9%83%A8%E7%BD%B2/>Continue</a></div>
             <hr class="post-list__divider" />
         </li>
         
         <li>
-            <h2 class="post-list__post-title post-title"><a href="/post/kubernetes%E4%B9%8Bservice%E4%BB%A3%E7%90%86%E5%A4%96%E9%83%A8%E6%9C%8D%E5%8A%A1/" title="To /post/kubernetes%E4%B9%8Bservice%E4%BB%A3%E7%90%86%E5%A4%96%E9%83%A8%E6%9C%8D%E5%8A%A1/">Kubernetes之Service代理外部服务</a></h2>
-            <p class="excerpt">apiVersion: v1 kind: Service metadata: name: rabbitmq-proxy namespace: cloud2 spec: ports: - port: 15672 name: http targetPort: 15672	- port: 5672 name: amqp targetPort: 5672 --- kind: Endpoints apiVersion: v1 metadata: name: rabbitmq-proxy …&hellip;</p>
+            <h2 class="post-list__post-title post-title"><a href="/post/mysql/" title="To /post/mysql/">Mysql</a></h2>
+            <p class="excerpt">select version(); #查看mysql版本 stop slave;set global sql_slave_skip_counter=1;start slave; #从库不同步处理，第二句表示跳过一步错误,后面的数字可变 #从库不同步处理，复制的时候忽略指定的表 stop slave ; CHANGE REPLICATION FILTER REPLICATE_WILD_IGNORE_TABLE = (&#39;库.表&#39;); start slave; # …&hellip;</p>
             <div class="post-list__meta">
-                <time datetime=" 2023-05-06 09:55:58 &#43;0800 " class="post-list__meta--date date">2023-05-06</time>
-                 <span class="post-list__meta--tags tags">   • <a href="https://zoehuawang.github.io/tags/k8s">k8s</a>  </span> 
-                <a class="btn-border-small" href=/post/kubernetes%E4%B9%8Bservice%E4%BB%A3%E7%90%86%E5%A4%96%E9%83%A8%E6%9C%8D%E5%8A%A1/>Continue</a></div>
+                <time datetime=" 2023-05-06 10:15:49 &#43;0800 " class="post-list__meta--date date">2023-05-06</time>
+                 <span class="post-list__meta--tags tags">   • <a href="https://zoehuawang.github.io/tags/db">db</a>  </span> 
+                <a class="btn-border-small" href=/post/mysql/>Continue</a></div>
             <hr class="post-list__divider" />
         </li>
         
         <li>
-            <h2 class="post-list__post-title post-title"><a href="/post/kubernetes/" title="To /post/kubernetes/">Kubernetes</a></h2>
-            <p class="excerpt"> 命令收集 #设置节点roles名(master、node) kubectl label node k8s-node1 node-role.kubernetes.io/master= kubectl label node k8s-node2 node-role.kubernetes.io/node= #1、设置节点不可调度、可调度 kubectl cordon k8s-node-1 #不可调度 kubectl uncordon k8s-node-1 #取消不可调度 #2、 …&hellip;</p>
+            <h2 class="post-list__post-title post-title"><a href="/post/oracle/" title="To /post/oracle/">Oracle</a></h2>
+            <p class="excerpt">lsnrctl start #打开oracle监听 sqlplus #进入oracle sqlplus / as sysdba #以dba身份连接到sql控制台 shutdown immediate #停止服务 startup #启动服务 #oracle查看表空间： SELECT a.tablespace_name &#34;表空间名&#34;, total &#34;表空间大小&#34;, free &#34;表空间剩余大小&#34;, (total - free) &#34;表空间使用大 …&hellip;</p>
             <div class="post-list__meta">
-                <time datetime=" 2023-05-06 09:51:13 &#43;0800 " class="post-list__meta--date date">2023-05-06</time>
-                 <span class="post-list__meta--tags tags">   • <a href="https://zoehuawang.github.io/tags/k8s">k8s</a>  </span> 
-                <a class="btn-border-small" href=/post/kubernetes/>Continue</a></div>
-            <hr class="post-list__divider" />
-        </li>
-        
-        <li>
-            <h2 class="post-list__post-title post-title"><a href="/post/linuxshell/" title="To /post/linuxshell/">Linux&amp;Shell</a></h2>
-            <p class="excerpt">#home目录下所有文件更新时间距现在时刻大于120分钟的文件删除(-mtime -3 表示3天以内) find /home/* -mmin +120 -exec rm -rf {} \; #home目录下所有文件创建时间距现在时刻大于120分钟的文件删除(-ctime -3 表示3天以内) find /home/* -cmin +120 -exec rm -rf {} \; tar -zcf XXX.tar.gz XXX --remove-files #打包成tar包之后删除原文件 #替 …&hellip;</p>
-            <div class="post-list__meta">
-                <time datetime=" 2023-05-06 09:42:42 &#43;0800 " class="post-list__meta--date date">2023-05-06</time>
-                
-                <a class="btn-border-small" href=/post/linuxshell/>Continue</a></div>
+                <time datetime=" 2023-05-06 10:14:41 &#43;0800 " class="post-list__meta--date date">2023-05-06</time>
+                 <span class="post-list__meta--tags tags">   • <a href="https://zoehuawang.github.io/tags/db">db</a>  </span> 
+                <a class="btn-border-small" href=/post/oracle/>Continue</a></div>
             <hr class="post-list__divider" />
         </li>
         
@@ -171,9 +161,7 @@
 
 <nav class="pagination" role="navigation">
     
-        <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/page/2/">&larr; 最近</a>
-    
-    <span class="pagination__page-number">3 / 3</span>
+    <span class="pagination__page-number">1 / 1</span>
     
 </nav>
 

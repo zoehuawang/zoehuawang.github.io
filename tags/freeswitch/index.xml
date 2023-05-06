@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>freeswitch on 烟花散尽不问繁华</title>
+    <link>https://zoehuawang.github.io/tags/freeswitch/</link>
+    <description>Recent content in freeswitch on 烟花散尽不问繁华</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 06 May 2023 10:06:59 +0800</lastBuildDate><atom:link href="https://zoehuawang.github.io/tags/freeswitch/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Freeswitch 1.10.6的docker镜像构建</title>
+      <link>https://zoehuawang.github.io/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/</link>
+      <pubDate>Sat, 06 May 2023 10:06:59 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/</guid>
+      <description>Dockerfile文件内容
+FROM debian:10-slim ENV TZ=Asia/Shanghai RUN apt-get update RUN apt-get install apt-transport-https ca-certificates -y RUN echo &amp;#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian/ buster main contrib non-free&amp;#34; &amp;gt; /etc/apt/sources.list RUN echo &amp;#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian/ buster-updates main contrib non-free&amp;#34; &amp;gt;&amp;gt; /etc/apt/sources.list RUN echo &amp;#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian/ buster-backports main contrib non-free&amp;#34; &amp;gt;&amp;gt; /etc/apt/sources.list RUN echo &amp;#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian-security buster/updates main contrib non-free&amp;#34; &amp;gt;&amp;gt; /etc/apt/sources.list RUN apt-get update RUN apt-get install gcc g++ autoconf automake make libtool libtool-bin pkg-config \ sngrep uuid-dev libtiff-dev libsqlite3-dev libcurl4-openssl-dev \ libpcre3-dev libspeex-dev libedit-dev libcurl4-openssl-dev libshout3-dev \ libavformat-dev libswscale-dev \ libspeexdsp-dev libssl-dev yasm liblua5.</description>
+    </item>
+    
+    <item>
+      <title>Freeswitch 1.4.26基本安装使用</title>
+      <link>https://zoehuawang.github.io/post/freeswitch-1.4.26%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Sat, 06 May 2023 10:05:18 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/freeswitch-1.4.26%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</guid>
+      <description>#下载源码包 wget https://files.freeswitch.org/releases/freeswitch/freeswitch-1.4.26.tar.gz #安装依赖 yum install -y autoconf automake libtool gcc-c++ ncurses-devel make zlib-devel \ libjpeg-devel openssl-devel e2fsprogs-devel curl-devel pcre-devel speex-devel \ sqlite-devel ldns ldns-devel libedit-devel #解压进入源码包 tar -zxf freeswitch-1.4.26.tar.gz &amp;amp;&amp;amp; cd freeswitch-1.4.26 #配置，默认路径/usr/local/freeswitch ./configure #编译安装 make &amp;amp;&amp;amp; make install #修改客户端可以远程连接配置 (密码、监听端口也是这里面修改) sed -i &amp;#39;s/127.0.0.1/0.0.0.0/g&amp;#39; /usr/local/freeswitch/conf/autoload_configs/event_socket.conf.xml #修改sip注册默认密码，可加快拨打响应时间，default_password /usr/local/freeswitch/conf/vars.xml #如果机器不支持ipv6把相关配置删除 rm -rf /usr/local/freeswitch/conf/sip_profiles/external-ipv6* /usr/local/freeswitch/conf/sip_profiles/internal-ipv6* #后台启动 freeswitch -nc -nonat #停止 /usr/local/freeswitch/bin/freeswitch -stop #登陆控制台 /usr/local/freeswitch/bin/fs_cli -P端口 -p密码 -l日志级别 #-x执行命令 /usr/local/freeswitch/bin/fs_cli -x &amp;#34;show calls as json&amp;#34; #控制台日志级别，级别从0-7，级别越高日志越大。比如6设置成INFO级别；7设置成DEBUG级别，几乎每个操作都有很多日志。 freeswitch@internal&amp;gt; console loglevel 级别 #加载模块,控制台执行 load 模块名 #确认模块是否正常，控制台执行 module_exists 模块名 #更新鉴权,控制台执行 reloadacl #重新加载xml配置,控制台执行 reloadxml，或者控制台按 F6 #查看全局变量local_ip_v4的值 freeswitch@internal&amp;gt; global_getvar local_ip_v4 #各配置文件作用 vars.</description>
+    </item>
+    
+  </channel>
+</rss>

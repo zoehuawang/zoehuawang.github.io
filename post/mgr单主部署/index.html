@@ -19,6 +19,8 @@
      
     
     
+    <meta name="keywords" content="db" />
+    
     <meta property="og:title" content="MGR单主部署" />
 <meta property="og:description" content="1.每个节点设置hostname，并添加/etc/hosts 2.下载 gperftools-devel 和 mysql 安装包 yum install --downloadonly --downloaddir=/root gperftools-devel https://downloads.mysql.com/archives/community/ 3.安装步骤 yum remove mariadb-libs-5.5.60-1.el7_5.x86_64 -y rpm -ivh mysql-community-client-plugins-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-common-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-libs-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-client-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-debuginfo-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-embedded-compat-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-icu-data-files-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-libs-compat-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-devel-8.0.30-1.el7.x86_64.rpm --force --nodeps rpm -ivh mysql-community-server-8.0.30-1.el7.x86_64.rpm --force --nodeps rpm -ivh mysql-community-server-debug-8.0.30-1.el7.x86_64.rpm --force --nodeps rpm -ivh mysql-community-test-8.0.30-1.el7.x86_64.rpm --force --nodeps rpm -ivh /root/gperftools-libs-2.6.1-1.el7.x86_64.rpm rpm -ivh /root/gperftools-devel-2.6.1-1.el7.x86_64.rpm echo &#39;LD_PRELOAD=/usr/lib64/libtcmalloc.so&#39; &gt;&gt; /etc/sysconfig/mysql 4." />
 <meta property="og:type" content="article" />
@@ -128,7 +130,7 @@
     <header class="post-header">
         <div class="post-meta">
             <time datetime=" 2023-05-06 10:16:36 &#43;0800 " itemprop="datePublished" class="post-meta__date date">2023-05-06</time>
-            
+             <span class="post-meta__tags tags">   • <a href="https://zoehuawang.github.io/tags/db">db</a>  </span> 
         </div>
         <h1 class="post-title">MGR单主部署</h1>
     </header>
@@ -266,7 +268,7 @@
         <p class="excerpt">1.创建配置文件 proxysql-cnf.yaml apiVersion: v1 kind: Service metadata: labels: app: proxysql name: proxysqlcluster namespace: cloud2 spec: clusterIP: None ports: - name: proxysql-admin port: 6032 protocol: TCP targetPort: 6032 selector: app: proxysql …&hellip;</p>
         <div class="post-list__meta">
             <time datetime=" 2023-05-06 10:16:36 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
-            
+             <span class="post-list__meta--tags tags">   • <a href="https://zoehuawang.github.io/tags/k8s">k8s</a>  </span> 
             <a class="btn-border-small" href="/post/kubernetes%E4%B9%8Bproxysql%E9%9B%86%E7%BE%A4/">Continue</a>
         </div>
     </div>
@@ -280,6 +282,10 @@
         <p class="excerpt">select version(); #查看mysql版本 stop slave;set global sql_slave_skip_counter=1;start slave; #从库不同步处理，第二句表示跳过一步错误,后面的数字可变 #从库不同步处理，复制的时候忽略指定的表 stop slave ; CHANGE REPLICATION FILTER REPLICATE_WILD_IGNORE_TABLE = (&#39;库.表&#39;); start slave; # …&hellip;</p>
         <div class="post-list__meta">
             <time datetime=" 2023-05-06 10:16:36 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+             
+            <span class="post-list__meta--tags tags"> 
+                  • <a href="https://zoehuawang.github.io/tags/db">db</a>  
+            </span>
             
             <a class="btn-border-small" href="/post/mysql/">Continue</a>
         </div>

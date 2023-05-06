@@ -19,6 +19,8 @@
      
     
     
+    <meta name="keywords" content="k8s" />
+    
     <meta property="og:title" content="Kubernetes之StatefulSet部署etcd集群" />
 <meta property="og:description" content="0、etcd版本镜像构建Dockerfile # wget https://github.com/etcd-io/etcd/releases/download/v3.5.7/etcd-v3.5.7-linux-amd64.tar.gz FROM ccr.ccs.tencentyun.com/zoehuawang/etcd:v3.4.13 #FROM centos:7 COPY etcd-v3.5.7-linux-amd64/etcd* /usr/local/bin/ COPY ca.pem /root/ COPY etcd.pem /root/ COPY etcd-key.pem /root/ RUN chmod 777 /usr/local/bin/etcd RUN chmod 777 /usr/local/bin/etcdctl 1、在指定node打上需要的标签（pv和pod都需要） 2、创建pv和sc apiVersion: v1 kind: PersistentVolume metadata: name: apisix-etcd-pv1 spec: capacity: storage: 2Gi accessModes: - ReadWriteOnce volumeMode: Filesystem persistentVolumeReclaimPolicy: Delete storageClassName: apisix-etcd-storage local: path: /mnt/etcd nodeAffinity: required: nodeSelectorTerms: - matchExpressions: - key: apisixetcd operator: In values: - pv1 --- apiVersion: v1 kind: PersistentVolume metadata: name: apisix-etcd-pv2 spec: capacity: storage: 2Gi accessModes: - ReadWriteOnce volumeMode: Filesystem persistentVolumeReclaimPolicy: Delete storageClassName: apisix-etcd-storage local: path: /mnt/etcd nodeAffinity: required: nodeSelectorTerms: - matchExpressions: - key: apisixetcd operator: In values: - pv2 --- apiVersion: v1 kind: PersistentVolume metadata: name: apisix-etcd-pv3 spec: capacity: storage: 2Gi accessModes: - ReadWriteOnce volumeMode: Filesystem persistentVolumeReclaimPolicy: Delete storageClassName: apisix-etcd-storage local: path: /mnt/etcd nodeAffinity: required: nodeSelectorTerms: - matchExpressions: - key: apisixetcd operator: In values: - pv3 --- kind: StorageClass apiVersion: storage." />
 <meta property="og:type" content="article" />
@@ -128,7 +130,7 @@
     <header class="post-header">
         <div class="post-meta">
             <time datetime=" 2023-05-06 10:00:11 &#43;0800 " itemprop="datePublished" class="post-meta__date date">2023-05-06</time>
-            
+             <span class="post-meta__tags tags">   • <a href="https://zoehuawang.github.io/tags/k8s">k8s</a>  </span> 
         </div>
         <h1 class="post-title">Kubernetes之StatefulSet部署etcd集群</h1>
     </header>
@@ -629,7 +631,7 @@
         <p class="excerpt">#下载源码包 wget https://files.freeswitch.org/releases/freeswitch/freeswitch-1.4.26.tar.gz #安装依赖 yum install -y autoconf automake libtool gcc-c++ ncurses-devel make zlib-devel \ libjpeg-devel openssl-devel e2fsprogs-devel curl-devel pcre-devel speex-devel …&hellip;</p>
         <div class="post-list__meta">
             <time datetime=" 2023-05-06 10:00:11 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
-            
+             <span class="post-list__meta--tags tags">   • <a href="https://zoehuawang.github.io/tags/freeswitch">freeswitch</a>  </span> 
             <a class="btn-border-small" href="/post/freeswitch-1.4.26%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/">Continue</a>
         </div>
     </div>
@@ -643,6 +645,10 @@
         <p class="excerpt">apiVersion: v1 kind: Service metadata: name: rabbitmq-proxy namespace: cloud2 spec: ports: - port: 15672 name: http targetPort: 15672	- port: 5672 name: amqp targetPort: 5672 --- kind: Endpoints apiVersion: v1 metadata: name: rabbitmq-proxy …&hellip;</p>
         <div class="post-list__meta">
             <time datetime=" 2023-05-06 10:00:11 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+             
+            <span class="post-list__meta--tags tags"> 
+                  • <a href="https://zoehuawang.github.io/tags/k8s">k8s</a>  
+            </span>
             
             <a class="btn-border-small" href="/post/kubernetes%E4%B9%8Bservice%E4%BB%A3%E7%90%86%E5%A4%96%E9%83%A8%E6%9C%8D%E5%8A%A1/">Continue</a>
         </div>

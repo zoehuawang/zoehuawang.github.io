@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>k8s on 烟花散尽不问繁华</title>
+    <link>https://zoehuawang.github.io/tags/k8s/</link>
+    <description>Recent content in k8s on 烟花散尽不问繁华</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 06 May 2023 10:18:00 +0800</lastBuildDate><atom:link href="https://zoehuawang.github.io/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kubernetes之proxysql集群</title>
+      <link>https://zoehuawang.github.io/post/kubernetes%E4%B9%8Bproxysql%E9%9B%86%E7%BE%A4/</link>
+      <pubDate>Sat, 06 May 2023 10:18:00 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/kubernetes%E4%B9%8Bproxysql%E9%9B%86%E7%BE%A4/</guid>
+      <description>1.创建配置文件 proxysql-cnf.yaml apiVersion: v1 kind: Service metadata: labels: app: proxysql name: proxysqlcluster namespace: cloud2 spec: clusterIP: None ports: - name: proxysql-admin port: 6032 protocol: TCP targetPort: 6032 selector: app: proxysql sessionAffinity: None type: ClusterIP --- apiVersion: v1 kind: ConfigMap metadata: name: proxysql-cnf namespace: cloud2 data: proxysql.cnf: | datadir=&amp;#34;/var/lib/proxysql&amp;#34; # 配置管理账号，即 6032 端口登陆的管理员账号密码。默认账号 admin 无法远程登陆，不适用于容器环境 admin_variables= { admin_credentials=&amp;#34;admin:admin;proxysql-admin:Aa123456&amp;#34; mysql_ifaces=&amp;#34;0.0.0.0:6032&amp;#34; } #全局配置 mysql_variables= { threads=4 max_connections=2048 default_query_delay=0 default_query_timeout=36000000 have_compress=true poll_timeout=2000 interfaces=&amp;#34;0.0.0.0:6033&amp;#34; default_schema=&amp;#34;information_schema&amp;#34; stacksize=1048576 #mysql数据库版本 server_version=&amp;#34;8.</description>
+    </item>
+    
+    <item>
+      <title>K8s离线部署</title>
+      <link>https://zoehuawang.github.io/post/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/</link>
+      <pubDate>Sat, 06 May 2023 10:08:48 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/</guid>
+      <description>一、前置准备 准备三台服务器，操作系统centos7.x
+硬件配置：CPU2核、内存2GB、硬盘30GB
+确保机器间网络互通，时钟同步，所需镜像及资源包下载链接：点击下载
+规划：
+节点名称 IP 安装组件 k8s-master 192.168.14.101 docker、etcd、kubelet、kube-proxy、kube-apiserver、kube-controller-manager、kube-scheduler k8s-node1 192.168.14.102 docker、etcd、kubelet、kube-proxy k8s-node2 192.168.14.103 docker、etcd、kubelet、kube-proxy docker私有仓库 192.168.14.100 docker（服务器配置可以低点） 三台服务器初始化操作
+# 关闭防火墙 systemctl stop firewalld systemctl disable firewalld # 关闭 selinux sed -i &amp;#39;s/enforcing/disabled/&amp;#39; /etc/selinux/config setenforce 0 # 关闭 swap swapoff -a sed -ri &amp;#39;s/.*swap.*/#&amp;amp;/&amp;#39; /etc/fstab # master节点添加 hosts cat &amp;gt;&amp;gt; /etc/hosts &amp;lt;&amp;lt; EOF 192.168.14.101 k8s-master 192.168.14.102 k8s-node1 192.168.14.103 k8s-node2 EOF # 将桥接的 IPv4 流量传递到 iptables 的链 cat &amp;gt; /etc/sysctl.</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes之StatefulSet部署etcd集群</title>
+      <link>https://zoehuawang.github.io/post/kubernetes%E4%B9%8Bstatefulset%E9%83%A8%E7%BD%B2etcd%E9%9B%86%E7%BE%A4/</link>
+      <pubDate>Sat, 06 May 2023 10:00:11 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/kubernetes%E4%B9%8Bstatefulset%E9%83%A8%E7%BD%B2etcd%E9%9B%86%E7%BE%A4/</guid>
+      <description>0、etcd版本镜像构建Dockerfile # wget https://github.com/etcd-io/etcd/releases/download/v3.5.7/etcd-v3.5.7-linux-amd64.tar.gz FROM ccr.ccs.tencentyun.com/zoehuawang/etcd:v3.4.13 #FROM centos:7 COPY etcd-v3.5.7-linux-amd64/etcd* /usr/local/bin/ COPY ca.pem /root/ COPY etcd.pem /root/ COPY etcd-key.pem /root/ RUN chmod 777 /usr/local/bin/etcd RUN chmod 777 /usr/local/bin/etcdctl 1、在指定node打上需要的标签（pv和pod都需要） 2、创建pv和sc apiVersion: v1 kind: PersistentVolume metadata: name: apisix-etcd-pv1 spec: capacity: storage: 2Gi accessModes: - ReadWriteOnce volumeMode: Filesystem persistentVolumeReclaimPolicy: Delete storageClassName: apisix-etcd-storage local: path: /mnt/etcd nodeAffinity: required: nodeSelectorTerms: - matchExpressions: - key: apisixetcd operator: In values: - pv1 --- apiVersion: v1 kind: PersistentVolume metadata: name: apisix-etcd-pv2 spec: capacity: storage: 2Gi accessModes: - ReadWriteOnce volumeMode: Filesystem persistentVolumeReclaimPolicy: Delete storageClassName: apisix-etcd-storage local: path: /mnt/etcd nodeAffinity: required: nodeSelectorTerms: - matchExpressions: - key: apisixetcd operator: In values: - pv2 --- apiVersion: v1 kind: PersistentVolume metadata: name: apisix-etcd-pv3 spec: capacity: storage: 2Gi accessModes: - ReadWriteOnce volumeMode: Filesystem persistentVolumeReclaimPolicy: Delete storageClassName: apisix-etcd-storage local: path: /mnt/etcd nodeAffinity: required: nodeSelectorTerms: - matchExpressions: - key: apisixetcd operator: In values: - pv3 --- kind: StorageClass apiVersion: storage.</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes之Service代理外部服务</title>
+      <link>https://zoehuawang.github.io/post/kubernetes%E4%B9%8Bservice%E4%BB%A3%E7%90%86%E5%A4%96%E9%83%A8%E6%9C%8D%E5%8A%A1/</link>
+      <pubDate>Sat, 06 May 2023 09:55:58 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/kubernetes%E4%B9%8Bservice%E4%BB%A3%E7%90%86%E5%A4%96%E9%83%A8%E6%9C%8D%E5%8A%A1/</guid>
+      <description>apiVersion: v1 kind: Service metadata: name: rabbitmq-proxy namespace: cloud2 spec: ports: - port: 15672 name: http targetPort: 15672	- port: 5672 name: amqp targetPort: 5672 --- kind: Endpoints apiVersion: v1 metadata: name: rabbitmq-proxy namespace: cloud2 subsets: - addresses: - ip: 192.168.7.54 - ip: 192.168.7.55 - ip: 192.168.7.56 ports: - port: 15672 name: http - port: 5672 name: amqp </description>
+    </item>
+    
+    <item>
+      <title>Kubernetes</title>
+      <link>https://zoehuawang.github.io/post/kubernetes/</link>
+      <pubDate>Sat, 06 May 2023 09:51:13 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/kubernetes/</guid>
+      <description> 命令收集 #设置节点roles名(master、node) kubectl label node k8s-node1 node-role.kubernetes.io/master= kubectl label node k8s-node2 node-role.kubernetes.io/node= #1、设置节点不可调度、可调度 kubectl cordon k8s-node-1 #不可调度 kubectl uncordon k8s-node-1 #取消不可调度 #2、驱逐已经运行的业务容器 kubectl drain --ignore-daemonsets k8s-node-1 #3、伸缩Deployment中pod的副本数 kubectl scale deployment nginx-deployment --replicas 4 #4、给节点添加标签、删除标签 kubectl label node 192.168.1.205 mem=large kubectl label node 192.168.1.205 mem- #5、给节点添加污点、删除污点 kubectl taint nodes node02 key1=value1:NoSchedule kubectl taint nodes node1 key1:NoSchedule- #6、查看现有node及label kubectl get node 192.168.1.205 --show-labels #7、查看污点 kubectl describe nodes 节点名称 #8、查看pod的cpu和内存 kubectl top pod -n namespace #9、强制删除pod kubectl delete pod -n namespace --grace-period=0 --force #10、查看常驻集群内的后台程序 kubectl get daemonset -A yaml示例 apiVersion: v1 kind: Service metadata: name: appname namespace: namespacename labels: name: appname spec: type: NodePort ports: - name: tcp protocol: TCP port: 8080 nodePort: 30000 selector: app: appname	--- apiVersion: apps/v1 kind: Deployment metadata: name: appname namespace: namespacename labels: app: appname spec: replicas: 1 selector: matchLabels: app: appname template: metadata: labels: app: appname version: v1 spec: containers: - name: appname image: registry:5000/imagename:tag imagePullPolicy: Always env: - name: NODE_ENV value: production volumeMounts: - name: logs mountPath: /home/Apps/logs volumes: - name: logs hostPath: path: /logs/ Pod 拓扑分布约束 kind: Deployment apiVersion: apps/v1 metadata: name: mypod labels: foo: bar spec: topologySpreadConstraints: - maxSkew: 1 topologyKey: zone whenUnsatisfiable: DoNotSchedule labelSelector: matchLabels: foo: bar # maxSkew 是pod之间个数的最大允许差值。它必须大于零 # topologyKey 是节点标签 # labelSelector 用于查找匹配此标签的pod </description>
+    </item>
+    
+  </channel>
+</rss>

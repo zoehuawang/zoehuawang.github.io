@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>db on 烟花散尽不问繁华</title>
+    <link>https://zoehuawang.github.io/tags/db/</link>
+    <description>Recent content in db on 烟花散尽不问繁华</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 06 May 2023 10:16:36 +0800</lastBuildDate><atom:link href="https://zoehuawang.github.io/tags/db/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MGR单主部署</title>
+      <link>https://zoehuawang.github.io/post/mgr%E5%8D%95%E4%B8%BB%E9%83%A8%E7%BD%B2/</link>
+      <pubDate>Sat, 06 May 2023 10:16:36 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/mgr%E5%8D%95%E4%B8%BB%E9%83%A8%E7%BD%B2/</guid>
+      <description>1.每个节点设置hostname，并添加/etc/hosts 2.下载 gperftools-devel 和 mysql 安装包 yum install --downloadonly --downloaddir=/root gperftools-devel https://downloads.mysql.com/archives/community/ 3.安装步骤 yum remove mariadb-libs-5.5.60-1.el7_5.x86_64 -y rpm -ivh mysql-community-client-plugins-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-common-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-libs-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-client-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-debuginfo-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-embedded-compat-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-icu-data-files-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-libs-compat-8.0.30-1.el7.x86_64.rpm rpm -ivh mysql-community-devel-8.0.30-1.el7.x86_64.rpm --force --nodeps rpm -ivh mysql-community-server-8.0.30-1.el7.x86_64.rpm --force --nodeps rpm -ivh mysql-community-server-debug-8.0.30-1.el7.x86_64.rpm --force --nodeps rpm -ivh mysql-community-test-8.0.30-1.el7.x86_64.rpm --force --nodeps rpm -ivh /root/gperftools-libs-2.6.1-1.el7.x86_64.rpm rpm -ivh /root/gperftools-devel-2.6.1-1.el7.x86_64.rpm echo &amp;#39;LD_PRELOAD=/usr/lib64/libtcmalloc.so&amp;#39; &amp;gt;&amp;gt; /etc/sysconfig/mysql 4.</description>
+    </item>
+    
+    <item>
+      <title>Mysql</title>
+      <link>https://zoehuawang.github.io/post/mysql/</link>
+      <pubDate>Sat, 06 May 2023 10:15:49 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/mysql/</guid>
+      <description>select version(); #查看mysql版本 stop slave;set global sql_slave_skip_counter=1;start slave; #从库不同步处理，第二句表示跳过一步错误,后面的数字可变 #从库不同步处理，复制的时候忽略指定的表 stop slave ; CHANGE REPLICATION FILTER REPLICATE_WILD_IGNORE_TABLE = (&amp;#39;库.表&amp;#39;); start slave; #去掉忽略表 CHANGE REPLICATION FILTER REPLICATE_WILD_IGNORE_TABLE = (); #主从同步change master to语法 change master to master_host=&amp;#39;192.168.1.4&amp;#39;,master_user=&amp;#39;slave&amp;#39;,master_password=&amp;#39;Aa123456&amp;#39;,master_port=13306,master_log_file=&amp;#39;mysql-bin.000201&amp;#39;,master_log_pos=628152168; #设置MySQL为只读模式 show global variables like &amp;#34;%read_only%&amp;#34;; flush tables with read lock; #备份锁表 set global read_only=1; show global variables like &amp;#34;%read_only%&amp;#34;; #将MySQL从只读设置为读写状态 unlock tables; #解锁 set global read_only=0; select a.id,a.column,b.id,b.column from a left join b on a.</description>
+    </item>
+    
+    <item>
+      <title>Oracle</title>
+      <link>https://zoehuawang.github.io/post/oracle/</link>
+      <pubDate>Sat, 06 May 2023 10:14:41 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/oracle/</guid>
+      <description>lsnrctl start #打开oracle监听 sqlplus #进入oracle sqlplus / as sysdba #以dba身份连接到sql控制台 shutdown immediate #停止服务 startup #启动服务 #oracle查看表空间： SELECT a.tablespace_name &amp;#34;表空间名&amp;#34;, total &amp;#34;表空间大小&amp;#34;, free &amp;#34;表空间剩余大小&amp;#34;, (total - free) &amp;#34;表空间使用大小&amp;#34;, total / (1024 * 1024 * 1024) &amp;#34;表空间大小(G)&amp;#34;, free / (1024 * 1024 * 1024) &amp;#34;表空间剩余大小(G)&amp;#34;, (total - free) / (1024 * 1024 * 1024) &amp;#34;表空间使用大小(G)&amp;#34;, round((total - free) / total, 4) * 100 &amp;#34;使用率 %&amp;#34; FROM (SELECT tablespace_name, SUM(bytes) free FROM dba_free_space GROUP BY tablespace_name) a, (SELECT tablespace_name, SUM(bytes) total FROM dba_data_files GROUP BY tablespace_name) b WHERE a.</description>
+    </item>
+    
+  </channel>
+</rss>

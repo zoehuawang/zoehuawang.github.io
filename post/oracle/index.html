@@ -19,6 +19,8 @@
      
     
     
+    <meta name="keywords" content="db" />
+    
     <meta property="og:title" content="Oracle" />
 <meta property="og:description" content="lsnrctl start #打开oracle监听 sqlplus #进入oracle sqlplus / as sysdba #以dba身份连接到sql控制台 shutdown immediate #停止服务 startup #启动服务 #oracle查看表空间： SELECT a.tablespace_name &#34;表空间名&#34;, total &#34;表空间大小&#34;, free &#34;表空间剩余大小&#34;, (total - free) &#34;表空间使用大小&#34;, total / (1024 * 1024 * 1024) &#34;表空间大小(G)&#34;, free / (1024 * 1024 * 1024) &#34;表空间剩余大小(G)&#34;, (total - free) / (1024 * 1024 * 1024) &#34;表空间使用大小(G)&#34;, round((total - free) / total, 4) * 100 &#34;使用率 %&#34; FROM (SELECT tablespace_name, SUM(bytes) free FROM dba_free_space GROUP BY tablespace_name) a, (SELECT tablespace_name, SUM(bytes) total FROM dba_data_files GROUP BY tablespace_name) b WHERE a." />
 <meta property="og:type" content="article" />
@@ -128,7 +130,7 @@
     <header class="post-header">
         <div class="post-meta">
             <time datetime=" 2023-05-06 10:14:41 &#43;0800 " itemprop="datePublished" class="post-meta__date date">2023-05-06</time>
-            
+             <span class="post-meta__tags tags">   • <a href="https://zoehuawang.github.io/tags/db">db</a>  </span> 
         </div>
         <h1 class="post-title">Oracle</h1>
     </header>
@@ -176,7 +178,7 @@
         <p class="excerpt">select version(); #查看mysql版本 stop slave;set global sql_slave_skip_counter=1;start slave; #从库不同步处理，第二句表示跳过一步错误,后面的数字可变 #从库不同步处理，复制的时候忽略指定的表 stop slave ; CHANGE REPLICATION FILTER REPLICATE_WILD_IGNORE_TABLE = (&#39;库.表&#39;); start slave; # …&hellip;</p>
         <div class="post-list__meta">
             <time datetime=" 2023-05-06 10:14:41 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
-            
+             <span class="post-list__meta--tags tags">   • <a href="https://zoehuawang.github.io/tags/db">db</a>  </span> 
             <a class="btn-border-small" href="/post/mysql/">Continue</a>
         </div>
     </div>

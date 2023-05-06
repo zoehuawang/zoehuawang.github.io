@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <head>
-	<meta name="generator" content="Hugo 0.111.3">
 
   <head>
     <meta charset="utf-8">
@@ -13,20 +12,21 @@
 
     
     
-    <title>烟花散尽不问繁华 - 最好的等待，叫来日可期！</title>
+    <title>k8s - 烟花散尽不问繁华</title>
     
     
     <meta name="author" content="zoehuawang" /> 
      
     
     
-    <meta property="og:title" content="烟花散尽不问繁华" />
+    <link rel="alternate" type="application/rss+xml" href="https://zoehuawang.github.io/tags/k8s/index.xml" title="烟花散尽不问繁华" />         
+    <meta property="og:title" content="k8s" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://zoehuawang.github.io/" />
+<meta property="og:url" content="https://zoehuawang.github.io/tags/k8s/" />
 
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="烟花散尽不问繁华"/>
+<meta name="twitter:title" content="k8s"/>
 <meta name="twitter:description" content=""/>
 
 
@@ -50,7 +50,7 @@
 
   </span>
 
-  <header class="  panel-cover " style="background-image: url('/images/background-cover.jpg')">
+  <header class="  panel-cover panel-cover--collapsed " style="background-image: url('/images/background-cover.jpg')">
 
     <div class="panel-main">
   
@@ -127,6 +127,30 @@
     <ol class="post-list">
         
         <li>
+            <h2 class="post-list__post-title post-title"><a href="/post/kubernetes%E4%B9%8Bproxysql%E9%9B%86%E7%BE%A4/" title="To /post/kubernetes%E4%B9%8Bproxysql%E9%9B%86%E7%BE%A4/">Kubernetes之proxysql集群</a></h2>
+            <p class="excerpt">1.创建配置文件 proxysql-cnf.yaml apiVersion: v1 kind: Service metadata: labels: app: proxysql name: proxysqlcluster namespace: cloud2 spec: clusterIP: None ports: - name: proxysql-admin port: 6032 protocol: TCP targetPort: 6032 selector: app: proxysql …&hellip;</p>
+            <div class="post-list__meta">
+                <time datetime=" 2023-05-06 10:18:00 &#43;0800 " class="post-list__meta--date date">2023-05-06</time>
+                 <span class="post-list__meta--tags tags">   • <a href="https://zoehuawang.github.io/tags/k8s">k8s</a>  </span> 
+                <a class="btn-border-small" href=/post/kubernetes%E4%B9%8Bproxysql%E9%9B%86%E7%BE%A4/>Continue</a></div>
+            <hr class="post-list__divider" />
+        </li>
+        
+        <li>
+            <h2 class="post-list__post-title post-title"><a href="/post/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/" title="To /post/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/">K8s离线部署</a></h2>
+            <p class="excerpt">一、前置准备 准备三台服务器，操作系统centos7.x
+硬件配置：CPU2核、内存2GB、硬盘30GB
+确保机器间网络互通，时钟同步，所需镜像及资源包下载链接：点击下载
+规划：
+节点名称 IP 安装组件 k8s-master 192.168.14.101 docker、etcd、kubelet、kube-proxy、kube-apiserver、kube-controller-manager、kube-scheduler k8s-node1 192.168.14.102 …&hellip;</p>
+            <div class="post-list__meta">
+                <time datetime=" 2023-05-06 10:08:48 &#43;0800 " class="post-list__meta--date date">2023-05-06</time>
+                 <span class="post-list__meta--tags tags">   • <a href="https://zoehuawang.github.io/tags/k8s">k8s</a>  </span> 
+                <a class="btn-border-small" href=/post/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/>Continue</a></div>
+            <hr class="post-list__divider" />
+        </li>
+        
+        <li>
             <h2 class="post-list__post-title post-title"><a href="/post/kubernetes%E4%B9%8Bstatefulset%E9%83%A8%E7%BD%B2etcd%E9%9B%86%E7%BE%A4/" title="To /post/kubernetes%E4%B9%8Bstatefulset%E9%83%A8%E7%BD%B2etcd%E9%9B%86%E7%BE%A4/">Kubernetes之StatefulSet部署etcd集群</a></h2>
             <p class="excerpt">0、etcd版本镜像构建Dockerfile # wget https://github.com/etcd-io/etcd/releases/download/v3.5.7/etcd-v3.5.7-linux-amd64.tar.gz FROM ccr.ccs.tencentyun.com/zoehuawang/etcd:v3.4.13 #FROM centos:7 COPY etcd-v3.5.7-linux-amd64/etcd* /usr/local/bin/ COPY ca.pem …&hellip;</p>
             <div class="post-list__meta">
@@ -156,24 +180,12 @@
             <hr class="post-list__divider" />
         </li>
         
-        <li>
-            <h2 class="post-list__post-title post-title"><a href="/post/linuxshell/" title="To /post/linuxshell/">Linux&amp;Shell</a></h2>
-            <p class="excerpt">#home目录下所有文件更新时间距现在时刻大于120分钟的文件删除(-mtime -3 表示3天以内) find /home/* -mmin +120 -exec rm -rf {} \; #home目录下所有文件创建时间距现在时刻大于120分钟的文件删除(-ctime -3 表示3天以内) find /home/* -cmin +120 -exec rm -rf {} \; tar -zcf XXX.tar.gz XXX --remove-files #打包成tar包之后删除原文件 #替 …&hellip;</p>
-            <div class="post-list__meta">
-                <time datetime=" 2023-05-06 09:42:42 &#43;0800 " class="post-list__meta--date date">2023-05-06</time>
-                
-                <a class="btn-border-small" href=/post/linuxshell/>Continue</a></div>
-            <hr class="post-list__divider" />
-        </li>
-        
     </ol>
     <hr class="post-list__divider " />
 
 <nav class="pagination" role="navigation">
     
-        <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/page/2/">&larr; 最近</a>
-    
-    <span class="pagination__page-number">3 / 3</span>
+    <span class="pagination__page-number">1 / 1</span>
     
 </nav>
 

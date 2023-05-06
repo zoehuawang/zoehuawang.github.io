@@ -19,6 +19,8 @@
      
     
     
+    <meta name="keywords" content="db" />
+    
     <meta property="og:title" content="Mysql" />
 <meta property="og:description" content="select version(); #查看mysql版本 stop slave;set global sql_slave_skip_counter=1;start slave; #从库不同步处理，第二句表示跳过一步错误,后面的数字可变 #从库不同步处理，复制的时候忽略指定的表 stop slave ; CHANGE REPLICATION FILTER REPLICATE_WILD_IGNORE_TABLE = (&#39;库.表&#39;); start slave; #去掉忽略表 CHANGE REPLICATION FILTER REPLICATE_WILD_IGNORE_TABLE = (); #主从同步change master to语法 change master to master_host=&#39;192.168.1.4&#39;,master_user=&#39;slave&#39;,master_password=&#39;Aa123456&#39;,master_port=13306,master_log_file=&#39;mysql-bin.000201&#39;,master_log_pos=628152168; #设置MySQL为只读模式 show global variables like &#34;%read_only%&#34;; flush tables with read lock; #备份锁表 set global read_only=1; show global variables like &#34;%read_only%&#34;; #将MySQL从只读设置为读写状态 unlock tables; #解锁 set global read_only=0; select a.id,a.column,b.id,b.column from a left join b on a." />
 <meta property="og:type" content="article" />
@@ -128,7 +130,7 @@
     <header class="post-header">
         <div class="post-meta">
             <time datetime=" 2023-05-06 10:15:49 &#43;0800 " itemprop="datePublished" class="post-meta__date date">2023-05-06</time>
-            
+             <span class="post-meta__tags tags">   • <a href="https://zoehuawang.github.io/tags/db">db</a>  </span> 
         </div>
         <h1 class="post-title">Mysql</h1>
     </header>
@@ -660,7 +662,7 @@ interface为网卡名称，不一样的话注意修改</p>
         <p class="excerpt">1.每个节点设置hostname，并添加/etc/hosts 2.下载 gperftools-devel 和 mysql 安装包 yum install --downloadonly --downloaddir=/root gperftools-devel https://downloads.mysql.com/archives/community/ 3.安装步骤 yum remove mariadb-libs-5.5.60-1.el7_5.x86_64 -y rpm -ivh …&hellip;</p>
         <div class="post-list__meta">
             <time datetime=" 2023-05-06 10:15:49 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
-            
+             <span class="post-list__meta--tags tags">   • <a href="https://zoehuawang.github.io/tags/db">db</a>  </span> 
             <a class="btn-border-small" href="/post/mgr%E5%8D%95%E4%B8%BB%E9%83%A8%E7%BD%B2/">Continue</a>
         </div>
     </div>
@@ -674,6 +676,10 @@ interface为网卡名称，不一样的话注意修改</p>
         <p class="excerpt">lsnrctl start #打开oracle监听 sqlplus #进入oracle sqlplus / as sysdba #以dba身份连接到sql控制台 shutdown immediate #停止服务 startup #启动服务 #oracle查看表空间： SELECT a.tablespace_name &#34;表空间名&#34;, total &#34;表空间大小&#34;, free &#34;表空间剩余大小&#34;, (total - free) &#34;表空间使用大 …&hellip;</p>
         <div class="post-list__meta">
             <time datetime=" 2023-05-06 10:15:49 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+             
+            <span class="post-list__meta--tags tags"> 
+                  • <a href="https://zoehuawang.github.io/tags/db">db</a>  
+            </span>
             
             <a class="btn-border-small" href="/post/oracle/">Continue</a>
         </div>

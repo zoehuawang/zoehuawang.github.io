@@ -19,6 +19,8 @@
      
     
     
+    <meta name="keywords" content="freeswitch" />
+    
     <meta property="og:title" content="Freeswitch 1.4.26基本安装使用" />
 <meta property="og:description" content="#下载源码包 wget https://files.freeswitch.org/releases/freeswitch/freeswitch-1.4.26.tar.gz #安装依赖 yum install -y autoconf automake libtool gcc-c&#43;&#43; ncurses-devel make zlib-devel \ libjpeg-devel openssl-devel e2fsprogs-devel curl-devel pcre-devel speex-devel \ sqlite-devel ldns ldns-devel libedit-devel #解压进入源码包 tar -zxf freeswitch-1.4.26.tar.gz &amp;&amp; cd freeswitch-1.4.26 #配置，默认路径/usr/local/freeswitch ./configure #编译安装 make &amp;&amp; make install #修改客户端可以远程连接配置 (密码、监听端口也是这里面修改) sed -i &#39;s/127.0.0.1/0.0.0.0/g&#39; /usr/local/freeswitch/conf/autoload_configs/event_socket.conf.xml #修改sip注册默认密码，可加快拨打响应时间，default_password /usr/local/freeswitch/conf/vars.xml #如果机器不支持ipv6把相关配置删除 rm -rf /usr/local/freeswitch/conf/sip_profiles/external-ipv6* /usr/local/freeswitch/conf/sip_profiles/internal-ipv6* #后台启动 freeswitch -nc -nonat #停止 /usr/local/freeswitch/bin/freeswitch -stop #登陆控制台 /usr/local/freeswitch/bin/fs_cli -P端口 -p密码 -l日志级别 #-x执行命令 /usr/local/freeswitch/bin/fs_cli -x &#34;show calls as json&#34; #控制台日志级别，级别从0-7，级别越高日志越大。比如6设置成INFO级别；7设置成DEBUG级别，几乎每个操作都有很多日志。 freeswitch@internal&gt; console loglevel 级别 #加载模块,控制台执行 load 模块名 #确认模块是否正常，控制台执行 module_exists 模块名 #更新鉴权,控制台执行 reloadacl #重新加载xml配置,控制台执行 reloadxml，或者控制台按 F6 #查看全局变量local_ip_v4的值 freeswitch@internal&gt; global_getvar local_ip_v4 #各配置文件作用 vars." />
 <meta property="og:type" content="article" />
@@ -128,7 +130,7 @@
     <header class="post-header">
         <div class="post-meta">
             <time datetime=" 2023-05-06 10:05:18 &#43;0800 " itemprop="datePublished" class="post-meta__date date">2023-05-06</time>
-            
+             <span class="post-meta__tags tags">   • <a href="https://zoehuawang.github.io/tags/freeswitch">freeswitch</a>  </span> 
         </div>
         <h1 class="post-title">Freeswitch 1.4.26基本安装使用</h1>
     </header>
@@ -201,7 +203,7 @@
 FROM debian:10-slim ENV TZ=Asia/Shanghai RUN apt-get update RUN apt-get install apt-transport-https ca-certificates -y RUN echo &#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian/ buster main contrib non-free&#34; &gt; …&hellip;</p>
         <div class="post-list__meta">
             <time datetime=" 2023-05-06 10:05:18 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
-            
+             <span class="post-list__meta--tags tags">   • <a href="https://zoehuawang.github.io/tags/freeswitch">freeswitch</a>  </span> 
             <a class="btn-border-small" href="/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/">Continue</a>
         </div>
     </div>
@@ -215,6 +217,10 @@ FROM debian:10-slim ENV TZ=Asia/Shanghai RUN apt-get update RUN apt-get install 
         <p class="excerpt">0、etcd版本镜像构建Dockerfile # wget https://github.com/etcd-io/etcd/releases/download/v3.5.7/etcd-v3.5.7-linux-amd64.tar.gz FROM ccr.ccs.tencentyun.com/zoehuawang/etcd:v3.4.13 #FROM centos:7 COPY etcd-v3.5.7-linux-amd64/etcd* /usr/local/bin/ COPY ca.pem …&hellip;</p>
         <div class="post-list__meta">
             <time datetime=" 2023-05-06 10:05:18 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+             
+            <span class="post-list__meta--tags tags"> 
+                  • <a href="https://zoehuawang.github.io/tags/k8s">k8s</a>  
+            </span>
             
             <a class="btn-border-small" href="/post/kubernetes%E4%B9%8Bstatefulset%E9%83%A8%E7%BD%B2etcd%E9%9B%86%E7%BE%A4/">Continue</a>
         </div>

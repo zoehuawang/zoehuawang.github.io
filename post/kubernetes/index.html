@@ -19,6 +19,8 @@
      
     
     
+    <meta name="keywords" content="k8s" />
+    
     <meta property="og:title" content="Kubernetes" />
 <meta property="og:description" content=" 命令收集 #设置节点roles名(master、node) kubectl label node k8s-node1 node-role.kubernetes.io/master= kubectl label node k8s-node2 node-role.kubernetes.io/node= #1、设置节点不可调度、可调度 kubectl cordon k8s-node-1 #不可调度 kubectl uncordon k8s-node-1 #取消不可调度 #2、驱逐已经运行的业务容器 kubectl drain --ignore-daemonsets k8s-node-1 #3、伸缩Deployment中pod的副本数 kubectl scale deployment nginx-deployment --replicas 4 #4、给节点添加标签、删除标签 kubectl label node 192.168.1.205 mem=large kubectl label node 192.168.1.205 mem- #5、给节点添加污点、删除污点 kubectl taint nodes node02 key1=value1:NoSchedule kubectl taint nodes node1 key1:NoSchedule- #6、查看现有node及label kubectl get node 192.168.1.205 --show-labels #7、查看污点 kubectl describe nodes 节点名称 #8、查看pod的cpu和内存 kubectl top pod -n namespace #9、强制删除pod kubectl delete pod -n namespace --grace-period=0 --force #10、查看常驻集群内的后台程序 kubectl get daemonset -A yaml示例 apiVersion: v1 kind: Service metadata: name: appname namespace: namespacename labels: name: appname spec: type: NodePort ports: - name: tcp protocol: TCP port: 8080 nodePort: 30000 selector: app: appname	--- apiVersion: apps/v1 kind: Deployment metadata: name: appname namespace: namespacename labels: app: appname spec: replicas: 1 selector: matchLabels: app: appname template: metadata: labels: app: appname version: v1 spec: containers: - name: appname image: registry:5000/imagename:tag imagePullPolicy: Always env: - name: NODE_ENV value: production volumeMounts: - name: logs mountPath: /home/Apps/logs volumes: - name: logs hostPath: path: /logs/ Pod 拓扑分布约束 kind: Deployment apiVersion: apps/v1 metadata: name: mypod labels: foo: bar spec: topologySpreadConstraints: - maxSkew: 1 topologyKey: zone whenUnsatisfiable: DoNotSchedule labelSelector: matchLabels: foo: bar # maxSkew 是pod之间个数的最大允许差值。它必须大于零 # topologyKey 是节点标签 # labelSelector 用于查找匹配此标签的pod " />
 <meta property="og:type" content="article" />
@@ -128,7 +130,7 @@
     <header class="post-header">
         <div class="post-meta">
             <time datetime=" 2023-05-06 09:51:13 &#43;0800 " itemprop="datePublished" class="post-meta__date date">2023-05-06</time>
-            
+             <span class="post-meta__tags tags">   • <a href="https://zoehuawang.github.io/tags/k8s">k8s</a>  </span> 
         </div>
         <h1 class="post-title">Kubernetes</h1>
     </header>
@@ -262,7 +264,7 @@
         <p class="excerpt">apiVersion: v1 kind: Service metadata: name: rabbitmq-proxy namespace: cloud2 spec: ports: - port: 15672 name: http targetPort: 15672	- port: 5672 name: amqp targetPort: 5672 --- kind: Endpoints apiVersion: v1 metadata: name: rabbitmq-proxy …&hellip;</p>
         <div class="post-list__meta">
             <time datetime=" 2023-05-06 09:51:13 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
-            
+             <span class="post-list__meta--tags tags">   • <a href="https://zoehuawang.github.io/tags/k8s">k8s</a>  </span> 
             <a class="btn-border-small" href="/post/kubernetes%E4%B9%8Bservice%E4%BB%A3%E7%90%86%E5%A4%96%E9%83%A8%E6%9C%8D%E5%8A%A1/">Continue</a>
         </div>
     </div>
