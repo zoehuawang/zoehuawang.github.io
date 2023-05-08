@@ -176,35 +176,35 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>socket <span style="color:#f92672">=</span> <span style="color:#f92672">/</span>var<span style="color:#f92672">/</span>lib<span style="color:#f92672">/</span>mysql<span style="color:#f92672">/</span>mysql<span style="color:#f92672">.</span>sock
 </span></span><span style="display:flex;"><span>pid<span style="color:#f92672">-</span>file <span style="color:#f92672">=</span> <span style="color:#f92672">/</span>var<span style="color:#f92672">/</span>run<span style="color:#f92672">/</span>mysqld<span style="color:#f92672">/</span>mysqld<span style="color:#f92672">.</span>pid
-</span></span><span style="display:flex;"><span>datadir <span style="color:#f92672">=</span> <span style="color:#f92672">/</span>var<span style="color:#f92672">/</span>lib<span style="color:#f92672">/</span>mysql							<span style="color:#75715e">#数据目录</span>
-</span></span><span style="display:flex;"><span>log<span style="color:#f92672">-</span>error <span style="color:#f92672">=</span> <span style="color:#f92672">/</span>var<span style="color:#f92672">/</span>log<span style="color:#f92672">/</span>mysqld<span style="color:#f92672">.</span>log							<span style="color:#75715e">#错误日志</span>
-</span></span><span style="display:flex;"><span>skip_name_resolve <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>								<span style="color:#75715e">#跳过DNS解析</span>
-</span></span><span style="display:flex;"><span>max_connections <span style="color:#f92672">=</span> <span style="color:#ae81ff">8192</span>								<span style="color:#75715e">#最大连接数</span>
-</span></span><span style="display:flex;"><span>lower_case_table_names <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>							<span style="color:#75715e">#表名大小写不敏感</span>
-</span></span><span style="display:flex;"><span>master_info_repository <span style="color:#f92672">=</span> TABLE                                                  <span style="color:#75715e">#MGR要求把主从复制信息记录到表中</span>
-</span></span><span style="display:flex;"><span>relay_log_info_repository <span style="color:#f92672">=</span> TABLE                                               <span style="color:#75715e">#MGR要求把主从复制信息记录到表中</span>
-</span></span><span style="display:flex;"><span>transaction_write_set_extraction <span style="color:#f92672">=</span> XXHASH6                                      <span style="color:#75715e">#必须为每个事务收集写集合，使用XXHASH算法将其编码为散列</span>
-</span></span><span style="display:flex;"><span>authentication_policy <span style="color:#f92672">=</span> mysql_native_password					<span style="color:#75715e">#设置默认密码验证插件</span>
-</span></span><span style="display:flex;"><span>transaction_isolation <span style="color:#f92672">=</span> READ<span style="color:#f92672">-</span>COMMITTED						<span style="color:#75715e">#隔离级别是RC,减少锁粒度</span>
-</span></span><span style="display:flex;"><span>log_bin <span style="color:#f92672">=</span> <span style="color:#f92672">/</span>var<span style="color:#f92672">/</span>lib<span style="color:#f92672">/</span>mysql<span style="color:#f92672">/</span>mysql<span style="color:#f92672">-</span>bin						<span style="color:#75715e">#启用binlog功能，并指定路径名称</span>
-</span></span><span style="display:flex;"><span>log_replica_updates <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>								<span style="color:#75715e">#记录已经执行过的binlog</span>
-</span></span><span style="display:flex;"><span>binlog_expire_logs_seconds <span style="color:#f92672">=</span> <span style="color:#ae81ff">259200</span>						<span style="color:#75715e">#日志的过期时间(单位秒)</span>
-</span></span><span style="display:flex;"><span>binlog_format <span style="color:#f92672">=</span> row								<span style="color:#75715e">#binlog格式,MGR要求必须是ROW,不过就算不是MGR,也最好用row</span>
-</span></span><span style="display:flex;"><span>slave_preserve_commit_order <span style="color:#f92672">=</span> ON						<span style="color:#75715e">#开启备库提交事务顺序</span>
-</span></span><span style="display:flex;"><span>slave_parallel_type <span style="color:#f92672">=</span> LOGICAL_CLOCK						<span style="color:#75715e">#多线程并行复制</span>
-</span></span><span style="display:flex;"><span>slave_parallel_workers <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>							<span style="color:#75715e">#工作线程数</span>
-</span></span><span style="display:flex;"><span>gtid_mode <span style="color:#f92672">=</span> ON									<span style="color:#75715e">#开启GTID</span>
-</span></span><span style="display:flex;"><span>enforce_gtid_consistency <span style="color:#f92672">=</span> ON							<span style="color:#75715e">#强制GTID的一致性</span>
+</span></span><span style="display:flex;"><span>datadir <span style="color:#f92672">=</span> <span style="color:#f92672">/</span>var<span style="color:#f92672">/</span>lib<span style="color:#f92672">/</span>mysql													<span style="color:#75715e">#数据目录</span>
+</span></span><span style="display:flex;"><span>log<span style="color:#f92672">-</span>error <span style="color:#f92672">=</span> <span style="color:#f92672">/</span>var<span style="color:#f92672">/</span>log<span style="color:#f92672">/</span>mysqld<span style="color:#f92672">.</span>log												<span style="color:#75715e">#错误日志</span>
+</span></span><span style="display:flex;"><span>skip_name_resolve <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>														<span style="color:#75715e">#跳过DNS解析</span>
+</span></span><span style="display:flex;"><span>max_connections <span style="color:#f92672">=</span> <span style="color:#ae81ff">8192</span>														<span style="color:#75715e">#最大连接数</span>
+</span></span><span style="display:flex;"><span>lower_case_table_names <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>													<span style="color:#75715e">#表名大小写不敏感</span>
+</span></span><span style="display:flex;"><span>master_info_repository <span style="color:#f92672">=</span> TABLE                             					<span style="color:#75715e">#MGR要求把主从复制信息记录到表中</span>
+</span></span><span style="display:flex;"><span>relay_log_info_repository <span style="color:#f92672">=</span> TABLE                 							<span style="color:#75715e">#MGR要求把主从复制信息记录到表中</span>
+</span></span><span style="display:flex;"><span>transaction_write_set_extraction <span style="color:#f92672">=</span> XXHASH6           						<span style="color:#75715e">#必须为每个事务收集写集合，使用XXHASH算法将其编码为散列</span>
+</span></span><span style="display:flex;"><span>authentication_policy <span style="color:#f92672">=</span> mysql_native_password								<span style="color:#75715e">#设置默认密码验证插件</span>
+</span></span><span style="display:flex;"><span>transaction_isolation <span style="color:#f92672">=</span> READ<span style="color:#f92672">-</span>COMMITTED										<span style="color:#75715e">#隔离级别是RC,减少锁粒度</span>
+</span></span><span style="display:flex;"><span>log_bin <span style="color:#f92672">=</span> <span style="color:#f92672">/</span>var<span style="color:#f92672">/</span>lib<span style="color:#f92672">/</span>mysql<span style="color:#f92672">/</span>mysql<span style="color:#f92672">-</span>bin											<span style="color:#75715e">#启用binlog功能，并指定路径名称</span>
+</span></span><span style="display:flex;"><span>log_replica_updates <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>														<span style="color:#75715e">#记录已经执行过的binlog</span>
+</span></span><span style="display:flex;"><span>binlog_expire_logs_seconds <span style="color:#f92672">=</span> <span style="color:#ae81ff">259200</span>											<span style="color:#75715e">#日志的过期时间(单位秒)</span>
+</span></span><span style="display:flex;"><span>binlog_format <span style="color:#f92672">=</span> row															<span style="color:#75715e">#binlog格式,MGR要求必须是ROW,不过就算不是MGR,也最好用row</span>
+</span></span><span style="display:flex;"><span>slave_preserve_commit_order <span style="color:#f92672">=</span> ON											<span style="color:#75715e">#开启备库提交事务顺序</span>
+</span></span><span style="display:flex;"><span>slave_parallel_type <span style="color:#f92672">=</span> LOGICAL_CLOCK											<span style="color:#75715e">#多线程并行复制</span>
+</span></span><span style="display:flex;"><span>slave_parallel_workers <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>													<span style="color:#75715e">#工作线程数</span>
+</span></span><span style="display:flex;"><span>gtid_mode <span style="color:#f92672">=</span> ON																<span style="color:#75715e">#开启GTID</span>
+</span></span><span style="display:flex;"><span>enforce_gtid_consistency <span style="color:#f92672">=</span> ON												<span style="color:#75715e">#强制GTID的一致性</span>
 </span></span><span style="display:flex;"><span>disabled_storage_engines <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;MyISAM,BLACKHOLE,FEDERATED,ARCHIVE,MEMORY&#34;</span>		<span style="color:#75715e">#禁用的存储引擎</span>
-</span></span><span style="display:flex;"><span>binlog_transaction_dependency_tracking <span style="color:#f92672">=</span> WRITESET_SESSION			<span style="color:#75715e">#保证同一个session内的事务不可并行</span>
-</span></span><span style="display:flex;"><span>plugin_load_add <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;group_replication.so&#39;</span>					<span style="color:#75715e">#加载group_replication插件</span>
-</span></span><span style="display:flex;"><span>plugin<span style="color:#f92672">-</span>load<span style="color:#f92672">-</span>add <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;mysql_clone.so&#39;</span>						<span style="color:#75715e">#加载mysql_clone插件</span>
-</span></span><span style="display:flex;"><span>loose<span style="color:#f92672">-</span>group_replication_ip_whitelist <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;127.0.0.1/8,192.168.7.0/24&#39;</span>             <span style="color:#75715e">#IP地址白名单</span>
+</span></span><span style="display:flex;"><span>binlog_transaction_dependency_tracking <span style="color:#f92672">=</span> WRITESET_SESSION					<span style="color:#75715e">#保证同一个session内的事务不可并行</span>
+</span></span><span style="display:flex;"><span>plugin_load_add <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;group_replication.so&#39;</span>									<span style="color:#75715e">#加载group_replication插件</span>
+</span></span><span style="display:flex;"><span>plugin<span style="color:#f92672">-</span>load<span style="color:#f92672">-</span>add <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;mysql_clone.so&#39;</span>											<span style="color:#75715e">#加载mysql_clone插件</span>
+</span></span><span style="display:flex;"><span>loose<span style="color:#f92672">-</span>group_replication_ip_whitelist <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;127.0.0.1/8,192.168.7.0/24&#39;</span>   		<span style="color:#75715e">#IP地址白名单</span>
 </span></span><span style="display:flex;"><span>loose<span style="color:#f92672">-</span>group_replication_group_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;290da651-da91-11ed-be70-000c29b15814&#34;</span>	<span style="color:#75715e">#组复制中的UUID</span>
-</span></span><span style="display:flex;"><span>loose<span style="color:#f92672">-</span>group_replication_start_on_boot <span style="color:#f92672">=</span> off					<span style="color:#75715e">#启动时不会自动开始组复制</span>
-</span></span><span style="display:flex;"><span>loose<span style="color:#f92672">-</span>group_replication_bootstrap_group <span style="color:#f92672">=</span> off					<span style="color:#75715e">#启动不会引导创建一个新的组</span>
-</span></span><span style="display:flex;"><span>super_read_only<span style="color:#f92672">=</span>on								<span style="color:#75715e">#重启后root用户自动进入只读状态</span>
-</span></span><span style="display:flex;"><span>read_only<span style="color:#f92672">=</span>on									<span style="color:#75715e">#重启后自动进入只读状态</span>
+</span></span><span style="display:flex;"><span>loose<span style="color:#f92672">-</span>group_replication_start_on_boot <span style="color:#f92672">=</span> off									<span style="color:#75715e">#启动时不会自动开始组复制</span>
+</span></span><span style="display:flex;"><span>loose<span style="color:#f92672">-</span>group_replication_bootstrap_group <span style="color:#f92672">=</span> off								<span style="color:#75715e">#启动不会引导创建一个新的组</span>
+</span></span><span style="display:flex;"><span>super_read_only<span style="color:#f92672">=</span>on															<span style="color:#75715e">#重启后root用户自动进入只读状态</span>
+</span></span><span style="display:flex;"><span>read_only<span style="color:#f92672">=</span>on																<span style="color:#75715e">#重启后自动进入只读状态</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#组复制的本机地址</span>
 </span></span><span style="display:flex;"><span>loose<span style="color:#f92672">-</span>group_replication_local_address <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;node-53:33061&#34;</span>
@@ -304,7 +304,7 @@
         <section class="footer">
     <footer>
         <span class="footer__copyright">This site is licensed under a <a href="<no value>"><no value></a> license.</span>
-        <span class="footer__copyright">Generated by <a href="https://gohugo.io/">Hugo</a> at 2023-05-06, themed with <a href="https://github.com/xslingcn/vno-hugo"> Vno - Hugo</a>.</span>
+        <span class="footer__copyright">Generated by <a href="https://gohugo.io/">Hugo</a> at 2023-05-08, themed with <a href="https://github.com/xslingcn/vno-hugo"> Vno - Hugo</a>.</span>
     </footer>
 </section>
 
