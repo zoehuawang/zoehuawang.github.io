@@ -21,7 +21,8 @@
       <pubDate>Sat, 06 May 2023 10:06:59 +0800</pubDate>
       
       <guid>https://zoehuawang.github.io/post/freeswitch/</guid>
-      <description>eval ${domain}	#查看变量 originate {origination_caller_id_number=6688}user/1001 &amp;amp;park	#拨打1001用户，主叫号码为6688（park表示挂起） originate {origination_caller_id_number=6688}user/1001 &amp;amp;hold	#拨打1001用户，主叫号码为6688（hold表示保持） originate {origination_caller_id_number=6688}user/1001 &amp;amp;echo	#拨打1001用户，主叫号码为6688（echo表示有回声） fsctl hupall normal_clearing dialed_ext 1001 或 uuid_kill UUID	#挂断1001用户 originate user/1001 &amp;amp;playback(/usr/local/freeswitch/sounds/wait.mp3)	#拨打1001，接通后直接播放MP3文件 originate user/1001 &amp;amp;record(/usr/local/freeswitch/sounds/r.wav)	#拨打1001，直接录音 uuid_record UUID start /usr/local/freeswitch/sounds/r.mp3	#uuid开始录音 originate user/1001 &amp;amp;bridge(user/1002) #1001和1002通话（先打1001，再打1002） sofia profile internal restart 或 sofia profile external restart	#重启网关配置 module_exists mod_em	#查询目标模块是否已经加载 </description>
+      <description>freeswitch权威指南
+eval ${domain}	#查看变量 originate {origination_caller_id_number=6688}user/1001 &amp;amp;park	#拨打1001用户，主叫号码为6688（park表示挂起） originate {origination_caller_id_number=6688}user/1001 &amp;amp;hold	#拨打1001用户，主叫号码为6688（hold表示保持） originate {origination_caller_id_number=6688}user/1001 &amp;amp;echo	#拨打1001用户，主叫号码为6688（echo表示有回声） fsctl hupall normal_clearing dialed_ext 1001 或 uuid_kill UUID	#挂断1001用户 originate user/1001 &amp;amp;playback(/usr/local/freeswitch/sounds/wait.mp3)	#拨打1001，接通后直接播放MP3文件 originate user/1001 &amp;amp;record(/usr/local/freeswitch/sounds/r.wav)	#拨打1001，直接录音 uuid_record UUID start /usr/local/freeswitch/sounds/r.mp3	#uuid开始录音 originate user/1001 &amp;amp;bridge(user/1002) #1001和1002通话（先打1001，再打1002） sofia profile internal restart 或 sofia profile external restart	#重启网关配置 module_exists mod_em	#查询目标模块是否已经加载 </description>
     </item>
     
     <item>
