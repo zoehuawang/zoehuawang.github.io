@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<head>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
+
+    
+    
+    <title>Freeswitch - 烟花散尽不问繁华</title>
+    
+    
+    <meta name="author" content="zoehuawang" /> 
+     
+    
+    
+    <meta name="keywords" content="freeswitch" />
+    
+    <meta property="og:title" content="Freeswitch" />
+<meta property="og:description" content="eval ${domain}	#查看变量 originate {origination_caller_id_number=6688}user/1001 &amp;park	#拨打1001用户，主叫号码为6688（park表示挂起） originate {origination_caller_id_number=6688}user/1001 &amp;hold	#拨打1001用户，主叫号码为6688（hold表示保持） originate {origination_caller_id_number=6688}user/1001 &amp;echo	#拨打1001用户，主叫号码为6688（echo表示有回声） fsctl hupall normal_clearing dialed_ext 1001 或 uuid_kill UUID	#挂断1001用户 originate user/1001 &amp;playback(/usr/local/freeswitch/sounds/wait.mp3)	#拨打1001，接通后直接播放MP3文件 originate user/1001 &amp;record(/usr/local/freeswitch/sounds/r.wav)	#拨打1001，直接录音 uuid_record UUID start /usr/local/freeswitch/sounds/r.mp3	#uuid开始录音 originate user/1001 &amp;bridge(user/1002) #1001和1002通话（先打1001，再打1002） sofia profile internal restart 或 sofia profile external restart	#重启网关配置 module_exists mod_em	#查询目标模块是否已经加载 " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zoehuawang.github.io/post/freeswitch/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-05-06T10:06:59+08:00" />
+<meta property="article:modified_time" content="2023-05-06T10:06:59+08:00" />
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Freeswitch"/>
+<meta name="twitter:description" content="eval ${domain}	#查看变量 originate {origination_caller_id_number=6688}user/1001 &amp;park	#拨打1001用户，主叫号码为6688（park表示挂起） originate {origination_caller_id_number=6688}user/1001 &amp;hold	#拨打1001用户，主叫号码为6688（hold表示保持） originate {origination_caller_id_number=6688}user/1001 &amp;echo	#拨打1001用户，主叫号码为6688（echo表示有回声） fsctl hupall normal_clearing dialed_ext 1001 或 uuid_kill UUID	#挂断1001用户 originate user/1001 &amp;playback(/usr/local/freeswitch/sounds/wait.mp3)	#拨打1001，接通后直接播放MP3文件 originate user/1001 &amp;record(/usr/local/freeswitch/sounds/r.wav)	#拨打1001，直接录音 uuid_record UUID start /usr/local/freeswitch/sounds/r.mp3	#uuid开始录音 originate user/1001 &amp;bridge(user/1002) #1001和1002通话（先打1001，再打1002） sofia profile internal restart 或 sofia profile external restart	#重启网关配置 module_exists mod_em	#查询目标模块是否已经加载 "/>
+
+
+    
+    
+    
+    
+
+    
+    
+    <link rel="stylesheet" href="https://zoehuawang.github.io/scss/main.min.3796779d99b798f0ae24d49c5a420db134eef2207610ed71453e417ce3ab44ed.css" integrity="sha256-N5Z3nZm3mPCuJNScWkINsTTu8iB2EO1xRT5BfOOrRO0=" crossorigin="anonymous" media="screen">
+	
+</head>
+  
+</head>
+<body>
+  <span class="mobile btn-mobile-menu">
+
+    <i class="fa fa-list btn-mobile-menu__icon"></i>
+    <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+
+  </span>
+
+  <header class="  panel-cover panel-cover--collapsed " style="background-image: url('/images/background-cover.jpg')">
+
+    <div class="panel-main">
+  
+      <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+  
+          <a href="/#blog" title="Homepage of 烟花散尽不问繁华 " class="blog-button"><img src="/images/avatar.jpg" width="80" alt="烟花散尽不问繁华 logo" class="panel-cover__logo logo" /></a>
+          <h1 class="panel-cover__title panel-title"><a href="/#blog" title="Homepage of 烟花散尽不问繁华" class="blog-button">烟花散尽不问繁华</a></h1>
+          
+          <span class="panel-cover__subtitle panel-subtitle">最好的等待，叫来日可期！</span>
+          
+          <hr class="panel-cover__divider" />
+          <p class="panel-cover__description"></p>
+          <hr class="panel-cover__divider panel-cover__divider--secondary" />
+          
+          
+          
+          <div class="navigation-wrapper">
+            <div>
+              <nav class="cover-navigation cover-navigation--primary">
+                <ul class="navigation">
+                  <li class="navigation__item"><a href="/#blog" title="Blog" class="blog-button">Blog</a></li>
+                  
+                    <li class="navigation__item"><a href="https://blog.zoehuawang.cn" target="_blank" title="Projects">Projects</a></li>
+                  
+                    <li class="navigation__item"><a href="/tags/" target="_blank" title="Tags">Tags</a></li>
+                  
+                </ul>
+              </nav>
+            </div>
+            
+            <div><nav class="cover-navigation navigation--social">
+    <ul class="navigation">
+  
+    
+  
+    
+    
+    
+
+    
+  
+    
+  
+    
+    <li class="navigation__item">
+      <a href="/index.xml" rel="author" title="RSS" target="_blank">
+        <i class='social fa fa-rss'></i>
+        <span class="label">RSS</span>
+      </a>
+    </li>
+  
+    
+  
+    </ul>
+  </nav>
+  </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      <div class="panel-cover--overlay cover-red"></div>
+      
+    </div>
+  </header>
+  
+
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner">
+
+        
+<article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+    <header class="post-header">
+        <div class="post-meta">
+            <time datetime=" 2023-05-06 10:06:59 &#43;0800 " itemprop="datePublished" class="post-meta__date date">2023-05-06</time>
+             <span class="post-meta__tags tags">   • <a href="https://zoehuawang.github.io/tags/freeswitch">freeswitch</a>  </span> 
+        </div>
+        <h1 class="post-title">Freeswitch</h1>
+    </header>
+    <section class="post">
+        <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>eval ${domain}																	#查看变量
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>originate {origination_caller_id_number=6688}user/1001 <span style="color:#960050;background-color:#1e0010">&amp;</span>park					#拨打1001用户，主叫号码为6688（park表示挂起）
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>originate {origination_caller_id_number=6688}user/1001 <span style="color:#960050;background-color:#1e0010">&amp;</span>hold					#拨打1001用户，主叫号码为6688（hold表示保持）
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>originate {origination_caller_id_number=6688}user/1001 <span style="color:#960050;background-color:#1e0010">&amp;</span>echo					#拨打1001用户，主叫号码为6688（echo表示有回声）
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>fsctl hupall normal_clearing dialed_ext 1001 或 uuid_kill UUID				    #挂断1001用户
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>originate user/1001 <span style="color:#960050;background-color:#1e0010">&amp;</span>playback(/usr/local/freeswitch/sounds/wait.mp3)	    	#拨打1001，接通后直接播放MP3文件
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>originate user/1001 <span style="color:#960050;background-color:#1e0010">&amp;</span>record(/usr/local/freeswitch/sounds/r.wav)					#拨打1001，直接录音
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>uuid_record UUID start /usr/local/freeswitch/sounds/r.mp3						#uuid开始录音
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>originate user/1001 <span style="color:#960050;background-color:#1e0010">&amp;</span>bridge(user/1002)    										#1001和1002通话（先打1001，再打1002）
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sofia profile internal restart 或 sofia profile external restart				    #重启网关配置
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>module_exists mod_em															#查询目标模块是否已经加载
+</span></span></code></pre></div>
+    </section>
+</article>
+<section class="read-more">
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">Recent</span>
+        <h2 class="post-list__post-title post-title"><a href="/post/sip%E5%BA%94%E7%AD%94%E6%B6%88%E6%81%AF%E7%8A%B6%E6%80%81%E7%A0%81/" title="link to Sip应答消息状态码">Sip应答消息状态码</a></h2>
+        <p class="excerpt">1. 临时应答(1XX) 100 Trying 正在处理中 180 Ringing 振铃 181 call being forwarder 呼叫正在前向 182 queue 排队 183 session progress 会话进行 2. 会话成功(2XX) 200 OK 会话成功 3. 重定向(3XX) 300 multiple 多重选择 301 moved permanently 永久移动 302 moved temporaily 临时移动 305 use proxy 用户代理 380 …&hellip;</p>
+        <div class="post-list__meta">
+            <time datetime=" 2023-05-06 10:06:59 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+             <span class="post-list__meta--tags tags">   • <a href="https://zoehuawang.github.io/tags/freeswitch">freeswitch</a>  </span> 
+            <a class="btn-border-small" href="/post/sip%E5%BA%94%E7%AD%94%E6%B6%88%E6%81%AF%E7%8A%B6%E6%80%81%E7%A0%81/">Continue</a>
+        </div>
+    </div>
+    
+
+
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">Earlier</span>
+        <h2 class="post-list__post-title post-title"><a href="/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA-%E5%89%AF%E6%9C%AC/" title="link to Freeswitch 1.10.6的docker镜像构建">Freeswitch 1.10.6的docker镜像构建</a></h2>
+        <p class="excerpt">Dockerfile文件内容
+FROM debian:10-slim ENV TZ=Asia/Shanghai RUN apt-get update RUN apt-get install apt-transport-https ca-certificates -y RUN echo &#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian/ buster main contrib non-free&#34; &gt; …&hellip;</p>
+        <div class="post-list__meta">
+            <time datetime=" 2023-05-06 10:06:59 &#43;0800" class="post-list__meta--date date">2023-05-06</time>
+             
+            <span class="post-list__meta--tags tags"> 
+                  • <a href="https://zoehuawang.github.io/tags/freeswitch">freeswitch</a>  
+            </span>
+            
+            <a class="btn-border-small" href="/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA-%E5%89%AF%E6%9C%AC/">Continue</a>
+        </div>
+    </div>
+    
+ </section>
+ 
+<section class="post-comments">
+    
+
+    
+    
+  </section>
+  
+
+        <section class="footer">
+    <footer>
+        <span class="footer__copyright">This site is licensed under a <a href="<no value>"><no value></a> license.</span>
+        <span class="footer__copyright">Generated by <a href="https://gohugo.io/">Hugo</a> at 2023-05-29, themed with <a href="https://github.com/xslingcn/vno-hugo"> Vno - Hugo</a>.</span>
+    </footer>
+</section>
+
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script><script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'your_ga_id', 'your_host');
+    ga('send', 'pageview');
+</script>
+
+  
+</body>
+

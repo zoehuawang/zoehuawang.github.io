@@ -22,7 +22,7 @@
       <pubDate>Sat, 06 May 2023 10:22:26 +0800</pubDate>
       
       <guid>https://zoehuawang.github.io/post/git/</guid>
-      <description>#将本地仓库关联到名为&amp;#34;origin&amp;#34;的远程仓库 git remote add origin https://gitee.com/zoewang/repo.git #将本地重置为服务器端的版本 git reset --hard origin/master #添加当前目录下的所有文件到暂存区 git add . #提交暂存区文件到本地仓库 git commit -m &amp;#34;[message]&amp;#34; #修改文件后不需要执行 git add 命令，直接来提交 git commit -a #将本地的分支版本上传到远程并合并 git push #配置用户名 git config --global user.name &amp;#34;your name&amp;#34; #配置邮箱 git config --global user.email &amp;#34;your email&amp;#34; </description>
+      <description>#将本地仓库关联到名为&amp;#34;origin&amp;#34;的远程仓库 git remote add origin https://gitee.com/zoewang/repo.git #将本地重置为服务器端的版本 git reset --hard origin/master #添加当前目录下的所有文件到暂存区 git add . #提交暂存区文件到本地仓库 git commit -m &amp;#34;[message]&amp;#34; #修改文件后不需要执行 git add 命令，直接来提交 git commit -a #将本地的分支版本上传到远程并合并 git push #强制将本地的分支版本上传到远程并合并 git push -f origin master #配置用户名 git config --global user.name &amp;#34;your name&amp;#34; #配置邮箱 git config --global user.email &amp;#34;your email&amp;#34; </description>
     </item>
     
     <item>
@@ -194,11 +194,20 @@ def foo(): print(&amp;#34;starting...&amp;#34;) while True: res = yield 4 print(
     </item>
     
     <item>
-      <title>Freeswitch 1.10.6的docker镜像构建</title>
-      <link>https://zoehuawang.github.io/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/</link>
+      <title>Freeswitch</title>
+      <link>https://zoehuawang.github.io/post/freeswitch/</link>
       <pubDate>Sat, 06 May 2023 10:06:59 +0800</pubDate>
       
-      <guid>https://zoehuawang.github.io/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/</guid>
+      <guid>https://zoehuawang.github.io/post/freeswitch/</guid>
+      <description>eval ${domain}	#查看变量 originate {origination_caller_id_number=6688}user/1001 &amp;amp;park	#拨打1001用户，主叫号码为6688（park表示挂起） originate {origination_caller_id_number=6688}user/1001 &amp;amp;hold	#拨打1001用户，主叫号码为6688（hold表示保持） originate {origination_caller_id_number=6688}user/1001 &amp;amp;echo	#拨打1001用户，主叫号码为6688（echo表示有回声） fsctl hupall normal_clearing dialed_ext 1001 或 uuid_kill UUID	#挂断1001用户 originate user/1001 &amp;amp;playback(/usr/local/freeswitch/sounds/wait.mp3)	#拨打1001，接通后直接播放MP3文件 originate user/1001 &amp;amp;record(/usr/local/freeswitch/sounds/r.wav)	#拨打1001，直接录音 uuid_record UUID start /usr/local/freeswitch/sounds/r.mp3	#uuid开始录音 originate user/1001 &amp;amp;bridge(user/1002) #1001和1002通话（先打1001，再打1002） sofia profile internal restart 或 sofia profile external restart	#重启网关配置 module_exists mod_em	#查询目标模块是否已经加载 </description>
+    </item>
+    
+    <item>
+      <title>Freeswitch 1.10.6的docker镜像构建</title>
+      <link>https://zoehuawang.github.io/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA-%E5%89%AF%E6%9C%AC/</link>
+      <pubDate>Sat, 06 May 2023 10:06:59 +0800</pubDate>
+      
+      <guid>https://zoehuawang.github.io/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA-%E5%89%AF%E6%9C%AC/</guid>
       <description>Dockerfile文件内容
 FROM debian:10-slim ENV TZ=Asia/Shanghai RUN apt-get update RUN apt-get install apt-transport-https ca-certificates -y RUN echo &amp;#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian/ buster main contrib non-free&amp;#34; &amp;gt; /etc/apt/sources.list RUN echo &amp;#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian/ buster-updates main contrib non-free&amp;#34; &amp;gt;&amp;gt; /etc/apt/sources.list RUN echo &amp;#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian/ buster-backports main contrib non-free&amp;#34; &amp;gt;&amp;gt; /etc/apt/sources.list RUN echo &amp;#34;deb http://mirrors.tuna.tsinghua.edu.cn/debian-security buster/updates main contrib non-free&amp;#34; &amp;gt;&amp;gt; /etc/apt/sources.list RUN apt-get update RUN apt-get install gcc g++ autoconf automake make libtool libtool-bin pkg-config \ sngrep uuid-dev libtiff-dev libsqlite3-dev libcurl4-openssl-dev \ libpcre3-dev libspeex-dev libedit-dev libcurl4-openssl-dev libshout3-dev \ libavformat-dev libswscale-dev \ libspeexdsp-dev libssl-dev yasm liblua5.</description>
     </item>
