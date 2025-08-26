@@ -1,0 +1,606 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  data-theme-mode="auto"
+  >
+  <head><meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/><title>
+  MGR单主 | zoehuawang
+</title>
+<meta
+  name="description"
+  content="mysql版本version：8.0.30"
+/><script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_4k4bc36ef96\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  
+</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+<link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_4k4bc36ef96.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  /><meta property="og:type" content="website" />
+  <meta property="og:title" content="MGR单主 | zoehuawang" />
+  <meta
+    property="og:description"
+    content="mysql版本version：8.0.30"
+  />
+  <meta property="og:url" content="/post/mgr%E5%8D%95%E4%B8%BB/" />
+  <meta
+    property="og:site_name"
+    content="︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站"
+  />
+  <meta
+    property="og:image"
+    content="/"
+  />
+  <meta property="article:author" content="zoehuawang" />
+  <meta property="article:published_time" content="2023-06-13T11:34:09&#43;08:00" />
+  <meta property="article:modified_time" content="2023-06-13T11:34:09&#43;08:00" /><meta property="article:tag" content="mysql" /><meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.8de89e98d1f2b3ec8a5a782dca54533bb25d81ece4635eb7681aeef2083e1b08.css" />
+<link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei&#43;Zx/1oA/0l8ysE" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.22/dist/katex.min.css"
+    integrity="sha384-5TcZemv2l/9On385z///&#43;d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script><link
+    rel="stylesheet"
+    href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css"
+    integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous"/></head>
+  <body><div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+<div id="lang-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+本文章没有找到对应的语言版本
+</div>
+<div id="heatmap-tooltip"></div><div id="container">
+      <div id="wrap"><div id="header-nav">
+  <nav id="main-nav"><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span><a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav"></nav></div>
+<header id="header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="MGR单主"><div id="header-outer">
+    <div id="header-title"><a href="/" id="logo">
+            <h1 data-aos="slide-up">MGR单主</h1>
+          </a><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
+  </div>
+</header><div id="content"
+          class="sidebar-left"
+            ><aside id="sidebar"><div class="sidebar-wrapper-container sticky"><div class="sidebar-wrapper">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    ><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents"></nav>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="zoehuawang"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">zoehuawang</div>
+  <div class="sidebar-description">一个普通的牛马</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">31</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      7
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">17</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">友链</div>
+    </div></div>
+</div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div><div class="sidebar-widget"></div></div></aside>
+<section id="main"><article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta"><div class="article-date">
+  <span
+    class="article-date-link icon-calendar"
+    data-aos="zoom-in"
+  >
+    <time datetime="2023-06-13 11:34:09 &#43;0800 CST" itemprop="datePublished"
+      >2023-06-13</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2023-06-13</time
+    >
+  </span></div>
+<div class="article-category"><a
+      class="article-category-link"
+      href="/categories/%e8%bf%90%e7%bb%b4"
+      data-aos="zoom-in"
+      >运维</a
+    ></div>
+</div>
+    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><ul>
+<li>1.每个节点设置hostname，并添加/etc/hosts</li>
+<li>2.下载 gperftools-devel 和 mysql 安装包</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">yum install --downloadonly --downloaddir=/root gperftools-devel
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">https://downloads.mysql.com/archives/community
+</span></span></code></pre></div><ul>
+<li>3.安装步骤</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum remove mariadb-libs-5.5.60-1.el7_5.x86_64 -y
+</span></span><span class="line"><span class="cl">rpm -ivh mysql-community-client-plugins-8.0.36-1.el7.x86_64.rpm
+</span></span><span class="line"><span class="cl">rpm -ivh mysql-community-common-8.0.36-1.el7.x86_64.rpm
+</span></span><span class="line"><span class="cl">rpm -ivh mysql-community-libs-8.0.36-1.el7.x86_64.rpm
+</span></span><span class="line"><span class="cl">rpm -ivh mysql-community-client-8.0.36-1.el7.x86_64.rpm
+</span></span><span class="line"><span class="cl">rpm -ivh mysql-community-debuginfo-8.0.36-1.el7.x86_64.rpm
+</span></span><span class="line"><span class="cl">rpm -ivh mysql-community-embedded-compat-8.0.36-1.el7.x86_64.rpm
+</span></span><span class="line"><span class="cl">rpm -ivh mysql-community-icu-data-files-8.0.36-1.el7.x86_64.rpm
+</span></span><span class="line"><span class="cl">rpm -ivh mysql-community-libs-compat-8.0.36-1.el7.x86_64.rpm
+</span></span><span class="line"><span class="cl">rpm -ivh mysql-community-devel-8.0.36-1.el7.x86_64.rpm --force --nodeps
+</span></span><span class="line"><span class="cl">rpm -ivh mysql-community-server-8.0.36-1.el7.x86_64.rpm --force --nodeps
+</span></span><span class="line"><span class="cl">rpm -ivh mysql-community-server-debug-8.0.36-1.el7.x86_64.rpm --force --nodeps
+</span></span><span class="line"><span class="cl">rpm -ivh mysql-community-test-8.0.36-1.el7.x86_64.rpm --force --nodeps
+</span></span><span class="line"><span class="cl">rpm -ivh /root/gperftools-libs-2.6.1-1.el7.x86_64.rpm
+</span></span><span class="line"><span class="cl">rpm -ivh /root/gperftools-devel-2.6.1-1.el7.x86_64.rpm
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;LD_PRELOAD=/usr/lib64/libtcmalloc.so&#39;</span> &gt;&gt; /etc/sysconfig/mysql
+</span></span></code></pre></div><ul>
+<li>4.替换my.cnf配置文件如下：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># For advice on how to change settings please see</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &lt;http://dev.mysql.com/doc/refman/8.0/en/server-configuration-defaults.html&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>mysqld<span class="o">]</span>
+</span></span><span class="line"><span class="cl">skip-grant-tables
+</span></span><span class="line"><span class="cl"><span class="c1">#server-id必须是唯一的，每个节点不能相同</span>
+</span></span><span class="line"><span class="cl">server-id <span class="o">=</span> <span class="m">53</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#默认134217728,单位byte(也就是128MB)，建议修改为机器总内存的70%</span>
+</span></span><span class="line"><span class="cl"><span class="nv">innodb_buffer_pool_size</span> <span class="o">=</span> <span class="m">6442450944</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">socket</span> <span class="o">=</span> /var/lib/mysql/mysql.sock
+</span></span><span class="line"><span class="cl">pid-file <span class="o">=</span> /var/run/mysqld/mysqld.pid
+</span></span><span class="line"><span class="cl"><span class="nv">datadir</span> <span class="o">=</span> /var/lib/mysql							<span class="c1">#数据目录</span>
+</span></span><span class="line"><span class="cl">log-error <span class="o">=</span> /var/log/mysqld.log							<span class="c1">#错误日志</span>
+</span></span><span class="line"><span class="cl"><span class="nv">skip_name_resolve</span> <span class="o">=</span> 1								<span class="c1">#跳过DNS解析</span>
+</span></span><span class="line"><span class="cl"><span class="nv">max_connections</span> <span class="o">=</span> 8192								<span class="c1">#最大连接数</span>
+</span></span><span class="line"><span class="cl"><span class="nv">lower_case_table_names</span> <span class="o">=</span> 1							<span class="c1">#表名大小写不敏感</span>
+</span></span><span class="line"><span class="cl"><span class="nv">master_info_repository</span> <span class="o">=</span> TABLE                             			<span class="c1">#MGR要求把主从复制信息记录到表中</span>
+</span></span><span class="line"><span class="cl"><span class="nv">relay_log_info_repository</span> <span class="o">=</span> TABLE                 				<span class="c1">#MGR要求把主从复制信息记录到表中</span>
+</span></span><span class="line"><span class="cl"><span class="nv">relay_log_purge</span> <span class="o">=</span> <span class="m">1</span>                                                         	<span class="c1">#开启中继日志自动清理</span>
+</span></span><span class="line"><span class="cl"><span class="nv">transaction_write_set_extraction</span> <span class="o">=</span> XXHASH6           				<span class="c1">#必须为每个事务收集写集合，使用XXHASH算法将其编码为散列</span>
+</span></span><span class="line"><span class="cl"><span class="nv">authentication_policy</span> <span class="o">=</span> mysql_native_password					<span class="c1">#设置默认密码验证插件</span>
+</span></span><span class="line"><span class="cl"><span class="nv">transaction_isolation</span> <span class="o">=</span> READ-COMMITTED						<span class="c1">#隔离级别是RC,减少锁粒度</span>
+</span></span><span class="line"><span class="cl"><span class="nv">log_bin</span> <span class="o">=</span> /var/lib/mysql/mysql-bin						<span class="c1">#启用binlog功能，并指定路径名称</span>
+</span></span><span class="line"><span class="cl"><span class="nv">log_replica_updates</span> <span class="o">=</span> 1								<span class="c1">#记录已经执行过的binlog</span>
+</span></span><span class="line"><span class="cl"><span class="nv">binlog_expire_logs_seconds</span> <span class="o">=</span> 259200						<span class="c1">#binlog日志的过期时间(单位秒)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">binlog_format</span> <span class="o">=</span> row								<span class="c1">#binlog格式,MGR要求必须是ROW,不过就算不是MGR,也最好用row</span>
+</span></span><span class="line"><span class="cl"><span class="nv">replica_preserve_commit_order</span> <span class="o">=</span> ON						<span class="c1">#开启备库提交事务顺序</span>
+</span></span><span class="line"><span class="cl"><span class="nv">replica_parallel_type</span> <span class="o">=</span> LOGICAL_CLOCK						<span class="c1">#多线程并行复制</span>
+</span></span><span class="line"><span class="cl"><span class="nv">replica_parallel_workers</span> <span class="o">=</span> 4							<span class="c1">#工作线程数</span>
+</span></span><span class="line"><span class="cl"><span class="nv">gtid_mode</span> <span class="o">=</span> ON									<span class="c1">#开启GTID</span>
+</span></span><span class="line"><span class="cl"><span class="nv">enforce_gtid_consistency</span> <span class="o">=</span> ON							<span class="c1">#强制GTID的一致性</span>
+</span></span><span class="line"><span class="cl"><span class="nv">disabled_storage_engines</span> <span class="o">=</span> <span class="s2">&#34;MyISAM,BLACKHOLE,FEDERATED,ARCHIVE,MEMORY&#34;</span>		<span class="c1">#禁用的存储引擎</span>
+</span></span><span class="line"><span class="cl"><span class="nv">binlog_transaction_dependency_tracking</span> <span class="o">=</span> WRITESET_SESSION			<span class="c1">#保证同一个session内的事务不可并行</span>
+</span></span><span class="line"><span class="cl"><span class="nv">plugin_load_add</span> <span class="o">=</span> <span class="s1">&#39;group_replication.so&#39;</span>					<span class="c1">#加载group_replication插件</span>
+</span></span><span class="line"><span class="cl">plugin-load-add <span class="o">=</span> <span class="s1">&#39;mysql_clone.so&#39;</span>						<span class="c1">#加载mysql_clone插件</span>
+</span></span><span class="line"><span class="cl">loose-group_replication_ip_whitelist <span class="o">=</span> <span class="s1">&#39;127.0.0.1/8,192.168.7.0/24&#39;</span>   		<span class="c1">#IP地址白名单</span>
+</span></span><span class="line"><span class="cl">loose-group_replication_group_name <span class="o">=</span> <span class="s2">&#34;290da651-da91-11ed-be70-000c29b15814&#34;</span>	<span class="c1">#组复制中的UUID</span>
+</span></span><span class="line"><span class="cl">loose-group_replication_start_on_boot <span class="o">=</span> off					<span class="c1">#组复制配置完后再改成on，重启后自动加入组复制</span>
+</span></span><span class="line"><span class="cl">loose-group_replication_bootstrap_group <span class="o">=</span> off					<span class="c1">#启动不会引导创建一个新的组</span>
+</span></span><span class="line"><span class="cl"><span class="nv">super_read_only</span> <span class="o">=</span> off								<span class="c1">#组复制配置完后再改成on，重启后从库的root用户就会自动进入只读状态</span>
+</span></span><span class="line"><span class="cl"><span class="nv">read_only</span> <span class="o">=</span> on									<span class="c1">#重启后从库的普通用户自动进入只读状态</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">innodb_write_io_threads</span> <span class="o">=</span> <span class="m">8</span>
+</span></span><span class="line"><span class="cl"><span class="nv">innodb_read_io_threads</span> <span class="o">=</span> <span class="m">8</span>
+</span></span><span class="line"><span class="cl"><span class="nv">innodb_io_capacity</span> <span class="o">=</span> <span class="m">10000</span>
+</span></span><span class="line"><span class="cl"><span class="nv">innodb_io_capacity_max</span> <span class="o">=</span> <span class="m">20000</span>
+</span></span><span class="line"><span class="cl"><span class="nv">innodb_redo_log_capacity</span> <span class="o">=</span> 2g
+</span></span><span class="line"><span class="cl"><span class="nv">innodb_flush_method</span> <span class="o">=</span> O_DIRECT
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#组复制的本机地址</span>
+</span></span><span class="line"><span class="cl">loose-group_replication_local_address <span class="o">=</span> <span class="s2">&#34;192.168.7.53:33061&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#组复制的集群地址</span>
+</span></span><span class="line"><span class="cl">loose-group_replication_group_seeds <span class="o">=</span> <span class="s2">&#34;192.168.7.52:33061,192.168.7.53:33061,192.168.7.54:33061&#34;</span>
+</span></span></code></pre></div><ul>
+<li>5.初始化数据库</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl start mysqld
+</span></span><span class="line"><span class="cl">mysql -e<span class="s2">&#34;UPDATE mysql.user SET authentication_string=&#39;*14CF315C27425870B6B841EC78E21378C8BEE3CA&#39; WHERE user=&#39;root&#39;;&#34;</span>
+</span></span><span class="line"><span class="cl">mysql -e<span class="s2">&#34;flush privileges;&#34;</span>
+</span></span><span class="line"><span class="cl">sed -i <span class="s1">&#39;/skip-grant-tables/d&#39;</span> /etc/my.cnf
+</span></span><span class="line"><span class="cl">systemctl restart mysqld
+</span></span><span class="line"><span class="cl">mysql -uroot -pAa.123456 --connect-expired-password -e<span class="s2">&#34;alter user &#39;root&#39;@&#39;localhost&#39; identified with mysql_native_password by &#39;Aa.1234567&#39;;&#34;</span>
+</span></span><span class="line"><span class="cl">mysql -uroot -pAa.1234567 --connect-expired-password -e<span class="s2">&#34;set persist validate_password.policy=0;&#34;</span>
+</span></span><span class="line"><span class="cl">mysql -uroot -pAa.1234567 --connect-expired-password -e<span class="s2">&#34;set persist validate_password.length=4;&#34;</span>
+</span></span><span class="line"><span class="cl">mysql -uroot -pAa.1234567 --connect-expired-password -e<span class="s2">&#34;update mysql.user set host=&#39;%&#39; where user=&#39;root&#39;;flush privileges;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mysql -uroot -pAa.1234567 --connect-expired-password -e<span class="s2">&#34;set global super_read_only=0;SET SQL_LOG_BIN=0;&#34;</span>
+</span></span><span class="line"><span class="cl">mysql -uroot -pAa.1234567 --connect-expired-password -e<span class="s2">&#34;CREATE USER rpl_user@&#39;%&#39; IDENTIFIED BY &#39;Aa.1234567&#39;;&#34;</span>
+</span></span><span class="line"><span class="cl">mysql -uroot -pAa.1234567 --connect-expired-password -e<span class="s2">&#34;GRANT REPLICATION SLAVE ON *.* TO rpl_user@&#39;%&#39;;&#34;</span>
+</span></span><span class="line"><span class="cl">mysql -uroot -pAa.1234567 --connect-expired-password -e<span class="s2">&#34;GRANT CONNECTION_ADMIN ON *.* TO rpl_user@&#39;%&#39;;&#34;</span>
+</span></span><span class="line"><span class="cl">mysql -uroot -pAa.1234567 --connect-expired-password -e<span class="s2">&#34;GRANT BACKUP_ADMIN ON *.* TO rpl_user@&#39;%&#39;;FLUSH PRIVILEGES;&#34;</span>
+</span></span><span class="line"><span class="cl">mysql -uroot -pAa.1234567 --connect-expired-password -e<span class="s2">&#34;set global super_read_only=1;SET SQL_LOG_BIN=1;&#34;</span>
+</span></span><span class="line"><span class="cl">mysql -uroot -pAa.1234567 --connect-expired-password -e<span class="s2">&#34;reset master;&#34;</span>
+</span></span><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/super_read_only = off/super_read_only = on/g&#39;</span> /etc/my.cnf
+</span></span><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/loose-group_replication_start_on_boot = off/loose-group_replication_start_on_boot = on/g&#39;</span> /etc/my.cnf
+</span></span></code></pre></div><ul>
+<li>6.在其中一个节点上执行：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mysql -uroot -pAa.1234567 --connect-expired-password -e<span class="s2">&#34;CHANGE REPLICATION SOURCE TO SOURCE_USER=&#39;rpl_user&#39;, SOURCE_PASSWORD=&#39;Aa.1234567&#39; FOR CHANNEL &#39;group_replication_recovery&#39;;&#34;</span>
+</span></span><span class="line"><span class="cl">mysql -uroot -pAa.1234567 --connect-expired-password -e<span class="s2">&#34;SET GLOBAL group_replication_bootstrap_group=ON;&#34;</span>
+</span></span><span class="line"><span class="cl">mysql -uroot -pAa.1234567 --connect-expired-password -e<span class="s2">&#34;START GROUP_REPLICATION USER=&#39;rpl_user&#39;, PASSWORD=&#39;Aa.1234567&#39;;&#34;</span>
+</span></span><span class="line"><span class="cl">mysql -uroot -pAa.1234567 --connect-expired-password -e<span class="s2">&#34;SET GLOBAL group_replication_bootstrap_group=OFF;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 如果报错：Unknown system variable &#39;group_replication_bootstrap_group&#39;，就要执行下面的命令添加MGR插件</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># mysql -uroot -pAa.1234567 --connect-expired-password -e&#34;INSTALL PLUGIN group_replication SONAME &#39;group_replication.so&#39;;&#34;</span>
+</span></span></code></pre></div><ul>
+<li>7.在另外两个节点执行：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mysql -uroot -pAa.1234567 --connect-expired-password -e<span class="s2">&#34;CHANGE REPLICATION SOURCE TO SOURCE_USER=&#39;rpl_user&#39;, SOURCE_PASSWORD=&#39;Aa.1234567&#39; FOR CHANNEL &#39;group_replication_recovery&#39;;&#34;</span>
+</span></span><span class="line"><span class="cl">mysql -uroot -pAa.1234567 --connect-expired-password -e<span class="s2">&#34;START GROUP_REPLICATION USER=&#39;rpl_user&#39;, PASSWORD=&#39;Aa.1234567&#39;;&#34;</span>
+</span></span></code></pre></div><ul>
+<li>8.查看集群状态</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">uroot</span><span class="w"> </span><span class="o">-</span><span class="n">pAa</span><span class="p">.</span><span class="mi">1234567</span><span class="w"> </span><span class="c1">--connect-expired-password -e&#34;SELECT * FROM performance_schema.replication_group_members;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">Warning</span><span class="p">]</span><span class="w"> </span><span class="k">Using</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="n">interface</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">insecure</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">---------------------------+--------------------------------------+-------------+-------------+--------------+-------------+----------------+----------------------------+
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">|</span><span class="w"> </span><span class="n">CHANNEL_NAME</span><span class="w">              </span><span class="o">|</span><span class="w"> </span><span class="n">MEMBER_ID</span><span class="w">                            </span><span class="o">|</span><span class="w"> </span><span class="n">MEMBER_HOST</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">MEMBER_PORT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">MEMBER_STATE</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">MEMBER_ROLE</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">MEMBER_VERSION</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">MEMBER_COMMUNICATION_STACK</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">---------------------------+--------------------------------------+-------------+-------------+--------------+-------------+----------------+----------------------------+
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">|</span><span class="w"> </span><span class="n">group_replication_applier</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">332573</span><span class="n">b8</span><span class="o">-</span><span class="n">da8d</span><span class="o">-</span><span class="mi">11</span><span class="n">ed</span><span class="o">-</span><span class="mi">8</span><span class="n">d65</span><span class="o">-</span><span class="mi">00505689861</span><span class="n">b</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="mi">7</span><span class="p">.</span><span class="mi">53</span><span class="w">     </span><span class="o">|</span><span class="w">        </span><span class="mi">3306</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ONLINE</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="mi">8</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">36</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="n">XCom</span><span class="w">                       </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">group_replication_applier</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">3</span><span class="n">a99e57b</span><span class="o">-</span><span class="n">da8d</span><span class="o">-</span><span class="mi">11</span><span class="n">ed</span><span class="o">-</span><span class="mi">960</span><span class="n">d</span><span class="o">-</span><span class="mi">005056896304</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="mi">7</span><span class="p">.</span><span class="mi">54</span><span class="w">     </span><span class="o">|</span><span class="w">        </span><span class="mi">3306</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ONLINE</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="n">SECONDARY</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="mi">8</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">36</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="n">XCom</span><span class="w">                       </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">group_replication_applier</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">418</span><span class="n">d32d0</span><span class="o">-</span><span class="n">da8c</span><span class="o">-</span><span class="mi">11</span><span class="n">ed</span><span class="o">-</span><span class="n">a069</span><span class="o">-</span><span class="mi">000</span><span class="n">c29b15814</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="mi">7</span><span class="p">.</span><span class="mi">52</span><span class="w">     </span><span class="o">|</span><span class="w">        </span><span class="mi">3306</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ONLINE</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="n">SECONDARY</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="mi">8</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">36</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="n">XCom</span><span class="w">                       </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">---------------------------+--------------------------------------+-------------+-------------+--------------+-------------+----------------+----------------------------+
+</span></span></span></code></pre></div><ul>
+<li>9.克隆（在有问题的节点上执行）</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">#</span><span class="err">查询是否有安装克隆插件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PLUGINS</span><span class="p">;</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">如果克隆插件没有安装，安装克隆插件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">clone</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">&#39;mysql_clone.so&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">用</span><span class="n">root账号创建克隆用账号</span><span class="err">，设置</span><span class="n">clone_valid_donor_list变量</span><span class="err">，</span><span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="mi">7</span><span class="p">.</span><span class="mi">52</span><span class="err">为任意正常节点的</span><span class="n">ip或者hostname</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;recipient_clone_user&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;Aa123456&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">GRANT</span><span class="w"> </span><span class="n">CLONE_ADMIN</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="s1">&#39;recipient_clone_user&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">clone_valid_donor_list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;192.168.7.52:3306&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">设置网络带宽上限为</span><span class="mi">5</span><span class="n">M</span><span class="p">.</span><span class="err">根据实际情况调整</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">注克隆期间正常节点不能执行</span><span class="n">ddl操作</span><span class="p">,</span><span class="err">否则会克隆失败</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">clone_max_network_bandwidth</span><span class="o">=</span><span class="mi">5</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">exit</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">切换到克隆账号开始克隆</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">urecipient_clone_user</span><span class="w"> </span><span class="o">-</span><span class="n">pAa123456</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="n">rpl_user应当有BACKUP_ADMIN权限</span><span class="err">。没的话加一下</span><span class="w"> </span><span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="mi">7</span><span class="p">.</span><span class="mi">52</span><span class="err">改成上面</span><span class="n">clone_valid_donor_list里的</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">CLONE</span><span class="w"> </span><span class="n">INSTANCE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s1">&#39;rpl_user&#39;</span><span class="o">@</span><span class="s1">&#39;192.168.7.52&#39;</span><span class="p">:</span><span class="mi">3306</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;Aa.1234567&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">克隆成功后接收方</span><span class="n">mysql会自动重启</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">查看克隆进度</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">STAGE</span><span class="p">,</span><span class="w"> </span><span class="k">STATE</span><span class="p">,</span><span class="w"> </span><span class="n">END_TIME</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">clone_progress</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">查看克隆状态</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">state</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">cast</span><span class="p">(</span><span class="n">begin_time</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">datetime</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s2">&#34;start time&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">case</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">when</span><span class="w"> </span><span class="n">end_time</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">lpad</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">format_time</span><span class="p">(</span><span class="n">power</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">unix_timestamp</span><span class="p">(</span><span class="n">now</span><span class="p">())</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">unix_timestamp</span><span class="p">(</span><span class="n">begin_time</span><span class="p">))),</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="n">lpad</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">format_time</span><span class="p">(</span><span class="n">power</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">unix_timestamp</span><span class="p">(</span><span class="n">end_time</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">unix_timestamp</span><span class="p">(</span><span class="n">begin_time</span><span class="p">))),</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">end</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">duration</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">source</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">destination</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">binlog_file</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">binlog_position</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">gtid_executed</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">from</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">clone_status</span><span class="w"> </span><span class="k">G</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">克隆结束后切换</span><span class="n">root账号登录可以直接重新加入集群</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">START</span><span class="w"> </span><span class="n">GROUP_REPLICATION</span><span class="w"> </span><span class="k">USER</span><span class="o">=</span><span class="s1">&#39;rpl_user&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">PASSWORD</span><span class="o">=</span><span class="s1">&#39;Aa.1234567&#39;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div></div>
+    <footer class="article-footer"><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/mysql"
+        rel="tag"
+        >MYSQL</a
+      >
+    </li></ul>
+</footer>
+  </div><nav
+    id="article-nav"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap article-nav-link-left"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="Freeswitch"
+              class="lazyload"
+            /><a href="/post/freeswitch/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">Freeswitch</h3>
+      </div><div class="article-nav-link-wrap article-nav-link-right"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="Kubernetes之StatefulSet部署etcd集群"
+              class="lazyload"
+            /><a href="/post/kubernetes%E4%B9%8Bstatefulset%E9%83%A8%E7%BD%B2etcd%E9%9B%86%E7%BE%A4/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">Kubernetes之StatefulSet部署etcd集群</h3>
+      </div></nav></article></section>
+        </div><footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info"><div>
+      <span class="icon-copyright"></span>2021-2025<span class="footer-info-sep rotate"></span>
+      zoehuawang
+    </div><div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div><div>
+        <span class="icon-brush"
+          >&nbsp;44.8k</span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;01:46</span>
+      </div><div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv"
+          >总访问量&nbsp;<span
+            id="busuanzi_value_site_pv"
+          ></span
+        ></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv"
+          >总访客量&nbsp;<span
+            id="busuanzi_value_site_uv"
+          ></span
+        ></span>
+      </div></div>
+</footer>
+<div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div><div id="mask" class="hide"></div>
+      </div><nav id="mobile-nav">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents"></nav>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="zoehuawang"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">zoehuawang</div>
+  <div class="sidebar-description">一个普通的牛马</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">31</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      7
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">17</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">友链</div>
+    </div></div>
+</div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
+</div><script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" integrity="" crossorigin="anonymous" ></script><script src="/js/aos.js" integrity="" crossorigin="anonymous" ></script><script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script><script src="/js/pjax_main.js" integrity="" crossorigin="anonymous" data-pjax></script><script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"></script><script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+<div id="lazy-script">
+  <div><script data-pjax>
+        window.REIMU_POST = {
+          author: "zoehuawang",
+          title: "MGR单主",
+          url: "\/post\/mgr%E5%8D%95%E4%B8%BB\/",
+          description: "mysql版本version：8.0.30",
+          cover: "\/images\/banner.webp",
+        };
+      </script><script src="/js/insert_highlight.js" integrity="" crossorigin="anonymous" data-pjax></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script></div>
+</div><script
+    src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js"
+    asyncintegrity="sha384-0M75wtSkhjIInv4coYlaJU83&#43;OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id&#43;S" crossorigin="anonymous"></script><script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script><script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script></body>
+</html>

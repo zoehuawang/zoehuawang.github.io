@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Freeswitch on ︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</title>
+    <link>/categories/freeswitch/</link>
+    <description>Recent content from ︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    
+    <managingEditor>w19891102@126.com (zoehuawang)</managingEditor>
+    <webMaster>w19891102@126.com (zoehuawang)</webMaster>
+    
+    <copyright>本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！</copyright>
+    
+    <lastBuildDate>Tue, 13 Jun 2023 11:09:57 +0800</lastBuildDate>
+    
+    
+    <atom:link href="/categories/freeswitch/index.xml" rel="self" type="application/rss&#43;xml" />
+    
+
+    
+    
+
+    <item>
+      <title>Freeswitch</title>
+      <link>/post/freeswitch/</link>
+      <pubDate>Tue, 13 Jun 2023 11:09:57 &#43;0800</pubDate>
+      <author>w19891102@126.com (zoehuawang)</author>
+      <guid>/post/freeswitch/</guid>
+      <description>
+        <![CDATA[<h1>Freeswitch</h1><p>作者：zoehuawang（w19891102@126.com）</p>
+        
+          
+        
+        <hr><p>本文2023-06-13首发于<a href='/'>︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</a>，最后修改于2023-06-13</p>]]>
+      </description>
+      
+        <category>Freeswitch</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>Freeswitch 1.10.6的docker镜像构建</title>
+      <link>/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/</link>
+      <pubDate>Mon, 12 Jun 2023 11:06:57 &#43;0800</pubDate>
+      <author>w19891102@126.com (zoehuawang)</author>
+      <guid>/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/</guid>
+      <description>
+        <![CDATA[<h1>Freeswitch 1.10.6的docker镜像构建</h1><p>作者：zoehuawang（w19891102@126.com）</p>
+        
+          
+        
+        <hr><p>本文2023-06-12首发于<a href='/'>︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</a>，最后修改于2023-06-12</p>]]>
+      </description>
+      
+        <category>Freeswitch</category><category>Docker</category>
+      
+    </item>
+    
+  </channel>
+</rss>

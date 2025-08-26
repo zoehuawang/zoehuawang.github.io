@@ -1,0 +1,1047 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  data-theme-mode="auto"
+  >
+  <head><meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/><title>
+  数据库 | zoehuawang
+</title>
+<meta
+  name="description"
+  content="mysql、oracle、redis记录"
+/><script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_4k4bc36ef96\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  
+</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+<link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_4k4bc36ef96.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  /><meta property="og:type" content="website" />
+  <meta property="og:title" content="数据库 | zoehuawang" />
+  <meta
+    property="og:description"
+    content="mysql、oracle、redis记录"
+  />
+  <meta property="og:url" content="/post/%E6%95%B0%E6%8D%AE%E5%BA%93/" />
+  <meta
+    property="og:site_name"
+    content="︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站"
+  />
+  <meta
+    property="og:image"
+    content="/"
+  />
+  <meta property="article:author" content="zoehuawang" />
+  <meta property="article:published_time" content="2023-06-08T11:22:21&#43;08:00" />
+  <meta property="article:modified_time" content="2023-06-08T11:22:21&#43;08:00" /><meta property="article:tag" content="mysqloracle" /><meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.8de89e98d1f2b3ec8a5a782dca54533bb25d81ece4635eb7681aeef2083e1b08.css" />
+<link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei&#43;Zx/1oA/0l8ysE" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.22/dist/katex.min.css"
+    integrity="sha384-5TcZemv2l/9On385z///&#43;d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script><link
+    rel="stylesheet"
+    href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css"
+    integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous"/></head>
+  <body><div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+<div id="lang-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+本文章没有找到对应的语言版本
+</div>
+<div id="heatmap-tooltip"></div><div id="container">
+      <div id="wrap"><div id="header-nav">
+  <nav id="main-nav"><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span><a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav"></nav></div>
+<header id="header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="数据库"><div id="header-outer">
+    <div id="header-title"><a href="/" id="logo">
+            <h1 data-aos="slide-up">数据库</h1>
+          </a><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
+  </div>
+</header><div id="content"
+          class="sidebar-left"
+            ><aside id="sidebar"><div class="sidebar-wrapper-container sticky"><div class="sidebar-wrapper">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    ><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#mysql双主--keepalived主备">mysql双主 + keepalived主备</a></li>
+        <li><a href="#安装mysql-8026">安装mysql-8.0.26</a></li>
+        <li><a href="#mysql双主同步">mysql双主同步</a></li>
+        <li><a href="#安装keepalived-135">安装keepalived-1.3.5</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="zoehuawang"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">zoehuawang</div>
+  <div class="sidebar-description">一个普通的牛马</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">31</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      7
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">17</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">友链</div>
+    </div></div>
+</div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div><div class="sidebar-widget"></div></div></aside>
+<section id="main"><article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta"><div class="article-date">
+  <span
+    class="article-date-link icon-calendar"
+    data-aos="zoom-in"
+  >
+    <time datetime="2023-06-08 11:22:21 &#43;0800 CST" itemprop="datePublished"
+      >2023-06-08</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2023-06-08</time
+    >
+  </span></div>
+<div class="article-category"><a
+      class="article-category-link"
+      href="/categories/"
+      data-aos="zoom-in"
+      ></a
+    ></div>
+</div>
+    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><h1 id="mysql">
+<a class="header-anchor" href="#mysql"></a>
+—————————————Mysql————————————
+</h1><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">select</span><span class="w"> </span><span class="k">version</span><span class="p">();</span><span class="w">      </span><span class="o">#</span><span class="err">查看</span><span class="n">mysql版本</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">stop</span><span class="w"> </span><span class="n">slave</span><span class="p">;</span><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">sql_slave_skip_counter</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="k">start</span><span class="w"> </span><span class="n">slave</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">从库不同步处理，第二句表示跳过一步错误</span><span class="p">,</span><span class="err">后面的数字可变</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">从库不同步处理，复制的时候忽略指定的表</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">stop</span><span class="w"> </span><span class="n">slave</span><span class="w"> </span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">CHANGE</span><span class="w"> </span><span class="n">REPLICATION</span><span class="w"> </span><span class="n">FILTER</span><span class="w"> </span><span class="n">REPLICATE_WILD_IGNORE_TABLE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;库.表&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">start</span><span class="w"> </span><span class="n">slave</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">去掉忽略表</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">CHANGE</span><span class="w"> </span><span class="n">REPLICATION</span><span class="w"> </span><span class="n">FILTER</span><span class="w"> </span><span class="n">REPLICATE_WILD_IGNORE_TABLE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">主从同步</span><span class="n">change</span><span class="w"> </span><span class="n">master</span><span class="w"> </span><span class="n">to语法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">change</span><span class="w"> </span><span class="n">master</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">master_host</span><span class="o">=</span><span class="s1">&#39;192.168.1.4&#39;</span><span class="p">,</span><span class="n">master_user</span><span class="o">=</span><span class="s1">&#39;slave&#39;</span><span class="p">,</span><span class="n">master_password</span><span class="o">=</span><span class="s1">&#39;Aa123456&#39;</span><span class="p">,</span><span class="n">master_port</span><span class="o">=</span><span class="mi">13306</span><span class="p">,</span><span class="n">master_log_file</span><span class="o">=</span><span class="s1">&#39;mysql-bin.000201&#39;</span><span class="p">,</span><span class="n">master_log_pos</span><span class="o">=</span><span class="mi">628152168</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">设置</span><span class="n">MySQL为只读模式</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">show</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s2">&#34;%read_only%&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">flush</span><span class="w"> </span><span class="n">tables</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="k">read</span><span class="w"> </span><span class="k">lock</span><span class="p">;</span><span class="w">  </span><span class="o">#</span><span class="err">备份锁表</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">read_only</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">show</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s2">&#34;%read_only%&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">将</span><span class="n">MySQL从只读设置为读写状态</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">unlock</span><span class="w"> </span><span class="n">tables</span><span class="p">;</span><span class="w">  </span><span class="o">#</span><span class="err">解锁</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">read_only</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="n">a</span><span class="p">.</span><span class="k">column</span><span class="p">,</span><span class="n">b</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="n">b</span><span class="p">.</span><span class="k">column</span><span class="w">  </span><span class="k">from</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">id</span><span class="w">  </span><span class="o">#</span><span class="err">关联查询</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="n">CONCAT_WS</span><span class="p">(</span><span class="err">‘</span><span class="o">#</span><span class="err">’</span><span class="p">,</span><span class="n">str1</span><span class="p">,</span><span class="n">str2</span><span class="p">,</span><span class="err">…</span><span class="p">)</span><span class="w">  </span><span class="k">from</span><span class="w">        </span><span class="o">#</span><span class="err">查询结果以</span><span class="o">#</span><span class="err">号分隔</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">show</span><span class="w"> </span><span class="n">master</span><span class="w"> </span><span class="n">logs</span><span class="p">;</span><span class="w">																											</span><span class="o">#</span><span class="err">查看总共有几个</span><span class="n">binlog文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">expire_logs_days</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="n">flush</span><span class="w"> </span><span class="n">logs</span><span class="p">;</span><span class="w">													</span><span class="o">#</span><span class="err">设置自动删除</span><span class="n">binlog文件的天数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">PURGE</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="n">LOGS</span><span class="w"> </span><span class="k">BEFORE</span><span class="w"> </span><span class="n">DATE_SUB</span><span class="p">(</span><span class="k">CURRENT_DATE</span><span class="p">,</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">DAY</span><span class="p">);</span><span class="w">  		</span><span class="o">#</span><span class="err">删除</span><span class="mi">10</span><span class="err">天前的</span><span class="n">binlog日志</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">PURGE</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="n">LOGS</span><span class="w"> </span><span class="k">BEFORE</span><span class="w"> </span><span class="s1">&#39;2000-01-01 00:00:00&#39;</span><span class="p">;</span><span class="w">												</span><span class="o">#</span><span class="err">删除</span><span class="mi">2000</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="w"> </span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="err">时间之前前的</span><span class="n">binlog日志</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">show</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%expire_logs_days%&#39;</span><span class="p">;</span><span class="w">		</span><span class="o">#</span><span class="err">查看日志保留时间</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">show</span><span class="w"> </span><span class="k">full</span><span class="w"> </span><span class="n">processlist</span><span class="p">;</span><span class="w">  </span><span class="o">#</span><span class="err">查看进程</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">old_db</span><span class="p">.</span><span class="n">mytable</span><span class="w"> </span><span class="k">rename</span><span class="w"> </span><span class="n">new_db</span><span class="p">.</span><span class="n">mytable</span><span class="w">  </span><span class="o">#</span><span class="err">把表从一个库移到另一个库</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">解决</span><span class="n">glibc的内存管理器自身缺陷导致mysql内存占用越来越高</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">gdb</span><span class="w"> </span><span class="c1">--batch --pid `pidof mysqld` --ex &#39;call malloc_trim(0)&#39;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="n">mysql查询结果以utf8编码导出到txt文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">h</span><span class="w"> </span><span class="mi">127</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="n">u用户名</span><span class="w"> </span><span class="o">-</span><span class="n">p密码</span><span class="w"> </span><span class="c1">--default-character-set=utf8 -e &#34;sql语句&#34; &gt; tt.txt
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">解析</span><span class="n">binlog二进制文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysqlbinlog</span><span class="w"> </span><span class="c1">--no-defaults --base64-output=decode-rows -v mysql-bin.000001 &gt; /tmp/000001.txt
+</span></span></span></code></pre></div><ul>
+<li><strong>获取mysql内存使用情况的脚本</strong></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/sh
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1"># you might want to add some user authentication here</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#mysql -S /tmp/mysql3312.sock -u$1 -p$2  -e &#34;show variables; show status&#34; | awk &#39;</span>
+</span></span><span class="line"><span class="cl">mysql -u<span class="nv">$1</span> -p<span class="nv">$2</span>  -e <span class="s2">&#34;show variables; show status&#34;</span> <span class="p">|</span> awk <span class="s1">&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">{
+</span></span></span><span class="line"><span class="cl"><span class="s1">VAR[$1]=$2
+</span></span></span><span class="line"><span class="cl"><span class="s1">}
+</span></span></span><span class="line"><span class="cl"><span class="s1">END {
+</span></span></span><span class="line"><span class="cl"><span class="s1">MAX_CONN = VAR[&#34;max_connections&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s1">MAX_USED_CONN = VAR[&#34;Max_used_connections&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s1">BASE_MEM=VAR[&#34;key_buffer_size&#34;] + VAR[&#34;query_cache_size&#34;] + VAR[&#34;innodb_buffer_pool_size&#34;] + VAR[&#34;innodb_additional_mem_pool_size&#34;] + VAR[&#34;innodb_log_buffer_size&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s1">MEM_PER_CONN=VAR[&#34;read_buffer_size&#34;] + VAR[&#34;read_rnd_buffer_size&#34;] + VAR[&#34;sort_buffer_size&#34;] + VAR[&#34;join_buffer_size&#34;] + VAR[&#34;binlog_cache_size&#34;] + VAR[&#34;thread_stack&#34;] + VAR[&#34;tmp_table_size&#34;] + VAR[&#34;net_buffer_length&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s1">MEM_TOTAL_MIN=BASE_MEM + MEM_PER_CONN*MAX_USED_CONN
+</span></span></span><span class="line"><span class="cl"><span class="s1">MEM_TOTAL_MAX=BASE_MEM + MEM_PER_CONN*MAX_CONN
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;+------------------------------------------+--------------------+\n&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;| %40s | %15.3f MB |\n&#34;, &#34;key_buffer_size&#34;, VAR[&#34;key_buffer_size&#34;]/1048576
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;| %40s | %15.3f MB |\n&#34;, &#34;query_cache_size&#34;, VAR[&#34;query_cache_size&#34;]/1048576
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;| %40s | %15.3f MB |\n&#34;, &#34;innodb_buffer_pool_size&#34;, VAR[&#34;innodb_buffer_pool_size&#34;]/1048576
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;| %40s | %15.3f MB |\n&#34;, &#34;innodb_additional_mem_pool_size&#34;, VAR[&#34;innodb_additional_mem_pool_size&#34;]/1048576
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;| %40s | %15.3f MB |\n&#34;, &#34;innodb_log_buffer_size&#34;, VAR[&#34;innodb_log_buffer_size&#34;]/1048576
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;+------------------------------------------+--------------------+\n&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;| %40s | %15.3f MB |\n&#34;, &#34;BASE MEMORY&#34;, BASE_MEM/1048576
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;+------------------------------------------+--------------------+\n&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;| %40s | %15.3f MB |\n&#34;, &#34;sort_buffer_size&#34;, VAR[&#34;sort_buffer_size&#34;]/1048576
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;| %40s | %15.3f MB |\n&#34;, &#34;read_buffer_size&#34;, VAR[&#34;read_buffer_size&#34;]/1048576
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;| %40s | %15.3f MB |\n&#34;, &#34;read_rnd_buffer_size&#34;, VAR[&#34;read_rnd_buffer_size&#34;]/1048576
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;| %40s | %15.3f MB |\n&#34;, &#34;join_buffer_size&#34;, VAR[&#34;join_buffer_size&#34;]/1048576
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;| %40s | %15.3f MB |\n&#34;, &#34;thread_stack&#34;, VAR[&#34;thread_stack&#34;]/1048576
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;| %40s | %15.3f MB |\n&#34;, &#34;binlog_cache_size&#34;, VAR[&#34;binlog_cache_size&#34;]/1048576
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;| %40s | %15.3f MB |\n&#34;, &#34;tmp_table_size&#34;, VAR[&#34;tmp_table_size&#34;]/1048576
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;| %40s | %15.3f MB |\n&#34;, &#34;net_buffer_length&#34;, VAR[&#34;net_buffer_length&#34;]/1048576
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;+------------------------------------------+--------------------+\n&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;| %40s | %15.3f MB |\n&#34;, &#34;MEMORY PER CONNECTION&#34;, MEM_PER_CONN/1048576
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;+------------------------------------------+--------------------+\n&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;| %40s | %18d |\n&#34;, &#34;Max_used_connections&#34;, MAX_USED_CONN
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;| %40s | %18d |\n&#34;, &#34;max_connections&#34;, MAX_CONN
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;+------------------------------------------+--------------------+\n&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;| %40s | %15.3f MB |\n&#34;, &#34;TOTAL (MIN)&#34;, MEM_TOTAL_MIN/1048576
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;| %40s | %15.3f MB |\n&#34;, &#34;TOTAL (MAX)&#34;, MEM_TOTAL_MAX/1048576
+</span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;+------------------------------------------+--------------------+\n&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">}&#39;</span>
+</span></span></code></pre></div><ul>
+<li><strong>获取mysql内存使用情况的SQL</strong></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">select</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">SUBSTRING_INDEX</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;/&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">code_area</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">FORMAT_BYTES</span><span class="p">(</span><span class="k">SUM</span><span class="p">(</span><span class="n">current_alloc</span><span class="p">))</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">current_alloc</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">from</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">sys</span><span class="p">.</span><span class="n">x$memory_global_by_current_bytes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">SUBSTRING_INDEX</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;/&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">current_alloc</span><span class="p">)</span><span class="w"> </span><span class="k">desc</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li><strong>备份脚本及恢复，前提：必须开启binlog， 若没开启log_bin，则修改mysql配置文件my.cnf，添加以下配置，重启mysql使配置生效</strong></li>
+</ul>
+<p>全量备份脚本：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nv">backuppath</span><span class="o">=</span><span class="s2">&#34;/home/ccodrunner/mysqlforbak&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">backupdate</span><span class="o">=</span><span class="sb">`</span>date +%Y%m%d<span class="sb">`</span>
+</span></span><span class="line"><span class="cl"><span class="nv">logpath</span><span class="o">=</span><span class="s2">&#34;/home/ccodrunner/mysqlforbak/log&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">logfile</span><span class="o">=</span><span class="s2">&#34;/home/ccodrunner/mysqlforbak/log/backup-0.log&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">username</span><span class="o">=</span><span class="s2">&#34;ucds&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">password</span><span class="o">=</span><span class="s2">&#34;ucds&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> ! -d <span class="nv">$backuppath</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+</span></span><span class="line"><span class="cl">mkdir -p <span class="nv">$backuppath</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> ! -d <span class="nv">$logpath</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+</span></span><span class="line"><span class="cl">mkdir -p <span class="nv">$logpath</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;&#34;</span> &gt;&gt; <span class="nv">$logfile</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;-------------------&#34;</span> &gt;&gt; <span class="nv">$logfile</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;BACKUP DATE:&#34;</span><span class="k">$(</span>date +<span class="s2">&#34;%Y-%m-%d %H:%M:%S&#34;</span><span class="k">)</span> &gt;&gt; <span class="nv">$logfile</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;-------------------&#34;</span> &gt;&gt; <span class="nv">$logfile</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#备份全库</span>
+</span></span><span class="line"><span class="cl">/usr/bin/mysqldump -u<span class="nv">$username</span> -p<span class="nv">$password</span> --all-databases --flush-logs --single-transaction --quick --delete-master-logs &gt; <span class="nv">$backuppath</span>/alldb_<span class="si">${</span><span class="nv">backupdate</span><span class="si">}</span>.sql
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[[</span> <span class="nv">$?</span> <span class="o">==</span> <span class="m">0</span> <span class="o">]]</span><span class="p">;</span><span class="k">then</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$backuppath</span>
+</span></span><span class="line"><span class="cl">tar -zcvf alldb_<span class="si">${</span><span class="nv">backupdate</span><span class="si">}</span>.sql.tar.gz alldb_<span class="si">${</span><span class="nv">backupdate</span><span class="si">}</span>.sql
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Backup Successful !&#34;</span> &gt;&gt; <span class="nv">$logfile</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Database Backup Fail !&#34;</span> &gt;&gt; <span class="nv">$logfile</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Backup Process Done !&#34;</span> &gt;&gt; <span class="nv">$logfile</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#删除7天前的备份</span>
+</span></span><span class="line"><span class="cl">find <span class="nv">$backuppath</span> -mtime +7 -name <span class="s2">&#34;*.sql.tar.gz&#34;</span> -exec rm -rf <span class="o">{}</span> <span class="se">\\</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">rm -rf <span class="nv">$backuppath</span>/alldb_<span class="si">${</span><span class="nv">backupdate</span><span class="si">}</span>.sql
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Delete Process Done&#34;</span> &gt;&gt; <span class="nv">$logfile</span>
+</span></span></code></pre></div><p>增量备份脚本：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nv">backuppath</span><span class="o">=</span><span class="s2">&#34;/home/ccodrunner/mysqlforbak/BinLogBack&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">mysqlpath</span><span class="o">=</span><span class="s2">&#34;/var/lib/mysql&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">logpath</span><span class="o">=</span><span class="s2">&#34;/home/ccodrunner/mysqlforbak/log&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">logfile</span><span class="o">=</span><span class="s2">&#34;/home/ccodrunner/mysqlforbak/log/backup-1.log&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">binFile</span><span class="o">=</span><span class="s2">&#34;/var/lib/mysql/mysql-bin.index&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">username</span><span class="o">=</span><span class="s2">&#34;ucds&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">password</span><span class="o">=</span><span class="s2">&#34;ucds&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> ! -d <span class="nv">$backuppath</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+</span></span><span class="line"><span class="cl">mkdir -p <span class="nv">$backuppath</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> ! -d <span class="nv">$logpath</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+</span></span><span class="line"><span class="cl">mkdir -p <span class="nv">$logpath</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;&#34;</span> &gt;&gt; <span class="nv">$logfile</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;-------------------&#34;</span> &gt;&gt; <span class="nv">$logfile</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;BACKUP DATE:&#34;</span><span class="k">$(</span>date +<span class="s2">&#34;%Y-%m-%d %H:%M:%S&#34;</span><span class="k">)</span> &gt;&gt; <span class="nv">$logfile</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;-------------------&#34;</span> &gt;&gt; <span class="nv">$logfile</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/usr/bin/mysqladmin -u<span class="nv">$username</span> -p<span class="nv">$password</span> flush-logs
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">counter</span><span class="o">=</span><span class="sb">`</span>wc -l <span class="nv">$binFile</span> <span class="p">|</span> awk <span class="s1">&#39;{print $1}&#39;</span><span class="sb">`</span>
+</span></span><span class="line"><span class="cl"><span class="nv">nextNum</span><span class="o">=</span><span class="m">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> file in <span class="sb">`</span>cat <span class="nv">$binFile</span><span class="sb">`</span>
+</span></span><span class="line"><span class="cl"><span class="k">do</span>
+</span></span><span class="line"><span class="cl"><span class="nv">base_file</span><span class="o">=</span><span class="sb">`</span>basename <span class="nv">$file</span><span class="sb">`</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#basename 用于截取mysql-bin.00000*文件名，去掉./mysql-bin.000005前面的./</span>
+</span></span><span class="line"><span class="cl"><span class="nv">nextNum</span><span class="o">=</span><span class="sb">`</span>expr <span class="nv">$nextNum</span> + 1<span class="sb">`</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="nv">$nextNum</span> -eq <span class="nv">$counter</span> <span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="k">then</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$base_file</span><span class="s2"> skip !&#34;</span> &gt;&gt; <span class="nv">$logfile</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl"><span class="nv">dest</span><span class="o">=</span><span class="nv">$backuppath</span>/<span class="nv">$base_file</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span><span class="nb">test</span> -e <span class="nv">$dest</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">then</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$base_file</span><span class="s2"> exist !&#34;</span> &gt;&gt; <span class="nv">$logfile</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">cp <span class="nv">$mysqlpath</span>/<span class="nv">$base_file</span> <span class="nv">$backuppath</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$base_file</span><span class="s2"> copying&#34;</span> &gt;&gt; <span class="nv">$logfile</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="o">[</span>PartBack<span class="o">]</span> <span class="sb">`</span>date +<span class="s2">&#34;%Y%m%d %H:%M:%S&#34;</span><span class="sb">`</span> <span class="nv">$nextNum</span> Backup successful ! &gt;&gt; <span class="nv">$logfile</span>
+</span></span></code></pre></div><p>定时任务:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="m">01</span> <span class="m">03</span> * * <span class="m">0</span> /bin/bash 全量备份脚本路径 &gt;/dev/null 2&gt;<span class="p">&amp;</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="m">01</span> <span class="m">03</span> * * 1-6 /bin/bash 增量备份脚本路径 &gt;/dev/null 2&gt;<span class="p">&amp;</span><span class="m">1</span>
+</span></span></code></pre></div><p>恢复：</p>
+<p>1、先恢复完整库： mysql -u root -p school &lt; /opt/school.sql</p>
+<p>2、恢复 增量备份： msyqlbinlog &ndash;no-defaults msyql-bin.0000002 | msyql -u root -p</p>
+<h3 id="mysql双主--keepalived主备">
+<a class="header-anchor" href="#mysql%e5%8f%8c%e4%b8%bb--keepalived%e4%b8%bb%e5%a4%87"></a>
+mysql双主 + keepalived主备
+</h3><table>
+  <thead>
+      <tr>
+          <th>机器IP</th>
+          <th>操作系统</th>
+          <th>部署应用</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>192.168.7.54</td>
+          <td>Centos7.6</td>
+          <td>msyql-8.0.26、keepalived-1.3.5</td>
+      </tr>
+      <tr>
+          <td>192.168.7.55</td>
+          <td>Centos7.6</td>
+          <td>msyql-8.0.26、keepalived-1.3.5</td>
+      </tr>
+      <tr>
+          <td>192.168.7.58</td>
+          <td></td>
+          <td>keepalived的VIP</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="安装mysql-8026">
+<a class="header-anchor" href="#%e5%ae%89%e8%a3%85mysql-8026"></a>
+安装mysql-8.0.26
+</h3><p>以下操作，两个mysql节点都要执行</p>
+<ul>
+<li>环境准备</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#关闭防火墙</span>
+</span></span><span class="line"><span class="cl">systemctl stop firewalld.service <span class="o">&amp;&amp;</span> systemctl disable firewalld.service
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#关闭selinux</span>
+</span></span><span class="line"><span class="cl">setenforce <span class="m">0</span> <span class="o">&amp;&amp;</span> sed -i <span class="s1">&#39;s/enable/disable/g&#39;</span> /etc/selinux/config
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#查看是否有自带的mariadb，有就卸载</span>
+</span></span><span class="line"><span class="cl">rpm -qa <span class="p">|</span> grep mariadb
+</span></span></code></pre></div><ul>
+<li>官网下载安装包，rpm包安装
+<a href="https://downloads.mysql.com/archives/community/">https://downloads.mysql.com/archives/community/</a></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mysql-community-client-8.0.26-1.el7.x86_64.rpm
+</span></span><span class="line"><span class="cl">mysql-community-client-plugins-8.0.26-1.el7.x86_64.rpm
+</span></span><span class="line"><span class="cl">mysql-community-common-8.0.26-1.el7.x86_64.rpm
+</span></span><span class="line"><span class="cl">mysql-community-libs-8.0.26-1.el7.x86_64.rpm
+</span></span><span class="line"><span class="cl">mysql-community-server-8.0.26-1.el7.x86_64.rpm
+</span></span></code></pre></div><ul>
+<li>替换初始配置文件 /etc/my.cnf</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># For advice on how to change settings please see</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># &lt;http://dev.mysql.com/doc/refman/8.0/en/server-configuration-defaults.html&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>mysqld<span class="o">]</span>
+</span></span><span class="line"><span class="cl">skip-grant-tables
+</span></span><span class="line"><span class="cl"><span class="nv">socket</span><span class="o">=</span>/var/lib/mysql/mysql.sock
+</span></span><span class="line"><span class="cl">pid-file<span class="o">=</span>/var/run/mysqld/mysqld.pid
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#数据目录</span>
+</span></span><span class="line"><span class="cl"><span class="nv">datadir</span><span class="o">=</span>/var/lib/mysql
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#错误日志</span>
+</span></span><span class="line"><span class="cl">log-error<span class="o">=</span>/var/log/mysqld.log
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#server-id必须是唯一的，两个节点不能相同</span>
+</span></span><span class="line"><span class="cl">server-id<span class="o">=</span><span class="m">54</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#开启GTID</span>
+</span></span><span class="line"><span class="cl"><span class="nv">gtid_mode</span><span class="o">=</span>ON
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#强制GTID的一致性</span>
+</span></span><span class="line"><span class="cl"><span class="nv">enforce_gtid_consistency</span><span class="o">=</span>ON
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#最大连接数</span>
+</span></span><span class="line"><span class="cl"><span class="nv">max_connections</span><span class="o">=</span><span class="m">8192</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#表名大小写不敏感</span>
+</span></span><span class="line"><span class="cl"><span class="nv">lower_case_table_names</span><span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#开启慢查询日志</span>
+</span></span><span class="line"><span class="cl"><span class="nv">slow_query_log</span><span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#查询超时时间(秒)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">long_query_time</span><span class="o">=</span><span class="m">30</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#日志的过期时间</span>
+</span></span><span class="line"><span class="cl"><span class="nv">expire_logs_days</span><span class="o">=</span><span class="m">7</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#跳过主从复制中的1062错误类型</span>
+</span></span><span class="line"><span class="cl"><span class="nv">slave_skip_errors</span><span class="o">=</span><span class="m">1062</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#开启定时任务</span>
+</span></span><span class="line"><span class="cl">event-scheduler<span class="o">=</span>ON
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#默认134217728,单位byte(也就是128MB)，建议修改为机器总内存的70%</span>
+</span></span><span class="line"><span class="cl"><span class="nv">innodb_buffer_pool_size</span><span class="o">=</span><span class="m">134217728</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#降低底层硬件IO</span>
+</span></span><span class="line"><span class="cl"><span class="nv">innodb_flush_log_at_trx_commit</span><span class="o">=</span><span class="m">2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#设置默认密码验证插件</span>
+</span></span><span class="line"><span class="cl">default-authentication-plugin<span class="o">=</span>mysql_native_password
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#隔离级别是RC,减少锁粒度</span>
+</span></span><span class="line"><span class="cl"><span class="nv">transaction_isolation</span><span class="o">=</span>READ-COMMITTED
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#启用binlog功能，并指定路径名称</span>
+</span></span><span class="line"><span class="cl"><span class="nv">log_bin</span><span class="o">=</span>/var/lib/mysql/mysql-bin
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#binlog格式,MGR要求必须是ROW,不过就算不是MGR,也最好用row</span>
+</span></span><span class="line"><span class="cl"><span class="nv">binlog_format</span><span class="o">=</span>row
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#因为集群会在故障恢复时互相检查binlog的数据,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#所以需要记录下集群内其他服务器发过来已经执行过的binlog,按GTID来区分是否执行过.</span>
+</span></span><span class="line"><span class="cl">log-slave-updates<span class="o">=</span><span class="m">1</span>
+</span></span></code></pre></div><ul>
+<li>设置开机启动mysql，并启动mysql</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">systemctl</span><span class="w"> </span><span class="n">enable</span><span class="w"> </span><span class="n">mysqld</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">systemctl</span><span class="w"> </span><span class="k">start</span><span class="w"> </span><span class="n">mysqld</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">由于配置文件里面有</span><span class="n">skip</span><span class="o">-</span><span class="k">grant</span><span class="o">-</span><span class="n">tables这个参数</span><span class="err">，首次可以直接不需要输入密码进入</span><span class="n">mysql控制台</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">uroot</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">设置初始密码为，并刷新权限，初始密码为：</span><span class="n">Well123</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">authentication_string</span><span class="o">=</span><span class="s1">&#39;*66D63C40F96BAD4D43FB214CD53BDEB0268DD935&#39;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="k">user</span><span class="o">=</span><span class="s1">&#39;root&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">flush</span><span class="w"> </span><span class="k">privileges</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">删除配置文件的跳过权限验证参数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">sed</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="s1">&#39;/skip-grant-tables/d&#39;</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">my</span><span class="p">.</span><span class="n">cnf</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">重启</span><span class="n">mysqld服务</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">systemctl</span><span class="w"> </span><span class="k">restart</span><span class="w"> </span><span class="n">mysqld</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">使用新密码登陆控制台，后续需要修改其他密码可以自行修改，我这里修改为</span><span class="n">Aa123456</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">uroot</span><span class="w"> </span><span class="o">-</span><span class="n">pWell123</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">persist</span><span class="w"> </span><span class="n">validate_password</span><span class="p">.</span><span class="n">policy</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">persist</span><span class="w"> </span><span class="n">validate_password</span><span class="p">.</span><span class="k">length</span><span class="o">=</span><span class="mi">4</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">identified</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">mysql_native_password</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="s1">&#39;Aa123456&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="k">host</span><span class="o">=</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">user</span><span class="o">=</span><span class="s1">&#39;root&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">flush</span><span class="w"> </span><span class="k">privileges</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h3 id="mysql双主同步">
+<a class="header-anchor" href="#mysql%e5%8f%8c%e4%b8%bb%e5%90%8c%e6%ad%a5"></a>
+mysql双主同步
+</h3><ul>
+<li>创建同步账号并设置节点为只读模式（两个节点都操作）
+用户：repl_user 密码：welljoint_789</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">uroot</span><span class="w"> </span><span class="o">-</span><span class="n">pAa123456</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">创建同步账号</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;repl_user&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">mysql_native_password</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;welljoint_789&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">GRANT</span><span class="w"> </span><span class="n">REPLICATION</span><span class="w"> </span><span class="n">SLAVE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;repl_user&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">flush</span><span class="w"> </span><span class="k">privileges</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">设置节点为只读模式</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">flush</span><span class="w"> </span><span class="n">tables</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="k">read</span><span class="w"> </span><span class="k">lock</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">read_only</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>两个节点分别查询master状态，记录File和Position</li>
+</ul>
+<p>192.168.7.54：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="n">master</span><span class="w"> </span><span class="n">status</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">------------------+----------+--------------+------------------+------------------------------------------+
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">|</span><span class="w"> </span><span class="n">File</span><span class="w">             </span><span class="o">|</span><span class="w"> </span><span class="k">Position</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Binlog_Do_DB</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Binlog_Ignore_DB</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Executed_Gtid_Set</span><span class="w">                        </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">------------------+----------+--------------+------------------+------------------------------------------+
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">|</span><span class="w"> </span><span class="n">mysql</span><span class="o">-</span><span class="n">bin</span><span class="p">.</span><span class="mi">000003</span><span class="w"> </span><span class="o">|</span><span class="w">     </span><span class="mi">2047</span><span class="w"> </span><span class="o">|</span><span class="w">              </span><span class="o">|</span><span class="w">                  </span><span class="o">|</span><span class="w"> </span><span class="mi">9375</span><span class="n">d0b5</span><span class="o">-</span><span class="mi">3</span><span class="n">c77</span><span class="o">-</span><span class="mi">11</span><span class="n">ed</span><span class="o">-</span><span class="mi">87</span><span class="n">a3</span><span class="o">-</span><span class="mi">000</span><span class="n">c2992579c</span><span class="p">:</span><span class="mi">1</span><span class="o">-</span><span class="mi">8</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">------------------+----------+--------------+------------------+------------------------------------------+
+</span></span></span></code></pre></div><p>File为mysql-bin.000003，Position为2047</p>
+<p>192.168.7.55：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="n">master</span><span class="w"> </span><span class="n">status</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">------------------+----------+--------------+------------------+------------------------------------------+
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">|</span><span class="w"> </span><span class="n">File</span><span class="w">             </span><span class="o">|</span><span class="w"> </span><span class="k">Position</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Binlog_Do_DB</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Binlog_Ignore_DB</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Executed_Gtid_Set</span><span class="w">                        </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">------------------+----------+--------------+------------------+------------------------------------------+
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">|</span><span class="w"> </span><span class="n">mysql</span><span class="o">-</span><span class="n">bin</span><span class="p">.</span><span class="mi">000003</span><span class="w"> </span><span class="o">|</span><span class="w">     </span><span class="mi">2047</span><span class="w"> </span><span class="o">|</span><span class="w">              </span><span class="o">|</span><span class="w">                  </span><span class="o">|</span><span class="w"> </span><span class="mi">9375</span><span class="n">d0b5</span><span class="o">-</span><span class="mi">3</span><span class="n">c77</span><span class="o">-</span><span class="mi">11</span><span class="n">ed</span><span class="o">-</span><span class="mi">87</span><span class="n">a3</span><span class="o">-</span><span class="mi">000</span><span class="n">c2992579c</span><span class="p">:</span><span class="mi">1</span><span class="o">-</span><span class="mi">8</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">------------------+----------+--------------+------------------+------------------------------------------+
+</span></span></span></code></pre></div><p>File为mysql-bin.000003，Position为2047</p>
+<ul>
+<li>配置双主</li>
+</ul>
+<p>192.168.7.54：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">CHANGE</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">MASTER_HOST</span><span class="o">=</span><span class="s1">&#39;192.168.7.55&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">MASTER_USER</span><span class="o">=</span><span class="s1">&#39;repl_user&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">MASTER_PASSWORD</span><span class="o">=</span><span class="s1">&#39;welljoint_789&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">MASTER_LOG_FILE</span><span class="o">=</span><span class="s1">&#39;mysql-bin.000003&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">MASTER_LOG_POS</span><span class="o">=</span><span class="mi">2047</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p>其中MASTER_HOST为另外一个节点的IP，MASTER_LOG_FILE为192.168.7.55查询出来的File，MASTER_LOG_POS为192.168.7.55查询出来的Position</p></blockquote>
+<p>192.168.7.55：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">CHANGE</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">MASTER_HOST</span><span class="o">=</span><span class="s1">&#39;192.168.7.54&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">MASTER_USER</span><span class="o">=</span><span class="s1">&#39;repl_user&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">MASTER_PASSWORD</span><span class="o">=</span><span class="s1">&#39;welljoint_789&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">MASTER_LOG_FILE</span><span class="o">=</span><span class="s1">&#39;mysql-bin.000003&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">MASTER_LOG_POS</span><span class="o">=</span><span class="mi">2047</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p>其中MASTER_HOST为另外一个节点的IP，MASTER_LOG_FILE为192.168.7.54查询出来的File，MASTER_LOG_POS为192.168.7.55查询出来的Position</p></blockquote>
+<ul>
+<li>将MySQL从只读设置为读写状态（两个节点都操作）</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">unlock</span><span class="w"> </span><span class="n">tables</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">read_only</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>开启双主同步（两个节点都操作）</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">start</span><span class="w"> </span><span class="n">slave</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>查看同步状态（两个节点都操作）</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="n">slave</span><span class="w"> </span><span class="n">status</span><span class="err">\\</span><span class="k">G</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">***************************</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="w"> </span><span class="k">row</span><span class="w"> </span><span class="o">***************************</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">               </span><span class="n">Slave_IO_State</span><span class="p">:</span><span class="w"> </span><span class="n">Waiting</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">source</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">send</span><span class="w"> </span><span class="n">event</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                  </span><span class="n">Master_Host</span><span class="p">:</span><span class="w"> </span><span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="mi">7</span><span class="p">.</span><span class="mi">55</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                  </span><span class="n">Master_User</span><span class="p">:</span><span class="w"> </span><span class="n">repl_user</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                  </span><span class="n">Master_Port</span><span class="p">:</span><span class="w"> </span><span class="mi">3306</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">Connect_Retry</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="n">Master_Log_File</span><span class="p">:</span><span class="w"> </span><span class="n">mysql</span><span class="o">-</span><span class="n">bin</span><span class="p">.</span><span class="mi">000003</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="n">Read_Master_Log_Pos</span><span class="p">:</span><span class="w"> </span><span class="mi">2047</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">               </span><span class="n">Relay_Log_File</span><span class="p">:</span><span class="w"> </span><span class="n">localhost</span><span class="o">-</span><span class="n">relay</span><span class="o">-</span><span class="n">bin</span><span class="p">.</span><span class="mi">000002</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">Relay_Log_Pos</span><span class="p">:</span><span class="w"> </span><span class="mi">324</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Relay_Master_Log_File</span><span class="p">:</span><span class="w"> </span><span class="n">mysql</span><span class="o">-</span><span class="n">bin</span><span class="p">.</span><span class="mi">000003</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">             </span><span class="n">Slave_IO_Running</span><span class="p">:</span><span class="w"> </span><span class="n">Yes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">Slave_SQL_Running</span><span class="p">:</span><span class="w"> </span><span class="n">Yes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="n">Replicate_Do_DB</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="n">Replicate_Ignore_DB</span><span class="p">:</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p>Slave_IO_Running 和 Slave_SQL_Running 都为Yes即表示正常</p></blockquote>
+<h3 id="安装keepalived-135">
+<a class="header-anchor" href="#%e5%ae%89%e8%a3%85keepalived-135"></a>
+安装keepalived-1.3.5
+</h3><ul>
+<li>两个节点都通过yum安装</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum -y install keepalived
+</span></span><span class="line"><span class="cl">yum -y install psmisc        <span class="c1">#安装killall命令</span>
+</span></span></code></pre></div><ul>
+<li>修改配置文件 /etc/keepalived/keepalived.conf（192.168.7.54）</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">! Configuration File <span class="k">for</span> keepalived
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">global_defs <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    vrrp_skip_check_adv_addr
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">vrrp_script check_Mysqld <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    script <span class="s2">&#34;killall -0 mysqld&#34;</span>
+</span></span><span class="line"><span class="cl">    interval <span class="m">5</span>
+</span></span><span class="line"><span class="cl">    fall <span class="m">2</span>
+</span></span><span class="line"><span class="cl">    rise <span class="m">2</span>
+</span></span><span class="line"><span class="cl">    weight -50
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">vrrp_instance VI_1 <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    state BACKUP
+</span></span><span class="line"><span class="cl">    interface ens192
+</span></span><span class="line"><span class="cl">    virtual_router_id <span class="m">66</span>
+</span></span><span class="line"><span class="cl">    priority <span class="m">90</span>
+</span></span><span class="line"><span class="cl">    advert_int <span class="m">1</span>
+</span></span><span class="line"><span class="cl">    authentication <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        auth_type PASS
+</span></span><span class="line"><span class="cl">        auth_pass Aa123456
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    virtual_ipaddress <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        192.168.7.58
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    track_script <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        check_Mysqld
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><ul>
+<li>修改配置文件 /etc/keepalived/keepalived.conf（192.168.7.55）</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">! Configuration File <span class="k">for</span> keepalived
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">global_defs <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    vrrp_skip_check_adv_addr
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">vrrp_script check_Mysqld <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    script <span class="s2">&#34;killall -0 mysqld&#34;</span>
+</span></span><span class="line"><span class="cl">    interval <span class="m">5</span>
+</span></span><span class="line"><span class="cl">    fall <span class="m">2</span>
+</span></span><span class="line"><span class="cl">    rise <span class="m">2</span>
+</span></span><span class="line"><span class="cl">    weight -50
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">vrrp_instance VI_1 <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    state MASTER
+</span></span><span class="line"><span class="cl">    interface ens192
+</span></span><span class="line"><span class="cl">    virtual_router_id <span class="m">66</span>
+</span></span><span class="line"><span class="cl">    priority <span class="m">100</span>
+</span></span><span class="line"><span class="cl">    advert_int <span class="m">1</span>
+</span></span><span class="line"><span class="cl">    authentication <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        auth_type PASS
+</span></span><span class="line"><span class="cl">        auth_pass Aa123456
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    virtual_ipaddress <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        192.168.7.58
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    track_script <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        check_Mysqld
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><blockquote>
+<p>两个配置文件除了 priority 这个代表权重的参数不一样，其他都一致，值越大权重越高的为主节点；
+interface为网卡名称，不一样的话注意修改</p></blockquote>
+<ul>
+<li>开机启动keepalived，并启动keepalived（两个节点都操作）</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl <span class="nb">enable</span> keepalived <span class="o">&amp;&amp;</span> systemctl restart keepalived
+</span></span></code></pre></div><ul>
+<li>查看结果</li>
+</ul>
+<p>192.168.7.54:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># ip a</span>
+</span></span><span class="line"><span class="cl">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu <span class="m">65536</span> qdisc noqueue state UNKNOWN group default qlen <span class="m">1000</span>
+</span></span><span class="line"><span class="cl">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+</span></span><span class="line"><span class="cl">    inet 127.0.0.1/8 scope host lo
+</span></span><span class="line"><span class="cl">       valid_lft forever preferred_lft forever
+</span></span><span class="line"><span class="cl">    inet6 ::1/128 scope host
+</span></span><span class="line"><span class="cl">       valid_lft forever preferred_lft forever
+</span></span><span class="line"><span class="cl">2: ens192: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="m">1500</span> qdisc mq state UP group default qlen <span class="m">1000</span>
+</span></span><span class="line"><span class="cl">    link/ether 00:0c:29:92:57:9c brd ff:ff:ff:ff:ff:ff
+</span></span><span class="line"><span class="cl">    inet 192.168.7.54/24 brd 192.168.7.255 scope global noprefixroute ens192
+</span></span><span class="line"><span class="cl">       valid_lft forever preferred_lft forever
+</span></span><span class="line"><span class="cl">    inet6 fe80::20c:29ff:fe92:579c/64 scope link
+</span></span><span class="line"><span class="cl">       valid_lft forever preferred_lft forever
+</span></span></code></pre></div><p>192.168.7.55：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># ip a</span>
+</span></span><span class="line"><span class="cl">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu <span class="m">65536</span> qdisc noqueue state UNKNOWN group default qlen <span class="m">1000</span>
+</span></span><span class="line"><span class="cl">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+</span></span><span class="line"><span class="cl">    inet 127.0.0.1/8 scope host lo
+</span></span><span class="line"><span class="cl">       valid_lft forever preferred_lft forever
+</span></span><span class="line"><span class="cl">    inet6 ::1/128 scope host
+</span></span><span class="line"><span class="cl">       valid_lft forever preferred_lft forever
+</span></span><span class="line"><span class="cl">2: ens192: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="m">1500</span> qdisc mq state UP group default qlen <span class="m">1000</span>
+</span></span><span class="line"><span class="cl">    link/ether 00:0c:29:d2:93:a2 brd ff:ff:ff:ff:ff:ff
+</span></span><span class="line"><span class="cl">    inet 192.168.7.55/24 brd 192.168.7.255 scope global noprefixroute ens192
+</span></span><span class="line"><span class="cl">       valid_lft forever preferred_lft forever
+</span></span><span class="line"><span class="cl">    inet 192.168.7.58/32 scope global ens192
+</span></span><span class="line"><span class="cl">       valid_lft forever preferred_lft forever
+</span></span><span class="line"><span class="cl">    inet6 fe80::20c:29ff:fed2:93a2/64 scope link
+</span></span><span class="line"><span class="cl">       valid_lft forever preferred_lft forever
+</span></span></code></pre></div><blockquote>
+<p>VIP 192.168.7.58在192.168.7.55上，停掉192.168.7.55的mysql后VIP会漂移到192.168.7.54上</p></blockquote>
+<h1 id="oracle">
+<a class="header-anchor" href="#oracle"></a>
+—————————————Oracle————————————
+</h1><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">lsnrctl</span><span class="w"> </span><span class="k">start</span><span class="w">                          			</span><span class="o">#</span><span class="err">打开</span><span class="n">oracle监听</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">sqlplus</span><span class="w">                                      	</span><span class="o">#</span><span class="err">进入</span><span class="n">oracle</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">sqlplus</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">sysdba</span><span class="w">              				</span><span class="o">#</span><span class="err">以</span><span class="n">dba身份连接到sql控制台</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">shutdown</span><span class="w"> </span><span class="k">immediate</span><span class="w">              				</span><span class="o">#</span><span class="err">停止服务</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">startup</span><span class="w">                        					</span><span class="o">#</span><span class="err">启动服务</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="n">oracle查看表空间</span><span class="err">：</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">tablespace_name</span><span class="w"> </span><span class="s2">&#34;表空间名&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">total</span><span class="w"> </span><span class="s2">&#34;表空间大小&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">free</span><span class="w"> </span><span class="s2">&#34;表空间剩余大小&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">(</span><span class="n">total</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="k">free</span><span class="p">)</span><span class="w"> </span><span class="s2">&#34;表空间使用大小&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">total</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mi">1024</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1024</span><span class="p">)</span><span class="w"> </span><span class="s2">&#34;表空间大小(G)&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">free</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mi">1024</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1024</span><span class="p">)</span><span class="w"> </span><span class="s2">&#34;表空间剩余大小(G)&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">(</span><span class="n">total</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="k">free</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mi">1024</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1024</span><span class="p">)</span><span class="w"> </span><span class="s2">&#34;表空间使用大小(G)&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">round</span><span class="p">((</span><span class="n">total</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="k">free</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">total</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="s2">&#34;使用率 %&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">tablespace_name</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">bytes</span><span class="p">)</span><span class="w"> </span><span class="k">free</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">dba_free_space</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">tablespace_name</span><span class="p">)</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">tablespace_name</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">bytes</span><span class="p">)</span><span class="w"> </span><span class="n">total</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">dba_data_files</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">tablespace_name</span><span class="p">)</span><span class="w"> </span><span class="n">b</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">tablespace_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">tablespace_name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="n">oracle表空间扩容</span><span class="err">：</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">dba_data_files</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">tablespace_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;SD_TABLE_SD_0211300003&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">alter</span><span class="w"> </span><span class="n">tablespace</span><span class="w"> </span><span class="n">SD_TABLE_SD_0211300003</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="n">datafile</span><span class="w"> </span><span class="s1">&#39;/home/oracle/oracle10g/db_files/SD/SD_TABLE_sd_02113000033.dbf&#39;</span><span class="w"> </span><span class="k">size</span><span class="w"> </span><span class="mi">10240</span><span class="n">M</span><span class="w">  </span><span class="n">autoextend</span><span class="w"> </span><span class="k">on</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">查询所有表空间名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="n">tablespace_name</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">dba_tablespaces</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="err">删除表空间和数据文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">drop</span><span class="w"> </span><span class="n">tablespace</span><span class="w"> </span><span class="n">space_name</span><span class="w"> </span><span class="k">including</span><span class="w"> </span><span class="n">contents</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">datafiles</span><span class="w">
+</span></span></span></code></pre></div><h1 id="redis">
+<a class="header-anchor" href="#redis"></a>
+—————————————Redis————————————
+</h1><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看某个键的值</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;GET </span><span class="nv">$KEY</span><span class="s2">&#34;</span> <span class="p">|</span> redis-cli -h <span class="nv">$REDIS_HOST</span> -p <span class="nv">$REDIS_PORT</span> -n <span class="nv">$DB_INDEX</span> -a <span class="nv">$REDIS_PASSWORD</span> --no-auth-warning
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 以秒为单位返回key的剩余过期时间</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;TTL </span><span class="nv">$KEY</span><span class="s2">&#34;</span> <span class="p">|</span> redis-cli -h <span class="nv">$REDIS_HOST</span> -p <span class="nv">$REDIS_PORT</span> -n <span class="nv">$DB_INDEX</span> -a <span class="nv">$REDIS_PASSWORD</span> --no-auth-warning
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看当前数据库中key的数量</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;DBSIZE&#34;</span> <span class="p">|</span> redis-cli -h <span class="nv">$REDIS_HOST</span> -p <span class="nv">$REDIS_PORT</span> -n <span class="nv">$DB_INDEX</span> -a <span class="nv">$REDIS_PASSWORD</span> --no-auth-warning
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 获取Redis的所有配置信息</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;CONFIG GET *&#34;</span> <span class="p">|</span> redis-cli -h <span class="nv">$REDIS_HOST</span> -p <span class="nv">$REDIS_PORT</span> -n <span class="nv">$DB_INDEX</span> -a <span class="nv">$REDIS_PASSWORD</span> --no-auth-warning
+</span></span></code></pre></div></div>
+    <footer class="article-footer"><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/mysql"
+        rel="tag"
+        >MYSQL</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/oracle"
+        rel="tag"
+        >ORACLE</a
+      >
+    </li></ul>
+</footer>
+  </div><nav
+    id="article-nav"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap article-nav-link-left"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="Keepalived高可用配置"
+              class="lazyload"
+            /><a href="/post/keepalived%E9%AB%98%E5%8F%AF%E7%94%A8%E9%85%8D%E7%BD%AE/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">Keepalived高可用配置</h3>
+      </div><div class="article-nav-link-wrap article-nav-link-right"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="Python"
+              class="lazyload"
+            /><a href="/post/python/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">Python</h3>
+      </div></nav></article></section>
+        </div><footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info"><div>
+      <span class="icon-copyright"></span>2021-2025<span class="footer-info-sep rotate"></span>
+      zoehuawang
+    </div><div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div><div>
+        <span class="icon-brush"
+          >&nbsp;44.8k</span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;01:46</span>
+      </div><div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv"
+          >总访问量&nbsp;<span
+            id="busuanzi_value_site_pv"
+          ></span
+        ></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv"
+          >总访客量&nbsp;<span
+            id="busuanzi_value_site_uv"
+          ></span
+        ></span>
+      </div></div>
+</footer>
+<div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div><div id="mask" class="hide"></div>
+      </div><nav id="mobile-nav">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#mysql双主--keepalived主备">mysql双主 + keepalived主备</a></li>
+        <li><a href="#安装mysql-8026">安装mysql-8.0.26</a></li>
+        <li><a href="#mysql双主同步">mysql双主同步</a></li>
+        <li><a href="#安装keepalived-135">安装keepalived-1.3.5</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="zoehuawang"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">zoehuawang</div>
+  <div class="sidebar-description">一个普通的牛马</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">31</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      7
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">17</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">友链</div>
+    </div></div>
+</div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
+</div><script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" integrity="" crossorigin="anonymous" ></script><script src="/js/aos.js" integrity="" crossorigin="anonymous" ></script><script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script><script src="/js/pjax_main.js" integrity="" crossorigin="anonymous" data-pjax></script><script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"></script><script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+<div id="lazy-script">
+  <div><script data-pjax>
+        window.REIMU_POST = {
+          author: "zoehuawang",
+          title: "数据库",
+          url: "\/post\/%E6%95%B0%E6%8D%AE%E5%BA%93\/",
+          description: "mysql、oracle、redis记录",
+          cover: "\/images\/banner.webp",
+        };
+      </script><script src="/js/insert_highlight.js" integrity="" crossorigin="anonymous" data-pjax></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script></div>
+</div><script
+    src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js"
+    asyncintegrity="sha384-0M75wtSkhjIInv4coYlaJU83&#43;OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id&#43;S" crossorigin="anonymous"></script><script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script><script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script></body>
+</html>

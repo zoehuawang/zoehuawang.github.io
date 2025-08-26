@@ -1,0 +1,788 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  data-theme-mode="auto"
+  >
+  <head><meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/><title>
+  Linux | zoehuawang
+</title>
+<meta
+  name="description"
+  content="linux知识记录"
+/><script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_4k4bc36ef96\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  
+</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+<link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_4k4bc36ef96.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  /><meta property="og:type" content="website" />
+  <meta property="og:title" content="Linux | zoehuawang" />
+  <meta
+    property="og:description"
+    content="linux知识记录"
+  />
+  <meta property="og:url" content="/post/linux/" />
+  <meta
+    property="og:site_name"
+    content="︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站"
+  />
+  <meta
+    property="og:image"
+    content="/"
+  />
+  <meta property="article:author" content="zoehuawang" />
+  <meta property="article:published_time" content="2023-06-09T11:29:50&#43;08:00" />
+  <meta property="article:modified_time" content="2023-06-09T11:29:50&#43;08:00" /><meta property="article:tag" content="Linux" /><meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.8de89e98d1f2b3ec8a5a782dca54533bb25d81ece4635eb7681aeef2083e1b08.css" />
+<link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei&#43;Zx/1oA/0l8ysE" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.22/dist/katex.min.css"
+    integrity="sha384-5TcZemv2l/9On385z///&#43;d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script><link
+    rel="stylesheet"
+    href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css"
+    integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous"/></head>
+  <body><div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+<div id="lang-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+本文章没有找到对应的语言版本
+</div>
+<div id="heatmap-tooltip"></div><div id="container">
+      <div id="wrap"><div id="header-nav">
+  <nav id="main-nav"><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span><a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav"></nav></div>
+<header id="header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="Linux"><div id="header-outer">
+    <div id="header-title"><a href="/" id="logo">
+            <h1 data-aos="slide-up">Linux</h1>
+          </a><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
+  </div>
+</header><div id="content"
+          class="sidebar-left"
+            ><aside id="sidebar"><div class="sidebar-wrapper-container sticky"><div class="sidebar-wrapper">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    ><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents"></nav>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="zoehuawang"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">zoehuawang</div>
+  <div class="sidebar-description">一个普通的牛马</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">31</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      7
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">17</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">友链</div>
+    </div></div>
+</div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div><div class="sidebar-widget"></div></div></aside>
+<section id="main"><article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta"><div class="article-date">
+  <span
+    class="article-date-link icon-calendar"
+    data-aos="zoom-in"
+  >
+    <time datetime="2023-06-09 11:29:50 &#43;0800 CST" itemprop="datePublished"
+      >2023-06-09</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2023-06-09</time
+    >
+  </span></div>
+<div class="article-category"><a
+      class="article-category-link"
+      href="/categories/%e8%bf%90%e7%bb%b4"
+      data-aos="zoom-in"
+      >运维</a
+    ></div>
+</div>
+    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#home目录下所有文件更新时间距现在时刻大于120分钟的文件删除(-mtime -3 表示3天以内)</span>
+</span></span><span class="line"><span class="cl">find /home/* -mmin +120 -delete
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#home目录下所有文件创建时间距现在时刻大于120分钟的文件删除(-ctime -3 表示3天以内)</span>
+</span></span><span class="line"><span class="cl">find /home/* -cmin +120 -delete
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#快速查找已删除但依旧占用的文件</span>
+</span></span><span class="line"><span class="cl">find /proc/*/fd -ls 2&gt;/dev/null <span class="p">|</span> grep <span class="s1">&#39;(deleted)&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">tar -zcf XXX.tar.gz XXX --remove-files    <span class="c1">#打包成tar包之后删除原文件</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#替换jar内文件(包内要和包外的路径对应一致，不然会说没有这个文件)</span>
+</span></span><span class="line"><span class="cl">jar -uvf XXX.jar 包内文件 包外文件
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sort file1 file2 <span class="p">|</span> uniq -u    <span class="c1">#去除两个文件重复部分</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ln –s 源文件 目标文件        <span class="c1">#软链接</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ls --full-time filename      <span class="c1">#查看文件生成全部时间</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ls -lR <span class="p">|</span> grep <span class="s2">&#34;^-&#34;</span> <span class="p">|</span> wc -l    <span class="c1">#查看当前目录下的文件数量（包含子目录中的文件） 注意：R，代表子目录</span>
+</span></span><span class="line"><span class="cl">ls -l <span class="p">|</span> grep <span class="s2">&#34;^-&#34;</span> <span class="p">|</span> wc -l     <span class="c1">#查看当前目录下的文件数量（不包含子目录中的文件）</span>
+</span></span><span class="line"><span class="cl">ls -l <span class="p">|</span> grep <span class="s2">&#34;^d&#34;</span> <span class="p">|</span> wc -l     <span class="c1">#查看当前目录下的文件夹数量（不包含子目录中的目录），同上述理，如果需要查看子目录的，加上R</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#不解压筛选查看tar.gz包(或zgrep --binary-files=text &#34;Read time out&#34; X.tar.gz)</span>
+</span></span><span class="line"><span class="cl">zcat XXX.tar.gz <span class="p">|</span> grep --binary-files<span class="o">=</span>text <span class="s2">&#34;Read time out&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#对于所有3306端口的TCP访问，一律转发到 192.168.7.51:3306 上</span>
+</span></span><span class="line"><span class="cl">socat -d -d -lf /var/log/socat.log TCP4-LISTEN:3306,bind<span class="o">=</span>0.0.0.0,reuseaddr,fork TCP4:192.168.7.51:3306
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#screen命令用法</span>
+</span></span><span class="line"><span class="cl">screen -S &lt;session_name&gt;   <span class="c1">#创建会话</span>
+</span></span><span class="line"><span class="cl">screen -ls                 <span class="c1">#列出会话</span>
+</span></span><span class="line"><span class="cl">screen -r &lt;session_name&gt;   <span class="c1">#切换会话</span>
+</span></span><span class="line"><span class="cl">Ctrl+A再按D                 <span class="c1">#会话后台运行</span>
+</span></span><span class="line"><span class="cl">Ctrl+D或执行exit            <span class="c1">#退出会话</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#/home/oracle/下存放连接mysql的用户名密码文件.my.cnf，然后以安全方式连接mysql</span>
+</span></span><span class="line"><span class="cl"><span class="nv">HOME</span><span class="o">=</span>/home/oracle mysql -e <span class="s2">&#34;sql语句&#34;</span>  或 mysql --defaults-file<span class="o">=</span>/home/oracle/.my.cnf
+</span></span><span class="line"><span class="cl"><span class="c1">#.my.cnf文件内容：</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>client<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">user</span><span class="o">=</span>root
+</span></span><span class="line"><span class="cl"><span class="nv">password</span><span class="o">=</span>Aa.1234567
+</span></span><span class="line"><span class="cl"><span class="nv">host</span><span class="o">=</span>192.168.7.110
+</span></span><span class="line"><span class="cl"><span class="nv">port</span><span class="o">=</span><span class="m">3306</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#判断$var变量是否有值(有)</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$var</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#xargs 用作替换工具，读取输入数据重新格式化后输出</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>xargs -i -t    <span class="c1">#-t 表示先打印命令，然后再执行；-i 一般是一行一行赋值给 {}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># scp后台运行</span>
+</span></span><span class="line"><span class="cl">ctrl+z           <span class="c1">#挂起当前任务</span>
+</span></span><span class="line"><span class="cl"><span class="nb">bg</span> %1            <span class="c1">#将编号为1的任务转后台运行</span>
+</span></span><span class="line"><span class="cl"><span class="nb">disown</span> -h %1     <span class="c1">#将编号为1这个作业忽略HUP信号，也就是可以退出终端不影响scp</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#Linux下清除文件系统缓存</span>
+</span></span><span class="line"><span class="cl">1、sync
+</span></span><span class="line"><span class="cl">2、echo <span class="m">3</span> &gt; /proc/sys/vm/drop_caches
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#修改max_user_watches值的方法，直接修改文件/proc/sys/fs/inotify/max_user_watches或</span>
+</span></span><span class="line"><span class="cl">sysctl -w fs.inotify.max_user_watches<span class="o">=</span><span class="s2">&#34;99999999&#34;</span>
+</span></span><span class="line"><span class="cl">sysctl -p
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#大文件分割，test_line_、test_size_为新文件的前缀</span>
+</span></span><span class="line"><span class="cl">split -l <span class="m">5</span> large.txt test_line_      <span class="c1">#指定行数分割</span>
+</span></span><span class="line"><span class="cl">split -b 10k large.txt test_size_    <span class="c1">#指定大小分割</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#查看哪个安装包包含该库：</span>
+</span></span><span class="line"><span class="cl">yum provides 库名
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#yum只下载不安装并指定包存放路径</span>
+</span></span><span class="line"><span class="cl">yum install --downloadonly --downloaddir<span class="o">=</span>/tmp &lt;package-name&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#inode使用率过高解决办法</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> i in /*<span class="p">;</span><span class="k">do</span> <span class="nb">echo</span> <span class="nv">$i</span><span class="p">;</span>find <span class="nv">$i</span> <span class="p">|</span> wc -l<span class="p">;</span><span class="k">done</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#调整swappiness参数来设置内存使用多少后开始使用swap分区</span>
+</span></span><span class="line"><span class="cl">vim /etc/sysctl.conf 添加 vm.swappiness <span class="o">=</span> <span class="m">40</span> ,然后sysctl -p生效
+</span></span><span class="line"><span class="cl">cat /proc/sys/vm/swappiness 值为40，表示使用到 100-40<span class="o">=</span>60% 的时候开始swap分区的使用
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#打印出当前进程详细的情况，其中，内存是VmRSS</span>
+</span></span><span class="line"><span class="cl">cat /proc/<span class="o">[</span>pid<span class="o">]</span>/status
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#检测http状态</span>
+</span></span><span class="line"><span class="cl">curl -I -m <span class="m">10</span> -o /dev/null -s -w %<span class="o">{</span>http_code<span class="o">}</span> www.baidu.com
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#查看证书有效期</span>
+</span></span><span class="line"><span class="cl">openssl x509 -in /tmp/test.pem -noout -dates
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#rsync减少主服务器的io占用,启动时设置降低IO使用</span>
+</span></span><span class="line"><span class="cl">ionice -c <span class="m">2</span> -n <span class="m">7</span> rsync --daemon
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#rsync同步目录，test目录后面有 &#34;/&#34;,表示test这个目录下面的所有内容同步到目标目录dest_test下面</span>
+</span></span><span class="line"><span class="cl">rsync -avH --progress --password-file<span class="o">=</span>/etc/rsyncd.passwd /home/test/ abc@192.168.1.10::bak/dest_test
+</span></span><span class="line"><span class="cl"><span class="c1">#/etc/rsyncd.passwd文件的权限为600</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#rsync同步目录，test目录后面没有 &#34;/&#34;,表示test这个目录本身同步到目标目录dest_test下面</span>
+</span></span><span class="line"><span class="cl">rsync -avH --progress --password-file<span class="o">=</span>/etc/rsyncd.passwd /home/test abc@192.168.1.10::bak/dest_test
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#脚本中使用 inotifywait + rsync 实现实时文件同步,-r递归递归监视，-e文件事件</span>
+</span></span><span class="line"><span class="cl"><span class="k">while</span> inotifywait -r -e modify,create,delete,move /data/<span class="p">;</span><span class="k">do</span>    
+</span></span><span class="line"><span class="cl">    rsync -avz /data/ root@172.16.5.222:/opt/data/ 
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#使用parallel并行执行rsync，加速同步。下载地址：http://ftp.gnu.org/gnu/parallel/</span>
+</span></span><span class="line"><span class="cl">find /root/parallel/* -maxdepth <span class="m">0</span> -type d <span class="p">|</span> parallel rsync -avH <span class="o">{}</span> /tmp/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#创建一个指定大小的空文件，或者用于测试磁盘的读写性能(a.dat大小等于count乘以bs,oflag=direct直接I/O操作直接读写设备)</span>
+</span></span><span class="line"><span class="cl">dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>./a.dat <span class="nv">bs</span><span class="o">=</span>8k <span class="nv">count</span><span class="o">=</span><span class="m">10</span> <span class="nv">oflag</span><span class="o">=</span>direct
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#添加swap分区(创建swap文件、修改权限、设置交换空间、启用交换空间、开机自动挂载)</span>
+</span></span><span class="line"><span class="cl">dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>/tmp/swap <span class="nv">bs</span><span class="o">=</span>1MB <span class="nv">count</span><span class="o">=</span><span class="m">1024</span>
+</span></span><span class="line"><span class="cl">chmod <span class="m">0600</span> /tmp/swap
+</span></span><span class="line"><span class="cl">mkswap /tmp/swap
+</span></span><span class="line"><span class="cl">swapon /tmp/swap
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;/tmp/swap swap swap defaults 0 0&#34;</span> &gt;&gt; /etc/fstab
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#查看当前目录下各文件夹占用空间，深度1。（-h后面可以指定目录参数）</span>
+</span></span><span class="line"><span class="cl">du -h --max-depth<span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#查看目录下所有文件的大小并按照大小排序</span>
+</span></span><span class="line"><span class="cl">du -sh * <span class="p">|</span> sort -rh
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#LVM根目录扩容(新盘/dev/sdb)</span>
+</span></span><span class="line"><span class="cl">pvcreate /dev/sdb
+</span></span><span class="line"><span class="cl">vgextend VG名 /dev/sdb
+</span></span><span class="line"><span class="cl">lvextend -l +100%free LV对应的Path
+</span></span><span class="line"><span class="cl">xfs_growfs /dev/mapper/centos-root <span class="c1">#XFS文件系统扩容</span>
+</span></span><span class="line"><span class="cl">或
+</span></span><span class="line"><span class="cl">resize2fs /dev/mapper/centos-root <span class="c1">#EXT4文件系统扩容</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#非LVM方式扩容根目录文件系统方法1</span>
+</span></span><span class="line"><span class="cl">fdisk /dev/sda
+</span></span><span class="line"><span class="cl">输入: p （便于记住起始和结束扇区）
+</span></span><span class="line"><span class="cl">输入: d  <span class="o">(</span>删除根分区，千万不能保存<span class="o">)</span>
+</span></span><span class="line"><span class="cl">输入: n  <span class="o">(</span>重新创建起始和结束扇区<span class="o">)</span>
+</span></span><span class="line"><span class="cl">输入: p  <span class="o">(</span>查看<span class="o">)</span>
+</span></span><span class="line"><span class="cl">输入: w  <span class="o">(</span>保存<span class="o">)</span>
+</span></span><span class="line"><span class="cl">重启机器
+</span></span><span class="line"><span class="cl">刷新根分区（使用 resize2fs或xfs_growfs）
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#非LVM方式扩容根目录文件系统方法2</span>
+</span></span><span class="line"><span class="cl">growpart /dev/vda <span class="m">1</span>    <span class="c1"># 1是分区号，命令安装yum install cloud-utils-growpart</span>
+</span></span><span class="line"><span class="cl">resize2fs /dev/vda1    <span class="c1"># 扩容ext文件系统</span>
+</span></span><span class="line"><span class="cl">xfs_growfs -d /mnt     <span class="c1"># 扩容xfs文件系统，注意mnd是挂载点不是设备</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#开启重定向覆盖文件保护。比如重定向写入一个已经存在的文件时,给出一个警告并且不会执行该操作，需使用&#34;&gt;|&#34;才可以强制执行写入</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -o noclobber
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#用nsenter调取宿主机工具调试容器</span>
+</span></span><span class="line"><span class="cl">nsenter -u -n -i -p -t <span class="k">$(</span>docker inspect --format <span class="o">{{</span>.State.Pid<span class="o">}}</span> 容器名或容器ID<span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#快速设置用户密码</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> Aa.1234567 <span class="p">|</span> passwd --stdin root
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#D的状态一般是I/O出现了问题，说明进程在等待I/O，可以是磁盘I/O，网络I/O或者其他</span>
+</span></span><span class="line"><span class="cl">ps -eo state,pid,cmd <span class="p">|</span> grep <span class="s2">&#34;^D&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#查看进程的父进程ID</span>
+</span></span><span class="line"><span class="cl">ps -p &lt;pid&gt; -o <span class="nv">ppid</span><span class="o">=</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#通过重定向符号在远程主机执行脚本</span>
+</span></span><span class="line"><span class="cl">ssh root@192.168.7.50 <span class="s1">&#39;bash -s&#39;</span> &lt; install.sh
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#查询文件名对应的RPM包名</span>
+</span></span><span class="line"><span class="cl">rpm -qf 文件名
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#实时查看/tmp/a 输出到屏幕，并保存到/tmp/b</span>
+</span></span><span class="line"><span class="cl">tail -f /tmp/a <span class="p">|</span> tee /tmp/b
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#递归持续监控/tmp目录下的事件（创建、修改、删除、写入后关闭）</span>
+</span></span><span class="line"><span class="cl">inotifywait -m -r -e create,modify,delete,close_write /tmp
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#--------------文件被误删后如何恢复？--------------</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#1、被进程引用的文件，rm -rf之后可从内存恢复</span>
+</span></span><span class="line"><span class="cl">cp /proc/进程pid/fd/序号 文件原路径
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#2、未被进程引用的文件，rm -rf后如果源数据未被覆盖，用 ext4magic 命令:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#版本 ext4magic-0.3.2-3.10.x86_64.rpm，恢复的目的路径必须与/dev/sda1不在同一个分区</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#列出 /dev/sda1 分区在/tmp/路径下已删除的文件</span>
+</span></span><span class="line"><span class="cl">ext4magic /dev/sda1 -f /tmp/ <span class="p">|</span> grep <span class="s2">&#34;&lt; &#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#--------------文件被误删后如何恢复？--------------</span>
+</span></span></code></pre></div><ul>
+<li>网络</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#查看哪些端口正在被监听，以及是哪些进程在监听这些端口</span>
+</span></span><span class="line"><span class="cl">ss -tlnp
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#诊断到目标网络的连通性与性能，相当于结合了traceroute和ping。也可以通过-u或-T测试UDP和TCP</span>
+</span></span><span class="line"><span class="cl">mtr -n -c <span class="m">5</span> 192.168.7.50 --report
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#ping命令结果后面添加时间</span>
+</span></span><span class="line"><span class="cl">ping www.baidu.com <span class="p">|</span> awk <span class="s1">&#39;{print $0&#34;\t&#34; strftime(&#34;%Y-%m-%d %H:%M:%S&#34;,systime());fflush()}&#39;</span> &gt; ping.log
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#指定源ip(192.168.0.150)的ping</span>
+</span></span><span class="line"><span class="cl">ping -I 192.168.0.150 www.baidu.com
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#抓包命令,-n不进行主机名解析,-q快速输出,-s 0表示包不截断抓完整的数据包</span>
+</span></span><span class="line"><span class="cl">tcpdump -nq -s <span class="m">0</span> -iany host 127.0.0.1 -XNnn
+</span></span><span class="line"><span class="cl">tcpdump -nq -s <span class="m">0</span> -iany port <span class="m">80</span> -XNnn
+</span></span><span class="line"><span class="cl">tcpdump -nq -s <span class="m">0</span> -i eth0 icmp
+</span></span><span class="line"><span class="cl"><span class="c1">#显示eth0网卡流量和网速</span>
+</span></span><span class="line"><span class="cl">tcpdump -i eth0 -w - <span class="p">|</span> pv -bert &gt; /dev/null
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#nc端口测试,-u UDP端口(不指定默认为TCP)</span>
+</span></span><span class="line"><span class="cl">nc -lu <span class="m">20682</span>                              <span class="c1">#-l 开启监听模式</span>
+</span></span><span class="line"><span class="cl">nc -u 192.168.7.51 <span class="m">20682</span>                  <span class="c1">#与对端192.168.7.51可以交互</span>
+</span></span><span class="line"><span class="cl">nc -uvz 192.168.7.51 <span class="m">20682</span>                <span class="c1">#检测udp端口20862是否可通</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;test&#34;</span> <span class="p">|</span> nc -u 192.168.7.51 <span class="m">20682</span>    <span class="c1">#向udp端口发送一条test消息</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#添加静态路由，到172.25.201.0/24的数据通过网关172.25.209.125路由转发；加上src可指定源IP</span>
+</span></span><span class="line"><span class="cl">route add -net 172.25.201.0/24 gw 172.25.209.125
+</span></span><span class="line"><span class="cl">或
+</span></span><span class="line"><span class="cl">ip r add 172.25.201.0/24 via 172.25.209.125
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#开机启动自动添加路由,eth0为网卡名</span>
+</span></span><span class="line"><span class="cl">vim /etc/sysconfig/network-scripts/route-eth0
+</span></span><span class="line"><span class="cl">172.25.200.0/24 via 172.25.209.125 src 172.25.209.126
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#DNAT 目地地址转换：将本机发出到10.9.6.7的数据包重定向到172.17.10.18</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#在DNAT中，PREROUTING处理外部进入本机的数据包。而OUTPUT处理本机发往外部的包</span>
+</span></span><span class="line"><span class="cl">iptables -t nat -A OUTPUT -d 10.9.6.7 -j DNAT --to-destination 172.17.10.18
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#SNAT源地址转换:从172.25.209.29发出的数据包,且从eth0出口,如果目的地址不是172.25.0.0/16,则将源地址改为172.25.209.62</span>
+</span></span><span class="line"><span class="cl">iptables -t nat -A POSTROUTING -d 172.25.0.0/16 -j RETURN
+</span></span><span class="line"><span class="cl">iptables -t nat -A POSTROUTING -s 172.25.209.29 -o eth0 -j SNAT --to-source 172.25.209.62
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#MASQUERADE源地址转换:源地址是10.9.0.0/24的流量通过eth0访问目标172.22.0.0/16时,进行源地址转换(将其源IP自动替换为eth0接口的IP)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#与SNAT的区别是：MASQUERADE是动态的，可以自动选择IP；而SNAT静态的需要指定IP</span>
+</span></span><span class="line"><span class="cl">iptables -t nat -A POSTROUTING -s 10.9.0.0/24 -d 172.22.0.0/16 -o eth0 -j MASQUERADE
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#-t nat查看指定nat表下的规则，不指定-t默认是filter表</span>
+</span></span><span class="line"><span class="cl">iptables -vnL -t nat
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#firewall-cmd添加富规则(参数--permanent代表永久配置，重启后仍存在)，添加后使用firewall-cmd --reload加载生效</span>
+</span></span><span class="line"><span class="cl">firewall-cmd --permanent --add-rich-rule<span class="o">=</span><span class="s2">&#34;rule family=&#34;</span>ipv4<span class="s2">&#34; source address=&#34;</span>192.168.7.50<span class="s2">&#34; port port=&#34;</span>3389<span class="s2">&#34; protocol=&#34;</span>tcp<span class="s2">&#34; accept&#34;</span>
+</span></span></code></pre></div><ul>
+<li>Linux开机自动启动脚本的方法</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1、通过/etc/rc.local实现</span>
+</span></span><span class="line"><span class="cl">vim /etc/rc.local，添加以下内容:
+</span></span><span class="line"><span class="cl">bash /root/script/restart.sh
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2、通过crontab实现</span>
+</span></span><span class="line"><span class="cl">crontab -e，添加以下内容:
+</span></span><span class="line"><span class="cl">@reboot /root/script/restart.sh
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3、通过systemd实现</span>
+</span></span><span class="line"><span class="cl">vim /lib/systemd/system/restart.service，添加以下内容:
+</span></span><span class="line"><span class="cl"><span class="o">[</span>Unit<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Description</span><span class="o">=</span>restart
+</span></span><span class="line"><span class="cl"><span class="nv">After</span><span class="o">=</span>default.target
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>Service<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Type</span><span class="o">=</span>forking
+</span></span><span class="line"><span class="cl"><span class="nv">ExecStart</span><span class="o">=</span>/root/script/restart.sh
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>Install<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">WantedBy</span><span class="o">=</span>default.target
+</span></span></code></pre></div><ul>
+<li>shell脚本字符串截取的8种方法</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#  假设有变量 var=http://www.aaa.com/123.htm.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#  1. # 号截取，删除左边字符，保留右边字符。**</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="si">${</span><span class="nv">var</span><span class="p">#*</span><span class="sb">``</span><span class="p">//</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  其中 var 是变量名，# 号是运算符，*// 表示从左边开始删除第一个 // 号及左边的所有字符</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  即删除 http://</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  结果是 ：www.aaa.com/123.htm</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#  2. ## 号截取，删除左边字符，保留右边字符。**</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="si">${</span><span class="nv">var</span><span class="p">##*/</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  \\##*/ 表示从左边开始删除最后（最右边）一个 / 号及左边的所有字符</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  即删除 &lt;http://www.aaa.com/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  结果是 123.htm</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#  3. %号截取，删除右边字符，保留左边字符**</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="si">${</span><span class="nv">var</span><span class="p">%/*</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  %/* 表示从右边开始，删除第一个 / 号及右边的字符</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  结果是：&lt;http://www.aaa.com&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#  4. %% 号截取，删除右边字符，保留左边字符**</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="si">${</span><span class="nv">var</span><span class="p">%%/*</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  %%/* 表示从右边开始，删除最后（最左边）一个 / 号及右边的字符</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  结果是：http:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#  5. 从左边第几个字符开始，及字符的个数**</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="si">${</span><span class="nv">var</span><span class="p">:</span><span class="nv">0</span><span class="p">:</span><span class="nv">5</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  其中的 0 表示左边第一个字符开始，5 表示字符的总个数。</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  结果是：http:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#  6. 从左边第几个字符开始，一直到结束。**</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="si">${</span><span class="nv">var</span><span class="p">:</span><span class="nv">7</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  其中的 7 表示左边第8个字符开始，一直到结束。</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  结果是 ：www.aaa.com/123.htm</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#  7. 从右边第几个字符开始，及字符的个数**</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="si">${</span><span class="nv">var</span><span class="p">:</span><span class="nv">0</span><span class="p">-7:</span><span class="nv">3</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  其中的 0-7 表示右边算起第七个字符开始，3 表示字符的个数。</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  结果是：123</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#  8. 从右边第几个字符开始，一直到结束。**</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="si">${</span><span class="nv">var</span><span class="p">:</span><span class="nv">0</span><span class="p">-7</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  表示从右边第七个字符开始，一直到结束。</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  结果是：123.htm</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  注：（左边的第一个字符是用 0 表示，右边的第一个字符用 0-1 表示）</span>
+</span></span></code></pre></div><ul>
+<li>AWK</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#awk打印除某些列之外的所有列：</span>
+</span></span><span class="line"><span class="cl">awk <span class="s1">&#39;{ $3=&#34;&#34;;$4=&#34;&#34;; print $0 }&#39;</span> a.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#awk修改指定列的内容(以逗号分割)：</span>
+</span></span><span class="line"><span class="cl">awk  <span class="s1">&#39;BEGIN{FS=OFS=&#34;,&#34;} {if ($4==1700870) $4=1700888}1&#39;</span>  test.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#默认每行按空格或TAB分割：</span>
+</span></span><span class="line"><span class="cl">awk <span class="s1">&#39;{print $1,$4}&#39;</span> log.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#-F,指定分割字符：</span>
+</span></span><span class="line"><span class="cl">awk -F : <span class="s1">&#39;{print $1,$4}&#39;</span> log.txt
+</span></span><span class="line"><span class="cl"><span class="c1">#指定多个分割字符,先用:分割,然后再用,分割：</span>
+</span></span><span class="line"><span class="cl">awk -F <span class="s1">&#39;[:,]&#39;</span> <span class="s1">&#39;{print $1,$4}&#39;</span> log.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#-v,指定变量：</span>
+</span></span><span class="line"><span class="cl">awk -v <span class="nv">a</span><span class="o">=</span><span class="m">1</span> -v <span class="nv">b</span><span class="o">=</span>s <span class="s1">&#39;{print $1,$1+a,$1b}&#39;</span> log.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#-f,调用awk脚本：</span>
+</span></span><span class="line"><span class="cl">awk -f script.awk log.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#纯字符匹配，//：</span>
+</span></span><span class="line"><span class="cl">awk <span class="s1">&#39;/dockerroot/&#39;</span> /etc/passwd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#纯字符不匹配，!//：</span>
+</span></span><span class="line"><span class="cl">awk <span class="s1">&#39;!/dockerroot/&#39;</span> /etc/passwd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#匹配a1或a2，/|/：</span>
+</span></span><span class="line"><span class="cl">awk <span class="s1">&#39;!/a1|a2/&#39;</span> /etc/passwd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#字段值匹配，~//：</span>
+</span></span><span class="line"><span class="cl">awk <span class="s1">&#39;$1~/root/&#39;</span> /etc/passwd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#字段值不匹配，!~//：</span>
+</span></span><span class="line"><span class="cl">awk -F : <span class="s1">&#39;$1!~/root/&#39;</span> /etc/passwd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#IF语句,必须用在{}中，且比较内容用()扩起来if...else...：</span>
+</span></span><span class="line"><span class="cl">awk -F: <span class="s1">&#39;{if($1~/root/) {print $1} else {print $2}}&#39;</span> /etc/passwd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#test.txt文件以&#34;|&#34;分割，检查第12个字段是否等于&#34;\N&#34;，是的话使第13列等于第11列</span>
+</span></span><span class="line"><span class="cl">awk -F<span class="s1">&#39;|&#39;</span> <span class="s1">&#39;{if ($12 == &#34;\\N&#34;) { $13 = $11 } print}&#39;</span> <span class="nv">OFS</span><span class="o">=</span><span class="s1">&#39;|&#39;</span> test.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#while语句：</span>
+</span></span><span class="line"><span class="cl">awk -F: <span class="s1">&#39;BEGIN{i=1} {while(i&lt;8) print $i,i++}&#39;</span> /etc/passwd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#逻辑运算符：&amp;&amp;?||</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#条件表达式：==   !=   &gt;   &gt;=</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#NF、NR：NF代表每行字段数，NR代表行号```</span>
+</span></span></code></pre></div></div>
+    <footer class="article-footer"><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/linux"
+        rel="tag"
+        >LINUX</a
+      >
+    </li></ul>
+</footer>
+  </div><nav
+    id="article-nav"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap article-nav-link-left"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="Python"
+              class="lazyload"
+            /><a href="/post/python/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">Python</h3>
+      </div><div class="article-nav-link-wrap article-nav-link-right"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="Freeswitch 1.4.26基本安装使用"
+              class="lazyload"
+            /><a href="/post/freeswitch-1.4.26%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">Freeswitch 1.4.26基本安装使用</h3>
+      </div></nav></article></section>
+        </div><footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info"><div>
+      <span class="icon-copyright"></span>2021-2025<span class="footer-info-sep rotate"></span>
+      zoehuawang
+    </div><div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div><div>
+        <span class="icon-brush"
+          >&nbsp;44.8k</span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;01:46</span>
+      </div><div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv"
+          >总访问量&nbsp;<span
+            id="busuanzi_value_site_pv"
+          ></span
+        ></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv"
+          >总访客量&nbsp;<span
+            id="busuanzi_value_site_uv"
+          ></span
+        ></span>
+      </div></div>
+</footer>
+<div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div><div id="mask" class="hide"></div>
+      </div><nav id="mobile-nav">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents"></nav>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="zoehuawang"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">zoehuawang</div>
+  <div class="sidebar-description">一个普通的牛马</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">31</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      7
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">17</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">友链</div>
+    </div></div>
+</div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
+</div><script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" integrity="" crossorigin="anonymous" ></script><script src="/js/aos.js" integrity="" crossorigin="anonymous" ></script><script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script><script src="/js/pjax_main.js" integrity="" crossorigin="anonymous" data-pjax></script><script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"></script><script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+<div id="lazy-script">
+  <div><script data-pjax>
+        window.REIMU_POST = {
+          author: "zoehuawang",
+          title: "Linux",
+          url: "\/post\/linux\/",
+          description: "linux知识记录",
+          cover: "\/images\/banner.webp",
+        };
+      </script><script src="/js/insert_highlight.js" integrity="" crossorigin="anonymous" data-pjax></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script></div>
+</div><script
+    src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js"
+    asyncintegrity="sha384-0M75wtSkhjIInv4coYlaJU83&#43;OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id&#43;S" crossorigin="anonymous"></script><script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script><script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script></body>
+</html>

@@ -1,0 +1,675 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  data-theme-mode="auto"
+  >
+  <head><meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/><title>
+  Docker | zoehuawang
+</title>
+<meta
+  name="description"
+  content="Docker"
+/><script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_4k4bc36ef96\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  
+</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+<link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_4k4bc36ef96.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  /><meta property="og:type" content="website" />
+  <meta property="og:title" content="Docker | zoehuawang" />
+  <meta
+    property="og:description"
+    content="Docker"
+  />
+  <meta property="og:url" content="/post/docker/" />
+  <meta
+    property="og:site_name"
+    content="︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站"
+  />
+  <meta
+    property="og:image"
+    content="/"
+  />
+  <meta property="article:author" content="zoehuawang" />
+  <meta property="article:published_time" content="2023-06-07T11:15:16&#43;08:00" />
+  <meta property="article:modified_time" content="2023-06-07T11:15:16&#43;08:00" /><meta property="article:tag" content="docker" /><meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.8de89e98d1f2b3ec8a5a782dca54533bb25d81ece4635eb7681aeef2083e1b08.css" />
+<link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei&#43;Zx/1oA/0l8ysE" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.22/dist/katex.min.css"
+    integrity="sha384-5TcZemv2l/9On385z///&#43;d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script><link
+    rel="stylesheet"
+    href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css"
+    integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous"/></head>
+  <body><div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+<div id="lang-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+本文章没有找到对应的语言版本
+</div>
+<div id="heatmap-tooltip"></div><div id="container">
+      <div id="wrap"><div id="header-nav">
+  <nav id="main-nav"><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span><a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav"></nav></div>
+<header id="header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="Docker"><div id="header-outer">
+    <div id="header-title"><a href="/" id="logo">
+            <h1 data-aos="slide-up">Docker</h1>
+          </a><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
+  </div>
+</header><div id="content"
+          class="sidebar-left"
+            ><aside id="sidebar"><div class="sidebar-wrapper-container sticky"><div class="sidebar-wrapper">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    ><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents"></nav>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="zoehuawang"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">zoehuawang</div>
+  <div class="sidebar-description">一个普通的牛马</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">31</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      7
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">17</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">友链</div>
+    </div></div>
+</div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div><div class="sidebar-widget"></div></div></aside>
+<section id="main"><article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta"><div class="article-date">
+  <span
+    class="article-date-link icon-calendar"
+    data-aos="zoom-in"
+  >
+    <time datetime="2023-06-07 11:15:16 &#43;0800 CST" itemprop="datePublished"
+      >2023-06-07</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2023-06-07</time
+    >
+  </span></div>
+<div class="article-category"><a
+      class="article-category-link"
+      href="/categories/docker"
+      data-aos="zoom-in"
+      >DOCKER</a
+    ></div>
+</div>
+    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><p>资源链接：http://www.rpmfind.net/linux/rpm2html/search.php?query=docker</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker inspect CONTAINER_NAME                    <span class="c1">#查看容器所有信息</span>
+</span></span><span class="line"><span class="cl">docker container port CONTAINER_NAME             <span class="c1">#查看容器端口映射信息</span>
+</span></span><span class="line"><span class="cl">docker logs CONTAINER_NAME                       <span class="c1">#查看启动日志</span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">history</span> IMAGE_NAME                        <span class="c1">#查看镜像构建</span>
+</span></span><span class="line"><span class="cl">docker volum COMMAND                             <span class="c1">#管理数据卷</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">容器启动自动执行~/.bashrc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#内部取得root权限(centos7)</span>
+</span></span><span class="line"><span class="cl">在docker run的时候加上--privileged<span class="o">=</span>true参数，然后在最后面加上/usr/sbin/init。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#指定hostname</span>
+</span></span><span class="line"><span class="cl">--hostname &lt;hostname&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#指定网络，host模式，容器将不会获得一个独立的Network，和宿主机共享网络IP和端口</span>
+</span></span><span class="line"><span class="cl">--network<span class="o">=</span>host
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#修改hosts文件</span>
+</span></span><span class="line"><span class="cl">在docker run的时候加上--add-host machine:ip
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#修改hosts文件</span>
+</span></span><span class="line"><span class="cl">或在/etc/bashrc文件末尾添加 <span class="nb">echo</span> <span class="s2">&#34;ip hostname&#34;</span> &gt;&gt; /etc/hosts
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#windows添加永久静态路由</span>
+</span></span><span class="line"><span class="cl">route add 10.10.0.0 mask 255.255.255.0 10.0.75.2 IF 接口号
+</span></span><span class="line"><span class="cl">route add 172.17.0.0 mask 255.255.255.0 10.0.75.2 IF 接口号
+</span></span><span class="line"><span class="cl">接口号通过 route -4 print 查看，最左边一列就是接口号
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#夸宿主机与容器网路互通添加路由（宿主机IP为10.1.24.*）</span>
+</span></span><span class="line"><span class="cl">主机1：route add -net 172.16.12.0/16 gw 10.1.24.225
+</span></span><span class="line"><span class="cl">主机2：route add -net 172.16.12.0/16 gw 10.1.24.223
+</span></span><span class="line"><span class="cl">如果要添加为永久路由：就在在/etc/rc.local里添加
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#php容器中添加pdo_mysql扩展模块</span>
+</span></span><span class="line"><span class="cl">docker-php-ext-install pdo_mysql
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#docker删除none标签镜像</span>
+</span></span><span class="line"><span class="cl">docker images<span class="p">|</span>grep none<span class="p">|</span>awk <span class="s1">&#39;{print $3 }&#39;</span><span class="p">|</span>xargs docker rmi
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#docker容器指定固定ip</span>
+</span></span><span class="line"><span class="cl">1、创建自定义网络
+</span></span><span class="line"><span class="cl">docker network create --driver bridge --subnet<span class="o">=</span>172.16.12.0/16 --gateway<span class="o">=</span>172.16.1.1 newnet
+</span></span><span class="line"><span class="cl">2、创建容器制定ip
+</span></span><span class="line"><span class="cl">docker run -dit --name <span class="nb">test</span> --network<span class="o">=</span>newnet --ip 172.16.12.12 centos
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#虚拟机做成docker镜像，先打包根目录（视情况排除不需要的目录）</span>
+</span></span><span class="line"><span class="cl">tar --numeric-owner --exclude<span class="o">=</span>/boot --exclude<span class="o">=</span>/vat/tmp --exclude<span class="o">=</span>/proc --exclude<span class="o">=</span>/sys --exclude<span class="o">=</span>/run --exclude<span class="o">=</span>/tmp --exclude<span class="o">=</span>/dev --hard-dereference -czvf  kylin.tar.gz /
+</span></span><span class="line"><span class="cl"><span class="c1">#然后</span>
+</span></span><span class="line"><span class="cl">cat kylin.tar.gz <span class="p">|</span>docker import - kylin:v10
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#修改已创建容器的端口映射</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#（1）修改相对应容器的hostcongfig.json（如果有config.v2.json文件也要修改）</span>
+</span></span><span class="line"><span class="cl">vim /var/lib/docker/containers/<span class="o">[</span>容器hash<span class="o">]</span>/hostconfig.json
+</span></span><span class="line"><span class="cl"><span class="c1">#（2）修改PortBinding参数，宿主机8001端口映射到容器80端口示例：</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;PortBinding&#34;</span>:<span class="s2">&#34;{&#34;</span>80/tcp<span class="s2">&#34;[{&#34;</span>HostIp<span class="s2">&#34;:&#34;&#34;,&#34;</span>HostPort<span class="s2">&#34;:&#34;</span>8001<span class="s2">&#34;}]},&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#（3）重启docker</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#docker镜像离线下载与上传</span>
+</span></span><span class="line"><span class="cl">docker save mynginx:latest  -o  /home/mynginx.tar     <span class="c1">#保存镜像</span>
+</span></span><span class="line"><span class="cl">docker load -i mynginx.tar                            <span class="c1">#加载镜像</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">docker system prune           <span class="c1">#清理磁盘，删除关闭的容器、无用的数据卷和网络，以及dangling镜像(即无tag的镜像)</span>
+</span></span><span class="line"><span class="cl">docker system prune -a        <span class="c1">#清理得更加彻底，可以将没有容器使用Docker镜像都删掉</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#修改容器默认时区与主机一致</span>
+</span></span><span class="line"><span class="cl">-v /etc/localtime:/etc/localtime         <span class="c1">#也可以在Dockerfile中指定</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#镜像仓库API（也可参考：&lt;https://www.cnblogs.com/Tempted/p/7768694.html）&gt;</span>
+</span></span><span class="line"><span class="cl">curl &lt;http://registry:5000/v2/_catalog&gt;                                         <span class="c1">#获得当前仓库中的镜像列表</span>
+</span></span><span class="line"><span class="cl">curl &lt;http://registry:5000/v2/&gt;&lt;name&gt;/tags/list                                 <span class="c1">#获取镜像标签</span>
+</span></span><span class="line"><span class="cl">curl -I &lt;http://registry:5000/v2/&gt;&lt;name&gt;/manifests/&lt;tag&gt;                        <span class="c1">#获得一个镜像的Manifest</span>
+</span></span><span class="line"><span class="cl">curl -I -X DELETE &lt;http://registry:5000/v2/&gt;&lt;name&gt;/manifests/&lt;Etag的值&gt;         <span class="c1">#删除镜像</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#在删除registry2.3或以上版本的docker镜像时，我们通过使用GET或HEAD获取镜像的digest时，必须要加如下参数： -H &#34;Accept: application/vnd.docker.distribution.manifest.v2+json&#34;</span>
+</span></span></code></pre></div><h1 id="dockerfile简单介绍">
+<a class="header-anchor" href="#dockerfile%e7%ae%80%e5%8d%95%e4%bb%8b%e7%bb%8d"></a>
+Dockerfile简单介绍
+</h1><p>组成部分</p>
+<table>
+  <thead>
+      <tr>
+          <th>部分</th>
+          <th>命令</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>基础镜像信息</td>
+          <td>FROM</td>
+      </tr>
+      <tr>
+          <td>维护者信息</td>
+          <td>MAINTAINER</td>
+      </tr>
+      <tr>
+          <td>镜像操作指令</td>
+          <td>RUN,COPY,ADD,EXPOSE,WORKDIR,ONBUILD,VOLUME,USER等</td>
+      </tr>
+      <tr>
+          <td>容器启动时执行指令</td>
+          <td>CMD、ENTRYPOINT</td>
+      </tr>
+  </tbody>
+</table>
+<p>各命令详解</p>
+<p><strong>FROM</strong></p>
+<p>指定哪种镜像作为新镜像的基础镜像，如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">FROM ubuntu:14.04
+</span></span></code></pre></div><p><strong>MAINTAINER</strong></p>
+<p>指明该镜像的作者和其电子邮件，如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">MAINTAINER Zoe.wang &#34;xxxxxxx@qq.com&#34;
+</span></span></code></pre></div><p><strong>RUN</strong></p>
+<p>在新镜像内部执行的命令，比如安装一些软件、配置一些基础环境（可使用\来换行）如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">RUN echo &#39;hello docker!&#39; &gt; /usr/local/file.txt
+</span></span></code></pre></div><p>也可以使用exec格式RUN [&ldquo;executable&rdquo;, &ldquo;param1&rdquo;, &ldquo;param2&rdquo;]的命令，如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">RUN [&#34;apt-get&#34;,&#34;install&#34;,&#34;-y&#34;,&#34;nginx&#34;]
+</span></span></code></pre></div><p>要注意的是，executable是命令，后面的param是参数</p>
+<p><strong>COPY</strong></p>
+<p>将主机的文件复制到镜像内，如果目的位置不存在，Docker会自动创建所有需要的目录结构，但是它只是单纯的复制，并不会去做文件提取和解压工作。如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">COPY application.yml /etc/springboot/hello-service/src/resource
+</span></span></code></pre></div><p>注意：需要复制的目录一定要放在Dockerfile文件的同级目录下</p>
+<p><strong>ADD</strong></p>
+<p>将主机的文件复制到镜像中，跟COPY一样，限制条件和使用方式都一样，如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ADD application.yml /etc/springboot/hello-service/src/resources
+</span></span></code></pre></div><p><strong>EXPOSE</strong></p>
+<p>暴露镜像的端口供主机做映射，启动镜像时，使用-P参数来讲镜像端口与宿主机的随机端口做映射。使用方式（可指定多个）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">EXPOSE 8080
+</span></span><span class="line"><span class="cl">EXPOSE 8081
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></div><p><strong>WORKDIR</strong></p>
+<p>在构建镜像时，指定镜像的工作目录，之后的命令都是基于此工作目录，如果不存在，则会创建目录。如</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">WORKDIR /usr/local
+</span></span><span class="line"><span class="cl">WORKDIR webservice
+</span></span><span class="line"><span class="cl">RUN echo &#39;hello docker&#39; &gt; text.txt
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></div><p>最终会在/usr/local/webservice/目录下生成text.txt文件</p>
+<p><strong>ONBUILD</strong></p>
+<p>当一个包含ONBUILD命令的镜像被用作其他镜像的基础镜像时(比如用户的镜像需要从某为准备好的位置添加源代码，或者用户需要执行特定于构建镜像的环境的构建脚本)，该命令就会执行。</p>
+<p>如创建镜像image-A</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">FROM</span> <span class="n">ubuntu</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">ONBUILD</span> <span class="n">ADD</span> <span class="o">.</span> <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></div><p>然后创建镜像image-B，指定image-A为基础镜像，如</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">FROM image-A
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></div><p>然后在构建image-B的时候，日志上显示如下:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">Step</span> <span class="mi">0</span> <span class="p">:</span> <span class="n">FROM</span> <span class="n">image</span><span class="o">-</span><span class="n">A</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Execting 1 build triggers</span>
+</span></span><span class="line"><span class="cl"><span class="n">Step</span> <span class="n">onbuild</span><span class="o">-</span><span class="mi">0</span> <span class="p">:</span> <span class="n">ADD</span> <span class="o">.</span> <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></div><p><strong>USER</strong></p>
+<p>指定该镜像以什么样的用户去执行，如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">USER mongo
+</span></span></code></pre></div><p><strong>VOLUME</strong></p>
+<p>用来向基于镜像创建的容器添加卷。比如你可以将mongodb镜像中存储数据的data文件指定为主机的某个文件。(容器内部建议不要存储任何数据)</p>
+<p>如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">VOLUME /data/db /data/configdb
+</span></span></code></pre></div><p>注意: VOLUME 主机目录 容器目录</p>
+<p><strong>CMD</strong></p>
+<p>容器启动时需要执行的命令，如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">CMD /bin/bash
+</span></span></code></pre></div><p>同样可以使用exec语法，如</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">CMD [&#34;/bin/bash&#34;]
+</span></span></code></pre></div><p>当有多个CMD的时候，只有最后一个生效。</p>
+<p><strong>ENTRYPOINT</strong></p>
+<p>作用和用法和CMD一模一样</p>
+<p>CMD和ENTRYPOINT的区别</p>
+<p>敲黑板！！！非常重要</p>
+<p>一定要注意！</p>
+<p>一定要注意！</p>
+<p>一定要注意</p>
+<p>CMD的命令会被 docker run 的命令覆盖而ENTRYPOINT不会</p>
+<p>CMD和ENTRYPOINT都存在时，CMD的指令变成了ENTRYPOINT的参数，并且此CMD提供的参数会被 docker run 后面的命令覆盖，如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">ENTRYPOINT [&#34;echo&#34;,&#34;hello&#34;,&#34;i am&#34;]
+</span></span><span class="line"><span class="cl">CMD [&#34;docker&#34;]
+</span></span></code></pre></div><p>之后启动构建之后的容器</p>
+<p>docker run -ti image</p>
+<p>输出“hello i am docker”</p>
+<p>使用docker run -ti image world</p>
+<p>输出“hello i am world”</p>
+<ul>
+<li>创建centos中文镜像</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 基于官方centos7精简版基础镜像，添加中文支持
+</span></span><span class="line"><span class="cl">FROM centos:centos7.4.1708
+</span></span><span class="line"><span class="cl"># 更新软件
+</span></span><span class="line"><span class="cl">RUN yum -y upgrade
+</span></span><span class="line"><span class="cl"># 安装中文包
+</span></span><span class="line"><span class="cl">RUN yum install -y kde-l10n-Chinese
+</span></span><span class="line"><span class="cl"># 重新安装glibc-common
+</span></span><span class="line"><span class="cl">RUN yum -y reinstall glibc-common
+</span></span><span class="line"><span class="cl"># 编译生成语言库
+</span></span><span class="line"><span class="cl">RUN localedef -c -f UTF-8 -i zh_CN zh_CN.utf8
+</span></span><span class="line"><span class="cl"># 设置语言默认值为中文，时区改为东八区
+</span></span><span class="line"><span class="cl">RUN echo &#39;LANG=&#34;zh_CN.UTF-8&#34;&#39; &gt; /etc/locale.conf
+</span></span><span class="line"><span class="cl">RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+</span></span><span class="line"><span class="cl">ENV LANG zh_CN.UTF-8
+</span></span><span class="line"><span class="cl">ENV LC_ALL zh_CN.UTF-8
+</span></span></code></pre></div><h1 id="docker-compose用法">
+<a class="header-anchor" href="#docker-compose%e7%94%a8%e6%b3%95"></a>
+docker-compose用法
+</h1><ul>
+<li>yml示例</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;2.4&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">mysql</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">mariadb:10.6</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">mariadb</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span>--<span class="l">character-set-server=utf8 --collation-server=utf8_general_ci</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">DB_PORT</span><span class="p">:</span><span class="w"> </span><span class="m">3306</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">MARIADB_ROOT_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l">nu4x599Wq7u0Bn8EABh3J91G</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">MARIADB_DATABASE</span><span class="p">:</span><span class="w"> </span><span class="l">root</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">deploy</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">limits</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">512M</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">reservations</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;0.2&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">256M</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;mysql -h127.0.0.1 -P3306 -uroot -pnu4x599Wq7u0Bn8EABh3J91G -e &#39;SHOW DATABASES;&#39;&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l">10s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l">5s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">start_period</span><span class="p">:</span><span class="w"> </span><span class="l">30s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">/tmp/mariadb/data:/var/lib/mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">default</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>命令</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#启动</span>
+</span></span><span class="line"><span class="cl">docker-compose -f docker-compose-mariadb.yml start 或 docker-compose -f docker-compose-mariadb.yml up -d
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#重启</span>
+</span></span><span class="line"><span class="cl">docker-compose -f docker-compose-mariadb.yml restart
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#停止</span>
+</span></span><span class="line"><span class="cl">docker-compose -f docker-compose-mariadb.yml stop
+</span></span></code></pre></div></div>
+    <footer class="article-footer"><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/docker"
+        rel="tag"
+        >DOCKER</a
+      >
+    </li></ul>
+</footer>
+  </div><nav
+    id="article-nav"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap article-nav-link-left"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="Git"
+              class="lazyload"
+            /><a href="/post/git/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">Git</h3>
+      </div><div class="article-nav-link-wrap article-nav-link-right"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="Keepalived高可用配置"
+              class="lazyload"
+            /><a href="/post/keepalived%E9%AB%98%E5%8F%AF%E7%94%A8%E9%85%8D%E7%BD%AE/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">Keepalived高可用配置</h3>
+      </div></nav></article></section>
+        </div><footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info"><div>
+      <span class="icon-copyright"></span>2021-2025<span class="footer-info-sep rotate"></span>
+      zoehuawang
+    </div><div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div><div>
+        <span class="icon-brush"
+          >&nbsp;44.8k</span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;01:46</span>
+      </div><div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv"
+          >总访问量&nbsp;<span
+            id="busuanzi_value_site_pv"
+          ></span
+        ></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv"
+          >总访客量&nbsp;<span
+            id="busuanzi_value_site_uv"
+          ></span
+        ></span>
+      </div></div>
+</footer>
+<div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div><div id="mask" class="hide"></div>
+      </div><nav id="mobile-nav">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents"></nav>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="zoehuawang"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">zoehuawang</div>
+  <div class="sidebar-description">一个普通的牛马</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">31</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      7
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">17</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">友链</div>
+    </div></div>
+</div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
+</div><script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" integrity="" crossorigin="anonymous" ></script><script src="/js/aos.js" integrity="" crossorigin="anonymous" ></script><script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script><script src="/js/pjax_main.js" integrity="" crossorigin="anonymous" data-pjax></script><script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"></script><script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+<div id="lazy-script">
+  <div><script data-pjax>
+        window.REIMU_POST = {
+          author: "zoehuawang",
+          title: "Docker",
+          url: "\/post\/docker\/",
+          description: "Docker",
+          cover: "\/images\/banner.webp",
+        };
+      </script><script src="/js/insert_highlight.js" integrity="" crossorigin="anonymous" data-pjax></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script></div>
+</div><script
+    src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js"
+    asyncintegrity="sha384-0M75wtSkhjIInv4coYlaJU83&#43;OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id&#43;S" crossorigin="anonymous"></script><script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script><script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script></body>
+</html>

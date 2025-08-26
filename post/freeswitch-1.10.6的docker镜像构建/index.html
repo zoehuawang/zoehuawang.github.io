@@ -1,0 +1,672 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  data-theme-mode="auto"
+  >
+  <head><meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/><title>
+  Freeswitch 1.10.6的docker镜像构建 | zoehuawang
+</title>
+<meta
+  name="description"
+  content="Freeswitch 1.10.6"
+/><script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_4k4bc36ef96\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  
+</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+<link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_4k4bc36ef96.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  /><meta property="og:type" content="website" />
+  <meta property="og:title" content="Freeswitch 1.10.6的docker镜像构建 | zoehuawang" />
+  <meta
+    property="og:description"
+    content="Freeswitch 1.10.6"
+  />
+  <meta property="og:url" content="/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/" />
+  <meta
+    property="og:site_name"
+    content="︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站"
+  />
+  <meta
+    property="og:image"
+    content="/"
+  />
+  <meta property="article:author" content="zoehuawang" />
+  <meta property="article:published_time" content="2023-06-12T11:06:57&#43;08:00" />
+  <meta property="article:modified_time" content="2023-06-12T11:06:57&#43;08:00" /><meta property="article:tag" content="freeswitchdocker" /><meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.8de89e98d1f2b3ec8a5a782dca54533bb25d81ece4635eb7681aeef2083e1b08.css" />
+<link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei&#43;Zx/1oA/0l8ysE" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.22/dist/katex.min.css"
+    integrity="sha384-5TcZemv2l/9On385z///&#43;d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script><link
+    rel="stylesheet"
+    href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css"
+    integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous"/></head>
+  <body><div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+<div id="lang-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+本文章没有找到对应的语言版本
+</div>
+<div id="heatmap-tooltip"></div><div id="container">
+      <div id="wrap"><div id="header-nav">
+  <nav id="main-nav"><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span><a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav"></nav></div>
+<header id="header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="Freeswitch 1.10.6的docker镜像构建"><div id="header-outer">
+    <div id="header-title"><a href="/" id="logo">
+            <h1 data-aos="slide-up">Freeswitch 1.10.6的docker镜像构建</h1>
+          </a><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
+  </div>
+</header><div id="content"
+          class="sidebar-left"
+            ><aside id="sidebar"><div class="sidebar-wrapper-container sticky"><div class="sidebar-wrapper">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    ><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents"></nav>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="zoehuawang"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">zoehuawang</div>
+  <div class="sidebar-description">一个普通的牛马</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">31</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      7
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">17</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">友链</div>
+    </div></div>
+</div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div><div class="sidebar-widget"></div></div></aside>
+<section id="main"><article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta"><div class="article-date">
+  <span
+    class="article-date-link icon-calendar"
+    data-aos="zoom-in"
+  >
+    <time datetime="2023-06-12 11:06:57 &#43;0800 CST" itemprop="datePublished"
+      >2023-06-12</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2023-06-12</time
+    >
+  </span></div>
+<div class="article-category"><a
+      class="article-category-link"
+      href="/categories/freeswitch"
+      data-aos="zoom-in"
+      >FREESWITCH</a
+    ><a
+      class="article-category-link"
+      href="/categories/docker"
+      data-aos="zoom-in"
+      >DOCKER</a
+    ></div>
+</div>
+    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><p>Dockerfile文件内容</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">FROM ccr.ccs.tencentyun.com/zoehuawang/debian:10-slim
+</span></span><span class="line"><span class="cl">ENV <span class="nv">TZ</span><span class="o">=</span>Asia/Shanghai
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">RUN <span class="nb">echo</span> <span class="s2">&#34;deb http://mirrors.163.com/debian/ buster main non-free contrib&#34;</span> &gt; /etc/apt/sources.list
+</span></span><span class="line"><span class="cl">RUN <span class="nb">echo</span> <span class="s2">&#34;deb-src http://mirrors.163.com/debian/ buster main non-free contrib&#34;</span> &gt;&gt; /etc/apt/sources.list
+</span></span><span class="line"><span class="cl">RUN <span class="nb">echo</span> <span class="s2">&#34;deb http://mirrors.163.com/debian-security buster/updates main&#34;</span> &gt;&gt; /etc/apt/sources.list
+</span></span><span class="line"><span class="cl">RUN <span class="nb">echo</span> <span class="s2">&#34;deb-src http://mirrors.163.com/debian-security buster/updates main&#34;</span> &gt;&gt; /etc/apt/sources.list
+</span></span><span class="line"><span class="cl">RUN <span class="nb">echo</span> <span class="s2">&#34;deb http://mirrors.163.com/debian/ buster-updates main non-free contrib&#34;</span> &gt;&gt; /etc/apt/sources.list
+</span></span><span class="line"><span class="cl">RUN <span class="nb">echo</span> <span class="s2">&#34;deb-src http://mirrors.163.com/debian/ buster-updates main non-free contrib&#34;</span> &gt;&gt; /etc/apt/sources.list
+</span></span><span class="line"><span class="cl">RUN apt-get update <span class="o">&amp;&amp;</span> apt-get upgrade -y
+</span></span><span class="line"><span class="cl">RUN apt-get install gcc g++ autoconf automake make libtool libtool-bin pkg-config <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    sngrep uuid-dev libtiff-dev libsqlite3-dev libvpx-dev libldns-dev <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    libpcre3-dev libspeex-dev libedit-dev libcurl4-openssl-dev libshout3-dev <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    libavformat-dev libswscale-dev ca-certificates <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    libspeexdsp-dev libssl-dev yasm liblua5.1-0-dev libopus-dev libmpg123-dev <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    libmp3lame-dev libsndfile1-dev git -y --no-install-recommends <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> rm -rf /var/lib/apt/lists/*
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">RUN <span class="nb">cd</span> /usr/local/ <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> git clone https://gitee.com/zoewang/spandsp.git <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> git clone https://gitee.com/zoewang/sofia-sip.git <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> git clone https://gitee.com/zoewang/freeswitch.git freeswitch-1.10.6
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">RUN <span class="nb">cd</span> /usr/local/spandsp/ <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> ./bootstrap.sh -j <span class="o">&amp;&amp;</span> ./configure <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install <span class="o">&amp;&amp;</span> ldconfig
+</span></span><span class="line"><span class="cl">RUN <span class="nb">cd</span> /usr/local/sofia-sip/ <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> ./bootstrap.sh -j <span class="o">&amp;&amp;</span> ./configure <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install <span class="o">&amp;&amp;</span> ldconfig
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">COPY modules.conf /usr/local/freeswitch-1.10.6
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">WORKDIR /usr/local/freeswitch-1.10.6
+</span></span><span class="line"><span class="cl">RUN ./bootstrap.sh
+</span></span><span class="line"><span class="cl">RUN ./configure --disable-dependency-tracking
+</span></span><span class="line"><span class="cl">RUN make <span class="o">&amp;&amp;</span> make install
+</span></span><span class="line"><span class="cl">RUN rm -rf /etc/localtime <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s1">&#39;export PATH=&#34;/usr/local/freeswitch/bin:$PATH&#34;&#39;</span> &gt;&gt; /root/.bashrc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">WORKDIR /usr/local/freeswitch
+</span></span><span class="line"><span class="cl">ENTRYPOINT <span class="o">[</span><span class="s2">&#34;/usr/local/freeswitch/bin/freeswitch&#34;</span>,<span class="s2">&#34;-c&#34;</span>,<span class="s2">&#34;-nonat&#34;</span><span class="o">]</span>
+</span></span></code></pre></div><p>modules.conf文件内容</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#applications/mod_abstraction</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_avmd</span>
+</span></span><span class="line"><span class="cl">applications/mod_av
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_bert</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_blacklist</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_callcenter</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_cidlookup</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_cluechoo</span>
+</span></span><span class="line"><span class="cl">applications/mod_commands
+</span></span><span class="line"><span class="cl">applications/mod_conference
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_curl</span>
+</span></span><span class="line"><span class="cl">applications/mod_db
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_directory</span>
+</span></span><span class="line"><span class="cl">applications/mod_distributor
+</span></span><span class="line"><span class="cl">applications/mod_dptools
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_easyroute</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_enum</span>
+</span></span><span class="line"><span class="cl">applications/mod_esf
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_esl</span>
+</span></span><span class="line"><span class="cl">applications/mod_expr
+</span></span><span class="line"><span class="cl">applications/mod_fifo
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_fsk</span>
+</span></span><span class="line"><span class="cl">applications/mod_fsv
+</span></span><span class="line"><span class="cl">applications/mod_hash
+</span></span><span class="line"><span class="cl">applications/mod_httapi
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_http_cache</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_ladspa</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_lcr</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_memcache</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_mongo</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_mp4</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_nibblebill</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_oreka</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_osp</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_prefix</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_rad_auth</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_redis</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_rss</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_sonar</span>
+</span></span><span class="line"><span class="cl">applications/mod_sms
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_snapshot</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_snipe_hunt</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_snom</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_soundtouch</span>
+</span></span><span class="line"><span class="cl">applications/mod_spandsp
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_spy</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_stress</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_translate</span>
+</span></span><span class="line"><span class="cl">applications/mod_valet_parking
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_vmd</span>
+</span></span><span class="line"><span class="cl">applications/mod_voicemail
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_voicemail_ivr</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#applications/mod_random</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#asr_tts/mod_cepstral</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#asr_tts/mod_flite</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#asr_tts/mod_pocketsphinx</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#asr_tts/mod_tts_commandline</span>
+</span></span><span class="line"><span class="cl">asr_tts/mod_unimrcp
+</span></span><span class="line"><span class="cl">codecs/mod_amr
+</span></span><span class="line"><span class="cl"><span class="c1">#codecs/mod_amrwb</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#codecs/mod_bv</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#codecs/mod_b64</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#codecs/mod_celt</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#codecs/mod_codec2</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#codecs/mod_com_g729</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#codecs/mod_dahdi_codec</span>
+</span></span><span class="line"><span class="cl">codecs/mod_g723_1
+</span></span><span class="line"><span class="cl">codecs/mod_g729
+</span></span><span class="line"><span class="cl">codecs/mod_h26x
+</span></span><span class="line"><span class="cl">codecs/mod_vp8
+</span></span><span class="line"><span class="cl"><span class="c1">#codecs/mod_ilbc</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#codecs/mod_isac</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#codecs/mod_mp4v</span>
+</span></span><span class="line"><span class="cl">codecs/mod_opus
+</span></span><span class="line"><span class="cl"><span class="c1">#codecs/mod_sangoma_codec</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#codecs/mod_silk</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#codecs/mod_siren</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#codecs/mod_theora</span>
+</span></span><span class="line"><span class="cl">dialplans/mod_dialplan_asterisk
+</span></span><span class="line"><span class="cl"><span class="c1">#dialplans/mod_dialplan_directory</span>
+</span></span><span class="line"><span class="cl">dialplans/mod_dialplan_xml
+</span></span><span class="line"><span class="cl"><span class="c1">#directories/mod_ldap</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#endpoints/mod_alsa</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#endpoints/mod_dingaling</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#endpoints/mod_gsmopen</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#endpoints/mod_h323</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#endpoints/mod_khomp</span>
+</span></span><span class="line"><span class="cl">endpoints/mod_rtc
+</span></span><span class="line"><span class="cl">endpoints/mod_verto
+</span></span><span class="line"><span class="cl">endpoints/mod_loopback
+</span></span><span class="line"><span class="cl"><span class="c1">#endpoints/mod_opal</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#endpoints/mod_portaudio</span>
+</span></span><span class="line"><span class="cl">endpoints/mod_rtmp
+</span></span><span class="line"><span class="cl">endpoints/mod_skinny
+</span></span><span class="line"><span class="cl"><span class="c1">#endpoints/mod_skypopen</span>
+</span></span><span class="line"><span class="cl">endpoints/mod_sofia
+</span></span><span class="line"><span class="cl"><span class="c1">#endpoints/mod_unicall</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#event_handlers/mod_amqp</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#event_handlers/mod_cdr_csv</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#event_handlers/mod_cdr_mongodb</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#event_handlers/mod_cdr_pg_csv</span>
+</span></span><span class="line"><span class="cl">event_handlers/mod_cdr_sqlite
+</span></span><span class="line"><span class="cl"><span class="c1">#event_handlers/mod_erlang_event</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#event_handlers/mod_event_multicast</span>
+</span></span><span class="line"><span class="cl">event_handlers/mod_event_socket
+</span></span><span class="line"><span class="cl"><span class="c1">#event_handlers/mod_event_zmq</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#event_handlers/mod_format_cdr</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#event_handlers/mod_json_cdr</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#event_handlers/mod_radius_cdr</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#event_handlers/mod_odbc_cdr</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#event_handlers/mod_rayo</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#event_handlers/mod_snmp</span>
+</span></span><span class="line"><span class="cl">formats/mod_local_stream
+</span></span><span class="line"><span class="cl">formats/mod_native_file
+</span></span><span class="line"><span class="cl"><span class="c1">#formats/mod_portaudio_stream</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#formats/mod_shell_stream</span>
+</span></span><span class="line"><span class="cl">formats/mod_shout
+</span></span><span class="line"><span class="cl">formats/mod_sndfile
+</span></span><span class="line"><span class="cl"><span class="c1">#formats/mod_ssml</span>
+</span></span><span class="line"><span class="cl">formats/mod_tone_stream
+</span></span><span class="line"><span class="cl">formats/mod_png
+</span></span><span class="line"><span class="cl"><span class="c1">#formats/mod_vlc</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#languages/mod_basic</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#languages/mod_java</span>
+</span></span><span class="line"><span class="cl">languages/mod_lua
+</span></span><span class="line"><span class="cl"><span class="c1">#languages/mod_managed</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#languages/mod_perl</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#languages/mod_python</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#languages/mod_v8</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#languages/mod_yaml</span>
+</span></span><span class="line"><span class="cl">loggers/mod_console
+</span></span><span class="line"><span class="cl"><span class="c1">#loggers/mod_graylog2</span>
+</span></span><span class="line"><span class="cl">loggers/mod_logfile
+</span></span><span class="line"><span class="cl">loggers/mod_syslog
+</span></span><span class="line"><span class="cl"><span class="c1">#say/mod_say_de</span>
+</span></span><span class="line"><span class="cl">say/mod_say_en
+</span></span><span class="line"><span class="cl"><span class="c1">#say/mod_say_es</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#say/mod_say_es_ar</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#say/mod_say_fa</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#say/mod_say_fr</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#say/mod_say_he</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#say/mod_say_hr</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#say/mod_say_hu</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#say/mod_say_it</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#say/mod_say_ja</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#say/mod_say_nl</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#say/mod_say_pl</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#say/mod_say_pt</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#say/mod_say_ru</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#say/mod_say_th</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#say/mod_say_zh</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#say/mod_say_sv</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#timers/mod_posix_timer</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#timers/mod_timerfd</span>
+</span></span><span class="line"><span class="cl">xml_int/mod_xml_cdr
+</span></span><span class="line"><span class="cl">xml_int/mod_xml_curl
+</span></span><span class="line"><span class="cl"><span class="c1">#xml_int/mod_xml_ldap</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#xml_int/mod_xml_radius</span>
+</span></span><span class="line"><span class="cl">xml_int/mod_xml_rpc
+</span></span><span class="line"><span class="cl">xml_int/mod_xml_scgi
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#../../libs/freetdm/mod_freetdm</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Experimental Modules (don&#39;t cry if they&#39;re broken)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#../../contrib/mod/xml_int/mod_xml_odbc</span>
+</span></span></code></pre></div><p><strong>构建命令：</strong> docker build -t freeswitch:1.10.6 .</p>
+<p>Makefile文件内容</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Makefile Version 1.2.0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 路径映射</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /usr/local/freeswitch/conf</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /usr/local/freeswitch/sounds</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /usr/local/freeswitch/scripts</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /usr/local/freeswitch/log</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /usr/local/freeswitch/recordings</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">init:
+</span></span><span class="line"><span class="cl">        -docker rm -f fs<span class="p">;</span>
+</span></span><span class="line"><span class="cl">        docker run -d --network host <span class="se">\\</span>
+</span></span><span class="line"><span class="cl">        --name fs freeswitch:1.10.6
+</span></span><span class="line"><span class="cl">copy-conf:
+</span></span><span class="line"><span class="cl">        docker cp fs:/usr/local/freeswitch/conf ./
+</span></span><span class="line"><span class="cl">run:
+</span></span><span class="line"><span class="cl">        -docker rm -f fs<span class="p">;</span>
+</span></span><span class="line"><span class="cl">        docker run -d --network host <span class="se">\\</span>
+</span></span><span class="line"><span class="cl">        -v <span class="nv">$$</span>PWD/conf:/usr/local/freeswitch/conf <span class="se">\\</span>
+</span></span><span class="line"><span class="cl">        -v <span class="nv">$$</span>PWD/log:/usr/local/freeswitch/log <span class="se">\\</span>
+</span></span><span class="line"><span class="cl">        --name fs freeswitch:1.10.6
+</span></span><span class="line"><span class="cl"><span class="c1">#fs_cli:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        docker exec -it fs /usr/local/freeswitch/bin/fs_cli</span>
+</span></span></code></pre></div></div>
+    <footer class="article-footer"><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/freeswitch"
+        rel="tag"
+        >FREESWITCH</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/docker"
+        rel="tag"
+        >DOCKER</a
+      >
+    </li></ul>
+</footer>
+  </div><nav
+    id="article-nav"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap article-nav-link-left"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="RabbitMQ集群部署"
+              class="lazyload"
+            /><a href="/post/rabbitmq%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">RabbitMQ集群部署</h3>
+      </div><div class="article-nav-link-wrap article-nav-link-right"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="Kafka"
+              class="lazyload"
+            /><a href="/post/kafka/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">Kafka</h3>
+      </div></nav></article></section>
+        </div><footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info"><div>
+      <span class="icon-copyright"></span>2021-2025<span class="footer-info-sep rotate"></span>
+      zoehuawang
+    </div><div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div><div>
+        <span class="icon-brush"
+          >&nbsp;44.8k</span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;01:46</span>
+      </div><div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv"
+          >总访问量&nbsp;<span
+            id="busuanzi_value_site_pv"
+          ></span
+        ></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv"
+          >总访客量&nbsp;<span
+            id="busuanzi_value_site_uv"
+          ></span
+        ></span>
+      </div></div>
+</footer>
+<div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div><div id="mask" class="hide"></div>
+      </div><nav id="mobile-nav">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents"></nav>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="zoehuawang"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">zoehuawang</div>
+  <div class="sidebar-description">一个普通的牛马</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">31</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      7
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">17</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">友链</div>
+    </div></div>
+</div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
+</div><script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" integrity="" crossorigin="anonymous" ></script><script src="/js/aos.js" integrity="" crossorigin="anonymous" ></script><script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script><script src="/js/pjax_main.js" integrity="" crossorigin="anonymous" data-pjax></script><script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"></script><script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+<div id="lazy-script">
+  <div><script data-pjax>
+        window.REIMU_POST = {
+          author: "zoehuawang",
+          title: "Freeswitch 1.10.6的docker镜像构建",
+          url: "\/post\/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA\/",
+          description: "Freeswitch 1.10.6",
+          cover: "\/images\/banner.webp",
+        };
+      </script><script src="/js/insert_highlight.js" integrity="" crossorigin="anonymous" data-pjax></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script></div>
+</div><script
+    src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js"
+    asyncintegrity="sha384-0M75wtSkhjIInv4coYlaJU83&#43;OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id&#43;S" crossorigin="anonymous"></script><script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script><script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script></body>
+</html>

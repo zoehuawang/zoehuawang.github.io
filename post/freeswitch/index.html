@@ -1,0 +1,521 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  data-theme-mode="auto"
+  >
+  <head><meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/><title>
+  Freeswitch | zoehuawang
+</title>
+<meta
+  name="description"
+  content="Freeswitch记录,含有权威指南"
+/><script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_4k4bc36ef96\",\"outdate\":{\"daysago\":180,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  
+</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+<link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_4k4bc36ef96.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  /><meta property="og:type" content="website" />
+  <meta property="og:title" content="Freeswitch | zoehuawang" />
+  <meta
+    property="og:description"
+    content="Freeswitch记录,含有权威指南"
+  />
+  <meta property="og:url" content="/post/freeswitch/" />
+  <meta
+    property="og:site_name"
+    content="︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站"
+  />
+  <meta
+    property="og:image"
+    content="/"
+  />
+  <meta property="article:author" content="zoehuawang" />
+  <meta property="article:published_time" content="2023-06-13T11:09:57&#43;08:00" />
+  <meta property="article:modified_time" content="2023-06-13T11:09:57&#43;08:00" /><meta property="article:tag" content="freeswitch" /><meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.8de89e98d1f2b3ec8a5a782dca54533bb25d81ece4635eb7681aeef2083e1b08.css" />
+<link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei&#43;Zx/1oA/0l8ysE" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.22/dist/katex.min.css"
+    integrity="sha384-5TcZemv2l/9On385z///&#43;d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script><link
+    rel="stylesheet"
+    href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css"
+    integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous"/></head>
+  <body><div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+<div id="lang-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+本文章没有找到对应的语言版本
+</div>
+<div id="heatmap-tooltip"></div><div id="container">
+      <div id="wrap"><div id="header-nav">
+  <nav id="main-nav"><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span><a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav"></nav></div>
+<header id="header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="Freeswitch"><div id="header-outer">
+    <div id="header-title"><a href="/" id="logo">
+            <h1 data-aos="slide-up">Freeswitch</h1>
+          </a><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
+  </div>
+</header><div id="content"
+          class="sidebar-left"
+            ><aside id="sidebar"><div class="sidebar-wrapper-container sticky"><div class="sidebar-wrapper">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    ><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents"></nav>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="zoehuawang"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">zoehuawang</div>
+  <div class="sidebar-description">一个普通的牛马</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">31</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      7
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">17</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">友链</div>
+    </div></div>
+</div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div><div class="sidebar-widget"></div></div></aside>
+<section id="main"><article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta"><div class="article-date">
+  <span
+    class="article-date-link icon-calendar"
+    data-aos="zoom-in"
+  >
+    <time datetime="2023-06-13 11:09:57 &#43;0800 CST" itemprop="datePublished"
+      >2023-06-13</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2023-06-13</time
+    >
+  </span></div>
+<div class="article-category"><a
+      class="article-category-link"
+      href="/categories/freeswitch"
+      data-aos="zoom-in"
+      >FREESWITCH</a
+    ></div>
+</div>
+    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><p><a href="https://gitee.com/zoewang/download-resources/blob/master/FreeSWITCH%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97.pdf">freeswitch权威指南</a></p>
+<p><a href="https://developer.signalwire.com/freeswitch/">FreeSWITCH 文档</a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#各配置文件作用</span>
+</span></span><span class="line"><span class="cl">vars.xml                             <span class="p">|</span> 一些经常使用变量
+</span></span><span class="line"><span class="cl">dialplan/default.xml                 <span class="p">|</span> 缺省的拨号计划
+</span></span><span class="line"><span class="cl">directory/default/*.xml              <span class="p">|</span> SIP用户，每用户一个文件
+</span></span><span class="line"><span class="cl">sip_profiles/internal.xml            <span class="p">|</span> 一个SIP profile，或称做一个SIP-UA，监听在本地IP及端口5060，通常供内网用户使用
+</span></span><span class="line"><span class="cl">sip_profiles/externa.xml             <span class="p">|</span> 另外一个SIP-UA，用做外部链接，端口5080
+</span></span><span class="line"><span class="cl">autoload_configs/modules.conf.xml    <span class="p">|</span> 配置当FreeSWITCH启动时自动装载哪些模块
+</span></span><span class="line"><span class="cl">autoload_configs/switch.conf.xml     <span class="p">|</span> 主要用于配置全局参数
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#批量创建用户xml放在默认路径下  （添加用户后记得修改拨号计划Local_Extension正则匹配规则，并执行reloadxml生效）</span>
+</span></span><span class="line"><span class="cl">/usr/local/freeswitch-1.10.6/scripts/perl/add_user --users<span class="o">=</span>1020-1039
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#修改sip注册默认密码，可加快拨打响应时间，改完执行reloadxml生效</span>
+</span></span><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/default_password=1234/default_password=Aa123456/g&#39;</span> /usr/local/freeswitch/conf/vars.xml  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#修改默认socket连接密码，改完重启或者重新加载模块(fs_cli -x &#34;reload mod_event_socket&#34;)</span>
+</span></span><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/ClueCon/NewPa55w4/g&#39;</span> /usr/local/freeswitch/conf/autoload_configs/event_socket.conf.xml
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#修改socket连接指定使用了哪个ACL列表</span>
+</span></span><span class="line"><span class="cl">通过/usr/local/freeswitch/conf/autoload_configs/event_socket.conf.xml中
+</span></span><span class="line"><span class="cl">&lt;param <span class="nv">name</span><span class="o">=</span><span class="s2">&#34;apply-inbound-acl&#34;</span> <span class="nv">value</span><span class="o">=</span><span class="s2">&#34;lan&#34;</span>/&gt;的value指定acl列表名指定
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#添加acl白名单ip（访问控制规则的优先级是从上到下依次判断的），然后执行 reloadacl 生效</span>
+</span></span><span class="line"><span class="cl">sed -i <span class="s1">&#39;/name=&#34;lan&#34;/a\      &lt;node type=&#34;allow&#34; cidr=&#34;172.20.128.1/32&#34;/&gt;&#39;</span> /usr/local/freeswitch/conf/autoload_configs/acl.conf.xml        
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#修改客户端可以远程连接配置 (密码、监听端口也是这里面修改)</span>
+</span></span><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/127.0.0.1/0.0.0.0/g&#39;</span> /usr/local/freeswitch/conf/autoload_configs/event_socket.conf.xml
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#如果机器不支持ipv6把相关配置删除</span>
+</span></span><span class="line"><span class="cl">rm -rf /usr/local/freeswitch/conf/sip_profiles/external-ipv6* /usr/local/freeswitch/conf/sip_profiles/internal-ipv6*
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#后台启动</span>
+</span></span><span class="line"><span class="cl">freeswitch -nc -nonat
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#停止</span>
+</span></span><span class="line"><span class="cl">/usr/local/freeswitch/bin/freeswitch -stop
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#登陆控制台</span>
+</span></span><span class="line"><span class="cl">/usr/local/freeswitch/bin/fs_cli -P端口 -p密码 -l日志级别
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#-x执行命令</span>
+</span></span><span class="line"><span class="cl">/usr/local/freeswitch/bin/fs_cli -x <span class="s2">&#34;show calls as json&#34;</span>
+</span></span></code></pre></div><ul>
+<li>fs_cli控制台命令：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">/help                          </span><span class="w"> </span><span class="c">#列出可用的fs_cli命令</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">/quit 或 /exit 或 /bye 或 ...   </span><span class="w"> </span><span class="c">#都会退出控制台</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">console loglevel 级别           </span><span class="w"> </span><span class="c">#控制台日志级别，级别从0-7，级别越高日志越大。比如6设置成INFO级别；7设置成DEBUG级别</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">status                         </span><span class="w"> </span><span class="c">#显示当前FreeSWITCH的运行状态</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">reload MODNAME															</span><span class="w"> </span><span class="c">#重新加载模块</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">reloadxml 																    </span><span class="w"> </span><span class="c">#重新加载XML配置文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">reloadacl 																    </span><span class="w"> </span><span class="c">#更新鉴权</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">global_getvar															  </span><span class="w"> </span><span class="c">#显示当前定义的所有全局变量及其取值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">eval $${domain}															 </span><span class="w"> </span><span class="c">#查看变量</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">eval $${conf_dir}															#查看配置文件位置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">sofia status profile internal reg						#查询已注册用户（或者 show registrations）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">originate {origination_caller_id_number=6688}user/1001 &amp;park			#拨打1001用户，主叫号码为6688（park表示挂起）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">originate {origination_caller_id_number=6688}user/1001 &amp;hold			#拨打1001用户，主叫号码为6688（hold表示保持）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">originate {origination_caller_id_number=6688}user/1001 &amp;echo			#拨打1001用户，主叫号码为6688（echo表示有回声）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">originate {origination_caller_id_number=400009xxxx}sofia/external/008617xxxx3967@10.21.254.72 &amp;echo()   </span><span class="w"> </span><span class="c">#通过SIP协议连接到外部网关拨打电话</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">uuid_kill UUID												#挂断一个用户</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">hupall																	#挂断所有用户</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">originate user/1001 &amp;playback(/usr/local/freeswitch/sounds/wait.wav)	#拨打1001，接通后直接播放wav文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">originate user/1001 &amp;record(/usr/local/freeswitch/sounds/r.wav)			#拨打1001，直接录音</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">uuid_record UUID start /usr/local/freeswitch/sounds/r.wav				#uuid开始录音</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">originate user/1001 &amp;bridge(user/1002)									#1001和1002通话（先打1001，再打1002）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">originate sofia/internal/1001@foo.com &amp;bridge(sofia/internal/1002@bar.com)   </span><span class="w"> </span><span class="c">#发起两通呼叫并bridge</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">originate user/1001 1002 XML default													#将呼叫发送到用户1001,并转到目标号码1002上</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">sofia status profile external   </span><span class="w"> </span><span class="c">#查看对外配置信息（通常是对外通信）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">sofia status profile internal   </span><span class="w"> </span><span class="c">#查看对内配置信息（通常是内部设备）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">sofia profile internal/external restart 								#重启网关配置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">module_exists mod_em													#查询目标模块是否已经加载</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>未接通播放早期媒体(也就是彩铃)配置示例</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="err">&lt;</span><span class="nx">include</span><span class="err">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="err">&lt;</span><span class="nx">context</span> <span class="nx">name</span><span class="p">=</span><span class="s2">&#34;public&#34;</span><span class="err">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">&lt;</span><span class="nx">extension</span> <span class="nx">name</span><span class="p">=</span><span class="s2">&#34;inbound&#34;</span><span class="err">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="err">&lt;</span><span class="nx">condition</span> <span class="nx">field</span><span class="p">=</span><span class="s2">&#34;destination_number&#34;</span> <span class="nx">expression</span><span class="p">=</span><span class="s2">&#34;^(\+86xxxxxxxx33|400xxxxxx5)$&#34;</span><span class="err">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">&lt;</span><span class="nx">action</span> <span class="nx">application</span><span class="p">=</span><span class="s2">&#34;set&#34;</span> <span class="nx">data</span><span class="p">=</span><span class="s2">&#34;enable_early_media=true&#34;</span><span class="err">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">&lt;</span><span class="nx">action</span> <span class="nx">application</span><span class="p">=</span><span class="s2">&#34;set&#34;</span> <span class="nx">data</span><span class="p">=</span><span class="s2">&#34;sip_ph_P-Early-Media=sendrecv&#34;</span><span class="err">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">&lt;</span><span class="nx">action</span> <span class="nx">application</span><span class="p">=</span><span class="s2">&#34;set&#34;</span> <span class="nx">data</span><span class="p">=</span><span class="s2">&#34;hangup_after_bridge=true&#34;</span><span class="err">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">&lt;</span><span class="nx">action</span> <span class="nx">application</span><span class="p">=</span><span class="s2">&#34;set&#34;</span> <span class="nx">data</span><span class="p">=</span><span class="s2">&#34;sip_sticky_contact=true&#34;</span><span class="err">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">&lt;</span><span class="nx">action</span> <span class="nx">application</span><span class="p">=</span><span class="s2">&#34;pre_answer&#34;</span> <span class="nx">data</span><span class="p">=</span><span class="s2">&#34;&#34;</span><span class="err">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">&lt;</span><span class="nx">action</span> <span class="nx">application</span><span class="p">=</span><span class="s2">&#34;playback&#34;</span> <span class="nx">data</span><span class="p">=</span><span class="s2">&#34;/usr/local/freeswitch/sounds/cailing.wav&#34;</span><span class="err">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">&lt;</span><span class="nx">action</span> <span class="nx">application</span><span class="p">=</span><span class="s2">&#34;hangup&#34;</span> <span class="nx">data</span><span class="p">=</span><span class="s2">&#34;SUBSCRIBER_ABSENT&#34;</span><span class="err">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="err">&lt;/</span><span class="nx">condition</span><span class="err">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">&lt;/</span><span class="nx">extension</span><span class="err">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="err">&lt;/</span><span class="nx">context</span><span class="err">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="err">&lt;/</span><span class="nx">include</span><span class="err">&gt;</span>
+</span></span></code></pre></div></div>
+    <footer class="article-footer"><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/freeswitch"
+        rel="tag"
+        >FREESWITCH</a
+      >
+    </li></ul>
+</footer>
+  </div><nav
+    id="article-nav"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap article-nav-link-left"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="Kafka"
+              class="lazyload"
+            /><a href="/post/kafka/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">Kafka</h3>
+      </div><div class="article-nav-link-wrap article-nav-link-right"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="MGR单主"
+              class="lazyload"
+            /><a href="/post/mgr%E5%8D%95%E4%B8%BB/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">MGR单主</h3>
+      </div></nav></article></section>
+        </div><footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info"><div>
+      <span class="icon-copyright"></span>2021-2025<span class="footer-info-sep rotate"></span>
+      zoehuawang
+    </div><div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div><div>
+        <span class="icon-brush"
+          >&nbsp;44.8k</span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;01:46</span>
+      </div><div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv"
+          >总访问量&nbsp;<span
+            id="busuanzi_value_site_pv"
+          ></span
+        ></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv"
+          >总访客量&nbsp;<span
+            id="busuanzi_value_site_uv"
+          ></span
+        ></span>
+      </div></div>
+</footer>
+<div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div><div id="mask" class="hide"></div>
+      </div><nav id="mobile-nav">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents"></nav>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="zoehuawang"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">zoehuawang</div>
+  <div class="sidebar-description">一个普通的牛马</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">31</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      7
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">17</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/friend"
+        aria-label="友链"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">友链</div>
+    </div></div>
+</div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
+</div><script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" integrity="" crossorigin="anonymous" ></script><script src="/js/aos.js" integrity="" crossorigin="anonymous" ></script><script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script><script src="/js/pjax_main.js" integrity="" crossorigin="anonymous" data-pjax></script><script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"></script><script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+<div id="lazy-script">
+  <div><script data-pjax>
+        window.REIMU_POST = {
+          author: "zoehuawang",
+          title: "Freeswitch",
+          url: "\/post\/freeswitch\/",
+          description: "Freeswitch记录,含有权威指南",
+          cover: "\/images\/banner.webp",
+        };
+      </script><script src="/js/insert_highlight.js" integrity="" crossorigin="anonymous" data-pjax></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script></div>
+</div><script
+    src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js"
+    asyncintegrity="sha384-0M75wtSkhjIInv4coYlaJU83&#43;OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id&#43;S" crossorigin="anonymous"></script><script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script><script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script></body>
+</html>
