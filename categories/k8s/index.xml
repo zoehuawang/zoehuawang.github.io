@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>K8S on ︶烟花散尽不问繁华┈┾</title>
-    <link>/categories/k8s/</link>
+    <link>http://192.168.7.53:35247/categories/k8s/</link>
     <description>Recent content from ︶烟花散尽不问繁华┈┾</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
@@ -15,7 +15,7 @@
     <lastBuildDate>Mon, 16 Dec 2024 11:03:17 +0800</lastBuildDate>
     
     
-    <atom:link href="/categories/k8s/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="http://192.168.7.53:35247/categories/k8s/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -23,16 +23,16 @@
 
     <item>
       <title>Kubernetes之ELK集群</title>
-      <link>/post/kubernetes%E4%B9%8Belk%E9%9B%86%E7%BE%A4/</link>
+      <link>http://192.168.7.53:35247/post/kubernetes%E4%B9%8Belk%E9%9B%86%E7%BE%A4/</link>
       <pubDate>Mon, 16 Dec 2024 11:03:17 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>/post/kubernetes%E4%B9%8Belk%E9%9B%86%E7%BE%A4/</guid>
+      <guid>http://192.168.7.53:35247/post/kubernetes%E4%B9%8Belk%E9%9B%86%E7%BE%A4/</guid>
       <description>
         <![CDATA[<h1>Kubernetes之ELK集群</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
-        <hr><p>本文2024-12-16首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2024-12-16</p>]]>
+        <hr><p>本文2024-12-16首发于<a href='http://192.168.7.53:35247/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2024-12-16</p>]]>
       </description>
       
         <category>K8S</category>
@@ -43,16 +43,16 @@
 
     <item>
       <title>K8s离线部署</title>
-      <link>/post/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/</link>
+      <link>http://192.168.7.53:35247/post/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/</link>
       <pubDate>Sat, 17 Jun 2023 11:37:31 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>/post/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/</guid>
+      <guid>http://192.168.7.53:35247/post/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/</guid>
       <description>
         <![CDATA[<h1>K8s离线部署</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
-        <hr><p>本文2023-06-17首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2023-06-17</p>]]>
+        <hr><p>本文2023-06-17首发于<a href='http://192.168.7.53:35247/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2023-06-17</p>]]>
       </description>
       
         <category>K8S</category>
@@ -63,16 +63,16 @@
 
     <item>
       <title>Kubernetes之proxysql集群</title>
-      <link>/post/kubernetes%E4%B9%8Bproxysql%E9%9B%86%E7%BE%A4/</link>
+      <link>http://192.168.7.53:35247/post/kubernetes%E4%B9%8Bproxysql%E9%9B%86%E7%BE%A4/</link>
       <pubDate>Fri, 16 Jun 2023 11:36:24 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>/post/kubernetes%E4%B9%8Bproxysql%E9%9B%86%E7%BE%A4/</guid>
+      <guid>http://192.168.7.53:35247/post/kubernetes%E4%B9%8Bproxysql%E9%9B%86%E7%BE%A4/</guid>
       <description>
         <![CDATA[<h1>Kubernetes之proxysql集群</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
-        <hr><p>本文2023-06-16首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2023-06-16</p>]]>
+        <hr><p>本文2023-06-16首发于<a href='http://192.168.7.53:35247/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2023-06-16</p>]]>
       </description>
       
         <category>K8S</category>
@@ -83,16 +83,16 @@
 
     <item>
       <title>Kubernetes</title>
-      <link>/post/kubernetes/</link>
+      <link>http://192.168.7.53:35247/post/kubernetes/</link>
       <pubDate>Thu, 15 Jun 2023 11:32:05 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>/post/kubernetes/</guid>
+      <guid>http://192.168.7.53:35247/post/kubernetes/</guid>
       <description>
         <![CDATA[<h1>Kubernetes</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
-        <hr><p>本文2023-06-15首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2023-06-15</p>]]>
+        <hr><p>本文2023-06-15首发于<a href='http://192.168.7.53:35247/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2023-06-15</p>]]>
       </description>
       
         <category>K8S</category>
@@ -103,16 +103,16 @@
 
     <item>
       <title>Kubernetes之StatefulSet部署etcd集群</title>
-      <link>/post/kubernetes%E4%B9%8Bstatefulset%E9%83%A8%E7%BD%B2etcd%E9%9B%86%E7%BE%A4/</link>
+      <link>http://192.168.7.53:35247/post/kubernetes%E4%B9%8Bstatefulset%E9%83%A8%E7%BD%B2etcd%E9%9B%86%E7%BE%A4/</link>
       <pubDate>Tue, 13 Jun 2023 11:35:16 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>/post/kubernetes%E4%B9%8Bstatefulset%E9%83%A8%E7%BD%B2etcd%E9%9B%86%E7%BE%A4/</guid>
+      <guid>http://192.168.7.53:35247/post/kubernetes%E4%B9%8Bstatefulset%E9%83%A8%E7%BD%B2etcd%E9%9B%86%E7%BE%A4/</guid>
       <description>
         <![CDATA[<h1>Kubernetes之StatefulSet部署etcd集群</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
-        <hr><p>本文2023-06-13首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2023-06-13</p>]]>
+        <hr><p>本文2023-06-13首发于<a href='http://192.168.7.53:35247/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2023-06-13</p>]]>
       </description>
       
         <category>K8S</category>
