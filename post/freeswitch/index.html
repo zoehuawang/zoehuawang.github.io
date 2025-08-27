@@ -228,31 +228,31 @@
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">/help                          </span><span class="w"> </span><span class="c">#列出可用的fs_cli命令</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">/quit 或 /exit 或 /bye 或 ...   </span><span class="w"> </span><span class="c">#都会退出控制台</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">console loglevel 级别           </span><span class="w"> </span><span class="c">#控制台日志级别，级别从0-7，级别越高日志越大。比如6设置成INFO级别；7设置成DEBUG级别</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">console loglevel 0  	       </span><span class="w"> </span><span class="c">#控制台日志级别，级别从0-7，级别越高日志越大。比如6设置成INFO级别；7设置成DEBUG级别</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">status                         </span><span class="w"> </span><span class="c">#显示当前FreeSWITCH的运行状态</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">reload MODNAME															</span><span class="w"> </span><span class="c">#重新加载模块</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">reloadxml 																    </span><span class="w"> </span><span class="c">#重新加载XML配置文件</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">reloadacl 																    </span><span class="w"> </span><span class="c">#更新鉴权</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">global_getvar															  </span><span class="w"> </span><span class="c">#显示当前定义的所有全局变量及其取值</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">eval $${domain}															 </span><span class="w"> </span><span class="c">#查看变量</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">eval $${conf_dir}															#查看配置文件位置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">reload MODNAME			#重新加载模块</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">reloadxml 			#重新加载XML配置文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">reloadacl 			#更新鉴权</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">global_getvar			#显示当前定义的所有全局变量及其取值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">eval $${domain}			#查看变量</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">eval $${conf_dir}		#查看配置文件位置</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">sofia status profile internal reg						#查询已注册用户（或者 show registrations）</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">originate {origination_caller_id_number=6688}user/1001 &amp;park			#拨打1001用户，主叫号码为6688（park表示挂起）</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">originate {origination_caller_id_number=6688}user/1001 &amp;hold			#拨打1001用户，主叫号码为6688（hold表示保持）</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">originate {origination_caller_id_number=6688}user/1001 &amp;echo			#拨打1001用户，主叫号码为6688（echo表示有回声）</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">originate {origination_caller_id_number=400009xxxx}sofia/external/008617xxxx3967@10.21.254.72 &amp;echo()   </span><span class="w"> </span><span class="c">#通过SIP协议连接到外部网关拨打电话</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">originate {origination_caller_id_number=400009xxxx}sofia/external/008617xxxx3967@10.21.254.72 &amp;echo() 	#通过SIP协议连接到外部网关拨打电话</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">uuid_kill UUID												#挂断一个用户</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">hupall																	#挂断所有用户</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">originate user/1001 &amp;playback(/usr/local/freeswitch/sounds/wait.wav)	#拨打1001，接通后直接播放wav文件</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">originate user/1001 &amp;record(/usr/local/freeswitch/sounds/r.wav)			#拨打1001，直接录音</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">uuid_record UUID start /usr/local/freeswitch/sounds/r.wav				#uuid开始录音</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">hupall													#挂断所有用户</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">originate user/1001 &amp;playback(/usr/local/freeswitch/sounds/wait.wav)					#拨打1001，接通后直接播放wav文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">originate user/1001 &amp;record(/usr/local/freeswitch/sounds/r.wav)						#拨打1001，直接录音</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">uuid_record UUID start /usr/local/freeswitch/sounds/r.wav						#uuid开始录音</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">originate user/1001 &amp;bridge(user/1002)									#1001和1002通话（先打1001，再打1002）</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">originate sofia/internal/1001@foo.com &amp;bridge(sofia/internal/1002@bar.com)   </span><span class="w"> </span><span class="c">#发起两通呼叫并bridge</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">originate user/1001 1002 XML default													#将呼叫发送到用户1001,并转到目标号码1002上</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">sofia status profile external   </span><span class="w"> </span><span class="c">#查看对外配置信息（通常是对外通信）</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">sofia status profile internal   </span><span class="w"> </span><span class="c">#查看对内配置信息（通常是内部设备）</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">sofia profile internal/external restart 								#重启网关配置</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">module_exists mod_em													#查询目标模块是否已经加载</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">originate sofia/internal/1001@foo.com &amp;bridge(sofia/internal/1002@bar.com)    				#发起两通呼叫并bridge</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">originate user/1001 1002 XML default									#将呼叫发送到用户1001,并转到目标号码1002上</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">sofia status profile external    						#查看对外配置信息（通常是对外通信）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">sofia status profile internal    						#查看对内配置信息（通常是内部设备）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">sofia profile internal/external restart 					#重启网关配置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">module_exists mod_em								#查询目标模块是否已经加载</span><span class="w">
 </span></span></span></code></pre></div><ul>
 <li>未接通播放早期媒体(也就是彩铃)配置示例</li>
 </ul>
@@ -285,7 +285,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
               data-sizes="auto"
               alt="Kafka"
               class="lazyload"
@@ -293,7 +293,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Kafka</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
               data-sizes="auto"
               alt="MGR单主"
               class="lazyload"
@@ -306,11 +306,11 @@
     <div class="footer-line"></div>
   </div>
   <div id="footer-info"><div>
-      <span class="icon-copyright"></span>2021-2025<span class="footer-info-sep rotate"></span>
+      <span class="icon-copyright"></span>2020-2025<span class="footer-info-sep rotate"></span>
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;44.8k</span
+          >&nbsp;44.7k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:46</span>

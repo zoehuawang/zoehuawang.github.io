@@ -209,12 +209,12 @@ Golang的格式化输出
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">people</span> <span class="p">=</span> <span class="nx">Human</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span><span class="s">&#34;zhangsan&#34;</span><span class="p">}</span>
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">普通占位符</span>
-</span></span><span class="line"><span class="cl"><span class="nx">占位符</span>     <span class="nx">说明</span>                           <span class="nx">举例</span>                   <span class="nx">输出</span>
-</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="nx">v</span>      <span class="nx">相应值的默认格式</span><span class="err">。</span>            <span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%v&#34;</span><span class="p">,</span> <span class="nx">people</span><span class="p">)</span>   <span class="p">{</span><span class="nx">zhangsan</span><span class="p">}</span><span class="err">，</span>
-</span></span><span class="line"><span class="cl"><span class="o">%+</span><span class="nx">v</span>     <span class="nx">打印结构体时</span><span class="err">，</span><span class="nx">会添加字段名</span>     <span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%+v&#34;</span><span class="p">,</span> <span class="nx">people</span><span class="p">)</span>  <span class="p">{</span><span class="nx">Name</span><span class="p">:</span><span class="nx">zhangsan</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="err">#</span><span class="nx">v</span>     <span class="nx">相应值的Go语法表示</span>            <span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;#v&#34;</span><span class="p">,</span> <span class="nx">people</span><span class="p">)</span>   <span class="nx">main</span><span class="p">.</span><span class="nx">Human</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span><span class="s">&#34;zhangsan&#34;</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="nx">T</span>      <span class="nx">相应值的类型的Go语法表示</span>       <span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%T&#34;</span><span class="p">,</span> <span class="nx">people</span><span class="p">)</span>   <span class="nx">main</span><span class="p">.</span><span class="nx">Human</span>
-</span></span><span class="line"><span class="cl"><span class="o">%%</span>      <span class="nx">字面上的百分号</span><span class="err">，</span><span class="nx">并非值的占位符</span>  <span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%%&#34;</span><span class="p">)</span>            <span class="o">%</span>
+</span></span><span class="line"><span class="cl"><span class="nx">占位符</span>     <span class="nx">说明</span>                      	<span class="nx">举例</span>                       <span class="nx">输出</span>
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="nx">v</span>      <span class="nx">相应值的默认格式</span><span class="err">。</span>             <span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%v&#34;</span><span class="p">,</span> <span class="nx">people</span><span class="p">)</span>   	<span class="p">{</span><span class="nx">zhangsan</span><span class="p">}</span><span class="err">，</span>
+</span></span><span class="line"><span class="cl"><span class="o">%+</span><span class="nx">v</span>     <span class="nx">打印结构体时</span><span class="err">，</span><span class="nx">会添加字段名</span>      <span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%+v&#34;</span><span class="p">,</span> <span class="nx">people</span><span class="p">)</span>	<span class="p">{</span><span class="nx">Name</span><span class="p">:</span><span class="nx">zhangsan</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="err">#</span><span class="nx">v</span>     <span class="nx">相应值的Go语法表示</span>            <span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;#v&#34;</span><span class="p">,</span> <span class="nx">people</span><span class="p">)</span>   	<span class="nx">main</span><span class="p">.</span><span class="nx">Human</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span><span class="s">&#34;zhangsan&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">%</span><span class="nx">T</span>      <span class="nx">相应值的类型的Go语法表示</span>        <span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%T&#34;</span><span class="p">,</span> <span class="nx">people</span><span class="p">)</span>   	<span class="nx">main</span><span class="p">.</span><span class="nx">Human</span>
+</span></span><span class="line"><span class="cl"><span class="o">%%</span>      <span class="nx">字面上的百分号</span><span class="err">，</span><span class="nx">并非值的占位符</span>   <span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%%&#34;</span><span class="p">)</span>        	<span class="o">%</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nx">布尔占位符</span>
 </span></span><span class="line"><span class="cl"><span class="nx">占位符</span>       <span class="nx">说明</span>                <span class="nx">举例</span>                     <span class="nx">输出</span>
@@ -479,10 +479,10 @@ Go数学运算随机数
 CentOS7.3编译安装go1.10.1
 </h1><p>直接使用编译好的包：go1.10.1.linux-amd64.tar.gz</p>
 <p>下载go</p>
-<p>$wget <a href="https://studygolang.com/dl/golang/go1.10.1.linux-amd64.tar.gz">https://studygolang.com/dl/golang/go1.10.1.linux-amd64.tar.gz</a></p>
-<p>$tar -xvf go1.10.1.linux-amd64.tar.gz</p>
+<p>wget <a href="https://studygolang.com/dl/golang/go1.10.1.linux-amd64.tar.gz">https://studygolang.com/dl/golang/go1.10.1.linux-amd64.tar.gz</a></p>
+<p>tar -xvf go1.10.1.linux-amd64.tar.gz</p>
 <p>设置环境变量</p>
-<p>$vim /etc/profile</p>
+<p>vim /etc/profile</p>
 <p>添加</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOPATH</span><span class="o">=</span>/data/work/gopath
 </span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOBIN</span><span class="o">=</span><span class="nv">$GOPATH</span>/bin
@@ -520,7 +520,7 @@ CentOS7.3编译安装go1.10.1
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
               data-sizes="auto"
               alt="快速部署openvpn"
               class="lazyload"
@@ -528,7 +528,7 @@ CentOS7.3编译安装go1.10.1
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">快速部署openvpn</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
               data-sizes="auto"
               alt="Git"
               class="lazyload"
@@ -541,11 +541,11 @@ CentOS7.3编译安装go1.10.1
     <div class="footer-line"></div>
   </div>
   <div id="footer-info"><div>
-      <span class="icon-copyright"></span>2021-2025<span class="footer-info-sep rotate"></span>
+      <span class="icon-copyright"></span>2020-2025<span class="footer-info-sep rotate"></span>
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;44.8k</span
+          >&nbsp;44.7k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:46</span>

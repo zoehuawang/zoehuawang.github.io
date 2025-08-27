@@ -248,10 +248,10 @@
 </span></span><span class="line"><span class="cl">-v /etc/localtime:/etc/localtime         <span class="c1">#也可以在Dockerfile中指定</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#镜像仓库API（也可参考：&lt;https://www.cnblogs.com/Tempted/p/7768694.html）&gt;</span>
-</span></span><span class="line"><span class="cl">curl &lt;http://registry:5000/v2/_catalog&gt;                                         <span class="c1">#获得当前仓库中的镜像列表</span>
-</span></span><span class="line"><span class="cl">curl &lt;http://registry:5000/v2/&gt;&lt;name&gt;/tags/list                                 <span class="c1">#获取镜像标签</span>
-</span></span><span class="line"><span class="cl">curl -I &lt;http://registry:5000/v2/&gt;&lt;name&gt;/manifests/&lt;tag&gt;                        <span class="c1">#获得一个镜像的Manifest</span>
-</span></span><span class="line"><span class="cl">curl -I -X DELETE &lt;http://registry:5000/v2/&gt;&lt;name&gt;/manifests/&lt;Etag的值&gt;         <span class="c1">#删除镜像</span>
+</span></span><span class="line"><span class="cl">curl &lt;http://registry:5000/v2/_catalog&gt;                                   	<span class="c1">#获得当前仓库中的镜像列表</span>
+</span></span><span class="line"><span class="cl">curl &lt;http://registry:5000/v2/&gt;&lt;name&gt;/tags/list                          	<span class="c1">#获取镜像标签</span>
+</span></span><span class="line"><span class="cl">curl -I &lt;http://registry:5000/v2/&gt;&lt;name&gt;/manifests/&lt;tag&gt;                 	<span class="c1">#获得一个镜像的Manifest</span>
+</span></span><span class="line"><span class="cl">curl -I -X DELETE &lt;http://registry:5000/v2/&gt;&lt;name&gt;/manifests/&lt;Etag的值&gt; 	<span class="c1">#删除镜像</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#在删除registry2.3或以上版本的docker镜像时，我们通过使用GET或HEAD获取镜像的digest时，必须要加如下参数： -H &#34;Accept: application/vnd.docker.distribution.manifest.v2+json&#34;</span>
 </span></span></code></pre></div><h1 id="dockerfile简单介绍">
 <a class="header-anchor" href="#dockerfile%e7%ae%80%e5%8d%95%e4%bb%8b%e7%bb%8d"></a>
@@ -439,7 +439,7 @@ docker-compose用法
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
               data-sizes="auto"
               alt="Git"
               class="lazyload"
@@ -447,7 +447,7 @@ docker-compose用法
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Git</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
               data-sizes="auto"
               alt="Keepalived高可用配置"
               class="lazyload"
@@ -460,11 +460,11 @@ docker-compose用法
     <div class="footer-line"></div>
   </div>
   <div id="footer-info"><div>
-      <span class="icon-copyright"></span>2021-2025<span class="footer-info-sep rotate"></span>
+      <span class="icon-copyright"></span>2020-2025<span class="footer-info-sep rotate"></span>
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;44.8k</span
+          >&nbsp;44.7k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:46</span>

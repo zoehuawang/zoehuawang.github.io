@@ -210,14 +210,14 @@
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">json</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">appid</span> <span class="o">=</span> <span class="s2">&#34;wwc4xxxxxxxxxx62b&#34;</span>                                             <span class="c1">#企业corpid</span>
-</span></span><span class="line"><span class="cl"><span class="n">secret</span> <span class="o">=</span> <span class="s2">&#34;mZzBuOxYQs4xxxxxxxxxxxxcAy_zM6PmhbCmFTI84&#34;</span>                        <span class="c1">#企业应用secret</span>
+</span></span><span class="line"><span class="cl"><span class="n">appid</span> <span class="o">=</span> <span class="s2">&#34;wwc4xxxxxxxxxx62b&#34;</span>                                             			<span class="c1">#企业corpid</span>
+</span></span><span class="line"><span class="cl"><span class="n">secret</span> <span class="o">=</span> <span class="s2">&#34;mZzBuOxYQs4xxxxxxxxxxxxcAy_zM6PmhbCmFTI84&#34;</span>                        			<span class="c1">#企业应用secret</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">url</span> <span class="o">=</span> <span class="s2">&#34;&lt;https://qyapi.weixin.qq.com/cgi-bin/gettoken?orpid=&#34;</span><span class="o">+</span><span class="n">appid</span><span class="o">+</span><span class="s2">&#34;&amp;corpsecret=&#34;</span><span class="o">+</span><span class="n">secret</span><span class="o">+</span><span class="s2">&#34;&gt;&#34;</span>      <span class="c1">#接口地址</span>
-</span></span><span class="line"><span class="cl"><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>                                    <span class="c1">#发送get请求调用接口</span>
+</span></span><span class="line"><span class="cl"><span class="n">url</span> <span class="o">=</span> <span class="s2">&#34;&lt;https://qyapi.weixin.qq.com/cgi-bin/gettoken?orpid=&#34;</span><span class="o">+</span><span class="n">appid</span><span class="o">+</span><span class="s2">&#34;&amp;corpsecret=&#34;</span><span class="o">+</span><span class="n">secret</span><span class="o">+</span><span class="s2">&#34;&gt;&#34;</span>	<span class="c1">#接口地址</span>
+</span></span><span class="line"><span class="cl"><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>                                    				<span class="c1">#发送get请求调用接口</span>
 </span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">access_token</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;access_token&#39;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/home/channelsoft/access_token.txt&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>                     <span class="c1">#把获取到的token保存下来</span>
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/home/channelsoft/access_token.txt&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>                     			<span class="c1">#把获取到的token保存下来</span>
 </span></span><span class="line"><span class="cl">        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">access_token</span><span class="p">)</span>
 </span></span></code></pre></div><p>其中企业corpid在企业微信后台企业信息里面可以看到，企业应用secret在企业微信创建的应用里面也可以看到</p>
 <p>2、登陆邮箱扫描并解析邮件和发送消息脚本(<a href="http://master.py/">master.py</a>)</p>
@@ -255,19 +255,19 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#  server = zmail.server(&#39;wxxxxxxxm&#39;,&#39;passwd&#39;,config=&#39;qq&#39;)</span>
 </span></span><span class="line"><span class="cl">  <span class="n">server</span> <span class="o">=</span> <span class="n">zmail</span><span class="o">.</span><span class="n">server</span><span class="p">(</span><span class="s1">&#39;xxxxxxxx@qq.com&#39;</span><span class="p">,</span><span class="s1">&#39;dqoeqcugpclfdghi&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="n">mailbox_info</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">  <span class="n">ID</span> <span class="o">=</span> <span class="n">mailbox_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                              <span class="c1">#mailbox_info[0]，邮箱数量初始化</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ID</span> <span class="o">=</span> <span class="n">mailbox_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                              		<span class="c1">#mailbox_info[0]，邮箱数量初始化</span>
 </span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="n">mailbox_info</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">mailbox_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">ID</span><span class="p">:</span>                          <span class="c1">#刷新后邮件数量对比</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">mailbox_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">ID</span><span class="p">:</span>                          		<span class="c1">#刷新后邮件数量对比</span>
 </span></span><span class="line"><span class="cl">      <span class="n">tasks</span> <span class="o">=</span> <span class="p">[]</span>
-</span></span><span class="line"><span class="cl">      <span class="k">for</span> <span class="n">mail_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ID</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="n">mailbox_info</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>            <span class="c1">#获取range范围内的邮件</span>
+</span></span><span class="line"><span class="cl">      <span class="k">for</span> <span class="n">mail_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ID</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="n">mailbox_info</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>	<span class="c1">#获取range范围内的邮件</span>
 </span></span><span class="line"><span class="cl">        <span class="n">tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">jiexi_mail</span><span class="p">(</span><span class="n">server</span><span class="p">,</span><span class="n">mail_id</span><span class="p">)))</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">      <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="k">await</span> <span class="n">task</span>
-</span></span><span class="line"><span class="cl">      <span class="n">ID</span> <span class="o">=</span> <span class="n">mailbox_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                          <span class="c1">#新增邮件后更新数量ID</span>
+</span></span><span class="line"><span class="cl">      <span class="n">ID</span> <span class="o">=</span> <span class="n">mailbox_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                          		<span class="c1">#新增邮件后更新数量ID</span>
 </span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">      <span class="n">ID</span> <span class="o">=</span> <span class="n">mailbox_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                          <span class="c1">#邮件有删除或没有新邮件是更新数量ID</span>
+</span></span><span class="line"><span class="cl">      <span class="n">ID</span> <span class="o">=</span> <span class="n">mailbox_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                          		<span class="c1">#邮件有删除或没有新邮件是更新数量ID</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
 </span></span></code></pre></div><p>3、脚本测试ok，然后后台运行就可以了</p>
@@ -291,25 +291,33 @@
   </div><nav
     id="article-nav"
     data-aos="fade-up"
-  ><div class="article-nav-link-wrap article-nav-link-right"><img
+  ><div class="article-nav-link-wrap article-nav-link-left"><img
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
+              data-sizes="auto"
+              alt="Linux"
+              class="lazyload"
+            /><a href="/post/linux/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">Linux</h3>
+      </div><div class="article-nav-link-wrap article-nav-link-right"><img
               data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg3.webp"
               data-sizes="auto"
-              alt="Ffmpeg"
+              alt="ffmpeg"
               class="lazyload"
             /><a href="/post/ffmpeg/"></a>
         <div class="article-nav-caption">后一篇</div>
-        <h3 class="article-nav-title">Ffmpeg</h3>
+        <h3 class="article-nav-title">ffmpeg</h3>
       </div></nav></article></section>
         </div><footer id="footer">
   <div style="width: 100%; overflow: hidden">
     <div class="footer-line"></div>
   </div>
   <div id="footer-info"><div>
-      <span class="icon-copyright"></span>2021-2025<span class="footer-info-sep rotate"></span>
+      <span class="icon-copyright"></span>2020-2025<span class="footer-info-sep rotate"></span>
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;44.8k</span
+          >&nbsp;44.7k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:46</span>

@@ -82,26 +82,6 @@
     
 
     <item>
-      <title>Linux</title>
-      <link>/post/linux/</link>
-      <pubDate>Fri, 09 Jun 2023 11:29:50 &#43;0800</pubDate>
-      <author>w19891102@126.com (zoehuawang)</author>
-      <guid>/post/linux/</guid>
-      <description>
-        <![CDATA[<h1>Linux</h1><p>作者：zoehuawang（w19891102@126.com）</p>
-        
-          
-        
-        <hr><p>本文2023-06-09首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2023-06-09</p>]]>
-      </description>
-      
-        <category>运维</category>
-      
-    </item>
-    
-    
-
-    <item>
       <title>Keepalived高可用配置</title>
       <link>/post/keepalived%E9%AB%98%E5%8F%AF%E7%94%A8%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Thu, 08 Jun 2023 11:21:16 &#43;0800</pubDate>
@@ -122,17 +102,37 @@
     
 
     <item>
-      <title>Rpmbuild将编译安装好的软件打成RPM包</title>
+      <title>rpmbuild将编译安装好的软件打成RPM包</title>
       <link>/post/rpmbuild%E5%B0%86%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%A5%BD%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%89%93%E6%88%90rpm%E5%8C%85/</link>
       <pubDate>Thu, 05 May 2022 10:29:50 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
       <guid>/post/rpmbuild%E5%B0%86%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%A5%BD%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%89%93%E6%88%90rpm%E5%8C%85/</guid>
       <description>
-        <![CDATA[<h1>Rpmbuild将编译安装好的软件打成RPM包</h1><p>作者：zoehuawang（w19891102@126.com）</p>
+        <![CDATA[<h1>rpmbuild将编译安装好的软件打成RPM包</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
         <hr><p>本文2022-05-05首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2022-05-05</p>]]>
+      </description>
+      
+        <category>运维</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>Linux</title>
+      <link>/post/linux/</link>
+      <pubDate>Thu, 09 Jul 2020 11:29:50 &#43;0800</pubDate>
+      <author>w19891102@126.com (zoehuawang)</author>
+      <guid>/post/linux/</guid>
+      <description>
+        <![CDATA[<h1>Linux</h1><p>作者：zoehuawang（w19891102@126.com）</p>
+        
+          
+        
+        <hr><p>本文2020-07-09首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2020-07-09</p>]]>
       </description>
       
         <category>运维</category>

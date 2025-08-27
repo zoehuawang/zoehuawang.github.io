@@ -227,17 +227,17 @@
       <tr>
           <td>k8s-master</td>
           <td>192.168.14.101</td>
-          <td>docker、etcd、kubelet、kube-proxy、kube-apiserver、kube-controller-manager、kube-scheduler</td>
+          <td>docker etcd kubelet kube-proxy kube-apiserver kube-controller-manager kube-scheduler</td>
       </tr>
       <tr>
           <td>k8s-node1</td>
           <td>192.168.14.102</td>
-          <td>docker、etcd、kubelet、kube-proxy</td>
+          <td>docker etcd kubelet kube-proxy</td>
       </tr>
       <tr>
           <td>k8s-node2</td>
           <td>192.168.14.103</td>
-          <td>docker、etcd、kubelet、kube-proxy</td>
+          <td>docker etcd kubelet kube-proxy</td>
       </tr>
       <tr>
           <td>docker私有仓库</td>
@@ -308,8 +308,13 @@
 </span></span><span class="line"><span class="cl">vim /etc/docker/daemon.json
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="s2">&#34;registry-mirror&#34;</span> : <span class="o">[</span><span class="s2">&#34;https://hub-mirror.c.163.com&#34;</span><span class="o">]</span>,
-</span></span><span class="line"><span class="cl">    <span class="s2">&#34;insecure-registries&#34;</span> : <span class="o">[</span><span class="s2">&#34;registry:5000&#34;</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;registry-mirror&#34;</span> : <span class="o">[</span><span class="s2">&#34;https://hub-mirror.c.163.com&#34;</span><span class="o">]</span>,
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;insecure-registries&#34;</span> : <span class="o">[</span><span class="s2">&#34;registry:5000&#34;</span><span class="o">]</span>,
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;log-level&#34;</span>: <span class="s2">&#34;warn&#34;</span>,
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;log-opts&#34;</span>: <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;max-size&#34;</span>: <span class="s2">&#34;20m&#34;</span>,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;max-file&#34;</span>: <span class="s2">&#34;3&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="c1">###########################分 割 线 #############################</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#重启docker服务</span>
@@ -380,8 +385,13 @@
 </span></span><span class="line"><span class="cl">vim /etc/docker/daemon.json
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="s2">&#34;registry-mirror&#34;</span> : <span class="o">[</span><span class="s2">&#34;https://hub-mirror.c.163.com&#34;</span><span class="o">]</span>,
-</span></span><span class="line"><span class="cl">    <span class="s2">&#34;insecure-registries&#34;</span> : <span class="o">[</span><span class="s2">&#34;registry:5000&#34;</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;registry-mirror&#34;</span> : <span class="o">[</span><span class="s2">&#34;https://hub-mirror.c.163.com&#34;</span><span class="o">]</span>,
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;insecure-registries&#34;</span> : <span class="o">[</span><span class="s2">&#34;registry:5000&#34;</span><span class="o">]</span>,
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;log-level&#34;</span>: <span class="s2">&#34;warn&#34;</span>,
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;log-opts&#34;</span>: <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;max-size&#34;</span>: <span class="s2">&#34;20m&#34;</span>,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;max-file&#34;</span>: <span class="s2">&#34;3&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span></code></pre></div><ul>
 <li>使用 systemd 管理 docker</li>
@@ -1458,7 +1468,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
               data-sizes="auto"
               alt="Ansible自动化"
               class="lazyload"
@@ -1466,7 +1476,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Ansible自动化</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
               data-sizes="auto"
               alt="ELK"
               class="lazyload"
@@ -1479,11 +1489,11 @@
     <div class="footer-line"></div>
   </div>
   <div id="footer-info"><div>
-      <span class="icon-copyright"></span>2021-2025<span class="footer-info-sep rotate"></span>
+      <span class="icon-copyright"></span>2020-2025<span class="footer-info-sep rotate"></span>
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;44.8k</span
+          >&nbsp;44.7k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:46</span>
