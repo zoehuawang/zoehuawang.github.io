@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on ︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</title>
-    <link>/tags/</link>
+    <link>http://192.168.7.53:1313/tags/</link>
     <description>Recent content from ︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
@@ -15,7 +15,7 @@
     <lastBuildDate></lastBuildDate>
     
     
-    <atom:link href="/tags/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="http://192.168.7.53:1313/tags/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     

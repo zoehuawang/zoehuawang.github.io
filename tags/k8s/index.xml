@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>K8s on ︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</title>
-    <link>/tags/k8s/</link>
+    <link>http://192.168.7.53:1313/tags/k8s/</link>
     <description>Recent content from ︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
@@ -15,7 +15,7 @@
     <lastBuildDate>Sat, 17 Jun 2023 11:37:31 +0800</lastBuildDate>
     
     
-    <atom:link href="/tags/k8s/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="http://192.168.7.53:1313/tags/k8s/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -23,16 +23,16 @@
 
     <item>
       <title>K8s离线部署</title>
-      <link>/post/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/</link>
+      <link>http://192.168.7.53:1313/post/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/</link>
       <pubDate>Sat, 17 Jun 2023 11:37:31 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>/post/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/</guid>
+      <guid>http://192.168.7.53:1313/post/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/</guid>
       <description>
         <![CDATA[<h1>K8s离线部署</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
-        <hr><p>本文2023-06-17首发于<a href='/'>︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</a>，最后修改于2023-06-17</p>]]>
+        <hr><p>本文2023-06-17首发于<a href='http://192.168.7.53:1313/'>︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</a>，最后修改于2023-06-17</p>]]>
       </description>
       
         <category>K8S</category>
@@ -43,16 +43,16 @@
 
     <item>
       <title>Kubernetes</title>
-      <link>/post/kubernetes/</link>
+      <link>http://192.168.7.53:1313/post/kubernetes/</link>
       <pubDate>Thu, 15 Jun 2023 11:32:05 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>/post/kubernetes/</guid>
+      <guid>http://192.168.7.53:1313/post/kubernetes/</guid>
       <description>
         <![CDATA[<h1>Kubernetes</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
-        <hr><p>本文2023-06-15首发于<a href='/'>︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</a>，最后修改于2023-06-15</p>]]>
+        <hr><p>本文2023-06-15首发于<a href='http://192.168.7.53:1313/'>︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</a>，最后修改于2023-06-15</p>]]>
       </description>
       
         <category>K8S</category>

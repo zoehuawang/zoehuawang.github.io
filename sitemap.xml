@@ -2,184 +2,184 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/</loc>
+    <loc>http://192.168.7.53:1313/</loc>
     <lastmod>2025-07-02T10:31:47+08:00</lastmod>
   </url><url>
-    <loc>/categories/</loc>
+    <loc>http://192.168.7.53:1313/categories/</loc>
     <lastmod>2025-07-02T10:31:47+08:00</lastmod>
   </url><url>
-    <loc>/tags/docker/</loc>
+    <loc>http://192.168.7.53:1313/tags/docker/</loc>
     <lastmod>2025-07-02T10:31:47+08:00</lastmod>
   </url><url>
-    <loc>/post/mfa%E5%8F%8C%E5%9B%A0%E5%AD%90%E8%AE%A4%E8%AF%81%E6%9C%8D%E5%8A%A1%E7%AB%AF/</loc>
+    <loc>http://192.168.7.53:1313/post/mfa%E5%8F%8C%E5%9B%A0%E5%AD%90%E8%AE%A4%E8%AF%81%E6%9C%8D%E5%8A%A1%E7%AB%AF/</loc>
     <lastmod>2025-07-02T10:31:47+08:00</lastmod>
   </url><url>
-    <loc>/tags/</loc>
+    <loc>http://192.168.7.53:1313/tags/</loc>
     <lastmod>2025-07-02T10:31:47+08:00</lastmod>
   </url><url>
-    <loc>/categories/%E8%BF%90%E7%BB%B4/</loc>
+    <loc>http://192.168.7.53:1313/categories/%E8%BF%90%E7%BB%B4/</loc>
     <lastmod>2025-07-02T10:31:47+08:00</lastmod>
   </url><url>
-    <loc>/post/istio%E4%B9%8B%E7%81%B0%E5%BA%A6%E5%8F%91%E5%B8%83/</loc>
+    <loc>http://192.168.7.53:1313/post/istio%E4%B9%8B%E7%81%B0%E5%BA%A6%E5%8F%91%E5%B8%83/</loc>
     <lastmod>2025-04-28T10:53:10+08:00</lastmod>
   </url><url>
-    <loc>/tags/%E5%88%86%E4%BA%AB/</loc>
+    <loc>http://192.168.7.53:1313/tags/%E5%88%86%E4%BA%AB/</loc>
     <lastmod>2025-04-28T10:53:10+08:00</lastmod>
   </url><url>
-    <loc>/tags/sip/</loc>
+    <loc>http://192.168.7.53:1313/tags/sip/</loc>
     <lastmod>2025-02-02T10:57:18+08:00</lastmod>
   </url><url>
-    <loc>/post/%E8%BD%BB%E9%87%8F%E7%BA%A7sip%E5%B7%A5%E5%85%B7sipsak/</loc>
+    <loc>http://192.168.7.53:1313/post/%E8%BD%BB%E9%87%8F%E7%BA%A7sip%E5%B7%A5%E5%85%B7sipsak/</loc>
     <lastmod>2025-02-02T10:57:18+08:00</lastmod>
   </url><url>
-    <loc>/categories/docker/</loc>
+    <loc>http://192.168.7.53:1313/categories/docker/</loc>
     <lastmod>2025-01-23T10:56:08+08:00</lastmod>
   </url><url>
-    <loc>/post/docker%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2jumpserver/</loc>
+    <loc>http://192.168.7.53:1313/post/docker%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2jumpserver/</loc>
     <lastmod>2025-01-23T10:56:08+08:00</lastmod>
   </url><url>
-    <loc>/tags/jumpserver/</loc>
+    <loc>http://192.168.7.53:1313/tags/jumpserver/</loc>
     <lastmod>2025-01-23T10:56:08+08:00</lastmod>
   </url><url>
-    <loc>/tags/elk/</loc>
+    <loc>http://192.168.7.53:1313/tags/elk/</loc>
     <lastmod>2024-12-16T11:03:17+08:00</lastmod>
   </url><url>
-    <loc>/categories/k8s/</loc>
+    <loc>http://192.168.7.53:1313/categories/k8s/</loc>
     <lastmod>2024-12-16T11:03:17+08:00</lastmod>
   </url><url>
-    <loc>/post/kubernetes%E4%B9%8Belk%E9%9B%86%E7%BE%A4/</loc>
+    <loc>http://192.168.7.53:1313/post/kubernetes%E4%B9%8Belk%E9%9B%86%E7%BE%A4/</loc>
     <lastmod>2024-12-16T11:03:17+08:00</lastmod>
   </url><url>
-    <loc>/post/%E8%85%BE%E8%AE%AF%E4%BA%91docker%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93/</loc>
+    <loc>http://192.168.7.53:1313/post/%E8%85%BE%E8%AE%AF%E4%BA%91docker%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93/</loc>
     <lastmod>2023-06-27T11:25:53+08:00</lastmod>
   </url><url>
-    <loc>/tags/%E8%B5%84%E6%BA%90/</loc>
+    <loc>http://192.168.7.53:1313/tags/%E8%B5%84%E6%BA%90/</loc>
     <lastmod>2023-06-27T11:25:53+08:00</lastmod>
   </url><url>
-    <loc>/post/sip%E5%BA%94%E7%AD%94%E6%B6%88%E6%81%AF%E7%8A%B6%E6%80%81%E7%A0%81/</loc>
+    <loc>http://192.168.7.53:1313/post/sip%E5%BA%94%E7%AD%94%E6%B6%88%E6%81%AF%E7%8A%B6%E6%80%81%E7%A0%81/</loc>
     <lastmod>2023-06-27T11:14:05+08:00</lastmod>
   </url><url>
-    <loc>/categories/elk/</loc>
+    <loc>http://192.168.7.53:1313/categories/elk/</loc>
     <lastmod>2023-06-20T11:31:04+08:00</lastmod>
   </url><url>
-    <loc>/post/elk/</loc>
+    <loc>http://192.168.7.53:1313/post/elk/</loc>
     <lastmod>2023-06-20T11:31:04+08:00</lastmod>
   </url><url>
-    <loc>/tags/k8s/</loc>
+    <loc>http://192.168.7.53:1313/tags/k8s/</loc>
     <lastmod>2023-06-17T11:37:31+08:00</lastmod>
   </url><url>
-    <loc>/post/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/</loc>
+    <loc>http://192.168.7.53:1313/post/k8s%E7%A6%BB%E7%BA%BF%E9%83%A8%E7%BD%B2/</loc>
     <lastmod>2023-06-17T11:37:31+08:00</lastmod>
   </url><url>
-    <loc>/tags/ansible/</loc>
+    <loc>http://192.168.7.53:1313/tags/ansible/</loc>
     <lastmod>2023-06-17T11:27:50+08:00</lastmod>
   </url><url>
-    <loc>/post/ansible%E8%87%AA%E5%8A%A8%E5%8C%96/</loc>
+    <loc>http://192.168.7.53:1313/post/ansible%E8%87%AA%E5%8A%A8%E5%8C%96/</loc>
     <lastmod>2023-06-17T11:27:50+08:00</lastmod>
   </url><url>
-    <loc>/tags/%E8%BF%90%E7%BB%B4/</loc>
+    <loc>http://192.168.7.53:1313/tags/%E8%BF%90%E7%BB%B4/</loc>
     <lastmod>2023-06-17T11:27:50+08:00</lastmod>
   </url><url>
-    <loc>/post/kubernetes%E4%B9%8Bproxysql%E9%9B%86%E7%BE%A4/</loc>
+    <loc>http://192.168.7.53:1313/post/kubernetes%E4%B9%8Bproxysql%E9%9B%86%E7%BE%A4/</loc>
     <lastmod>2023-06-16T11:36:24+08:00</lastmod>
   </url><url>
-    <loc>/tags/proxsql/</loc>
+    <loc>http://192.168.7.53:1313/tags/proxsql/</loc>
     <lastmod>2023-06-16T11:36:24+08:00</lastmod>
   </url><url>
-    <loc>/post/kubernetes/</loc>
+    <loc>http://192.168.7.53:1313/post/kubernetes/</loc>
     <lastmod>2023-06-15T11:32:05+08:00</lastmod>
   </url><url>
-    <loc>/tags/etcd/</loc>
+    <loc>http://192.168.7.53:1313/tags/etcd/</loc>
     <lastmod>2023-06-13T11:35:16+08:00</lastmod>
   </url><url>
-    <loc>/post/kubernetes%E4%B9%8Bstatefulset%E9%83%A8%E7%BD%B2etcd%E9%9B%86%E7%BE%A4/</loc>
+    <loc>http://192.168.7.53:1313/post/kubernetes%E4%B9%8Bstatefulset%E9%83%A8%E7%BD%B2etcd%E9%9B%86%E7%BE%A4/</loc>
     <lastmod>2023-06-13T11:35:16+08:00</lastmod>
   </url><url>
-    <loc>/post/mgr%E5%8D%95%E4%B8%BB/</loc>
+    <loc>http://192.168.7.53:1313/post/mgr%E5%8D%95%E4%B8%BB/</loc>
     <lastmod>2023-06-13T11:34:09+08:00</lastmod>
   </url><url>
-    <loc>/tags/mysql/</loc>
+    <loc>http://192.168.7.53:1313/tags/mysql/</loc>
     <lastmod>2023-06-13T11:34:09+08:00</lastmod>
   </url><url>
-    <loc>/categories/freeswitch/</loc>
+    <loc>http://192.168.7.53:1313/categories/freeswitch/</loc>
     <lastmod>2023-06-13T11:09:57+08:00</lastmod>
   </url><url>
-    <loc>/post/freeswitch/</loc>
+    <loc>http://192.168.7.53:1313/post/freeswitch/</loc>
     <lastmod>2023-06-13T11:09:57+08:00</lastmod>
   </url><url>
-    <loc>/tags/freeswitch/</loc>
+    <loc>http://192.168.7.53:1313/tags/freeswitch/</loc>
     <lastmod>2023-06-13T11:09:57+08:00</lastmod>
   </url><url>
-    <loc>/post/kafka/</loc>
+    <loc>http://192.168.7.53:1313/post/kafka/</loc>
     <lastmod>2023-06-12T11:17:49+08:00</lastmod>
   </url><url>
-    <loc>/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/</loc>
+    <loc>http://192.168.7.53:1313/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/</loc>
     <lastmod>2023-06-12T11:06:57+08:00</lastmod>
   </url><url>
-    <loc>/post/rabbitmq%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</loc>
+    <loc>http://192.168.7.53:1313/post/rabbitmq%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</loc>
     <lastmod>2023-06-11T11:33:00+08:00</lastmod>
   </url><url>
-    <loc>/post/freeswitch-1.4.26%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</loc>
+    <loc>http://192.168.7.53:1313/post/freeswitch-1.4.26%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2023-06-11T11:08:28+08:00</lastmod>
   </url><url>
-    <loc>/post/linux/</loc>
+    <loc>http://192.168.7.53:1313/post/linux/</loc>
     <lastmod>2023-06-09T11:29:50+08:00</lastmod>
   </url><url>
-    <loc>/categories/python/</loc>
+    <loc>http://192.168.7.53:1313/categories/python/</loc>
     <lastmod>2023-06-09T11:23:25+08:00</lastmod>
   </url><url>
-    <loc>/post/python/</loc>
+    <loc>http://192.168.7.53:1313/post/python/</loc>
     <lastmod>2023-06-09T11:23:25+08:00</lastmod>
   </url><url>
-    <loc>/tags/python/</loc>
+    <loc>http://192.168.7.53:1313/tags/python/</loc>
     <lastmod>2023-06-09T11:23:25+08:00</lastmod>
   </url><url>
-    <loc>/tags/oracle/</loc>
+    <loc>http://192.168.7.53:1313/tags/oracle/</loc>
     <lastmod>2023-06-08T11:22:21+08:00</lastmod>
   </url><url>
-    <loc>/post/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <loc>http://192.168.7.53:1313/post/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     <lastmod>2023-06-08T11:22:21+08:00</lastmod>
   </url><url>
-    <loc>/post/keepalived%E9%AB%98%E5%8F%AF%E7%94%A8%E9%85%8D%E7%BD%AE/</loc>
+    <loc>http://192.168.7.53:1313/post/keepalived%E9%AB%98%E5%8F%AF%E7%94%A8%E9%85%8D%E7%BD%AE/</loc>
     <lastmod>2023-06-08T11:21:16+08:00</lastmod>
   </url><url>
-    <loc>/post/docker/</loc>
+    <loc>http://192.168.7.53:1313/post/docker/</loc>
     <lastmod>2023-06-07T11:15:16+08:00</lastmod>
   </url><url>
-    <loc>/post/git/</loc>
+    <loc>http://192.168.7.53:1313/post/git/</loc>
     <lastmod>2023-06-04T11:16:58+08:00</lastmod>
   </url><url>
-    <loc>/categories/go/</loc>
+    <loc>http://192.168.7.53:1313/categories/go/</loc>
     <lastmod>2023-06-02T11:26:49+08:00</lastmod>
   </url><url>
-    <loc>/tags/go/</loc>
+    <loc>http://192.168.7.53:1313/tags/go/</loc>
     <lastmod>2023-06-02T11:26:49+08:00</lastmod>
   </url><url>
-    <loc>/post/golang/</loc>
+    <loc>http://192.168.7.53:1313/post/golang/</loc>
     <lastmod>2023-06-02T11:26:49+08:00</lastmod>
   </url><url>
-    <loc>/post/%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2openvpn/</loc>
+    <loc>http://192.168.7.53:1313/post/%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2openvpn/</loc>
     <lastmod>2023-01-02T10:54:44+08:00</lastmod>
   </url><url>
-    <loc>/post/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8Ffrp/</loc>
+    <loc>http://192.168.7.53:1313/post/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8Ffrp/</loc>
     <lastmod>2022-10-11T11:02:07+08:00</lastmod>
   </url><url>
-    <loc>/archives/</loc>
+    <loc>http://192.168.7.53:1313/archives/</loc>
     <lastmod>2022-07-26T21:46:25+08:00</lastmod>
   </url><url>
-    <loc>/about/</loc>
+    <loc>http://192.168.7.53:1313/about/</loc>
     <lastmod>2022-06-09T20:12:52+08:00</lastmod>
   </url><url>
-    <loc>/friend/</loc>
+    <loc>http://192.168.7.53:1313/friend/</loc>
     <lastmod>2022-06-09T20:12:52+08:00</lastmod>
   </url><url>
-    <loc>/post/rpmbuild%E5%B0%86%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%A5%BD%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%89%93%E6%88%90rpm%E5%8C%85/</loc>
+    <loc>http://192.168.7.53:1313/post/rpmbuild%E5%B0%86%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%A5%BD%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%89%93%E6%88%90rpm%E5%8C%85/</loc>
     <lastmod>2022-05-05T10:29:50+08:00</lastmod>
   </url><url>
-    <loc>/post/ffmpeg/</loc>
+    <loc>http://192.168.7.53:1313/post/ffmpeg/</loc>
     <lastmod>2021-07-02T11:05:49+08:00</lastmod>
   </url><url>
-    <loc>/post/%E9%93%B6%E8%A1%8C%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6/</loc>
+    <loc>http://192.168.7.53:1313/post/%E9%93%B6%E8%A1%8C%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6/</loc>
     <lastmod>2021-06-08T11:24:20+08:00</lastmod>
   </url>
 </urlset>

@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Go on ︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</title>
-    <link>/categories/go/</link>
+    <link>http://192.168.7.53:1313/categories/go/</link>
     <description>Recent content from ︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
@@ -15,7 +15,7 @@
     <lastBuildDate>Fri, 02 Jun 2023 11:26:49 +0800</lastBuildDate>
     
     
-    <atom:link href="/categories/go/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="http://192.168.7.53:1313/categories/go/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -23,16 +23,16 @@
 
     <item>
       <title>Golang</title>
-      <link>/post/golang/</link>
+      <link>http://192.168.7.53:1313/post/golang/</link>
       <pubDate>Fri, 02 Jun 2023 11:26:49 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>/post/golang/</guid>
+      <guid>http://192.168.7.53:1313/post/golang/</guid>
       <description>
         <![CDATA[<h1>Golang</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
-        <hr><p>本文2023-06-02首发于<a href='/'>︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</a>，最后修改于2023-06-02</p>]]>
+        <hr><p>本文2023-06-02首发于<a href='http://192.168.7.53:1313/'>︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</a>，最后修改于2023-06-02</p>]]>
       </description>
       
         <category>Go</category>

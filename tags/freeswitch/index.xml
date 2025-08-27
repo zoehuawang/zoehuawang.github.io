@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Freeswitch on ︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</title>
-    <link>/tags/freeswitch/</link>
+    <link>http://192.168.7.53:1313/tags/freeswitch/</link>
     <description>Recent content from ︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
@@ -15,7 +15,7 @@
     <lastBuildDate>Tue, 13 Jun 2023 11:09:57 +0800</lastBuildDate>
     
     
-    <atom:link href="/tags/freeswitch/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="http://192.168.7.53:1313/tags/freeswitch/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -23,16 +23,16 @@
 
     <item>
       <title>Freeswitch</title>
-      <link>/post/freeswitch/</link>
+      <link>http://192.168.7.53:1313/post/freeswitch/</link>
       <pubDate>Tue, 13 Jun 2023 11:09:57 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>/post/freeswitch/</guid>
+      <guid>http://192.168.7.53:1313/post/freeswitch/</guid>
       <description>
         <![CDATA[<h1>Freeswitch</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
-        <hr><p>本文2023-06-13首发于<a href='/'>︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</a>，最后修改于2023-06-13</p>]]>
+        <hr><p>本文2023-06-13首发于<a href='http://192.168.7.53:1313/'>︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</a>，最后修改于2023-06-13</p>]]>
       </description>
       
         <category>Freeswitch</category>
@@ -43,16 +43,16 @@
 
     <item>
       <title>Freeswitch 1.10.6的docker镜像构建</title>
-      <link>/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/</link>
+      <link>http://192.168.7.53:1313/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/</link>
       <pubDate>Mon, 12 Jun 2023 11:06:57 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/</guid>
+      <guid>http://192.168.7.53:1313/post/freeswitch-1.10.6%E7%9A%84docker%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/</guid>
       <description>
         <![CDATA[<h1>Freeswitch 1.10.6的docker镜像构建</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
-        <hr><p>本文2023-06-12首发于<a href='/'>︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</a>，最后修改于2023-06-12</p>]]>
+        <hr><p>本文2023-06-12首发于<a href='http://192.168.7.53:1313/'>︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</a>，最后修改于2023-06-12</p>]]>
       </description>
       
         <category>Freeswitch</category><category>Docker</category>
@@ -63,16 +63,16 @@
 
     <item>
       <title>Freeswitch 1.4.26基本安装使用</title>
-      <link>/post/freeswitch-1.4.26%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</link>
+      <link>http://192.168.7.53:1313/post/freeswitch-1.4.26%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</link>
       <pubDate>Sun, 11 Jun 2023 11:08:28 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>/post/freeswitch-1.4.26%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</guid>
+      <guid>http://192.168.7.53:1313/post/freeswitch-1.4.26%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</guid>
       <description>
         <![CDATA[<h1>Freeswitch 1.4.26基本安装使用</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
-        <hr><p>本文2023-06-11首发于<a href='/'>︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</a>，最后修改于2023-06-11</p>]]>
+        <hr><p>本文2023-06-11首发于<a href='http://192.168.7.53:1313/'>︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</a>，最后修改于2023-06-11</p>]]>
       </description>
       
         <category></category>

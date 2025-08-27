@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Etcd on ︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</title>
-    <link>/tags/etcd/</link>
+    <link>http://192.168.7.53:1313/tags/etcd/</link>
     <description>Recent content from ︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
@@ -15,7 +15,7 @@
     <lastBuildDate>Tue, 13 Jun 2023 11:35:16 +0800</lastBuildDate>
     
     
-    <atom:link href="/tags/etcd/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="http://192.168.7.53:1313/tags/etcd/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -23,16 +23,16 @@
 
     <item>
       <title>Kubernetes之StatefulSet部署etcd集群</title>
-      <link>/post/kubernetes%E4%B9%8Bstatefulset%E9%83%A8%E7%BD%B2etcd%E9%9B%86%E7%BE%A4/</link>
+      <link>http://192.168.7.53:1313/post/kubernetes%E4%B9%8Bstatefulset%E9%83%A8%E7%BD%B2etcd%E9%9B%86%E7%BE%A4/</link>
       <pubDate>Tue, 13 Jun 2023 11:35:16 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>/post/kubernetes%E4%B9%8Bstatefulset%E9%83%A8%E7%BD%B2etcd%E9%9B%86%E7%BE%A4/</guid>
+      <guid>http://192.168.7.53:1313/post/kubernetes%E4%B9%8Bstatefulset%E9%83%A8%E7%BD%B2etcd%E9%9B%86%E7%BE%A4/</guid>
       <description>
         <![CDATA[<h1>Kubernetes之StatefulSet部署etcd集群</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
-        <hr><p>本文2023-06-13首发于<a href='/'>︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</a>，最后修改于2023-06-13</p>]]>
+        <hr><p>本文2023-06-13首发于<a href='http://192.168.7.53:1313/'>︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</a>，最后修改于2023-06-13</p>]]>
       </description>
       
         <category>K8S</category>
