@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ansible on ︶烟花散尽不问繁华┈┾</title>
-    <link>http://192.168.7.53:35247/tags/ansible/</link>
+    <link>/tags/ansible/</link>
     <description>Recent content from ︶烟花散尽不问繁华┈┾</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
@@ -15,7 +15,7 @@
     <lastBuildDate>Sat, 17 Jun 2023 11:27:50 +0800</lastBuildDate>
     
     
-    <atom:link href="http://192.168.7.53:35247/tags/ansible/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="/tags/ansible/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -23,16 +23,16 @@
 
     <item>
       <title>Ansible自动化</title>
-      <link>http://192.168.7.53:35247/post/ansible%E8%87%AA%E5%8A%A8%E5%8C%96/</link>
+      <link>/post/ansible%E8%87%AA%E5%8A%A8%E5%8C%96/</link>
       <pubDate>Sat, 17 Jun 2023 11:27:50 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>http://192.168.7.53:35247/post/ansible%E8%87%AA%E5%8A%A8%E5%8C%96/</guid>
+      <guid>/post/ansible%E8%87%AA%E5%8A%A8%E5%8C%96/</guid>
       <description>
         <![CDATA[<h1>Ansible自动化</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
-        <hr><p>本文2023-06-17首发于<a href='http://192.168.7.53:35247/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2023-06-17</p>]]>
+        <hr><p>本文2023-06-17首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2023-06-17</p>]]>
       </description>
       
         <category></category>

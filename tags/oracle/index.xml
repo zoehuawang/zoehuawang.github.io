@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Oracle on ︶烟花散尽不问繁华┈┾</title>
-    <link>http://192.168.7.53:35247/tags/oracle/</link>
+    <link>/tags/oracle/</link>
     <description>Recent content from ︶烟花散尽不问繁华┈┾</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
@@ -15,7 +15,7 @@
     <lastBuildDate>Thu, 08 Jun 2023 11:22:21 +0800</lastBuildDate>
     
     
-    <atom:link href="http://192.168.7.53:35247/tags/oracle/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="/tags/oracle/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -23,16 +23,16 @@
 
     <item>
       <title>数据库</title>
-      <link>http://192.168.7.53:35247/post/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+      <link>/post/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
       <pubDate>Thu, 08 Jun 2023 11:22:21 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>http://192.168.7.53:35247/post/%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+      <guid>/post/%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
       <description>
         <![CDATA[<h1>数据库</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
-        <hr><p>本文2023-06-08首发于<a href='http://192.168.7.53:35247/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2023-06-08</p>]]>
+        <hr><p>本文2023-06-08首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2023-06-08</p>]]>
       </description>
       
         <category></category>

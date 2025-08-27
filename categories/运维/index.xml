@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>运维 on ︶烟花散尽不问繁华┈┾</title>
-    <link>http://192.168.7.53:35247/categories/%E8%BF%90%E7%BB%B4/</link>
+    <link>/categories/%E8%BF%90%E7%BB%B4/</link>
     <description>Recent content from ︶烟花散尽不问繁华┈┾</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
@@ -15,7 +15,7 @@
     <lastBuildDate>Wed, 02 Jul 2025 10:31:47 +0800</lastBuildDate>
     
     
-    <atom:link href="http://192.168.7.53:35247/categories/%E8%BF%90%E7%BB%B4/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="/categories/%E8%BF%90%E7%BB%B4/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -23,16 +23,16 @@
 
     <item>
       <title>MFA双因子认证服务端</title>
-      <link>http://192.168.7.53:35247/post/mfa%E5%8F%8C%E5%9B%A0%E5%AD%90%E8%AE%A4%E8%AF%81%E6%9C%8D%E5%8A%A1%E7%AB%AF/</link>
+      <link>/post/mfa%E5%8F%8C%E5%9B%A0%E5%AD%90%E8%AE%A4%E8%AF%81%E6%9C%8D%E5%8A%A1%E7%AB%AF/</link>
       <pubDate>Wed, 02 Jul 2025 10:31:47 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>http://192.168.7.53:35247/post/mfa%E5%8F%8C%E5%9B%A0%E5%AD%90%E8%AE%A4%E8%AF%81%E6%9C%8D%E5%8A%A1%E7%AB%AF/</guid>
+      <guid>/post/mfa%E5%8F%8C%E5%9B%A0%E5%AD%90%E8%AE%A4%E8%AF%81%E6%9C%8D%E5%8A%A1%E7%AB%AF/</guid>
       <description>
         <![CDATA[<h1>MFA双因子认证服务端</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
-        <hr><p>本文2025-07-02首发于<a href='http://192.168.7.53:35247/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2025-07-02</p>]]>
+        <hr><p>本文2025-07-02首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2025-07-02</p>]]>
       </description>
       
         <category>运维</category>
@@ -43,16 +43,16 @@
 
     <item>
       <title>Istio之灰度发布</title>
-      <link>http://192.168.7.53:35247/post/istio%E4%B9%8B%E7%81%B0%E5%BA%A6%E5%8F%91%E5%B8%83/</link>
+      <link>/post/istio%E4%B9%8B%E7%81%B0%E5%BA%A6%E5%8F%91%E5%B8%83/</link>
       <pubDate>Mon, 28 Apr 2025 10:53:10 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>http://192.168.7.53:35247/post/istio%E4%B9%8B%E7%81%B0%E5%BA%A6%E5%8F%91%E5%B8%83/</guid>
+      <guid>/post/istio%E4%B9%8B%E7%81%B0%E5%BA%A6%E5%8F%91%E5%B8%83/</guid>
       <description>
         <![CDATA[<h1>Istio之灰度发布</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
-        <hr><p>本文2025-04-28首发于<a href='http://192.168.7.53:35247/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2025-04-28</p>]]>
+        <hr><p>本文2025-04-28首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2025-04-28</p>]]>
       </description>
       
         <category>运维</category>
@@ -63,16 +63,16 @@
 
     <item>
       <title>MGR单主</title>
-      <link>http://192.168.7.53:35247/post/mgr%E5%8D%95%E4%B8%BB/</link>
+      <link>/post/mgr%E5%8D%95%E4%B8%BB/</link>
       <pubDate>Tue, 13 Jun 2023 11:34:09 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>http://192.168.7.53:35247/post/mgr%E5%8D%95%E4%B8%BB/</guid>
+      <guid>/post/mgr%E5%8D%95%E4%B8%BB/</guid>
       <description>
         <![CDATA[<h1>MGR单主</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
-        <hr><p>本文2023-06-13首发于<a href='http://192.168.7.53:35247/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2023-06-13</p>]]>
+        <hr><p>本文2023-06-13首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2023-06-13</p>]]>
       </description>
       
         <category>运维</category>
@@ -83,16 +83,16 @@
 
     <item>
       <title>Keepalived高可用配置</title>
-      <link>http://192.168.7.53:35247/post/keepalived%E9%AB%98%E5%8F%AF%E7%94%A8%E9%85%8D%E7%BD%AE/</link>
+      <link>/post/keepalived%E9%AB%98%E5%8F%AF%E7%94%A8%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Thu, 08 Jun 2023 11:21:16 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>http://192.168.7.53:35247/post/keepalived%E9%AB%98%E5%8F%AF%E7%94%A8%E9%85%8D%E7%BD%AE/</guid>
+      <guid>/post/keepalived%E9%AB%98%E5%8F%AF%E7%94%A8%E9%85%8D%E7%BD%AE/</guid>
       <description>
         <![CDATA[<h1>Keepalived高可用配置</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
-        <hr><p>本文2023-06-08首发于<a href='http://192.168.7.53:35247/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2023-06-08</p>]]>
+        <hr><p>本文2023-06-08首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2023-06-08</p>]]>
       </description>
       
         <category>运维</category>
@@ -103,16 +103,16 @@
 
     <item>
       <title>rpmbuild将编译安装好的软件打成RPM包</title>
-      <link>http://192.168.7.53:35247/post/rpmbuild%E5%B0%86%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%A5%BD%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%89%93%E6%88%90rpm%E5%8C%85/</link>
+      <link>/post/rpmbuild%E5%B0%86%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%A5%BD%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%89%93%E6%88%90rpm%E5%8C%85/</link>
       <pubDate>Thu, 05 May 2022 10:29:50 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>http://192.168.7.53:35247/post/rpmbuild%E5%B0%86%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%A5%BD%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%89%93%E6%88%90rpm%E5%8C%85/</guid>
+      <guid>/post/rpmbuild%E5%B0%86%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%A5%BD%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%89%93%E6%88%90rpm%E5%8C%85/</guid>
       <description>
         <![CDATA[<h1>rpmbuild将编译安装好的软件打成RPM包</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
-        <hr><p>本文2022-05-05首发于<a href='http://192.168.7.53:35247/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2022-05-05</p>]]>
+        <hr><p>本文2022-05-05首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2022-05-05</p>]]>
       </description>
       
         <category>运维</category>
@@ -123,16 +123,16 @@
 
     <item>
       <title>Linux</title>
-      <link>http://192.168.7.53:35247/post/linux/</link>
+      <link>/post/linux/</link>
       <pubDate>Thu, 09 Jul 2020 11:29:50 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>http://192.168.7.53:35247/post/linux/</guid>
+      <guid>/post/linux/</guid>
       <description>
         <![CDATA[<h1>Linux</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
-        <hr><p>本文2020-07-09首发于<a href='http://192.168.7.53:35247/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2020-07-09</p>]]>
+        <hr><p>本文2020-07-09首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2020-07-09</p>]]>
       </description>
       
         <category>运维</category>
