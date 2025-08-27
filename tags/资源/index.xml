@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>资源 on ︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</title>
-    <link>http://192.168.7.53:1313/tags/%E8%B5%84%E6%BA%90/</link>
-    <description>Recent content from ︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</description>
+    <title>资源 on ︶烟花散尽不问繁华┈┾</title>
+    <link>/tags/%E8%B5%84%E6%BA%90/</link>
+    <description>Recent content from ︶烟花散尽不问繁华┈┾</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     
@@ -15,7 +15,7 @@
     <lastBuildDate>Tue, 27 Jun 2023 11:25:53 +0800</lastBuildDate>
     
     
-    <atom:link href="http://192.168.7.53:1313/tags/%E8%B5%84%E6%BA%90/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="/tags/%E8%B5%84%E6%BA%90/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -23,16 +23,16 @@
 
     <item>
       <title>腾讯云docker镜像仓库</title>
-      <link>http://192.168.7.53:1313/post/%E8%85%BE%E8%AE%AF%E4%BA%91docker%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93/</link>
+      <link>/post/%E8%85%BE%E8%AE%AF%E4%BA%91docker%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93/</link>
       <pubDate>Tue, 27 Jun 2023 11:25:53 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>http://192.168.7.53:1313/post/%E8%85%BE%E8%AE%AF%E4%BA%91docker%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93/</guid>
+      <guid>/post/%E8%85%BE%E8%AE%AF%E4%BA%91docker%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93/</guid>
       <description>
         <![CDATA[<h1>腾讯云docker镜像仓库</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
-        <hr><p>本文2023-06-27首发于<a href='http://192.168.7.53:1313/'>︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</a>，最后修改于2023-06-27</p>]]>
+        <hr><p>本文2023-06-27首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2023-06-27</p>]]>
       </description>
       
         <category>Docker</category>

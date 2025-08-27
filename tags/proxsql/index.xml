@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Proxsql on ︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</title>
-    <link>http://192.168.7.53:1313/tags/proxsql/</link>
-    <description>Recent content from ︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</description>
+    <title>Proxsql on ︶烟花散尽不问繁华┈┾</title>
+    <link>/tags/proxsql/</link>
+    <description>Recent content from ︶烟花散尽不问繁华┈┾</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     
@@ -15,7 +15,7 @@
     <lastBuildDate>Fri, 16 Jun 2023 11:36:24 +0800</lastBuildDate>
     
     
-    <atom:link href="http://192.168.7.53:1313/tags/proxsql/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="/tags/proxsql/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -23,16 +23,16 @@
 
     <item>
       <title>Kubernetes之proxysql集群</title>
-      <link>http://192.168.7.53:1313/post/kubernetes%E4%B9%8Bproxysql%E9%9B%86%E7%BE%A4/</link>
+      <link>/post/kubernetes%E4%B9%8Bproxysql%E9%9B%86%E7%BE%A4/</link>
       <pubDate>Fri, 16 Jun 2023 11:36:24 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>http://192.168.7.53:1313/post/kubernetes%E4%B9%8Bproxysql%E9%9B%86%E7%BE%A4/</guid>
+      <guid>/post/kubernetes%E4%B9%8Bproxysql%E9%9B%86%E7%BE%A4/</guid>
       <description>
         <![CDATA[<h1>Kubernetes之proxysql集群</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
-        <hr><p>本文2023-06-16首发于<a href='http://192.168.7.53:1313/'>︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</a>，最后修改于2023-06-16</p>]]>
+        <hr><p>本文2023-06-16首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2023-06-16</p>]]>
       </description>
       
         <category>K8S</category>

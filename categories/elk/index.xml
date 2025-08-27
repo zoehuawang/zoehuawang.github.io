@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>ELK on ︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</title>
-    <link>http://192.168.7.53:1313/categories/elk/</link>
-    <description>Recent content from ︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</description>
+    <title>ELK on ︶烟花散尽不问繁华┈┾</title>
+    <link>/categories/elk/</link>
+    <description>Recent content from ︶烟花散尽不问繁华┈┾</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     
@@ -15,7 +15,7 @@
     <lastBuildDate>Tue, 20 Jun 2023 11:31:04 +0800</lastBuildDate>
     
     
-    <atom:link href="http://192.168.7.53:1313/categories/elk/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="/categories/elk/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -23,16 +23,16 @@
 
     <item>
       <title>ELK</title>
-      <link>http://192.168.7.53:1313/post/elk/</link>
+      <link>/post/elk/</link>
       <pubDate>Tue, 20 Jun 2023 11:31:04 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>http://192.168.7.53:1313/post/elk/</guid>
+      <guid>/post/elk/</guid>
       <description>
         <![CDATA[<h1>ELK</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         
-        <hr><p>本文2023-06-20首发于<a href='http://192.168.7.53:1313/'>︶烟花散尽不问繁华┈┾ | zoehuawang的个人网站</a>，最后修改于2023-06-20</p>]]>
+        <hr><p>本文2023-06-20首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2023-06-20</p>]]>
       </description>
       
         <category>ELK</category>
