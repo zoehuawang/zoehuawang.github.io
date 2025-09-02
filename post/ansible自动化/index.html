@@ -187,6 +187,12 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#返回巨量的主机变量数据</span>
 </span></span><span class="line"><span class="cl">ansible all -i 192.168.X.X, -m setup
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#只获取主机的操作系统信息</span>
+</span></span><span class="line"><span class="cl">ansible all -i 192.168.X.X, -m setup -a <span class="s2">&#34;filter=ansible_distribution*&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#只获取主机的网络信息</span>
+</span></span><span class="line"><span class="cl">ansible all -i 192.168.X.X, -m setup -a <span class="s2">&#34;filter=ansible_*_ipv*&#34;</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#拷贝本机文件到远程客户端</span>
 </span></span><span class="line"><span class="cl">ansible all -m copy -a <span class="s1">&#39;src=/etc/passwd dest=/tmp/passwd&#39;</span>
 </span></span><span class="line"><span class="cl">
@@ -336,7 +342,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg9.webp"
               data-sizes="auto"
               alt="Kubernetes之proxysql集群"
               class="lazyload"
@@ -344,7 +350,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Kubernetes之proxysql集群</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg10.webp"
               data-sizes="auto"
               alt="K8s离线部署"
               class="lazyload"
@@ -361,7 +367,7 @@
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;45.1k</span
+          >&nbsp;45.2k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:47</span>
