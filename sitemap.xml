@@ -50,6 +50,12 @@
     <loc>/post/kubernetes%E4%B9%8Belk%E9%9B%86%E7%BE%A4/</loc>
     <lastmod>2024-12-16T11:03:17+08:00</lastmod>
   </url><url>
+    <loc>/tags/etcd/</loc>
+    <lastmod>2023-07-02T10:48:39+08:00</lastmod>
+  </url><url>
+    <loc>/post/etcd%E8%8A%82%E7%82%B9%E6%81%A2%E5%A4%8D%E6%93%8D%E4%BD%9C/</loc>
+    <lastmod>2023-07-02T10:48:39+08:00</lastmod>
+  </url><url>
     <loc>/post/%E8%85%BE%E8%AE%AF%E4%BA%91docker%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93/</loc>
     <lastmod>2023-06-27T11:25:53+08:00</lastmod>
   </url><url>
@@ -88,9 +94,6 @@
   </url><url>
     <loc>/post/kubernetes/</loc>
     <lastmod>2023-06-15T11:32:05+08:00</lastmod>
-  </url><url>
-    <loc>/tags/etcd/</loc>
-    <lastmod>2023-06-13T11:35:16+08:00</lastmod>
   </url><url>
     <loc>/post/kubernetes%E4%B9%8Bstatefulset%E9%83%A8%E7%BD%B2etcd%E9%9B%86%E7%BE%A4/</loc>
     <lastmod>2023-06-13T11:35:16+08:00</lastmod>

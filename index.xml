@@ -122,6 +122,26 @@
     
 
     <item>
+      <title>Etcd节点恢复操作</title>
+      <link>/post/etcd%E8%8A%82%E7%82%B9%E6%81%A2%E5%A4%8D%E6%93%8D%E4%BD%9C/</link>
+      <pubDate>Sun, 02 Jul 2023 10:48:39 &#43;0800</pubDate>
+      <author>w19891102@126.com (zoehuawang)</author>
+      <guid>/post/etcd%E8%8A%82%E7%82%B9%E6%81%A2%E5%A4%8D%E6%93%8D%E4%BD%9C/</guid>
+      <description>
+        <![CDATA[<h1>Etcd节点恢复操作</h1><p>作者：zoehuawang（w19891102@126.com）</p>
+        
+          
+        
+        <hr><p>本文2023-07-02首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2023-07-02</p>]]>
+      </description>
+      
+        <category>运维</category>
+      
+    </item>
+    
+    
+
+    <item>
       <title>腾讯云docker镜像仓库</title>
       <link>/post/%E8%85%BE%E8%AE%AF%E4%BA%91docker%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93/</link>
       <pubDate>Tue, 27 Jun 2023 11:25:53 &#43;0800</pubDate>
@@ -196,26 +216,6 @@
       </description>
       
         <category>K8S</category>
-      
-    </item>
-    
-    
-
-    <item>
-      <title>Ansible自动化</title>
-      <link>/post/ansible%E8%87%AA%E5%8A%A8%E5%8C%96/</link>
-      <pubDate>Sat, 17 Jun 2023 11:27:50 &#43;0800</pubDate>
-      <author>w19891102@126.com (zoehuawang)</author>
-      <guid>/post/ansible%E8%87%AA%E5%8A%A8%E5%8C%96/</guid>
-      <description>
-        <![CDATA[<h1>Ansible自动化</h1><p>作者：zoehuawang（w19891102@126.com）</p>
-        
-          
-        
-        <hr><p>本文2023-06-17首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2023-06-17</p>]]>
-      </description>
-      
-        <category></category>
       
     </item>
     

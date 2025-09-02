@@ -8,11 +8,11 @@
   name="viewport"
   content="width=device-width, initial-scale=1, shrink-to-fit=no"
 /><title>
-  Freeswitch 1.4.26基本安装使用 | zoehuawang
+  Etcd节点恢复操作 | zoehuawang
 </title>
 <meta
   name="description"
-  content="Freeswitch 1.4.26"
+  content="etcd节点恢复操作"
 /><script>
   window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_4k4bc36ef96\",\"outdate\":{\"daysago\":14,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
   
@@ -36,12 +36,12 @@
     type="font/woff2"
     crossorigin="anonymous"
   /><meta property="og:type" content="website" />
-  <meta property="og:title" content="Freeswitch 1.4.26基本安装使用 | zoehuawang" />
+  <meta property="og:title" content="Etcd节点恢复操作 | zoehuawang" />
   <meta
     property="og:description"
-    content="Freeswitch 1.4.26"
+    content="etcd节点恢复操作"
   />
-  <meta property="og:url" content="/post/freeswitch-1.4.26%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" />
+  <meta property="og:url" content="/post/etcd%E8%8A%82%E7%82%B9%E6%81%A2%E5%A4%8D%E6%93%8D%E4%BD%9C/" />
   <meta
     property="og:site_name"
     content="︶烟花散尽不问繁华┈┾"
@@ -51,8 +51,8 @@
     content="/"
   />
   <meta property="article:author" content="zoehuawang" />
-  <meta property="article:published_time" content="2023-06-11T11:08:28&#43;08:00" />
-  <meta property="article:modified_time" content="2023-06-11T11:08:28&#43;08:00" /><meta property="article:tag" content="freeswitch" /><meta name="twitter:card" content="summary" />
+  <meta property="article:published_time" content="2023-07-02T10:48:39&#43;08:00" />
+  <meta property="article:modified_time" content="2023-07-02T10:48:39&#43;08:00" /><meta property="article:tag" content="etcd" /><meta name="twitter:card" content="summary" />
   <meta name="twitter:image" content="/" />
 <link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.23d46c66c6ec16e18a24b0b67f282707f9baab8655d3a926988d8d1c074266db.css" />
 <link
@@ -87,9 +87,9 @@
       </span><a id="main-nav-toggle" class="nav-icon"></a>
   </nav>
   <nav id="sub-nav"></nav></div>
-<header id="header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="Freeswitch 1.4.26基本安装使用"><div id="header-outer">
+<header id="header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="Etcd节点恢复操作"><div id="header-outer">
     <div id="header-title"><a href="/" id="logo">
-            <h1 data-aos="slide-up">Freeswitch 1.4.26基本安装使用</h1>
+            <h1 data-aos="slide-up">Etcd节点恢复操作</h1>
           </a><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
   </div>
 </header>
@@ -166,72 +166,87 @@
     class="article-date-link icon-calendar"
     data-aos="zoom-in"
   >
-    <time datetime="2023-06-11 11:08:28 &#43;0800 CST" itemprop="datePublished"
-      >2023-06-11</time
+    <time datetime="2023-07-02 10:48:39 &#43;0800 CST" itemprop="datePublished"
+      >2023-07-02</time
     >
     <time style="display: none;" id="post-update-time"
-      >2023-06-11</time
+      >2023-07-02</time
     >
   </span></div>
 <div class="article-category"><a
       class="article-category-link"
-      href="/categories/"
+      href="/categories/%e8%bf%90%e7%bb%b4"
       data-aos="zoom-in"
-      ></a
+      >运维</a
     ></div>
 </div>
-    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#下载源码包</span>
-</span></span><span class="line"><span class="cl">wget &lt;https://files.freeswitch.org/releases/freeswitch/freeswitch-1.4.26.tar.gz&gt;
+    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#查看节点成员</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span> etcdctl --endpoints<span class="o">=</span><span class="s2">&#34;https://172.18.0.72:2379&#34;</span> --cacert<span class="o">=</span>/etc/etcd/ca.pem --cert<span class="o">=</span>/etc/etcd/etcd.pem --key<span class="o">=</span>/etc/etcd/etcd.key member list
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#安装依赖</span>
-</span></span><span class="line"><span class="cl">yum install -y autoconf automake libtool gcc-c++ ncurses-devel make zlib-devel <span class="se">\\</span>
-</span></span><span class="line"><span class="cl">libjpeg-devel openssl-devel e2fsprogs-devel curl-devel pcre-devel speex-devel <span class="se">\\</span>
-</span></span><span class="line"><span class="cl">sqlite-devel ldns ldns-devel libedit-devel
+</span></span><span class="line"><span class="cl">758dd97f0270ef21, started, etcd002, https://172.18.0.72:2380, https://172.18.0.71:2379,https://172.18.0.72:2379,https://172.18.0.73:2379, <span class="nb">false</span>
+</span></span><span class="line"><span class="cl">c2c355104508da65, started, etcd001, https://172.18.0.71:2380, https://172.18.0.71:2379,https://172.18.0.72:2379,https://172.18.0.73:2379, <span class="nb">false</span>
+</span></span><span class="line"><span class="cl">f50ec904d2191ff1, started, etcd003, https://172.18.0.73:2380, https://172.18.0.71:2379,https://172.18.0.72:2379,https://172.18.0.73:2379, <span class="nb">false</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#解压进入源码包</span>
-</span></span><span class="line"><span class="cl">tar -zxf freeswitch-1.4.26.tar.gz <span class="o">&amp;&amp;</span> <span class="nb">cd</span> freeswitch-1.4.26
+</span></span><span class="line"><span class="cl"><span class="c1">#查看集群状态</span>
+</span></span><span class="line"><span class="cl">etcdctl --endpoints<span class="o">=</span><span class="s2">&#34;https://172.18.0.71:2379,https://172.18.0.72:2379,https://172.18.0.73:2379&#34;</span> --cacert<span class="o">=</span>/etc/etcd/ca.pem --cert<span class="o">=</span>/etc/etcd/etcd.pem --key<span class="o">=</span>/etc/etcd/etcd.key endpoint health
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#配置，默认路径/usr/local/freeswitch</span>
-</span></span><span class="line"><span class="cl">./configure
+</span></span><span class="line"><span class="cl">https://172.18.0.73:2379 is healthy: successfully committed proposal: <span class="nv">took</span> <span class="o">=</span> 77.547023ms
+</span></span><span class="line"><span class="cl">https://172.18.0.72:2379 is healthy: successfully committed proposal: <span class="nv">took</span> <span class="o">=</span> 77.547898ms
+</span></span><span class="line"><span class="cl">https://172.18.0.71:2379 is healthy: successfully committed proposal: <span class="nv">took</span> <span class="o">=</span> 77.668481ms
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#编译安装</span>
-</span></span><span class="line"><span class="cl">make <span class="o">&amp;&amp;</span> make install
+</span></span><span class="line"><span class="cl"><span class="c1">#删除其中172.18.0.73(etcd003)成员</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span> etcdctl --endpoints<span class="o">=</span><span class="s2">&#34;https://172.18.0.72:2379&#34;</span> --cacert<span class="o">=</span>/etc/etcd/ca.pem --cert<span class="o">=</span>/etc/etcd/etcd.pem --key<span class="o">=</span>/etc/etcd/etcd.key member remove f50ec904d2191ff1
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#修改客户端可以远程连接配置 (密码、监听端口也是这里面修改)</span>
-</span></span><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/127.0.0.1/0.0.0.0/g&#39;</span> /usr/local/freeswitch/conf/autoload_configs/event_socket.conf.xml
+</span></span><span class="line"><span class="cl">Member f50ec904d2191ff1 removed from cluster ab80a2c2c9182c05
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#修改sip注册默认密码，可加快拨打响应时间，default_password</span>
-</span></span><span class="line"><span class="cl">/usr/local/freeswitch/conf/vars.xml
+</span></span><span class="line"><span class="cl"><span class="c1">#验证成员</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span> etcdctl --endpoints<span class="o">=</span><span class="s2">&#34;https://172.18.0.72:2379&#34;</span> --cacert<span class="o">=</span>/etc/etcd/ca.pem --cert<span class="o">=</span>/etc/etcd/etcd.pem --key<span class="o">=</span>/etc/etcd/etcd.key member list
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#如果机器不支持ipv6把相关配置删除</span>
-</span></span><span class="line"><span class="cl">rm -rf /usr/local/freeswitch/conf/sip_profiles/external-ipv6* /usr/local/freeswitch/conf/sip_profiles/internal-ipv6*
+</span></span><span class="line"><span class="cl">758dd97f0270ef21, started, etcd002, https://172.18.0.72:2380, https://172.18.0.71:2379,https://172.18.0.72:2379,https://172.18.0.73:2379, <span class="nb">false</span>
+</span></span><span class="line"><span class="cl">c2c355104508da65, started, etcd001, https://172.18.0.71:2380, https://172.18.0.71:2379,https://172.18.0.72:2379,https://172.18.0.73:2379, <span class="nb">false</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#后台启动</span>
-</span></span><span class="line"><span class="cl">freeswitch -nc -nonat
+</span></span><span class="line"><span class="cl"><span class="c1">#清空旧etcd003节点数据</span>
+</span></span><span class="line"><span class="cl">rm -rf /var/lib/etcd/member
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#停止</span>
-</span></span><span class="line"><span class="cl">/usr/local/freeswitch/bin/freeswitch -stop
+</span></span><span class="line"><span class="cl"><span class="c1">#修改要重新加入集群的etcd003节点的启动参数</span>
+</span></span><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/ETCD_INITIAL_CLUSTER_STATE=&#34;new&#34;/ETCD_INITIAL_CLUSTER_STATE=&#34;existing&#34;/g&#39;</span> /etc/etcd/etcd.conf
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#登陆控制台</span>
-</span></span><span class="line"><span class="cl">/usr/local/freeswitch/bin/fs_cli -P端口 -p密码 -l日志级别
+</span></span><span class="line"><span class="cl"><span class="c1">#从etcd-master拷贝证书(第5列为true代表master)</span>
+</span></span><span class="line"><span class="cl">etcdctl --endpoints<span class="o">=</span><span class="s2">&#34;https://172.18.0.71:2379,https://172.18.0.72:2379&#34;</span> --cacert<span class="o">=</span>/etc/etcd/ca.pem --cert<span class="o">=</span>/etc/etcd/etcd.pem --key<span class="o">=</span>/etc/etcd/e
+</span></span><span class="line"><span class="cl">tcd.key endpoint status
+</span></span><span class="line"><span class="cl">https://172.18.0.71:2379, c2c355104508da65, 3.5.12, <span class="m">20</span> kB, false, false, 3, 17, 17,
+</span></span><span class="line"><span class="cl">https://172.18.0.72:2379, 758dd97f0270ef21, 3.5.12, <span class="m">20</span> kB, true, false, 3, 17, 17,
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#-x执行命令</span>
-</span></span><span class="line"><span class="cl">/usr/local/freeswitch/bin/fs_cli -x <span class="s2">&#34;show calls as json&#34;</span>
+</span></span><span class="line"><span class="cl">scp -rp 172.18.0.72:/etc/etcd/  /etc/etcd/
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#各配置文件作用</span>
-</span></span><span class="line"><span class="cl">vars.xml                             <span class="p">|</span> 一些经常使用变量
-</span></span><span class="line"><span class="cl">dialplan/default.xml                 <span class="p">|</span> 缺省的拨号计划
-</span></span><span class="line"><span class="cl">directory/default/*.xml              <span class="p">|</span> SIP用户，每用户一个文件
-</span></span><span class="line"><span class="cl">sip_profiles/internal.xml            <span class="p">|</span> 一个SIP profile，或称做一个SIP-UA，监听在本地IP及端口5060，通常供内网用户使用
-</span></span><span class="line"><span class="cl">sip_profiles/externa.xml             <span class="p">|</span> 另外一个SIP-UA，用做外部链接，端口5080
-</span></span><span class="line"><span class="cl">autoload_configs/modules.conf.xml    <span class="p">|</span> 配置当FreeSWITCH启动时自动装载哪些模块
+</span></span><span class="line"><span class="cl"><span class="c1">#成员添加etcd003节点</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span> etcdctl --endpoints<span class="o">=</span><span class="s2">&#34;https://172.18.0.72:2379&#34;</span> --cacert<span class="o">=</span>/etc/etcd/ca.pem --cert<span class="o">=</span>/etc/etcd/etcd.pem --key<span class="o">=</span>/etc/etcd/etcd.key  member add etcd003 --peer-urls<span class="o">=</span>https://172.18.0.73:2380
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Member 90f13aed73f1d9e3 added to cluster ab80a2c2c9182c05
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#再次查看节点成员</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span> etcdctl --endpoints<span class="o">=</span><span class="s2">&#34;https://172.18.0.72:2379&#34;</span> --cacert<span class="o">=</span>/etc/etcd/ca.pem --cert<span class="o">=</span>/etc/etcd/etcd.pem --key<span class="o">=</span>/etc/etcd/etcd.key member list
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">758dd97f0270ef21, started, etcd002, https://172.18.0.72:2380, https://172.18.0.71:2379,https://172.18.0.72:2379,https://172.18.0.73:2379, <span class="nb">false</span>
+</span></span><span class="line"><span class="cl">90f13aed73f1d9e3, unstarted, , https://172.18.0.73:2380, , <span class="nb">false</span>
+</span></span><span class="line"><span class="cl">c2c355104508da65, started, etcd001, https://172.18.0.71:2380, https://172.18.0.71:2379,https://172.18.0.72:2379,https://172.18.0.73:2379, <span class="nb">false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#重启etcd003服务</span>
+</span></span><span class="line"><span class="cl">systemctl daemon-reload <span class="o">&amp;&amp;</span> systemctl restart etcd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#查看集群状态</span>
+</span></span><span class="line"><span class="cl">etcdctl --endpoints<span class="o">=</span><span class="s2">&#34;https://172.18.0.71:2379,https://172.18.0.72:2379,https://172.18.0.73:2379&#34;</span> --cacert<span class="o">=</span>/etc/etcd/ca.pem --cert<span class="o">=</span>/etc/etcd/etcd.pem --key<span class="o">=</span>/etc/etcd/etcd.key endpoint health
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">https://172.18.0.72:2379 is healthy: successfully committed proposal: <span class="nv">took</span> <span class="o">=</span> 51.896718ms
+</span></span><span class="line"><span class="cl">https://172.18.0.71:2379 is healthy: successfully committed proposal: <span class="nv">took</span> <span class="o">=</span> 51.831718ms
+</span></span><span class="line"><span class="cl">https://172.18.0.73:2379 is healthy: successfully committed proposal: <span class="nv">took</span> <span class="o">=</span> 55.209259ms
 </span></span></code></pre></div></div>
     <footer class="article-footer"><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
       <a
         class="article-tag-list-link"
-        href="/tags/freeswitch"
+        href="/tags/etcd"
         rel="tag"
-        >FREESWITCH</a
+        >ETCD</a
       >
     </li></ul>
 </footer>
@@ -239,21 +254,21 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg10.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
               data-sizes="auto"
-              alt="Python"
+              alt="腾讯云docker镜像仓库"
               class="lazyload"
-            /><a href="/post/python/"></a>
+            /><a href="/post/%E8%85%BE%E8%AE%AF%E4%BA%91docker%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93/"></a>
         <div class="article-nav-caption">前一篇</div>
-        <h3 class="article-nav-title">Python</h3>
+        <h3 class="article-nav-title">腾讯云docker镜像仓库</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
               data-sizes="auto"
-              alt="RabbitMQ集群部署"
+              alt="Kubernetes之ELK集群"
               class="lazyload"
-            /><a href="/post/rabbitmq%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/"></a>
+            /><a href="/post/kubernetes%E4%B9%8Belk%E9%9B%86%E7%BE%A4/"></a>
         <div class="article-nav-caption">后一篇</div>
-        <h3 class="article-nav-title">RabbitMQ集群部署</h3>
+        <h3 class="article-nav-title">Kubernetes之ELK集群</h3>
       </div></nav></article></section>
         </div><footer id="footer">
   <div style="width: 100%; overflow: hidden">
@@ -359,9 +374,9 @@
   <div><script data-pjax>
         window.REIMU_POST = {
           author: "zoehuawang",
-          title: "Freeswitch 1.4.26基本安装使用",
-          url: "\/post\/freeswitch-1.4.26%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8\/",
-          description: "Freeswitch 1.4.26",
+          title: "Etcd节点恢复操作",
+          url: "\/post\/etcd%E8%8A%82%E7%82%B9%E6%81%A2%E5%A4%8D%E6%93%8D%E4%BD%9C\/",
+          description: "etcd节点恢复操作",
           cover: "\/images\/banner.webp",
         };
       </script><script src="/js/insert_highlight.js" integrity="" crossorigin="anonymous" data-pjax></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const pswp = () => {
