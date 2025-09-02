@@ -180,38 +180,38 @@
       >运维</a
     ></div>
 </div>
-    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#查看节点成员</span>
+    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#1.查看节点成员</span>
 </span></span><span class="line"><span class="cl"><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span> etcdctl --endpoints<span class="o">=</span><span class="s2">&#34;https://172.18.0.72:2379&#34;</span> --cacert<span class="o">=</span>/etc/etcd/ca.pem --cert<span class="o">=</span>/etc/etcd/etcd.pem --key<span class="o">=</span>/etc/etcd/etcd.key member list
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">758dd97f0270ef21, started, etcd002, https://172.18.0.72:2380, https://172.18.0.71:2379,https://172.18.0.72:2379,https://172.18.0.73:2379, <span class="nb">false</span>
 </span></span><span class="line"><span class="cl">c2c355104508da65, started, etcd001, https://172.18.0.71:2380, https://172.18.0.71:2379,https://172.18.0.72:2379,https://172.18.0.73:2379, <span class="nb">false</span>
 </span></span><span class="line"><span class="cl">f50ec904d2191ff1, started, etcd003, https://172.18.0.73:2380, https://172.18.0.71:2379,https://172.18.0.72:2379,https://172.18.0.73:2379, <span class="nb">false</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#查看集群状态</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#2.查看集群状态</span>
 </span></span><span class="line"><span class="cl">etcdctl --endpoints<span class="o">=</span><span class="s2">&#34;https://172.18.0.71:2379,https://172.18.0.72:2379,https://172.18.0.73:2379&#34;</span> --cacert<span class="o">=</span>/etc/etcd/ca.pem --cert<span class="o">=</span>/etc/etcd/etcd.pem --key<span class="o">=</span>/etc/etcd/etcd.key endpoint health
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">https://172.18.0.73:2379 is healthy: successfully committed proposal: <span class="nv">took</span> <span class="o">=</span> 77.547023ms
 </span></span><span class="line"><span class="cl">https://172.18.0.72:2379 is healthy: successfully committed proposal: <span class="nv">took</span> <span class="o">=</span> 77.547898ms
 </span></span><span class="line"><span class="cl">https://172.18.0.71:2379 is healthy: successfully committed proposal: <span class="nv">took</span> <span class="o">=</span> 77.668481ms
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#删除其中172.18.0.73(etcd003)成员</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#3.删除其中172.18.0.73(etcd003)成员</span>
 </span></span><span class="line"><span class="cl"><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span> etcdctl --endpoints<span class="o">=</span><span class="s2">&#34;https://172.18.0.72:2379&#34;</span> --cacert<span class="o">=</span>/etc/etcd/ca.pem --cert<span class="o">=</span>/etc/etcd/etcd.pem --key<span class="o">=</span>/etc/etcd/etcd.key member remove f50ec904d2191ff1
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">Member f50ec904d2191ff1 removed from cluster ab80a2c2c9182c05
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#验证成员</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#4.验证成员</span>
 </span></span><span class="line"><span class="cl"><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span> etcdctl --endpoints<span class="o">=</span><span class="s2">&#34;https://172.18.0.72:2379&#34;</span> --cacert<span class="o">=</span>/etc/etcd/ca.pem --cert<span class="o">=</span>/etc/etcd/etcd.pem --key<span class="o">=</span>/etc/etcd/etcd.key member list
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">758dd97f0270ef21, started, etcd002, https://172.18.0.72:2380, https://172.18.0.71:2379,https://172.18.0.72:2379,https://172.18.0.73:2379, <span class="nb">false</span>
 </span></span><span class="line"><span class="cl">c2c355104508da65, started, etcd001, https://172.18.0.71:2380, https://172.18.0.71:2379,https://172.18.0.72:2379,https://172.18.0.73:2379, <span class="nb">false</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#清空旧etcd003节点数据</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#5.清空旧etcd003节点数据</span>
 </span></span><span class="line"><span class="cl">rm -rf /var/lib/etcd/member
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#修改要重新加入集群的etcd003节点的启动参数</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#6.修改要重新加入集群的etcd003节点的启动参数</span>
 </span></span><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/ETCD_INITIAL_CLUSTER_STATE=&#34;new&#34;/ETCD_INITIAL_CLUSTER_STATE=&#34;existing&#34;/g&#39;</span> /etc/etcd/etcd.conf
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#从etcd-master拷贝证书(第5列为true代表master)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#7.从etcd-master拷贝证书(第5列为true代表master)</span>
 </span></span><span class="line"><span class="cl">etcdctl --endpoints<span class="o">=</span><span class="s2">&#34;https://172.18.0.71:2379,https://172.18.0.72:2379&#34;</span> --cacert<span class="o">=</span>/etc/etcd/ca.pem --cert<span class="o">=</span>/etc/etcd/etcd.pem --key<span class="o">=</span>/etc/etcd/e
 </span></span><span class="line"><span class="cl">tcd.key endpoint status
 </span></span><span class="line"><span class="cl">https://172.18.0.71:2379, c2c355104508da65, 3.5.12, <span class="m">20</span> kB, false, false, 3, 17, 17,
@@ -219,22 +219,22 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">scp -rp 172.18.0.72:/etc/etcd/  /etc/etcd/
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#成员添加etcd003节点</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#8.节点成员重新添加etcd003</span>
 </span></span><span class="line"><span class="cl"><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span> etcdctl --endpoints<span class="o">=</span><span class="s2">&#34;https://172.18.0.72:2379&#34;</span> --cacert<span class="o">=</span>/etc/etcd/ca.pem --cert<span class="o">=</span>/etc/etcd/etcd.pem --key<span class="o">=</span>/etc/etcd/etcd.key  member add etcd003 --peer-urls<span class="o">=</span>https://172.18.0.73:2380
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">Member 90f13aed73f1d9e3 added to cluster ab80a2c2c9182c05
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#再次查看节点成员</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#9.再次查看节点成员</span>
 </span></span><span class="line"><span class="cl"><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span> etcdctl --endpoints<span class="o">=</span><span class="s2">&#34;https://172.18.0.72:2379&#34;</span> --cacert<span class="o">=</span>/etc/etcd/ca.pem --cert<span class="o">=</span>/etc/etcd/etcd.pem --key<span class="o">=</span>/etc/etcd/etcd.key member list
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">758dd97f0270ef21, started, etcd002, https://172.18.0.72:2380, https://172.18.0.71:2379,https://172.18.0.72:2379,https://172.18.0.73:2379, <span class="nb">false</span>
 </span></span><span class="line"><span class="cl">90f13aed73f1d9e3, unstarted, , https://172.18.0.73:2380, , <span class="nb">false</span>
 </span></span><span class="line"><span class="cl">c2c355104508da65, started, etcd001, https://172.18.0.71:2380, https://172.18.0.71:2379,https://172.18.0.72:2379,https://172.18.0.73:2379, <span class="nb">false</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#重启etcd003服务</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#10.重启etcd003服务</span>
 </span></span><span class="line"><span class="cl">systemctl daemon-reload <span class="o">&amp;&amp;</span> systemctl restart etcd
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#查看集群状态</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#11.查看集群状态</span>
 </span></span><span class="line"><span class="cl">etcdctl --endpoints<span class="o">=</span><span class="s2">&#34;https://172.18.0.71:2379,https://172.18.0.72:2379,https://172.18.0.73:2379&#34;</span> --cacert<span class="o">=</span>/etc/etcd/ca.pem --cert<span class="o">=</span>/etc/etcd/etcd.pem --key<span class="o">=</span>/etc/etcd/etcd.key endpoint health
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">https://172.18.0.72:2379 is healthy: successfully committed proposal: <span class="nv">took</span> <span class="o">=</span> 51.896718ms
@@ -254,7 +254,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg3.webp"
               data-sizes="auto"
               alt="腾讯云docker镜像仓库"
               class="lazyload"
