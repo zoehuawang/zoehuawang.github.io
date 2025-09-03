@@ -420,7 +420,13 @@
 </span></span><span class="line"><span class="cl">iptables -vnL -t nat
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#firewall-cmd添加富规则(参数--permanent代表永久配置，重启后仍存在)，添加后使用firewall-cmd --reload加载生效</span>
-</span></span><span class="line"><span class="cl">firewall-cmd --permanent --add-rich-rule<span class="o">=</span><span class="s2">&#34;rule family=&#34;</span>ipv4<span class="s2">&#34; source address=&#34;</span>192.168.7.50<span class="s2">&#34; port port=&#34;</span>3389<span class="s2">&#34; protocol=&#34;</span>tcp<span class="s2">&#34; accept&#34;</span>
+</span></span><span class="line"><span class="cl">firewall-cmd --permanent --zone<span class="o">=</span>public --add-rich-rule<span class="o">=</span><span class="s2">&#34;rule family=&#34;</span>ipv4<span class="s2">&#34; source address=&#34;</span>192.168.7.50<span class="s2">&#34; port port=&#34;</span>3389<span class="s2">&#34; protocol=&#34;</span>tcp<span class="s2">&#34; accept&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --permanent --zone=public --set-target=DROP	#设置public区拒绝所有流入的包(ACCEPT则反之,REJECT拒绝所有流入并回复拒绝消息)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --get-zones  					#查看所有可用区域列表</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --get-active-zones				#当前活动的防火墙区域及其接口</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --get-default-zone				#查看默认区域（当前生效的区域）</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --permanent --new-zone=k8spod			#创建新的区域</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --permanent --zone=k8spod --add-interface=tunl0 	#将网络接口tunl0永久地添加到名为k8spod的区域中</span>
 </span></span></code></pre></div><ul>
 <li>Linux开机自动启动脚本的方法</li>
 </ul>
@@ -555,7 +561,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
               data-sizes="auto"
               alt="银行项目实现微信告警"
               class="lazyload"
@@ -572,7 +578,7 @@
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;45.2k</span
+          >&nbsp;45.3k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:47</span>
