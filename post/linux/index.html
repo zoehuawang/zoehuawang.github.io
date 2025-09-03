@@ -334,6 +334,8 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#用nsenter调取宿主机工具调试容器</span>
 </span></span><span class="line"><span class="cl">nsenter -u -n -i -p -t <span class="k">$(</span>docker inspect --format <span class="o">{{</span>.State.Pid<span class="o">}}</span> 容器名或容器ID<span class="k">)</span>
 </span></span><span class="line"><span class="cl">或
+</span></span><span class="line"><span class="cl">nsenter -u -n -i -p -t <span class="k">$(</span>nerdctl -n k8s.io inspect --format <span class="o">{{</span>.State.Pid<span class="o">}}</span> 容器名或容器ID<span class="k">)</span>
+</span></span><span class="line"><span class="cl">或
 </span></span><span class="line"><span class="cl">nsenter -u -n -i -p -t <span class="k">$(</span>crictl inspect -o go-template --template <span class="s1">&#39;{{.info.pid}}&#39;</span> 容器名或容器ID<span class="k">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#快速设置用户密码</span>
@@ -561,7 +563,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
               data-sizes="auto"
               alt="银行项目实现微信告警"
               class="lazyload"
@@ -578,7 +580,7 @@
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;45.3k</span
+          >&nbsp;45.4k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:47</span>
