@@ -341,7 +341,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#快速设置用户密码</span>
 </span></span><span class="line"><span class="cl"><span class="nb">echo</span> Aa.1234567 <span class="p">|</span> passwd --stdin root
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#D的状态一般是I/O出现了问题，说明进程在等待I/O，可以是磁盘I/O，网络I/O或者其他</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#快速定位系统IO阻塞问题（D的状态一般是I/O出现了问题，说明进程在等待I/O，可以是磁盘I/O，网络I/O或者其他）</span>
 </span></span><span class="line"><span class="cl">ps -eo state,pid,cmd <span class="p">|</span> grep <span class="s2">&#34;^D&#34;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#查看进程的父进程ID</span>
