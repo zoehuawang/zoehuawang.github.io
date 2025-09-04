@@ -194,15 +194,15 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#替换jar内文件(包内要和包外的路径对应一致，不然会说没有这个文件)</span>
 </span></span><span class="line"><span class="cl">jar -uvf XXX.jar 包内文件 包外文件
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">sort file1 file2 <span class="p">|</span> uniq -u    <span class="c1">#去除两个文件重复部分</span>
+</span></span><span class="line"><span class="cl">sort file1 file2 <span class="p">|</span> uniq -u	<span class="c1">#去除两个文件重复部分</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">ln –s 源文件 目标文件        <span class="c1">#软链接</span>
+</span></span><span class="line"><span class="cl">ln –s 源文件 目标文件    	<span class="c1">#软链接</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">ls --full-time filename      <span class="c1">#查看文件生成全部时间</span>
+</span></span><span class="line"><span class="cl">ls --full-time filename  	<span class="c1">#查看文件生成全部时间</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">ls -lR <span class="p">|</span> grep <span class="s2">&#34;^-&#34;</span> <span class="p">|</span> wc -l    <span class="c1">#查看当前目录下的文件数量（包含子目录中的文件） 注意：R，代表子目录</span>
-</span></span><span class="line"><span class="cl">ls -l <span class="p">|</span> grep <span class="s2">&#34;^-&#34;</span> <span class="p">|</span> wc -l     <span class="c1">#查看当前目录下的文件数量（不包含子目录中的文件）</span>
-</span></span><span class="line"><span class="cl">ls -l <span class="p">|</span> grep <span class="s2">&#34;^d&#34;</span> <span class="p">|</span> wc -l     <span class="c1">#查看当前目录下的文件夹数量（不包含子目录中的目录），同上述理，如果需要查看子目录的，加上R</span>
+</span></span><span class="line"><span class="cl">ls -lR <span class="p">|</span> grep <span class="s2">&#34;^-&#34;</span> <span class="p">|</span> wc -l 	<span class="c1">#查看当前目录下的文件数量（包含子目录中的文件） 注意：R，代表子目录</span>
+</span></span><span class="line"><span class="cl">ls -l <span class="p">|</span> grep <span class="s2">&#34;^-&#34;</span> <span class="p">|</span> wc -l  	<span class="c1">#查看当前目录下的文件数量（不包含子目录中的文件）</span>
+</span></span><span class="line"><span class="cl">ls -l <span class="p">|</span> grep <span class="s2">&#34;^d&#34;</span> <span class="p">|</span> wc -l  	<span class="c1">#查看当前目录下的文件夹数量（不包含子目录中的目录），同上述理，如果需要查看子目录的，加上R</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#不解压筛选查看tar.gz包(或zgrep --binary-files=text &#34;Read time out&#34; X.tar.gz)</span>
 </span></span><span class="line"><span class="cl">zcat XXX.tar.gz <span class="p">|</span> grep --binary-files<span class="o">=</span>text <span class="s2">&#34;Read time out&#34;</span>
@@ -211,11 +211,11 @@
 </span></span><span class="line"><span class="cl">socat -d -d -lf /var/log/socat.log TCP4-LISTEN:3306,bind<span class="o">=</span>0.0.0.0,reuseaddr,fork TCP4:192.168.7.51:3306
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#screen命令用法</span>
-</span></span><span class="line"><span class="cl">screen -S &lt;session_name&gt;   <span class="c1">#创建会话</span>
-</span></span><span class="line"><span class="cl">screen -ls                 <span class="c1">#列出会话</span>
-</span></span><span class="line"><span class="cl">screen -r &lt;session_name&gt;   <span class="c1">#切换会话</span>
-</span></span><span class="line"><span class="cl">Ctrl+A再按D                 <span class="c1">#会话后台运行</span>
-</span></span><span class="line"><span class="cl">Ctrl+D或执行exit            <span class="c1">#退出会话</span>
+</span></span><span class="line"><span class="cl">screen -S &lt;session_name&gt;  	<span class="c1">#创建会话</span>
+</span></span><span class="line"><span class="cl">screen -ls                	<span class="c1">#列出会话</span>
+</span></span><span class="line"><span class="cl">screen -r &lt;session_name&gt;  	<span class="c1">#切换会话</span>
+</span></span><span class="line"><span class="cl">Ctrl+A再按D                	<span class="c1">#会话后台运行</span>
+</span></span><span class="line"><span class="cl">Ctrl+D或执行exit           	<span class="c1">#退出会话</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#/home/oracle/下存放连接mysql的用户名密码文件.my.cnf，然后以安全方式连接mysql</span>
 </span></span><span class="line"><span class="cl"><span class="nv">HOME</span><span class="o">=</span>/home/oracle mysql -e <span class="s2">&#34;sql语句&#34;</span>  或 mysql --defaults-file<span class="o">=</span>/home/oracle/.my.cnf
@@ -230,12 +230,12 @@
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$var</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#xargs 用作替换工具，读取输入数据重新格式化后输出</span>
-</span></span><span class="line"><span class="cl"><span class="p">|</span>xargs -i -t    <span class="c1">#-t 表示先打印命令，然后再执行；-i 一般是一行一行赋值给 {}</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>xargs -i -t  		<span class="c1">#-t 表示先打印命令，然后再执行；-i 一般是一行一行赋值给 {}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># scp后台运行</span>
-</span></span><span class="line"><span class="cl">ctrl+z           <span class="c1">#挂起当前任务</span>
-</span></span><span class="line"><span class="cl"><span class="nb">bg</span> %1            <span class="c1">#将编号为1的任务转后台运行</span>
-</span></span><span class="line"><span class="cl"><span class="nb">disown</span> -h %1     <span class="c1">#将编号为1这个作业忽略HUP信号，也就是可以退出终端不影响scp</span>
+</span></span><span class="line"><span class="cl">ctrl+z      		<span class="c1">#挂起当前任务</span>
+</span></span><span class="line"><span class="cl"><span class="nb">bg</span> %1       		<span class="c1">#将编号为1的任务转后台运行</span>
+</span></span><span class="line"><span class="cl"><span class="nb">disown</span> -h %1   		<span class="c1">#将编号为1这个作业忽略HUP信号，也就是可以退出终端不影响scp</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#Linux下清除文件系统缓存</span>
 </span></span><span class="line"><span class="cl">1、sync
@@ -309,9 +309,9 @@
 </span></span><span class="line"><span class="cl">pvcreate /dev/sdb
 </span></span><span class="line"><span class="cl">vgextend VG名 /dev/sdb
 </span></span><span class="line"><span class="cl">lvextend -l +100%free LV对应的Path
-</span></span><span class="line"><span class="cl">xfs_growfs /dev/mapper/centos-root <span class="c1">#XFS文件系统扩容</span>
+</span></span><span class="line"><span class="cl">xfs_growfs /dev/mapper/centos-root	<span class="c1">#XFS文件系统扩容</span>
 </span></span><span class="line"><span class="cl">或
-</span></span><span class="line"><span class="cl">resize2fs /dev/mapper/centos-root <span class="c1">#EXT4文件系统扩容</span>
+</span></span><span class="line"><span class="cl">resize2fs /dev/mapper/centos-root	<span class="c1">#EXT4文件系统扩容</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#非LVM方式扩容根目录文件系统方法1</span>
 </span></span><span class="line"><span class="cl">fdisk /dev/sda
@@ -326,9 +326,9 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#非LVM方式扩容根目录文件系统方法2</span>
 </span></span><span class="line"><span class="cl">growpart /dev/vda <span class="m">1</span>    <span class="c1"># 1是分区号，命令安装yum install cloud-utils-growpart</span>
 </span></span><span class="line"><span class="cl">resize2fs /dev/vda1    <span class="c1"># 扩容ext文件系统</span>
-</span></span><span class="line"><span class="cl">xfs_growfs -d /mnt     <span class="c1"># 扩容xfs文件系统，注意mnd是挂载点不是设备</span>
+</span></span><span class="line"><span class="cl">xfs_growfs -d /mnt     <span class="c1"># 扩容xfs文件系统，注意mnt是挂载点不是设备</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#开启重定向覆盖文件保护。比如重定向写入一个已经存在的文件时,给出一个警告并且不会执行该操作，需使用&#34;&gt;|&#34;才可以强制执行写入</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#开启重定向覆盖文件保护（比如重定向写入一个已经存在的文件时,给出一个警告并且不会执行该操作，需使用&#34;&gt;|&#34;才可以强制执行写入）</span>
 </span></span><span class="line"><span class="cl"><span class="nb">set</span> -o noclobber
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#用nsenter调取宿主机工具调试容器</span>
@@ -565,7 +565,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
               data-sizes="auto"
               alt="银行项目实现微信告警"
               class="lazyload"
