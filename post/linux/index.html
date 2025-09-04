@@ -392,10 +392,10 @@
 </span></span><span class="line"><span class="cl">tcpdump -i eth0 -w - <span class="p">|</span> pv -bert &gt; /dev/null
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#nc端口测试,-u UDP端口(不指定默认为TCP)</span>
-</span></span><span class="line"><span class="cl">nc -lu <span class="m">20682</span>                              <span class="c1">#-l 开启监听模式</span>
-</span></span><span class="line"><span class="cl">nc -u 192.168.7.51 <span class="m">20682</span>                  <span class="c1">#与对端192.168.7.51可以交互</span>
-</span></span><span class="line"><span class="cl">nc -uvz 192.168.7.51 <span class="m">20682</span>                <span class="c1">#检测udp端口20862是否可通</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;test&#34;</span> <span class="p">|</span> nc -u 192.168.7.51 <span class="m">20682</span>    <span class="c1">#向udp端口发送一条test消息</span>
+</span></span><span class="line"><span class="cl">nc -u -lp <span class="m">20682</span>                             	<span class="c1">#-l 开启监听模式</span>
+</span></span><span class="line"><span class="cl">nc -u 192.168.7.51 <span class="m">20682</span>            		<span class="c1">#与对端192.168.7.51可以交互</span>
+</span></span><span class="line"><span class="cl">nc -u -vz 192.168.7.51 <span class="m">20682</span>         		<span class="c1">#检测udp端口20862是否可通</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;test&#34;</span> <span class="p">|</span> nc -u 192.168.7.51 20682		<span class="c1">#向udp端口发送一条test消息</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#添加静态路由，到172.25.201.0/24的数据通过网关172.25.209.125路由转发；加上src可指定源IP</span>
 </span></span><span class="line"><span class="cl">route add -net 172.25.201.0/24 gw 172.25.209.125
@@ -563,7 +563,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
               data-sizes="auto"
               alt="银行项目实现微信告警"
               class="lazyload"
