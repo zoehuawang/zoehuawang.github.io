@@ -214,7 +214,7 @@
 </span></span><span class="line"><span class="cl"><span class="n">appid</span> <span class="o">=</span> <span class="s2">&#34;wwc4xxxxxxxxxx62b&#34;</span>                                             			<span class="c1">#企业corpid</span>
 </span></span><span class="line"><span class="cl"><span class="n">secret</span> <span class="o">=</span> <span class="s2">&#34;mZzBuOxYQs4xxxxxxxxxxxxcAy_zM6PmhbCmFTI84&#34;</span>                        			<span class="c1">#企业应用secret</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">url</span> <span class="o">=</span> <span class="s2">&#34;&lt;https://qyapi.weixin.qq.com/cgi-bin/gettoken?orpid=&#34;</span><span class="o">+</span><span class="n">appid</span><span class="o">+</span><span class="s2">&#34;&amp;corpsecret=&#34;</span><span class="o">+</span><span class="n">secret</span><span class="o">+</span><span class="s2">&#34;&gt;&#34;</span>	<span class="c1">#接口地址</span>
+</span></span><span class="line"><span class="cl"><span class="n">url</span> <span class="o">=</span> <span class="s2">&#34;https://qyapi.weixin.qq.com/cgi-bin/gettoken?orpid=&#34;</span><span class="o">+</span><span class="n">appid</span><span class="o">+</span><span class="s2">&#34;&amp;corpsecret=&#34;</span><span class="o">+</span><span class="n">secret</span><span class="o">+</span><span class="s2">&#34;&#34;</span>	<span class="c1">#接口地址</span>
 </span></span><span class="line"><span class="cl"><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>                                    				<span class="c1">#发送get请求调用接口</span>
 </span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">access_token</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;access_token&#39;</span><span class="p">]</span>
@@ -237,7 +237,7 @@
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="n">content</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span>
 </span></span><span class="line"><span class="cl">  <span class="n">access_token</span> <span class="o">=</span> <span class="n">get_token</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">  <span class="n">send_url</span> <span class="o">=</span> <span class="s1">&#39;&lt;https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">access_token</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">send_url</span> <span class="o">=</span> <span class="s1">&#39;https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">access_token</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="n">content_modul</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;touser&#34;</span><span class="p">:</span><span class="s2">&#34;@all&#34;</span><span class="p">,</span><span class="s2">&#34;msgtype&#34;</span><span class="p">:</span><span class="s2">&#34;text&#34;</span><span class="p">,</span><span class="s2">&#34;agentid&#34;</span><span class="p">:</span><span class="mi">1000002</span><span class="p">,</span><span class="s2">&#34;text&#34;</span><span class="p">:{</span><span class="s2">&#34;content&#34;</span><span class="p">:</span><span class="s1">&#39;&#34;&#39;</span> <span class="o">+</span> <span class="n">content</span> <span class="o">+</span> <span class="s1">&#39;&#34;&#39;</span><span class="p">},</span><span class="s2">&#34;safe&#34;</span><span class="p">:</span><span class="mi">0</span><span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">send_url</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">content_modul</span><span class="p">),</span><span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span><span class="s1">&#39;application/json&#39;</span><span class="p">})</span>
 </span></span><span class="line"><span class="cl">
@@ -293,7 +293,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
               data-sizes="auto"
               alt="Linux"
               class="lazyload"
@@ -301,7 +301,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Linux</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg9.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
               data-sizes="auto"
               alt="ffmpeg"
               class="lazyload"
