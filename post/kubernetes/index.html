@@ -270,10 +270,12 @@
 </span></span><span class="line"><span class="cl">kubectl expose deployment &lt;deployment-name&gt; -n &lt;namespace&gt; --type<span class="o">=</span>LoadBalancer --port<span class="o">=</span><span class="m">80</span> --target-port<span class="o">=</span><span class="m">8080</span>
 </span></span><span class="line"><span class="cl">kubectl expose deployment &lt;deployment-name&gt; -n &lt;namespace&gt; --type<span class="o">=</span>NodePort --port<span class="o">=</span><span class="m">80</span> --target-port<span class="o">=</span><span class="m">8080</span>
 </span></span><span class="line"><span class="cl">kubectl expose deployment &lt;deployment-name&gt; -n &lt;namespace&gt; --type<span class="o">=</span>LoadBalancer --port<span class="o">=</span><span class="m">80</span> --target-port<span class="o">=</span><span class="m">8080</span>
-</span></span></code></pre></div><ul>
-<li>一键创建user1用户操作namespace1命名空间的kubeconfig文件脚本</li>
+</span></span></code></pre></div><h1 id="创建kubeconfig文件">
+<a class="header-anchor" href="#%e5%88%9b%e5%bb%bakubeconfig%e6%96%87%e4%bb%b6"></a>
+创建kubeconfig文件
+</h1><ul>
+<li>一键创建user1用户操作namespace1命名空间的kubeconfig文件脚本: sh createKubeConfig.sh user1 namespace1</li>
 </ul>
-<p>（使用命令： sh createKubeConfig.sh user1 namespace1 ）</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="nv">USER</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span>
@@ -669,7 +671,7 @@ minikube使用
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Kubernetes之StatefulSet部署etcd集群</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg9.webp"
               data-sizes="auto"
               alt="Kubernetes之proxysql集群"
               class="lazyload"
