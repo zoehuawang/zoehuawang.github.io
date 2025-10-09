@@ -455,7 +455,7 @@
 </span></span></span></code></pre></div><ul>
 <li>4、查看etcd集群</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl <span class="nb">exec</span> -it etcd-0 sh
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl <span class="nb">exec</span> -it etcd-0 -- sh
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">etcdctl member list
 </span></span></code></pre></div><ul>
@@ -649,7 +649,7 @@
 </span></span></span></code></pre></div><ul>
 <li>7、查看etcd集群</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl <span class="nb">exec</span> -it etcd-0 sh
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl <span class="nb">exec</span> -it etcd-0 -- sh
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">etcdctl --cacert<span class="o">=</span>/root/ca.pem --cert<span class="o">=</span>/root/etcd.pem --key<span class="o">=</span>/root/etcd-key.pem --endpoints<span class="o">=</span><span class="s2">&#34;https://etcd-0.etcd.default.svc.cluster.local:2379,https://etcd-1.etcd.default.svc.cluster.local:2379,https://etcd-2.etcd.default.svc.cluster.local:2379&#34;</span> endpoint health
 </span></span></code></pre></div><ul>
@@ -675,7 +675,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
               data-sizes="auto"
               alt="MGR单主"
               class="lazyload"
@@ -683,7 +683,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">MGR单主</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg9.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
               data-sizes="auto"
               alt="Kubernetes"
               class="lazyload"
