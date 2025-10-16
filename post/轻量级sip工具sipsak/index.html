@@ -201,10 +201,10 @@
 <a class="header-anchor" href="#%e4%b8%80%e5%b8%b8%e7%94%a8%e6%96%b9%e6%b3%95"></a>
 一、常用方法
 </h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#模拟发送option探测</span>
-</span></span><span class="line"><span class="cl">sipsak -H 本地ip -l 本地端口 -s sip:192.168.7.55:18627 -v
+</span></span><span class="line"><span class="cl">sipsak -H 本地ip -l 本地端口 -s sip:对端IP地址:对端信令端口 -v
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#模拟发送invite请求，-f从文件加载sip消息，用 ! 分割文件中的变量和值</span>
-</span></span><span class="line"><span class="cl">sipsak -f invite.txt -g <span class="s1">&#39;!CALLEE!被叫号码!CALL_ID!&#39;</span><span class="k">$(</span>uuidgen<span class="k">)</span><span class="s1">&#39;!CALLER!主叫号码!F_SPT!本地信令端口!F_MPT!本地媒体端口!FIP!本地IP地址!TIP!对端IP地址!T_SPT!对端信令端口!&#39;</span> -H 192.168.7.51 -l 本地信令端口 -s sip:192.168.7.55:18627 -v
+</span></span><span class="line"><span class="cl"><span class="c1">#模拟发送invite请求，-f从文件加载sip消息，用 ! 分割文件中的变量和值（请根据文字描述自行替换变量值）</span>
+</span></span><span class="line"><span class="cl">sipsak -f invite.txt -g <span class="s1">&#39;!CALLEE!被叫号码!CALL_ID!&#39;</span><span class="k">$(</span>uuidgen<span class="k">)</span><span class="s1">&#39;!CALLER!主叫号码!F_SPT!本地信令端口!F_MPT!本地媒体端口!FIP!本地IP地址!TIP!对端IP地址!T_SPT!对端信令端口!&#39;</span> -H 本地IP地址 -l 本地信令端口 -s sip:对端IP地址:对端信令端口 -v
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#文件invite.txt内容模版如下:</span>
 </span></span><span class="line"><span class="cl">INVITE sip:<span class="nv">$CALLEE$@$TIP</span>$:<span class="nv">$T_SPT</span>$ SIP/2.0
@@ -269,7 +269,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg9.webp"
               data-sizes="auto"
               alt="Docker快速部署jumpserver"
               class="lazyload"
@@ -277,7 +277,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Docker快速部署jumpserver</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
               data-sizes="auto"
               alt="Istio之灰度发布"
               class="lazyload"
