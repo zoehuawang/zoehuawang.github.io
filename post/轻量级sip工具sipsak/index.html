@@ -210,7 +210,7 @@
 </span></span><span class="line"><span class="cl">INVITE sip:<span class="nv">$CALLEE$@</span>192.168.7.55:18627 SIP/2.0
 </span></span><span class="line"><span class="cl">Call-ID: <span class="nv">$CALL_ID</span>$
 </span></span><span class="line"><span class="cl">From: <span class="s2">&#34;</span><span class="nv">$CALLER</span>$<span class="s2">&#34;</span>&lt;sip:<span class="nv">$CALLER$@</span>192.168.7.51<span class="p">;</span><span class="nv">transport</span><span class="o">=</span>udp<span class="p">;</span><span class="nv">user</span><span class="o">=</span>phone&gt;
-</span></span><span class="line"><span class="cl">To: <span class="s2">&#34;</span><span class="nv">$CALLEE</span>$<span class="s2">&#34;</span>&lt;sip:<span class="nv">$CALLEE$@</span>192.168.7.51<span class="p">;</span><span class="nv">transport</span><span class="o">=</span>udp<span class="p">;</span><span class="nv">user</span><span class="o">=</span>phone&gt;
+</span></span><span class="line"><span class="cl">To: <span class="s2">&#34;</span><span class="nv">$CALLEE</span>$<span class="s2">&#34;</span>&lt;sip:<span class="nv">$CALLEE$@</span>192.168.7.55<span class="p">;</span><span class="nv">transport</span><span class="o">=</span>udp<span class="p">;</span><span class="nv">user</span><span class="o">=</span>phone&gt;
 </span></span><span class="line"><span class="cl">CSeq: <span class="m">1</span> INVITE
 </span></span><span class="line"><span class="cl">Contact: &lt;sip:192.168.7.51:<span class="nv">$SIP_PORT</span>$&gt;
 </span></span><span class="line"><span class="cl">Max-Forwards: <span class="m">10</span>
@@ -222,7 +222,7 @@
 </span></span><span class="line"><span class="cl"><span class="nv">s</span><span class="o">=</span>SBC call
 </span></span><span class="line"><span class="cl"><span class="nv">c</span><span class="o">=</span>IN IP4 192.168.7.51
 </span></span><span class="line"><span class="cl"><span class="nv">t</span><span class="o">=</span><span class="m">0</span> <span class="m">0</span>
-</span></span><span class="line"><span class="cl"><span class="nv">m</span><span class="o">=</span>audio <span class="nv">$MEDIA_PORT</span>$ RTP/AVP <span class="m">0</span>
+</span></span><span class="line"><span class="cl"><span class="nv">m</span><span class="o">=</span>audio <span class="nv">$MEDIA_PORT</span>$ RTP/AVP <span class="m">8</span> <span class="m">0</span>
 </span></span><span class="line"><span class="cl"><span class="nv">a</span><span class="o">=</span>rtpmap:8 PCMA/8000
 </span></span><span class="line"><span class="cl"><span class="nv">a</span><span class="o">=</span>rtpmap:0 PCMU/8000
 </span></span></code></pre></div><blockquote>
@@ -234,7 +234,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="s2">s=SBC call
 </span></span></span><span class="line"><span class="cl"><span class="s2">c=IN IP4 192.168.7.51
 </span></span></span><span class="line"><span class="cl"><span class="s2">t=0 0
-</span></span></span><span class="line"><span class="cl"><span class="s2">m=audio 18628 RTP/AVP 0
+</span></span></span><span class="line"><span class="cl"><span class="s2">m=audio 18628 RTP/AVP 8 0
 </span></span></span><span class="line"><span class="cl"><span class="s2">a=rtpmap:8 PCMA/8000
 </span></span></span><span class="line"><span class="cl"><span class="s2">a=rtpmap:0 PCMU/8000&#34;</span>
 </span></span><span class="line"><span class="cl">
@@ -277,7 +277,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Docker快速部署jumpserver</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg3.webp"
               data-sizes="auto"
               alt="Istio之灰度发布"
               class="lazyload"
