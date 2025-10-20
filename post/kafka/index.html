@@ -195,13 +195,13 @@
 </span></span><span class="line"><span class="cl">./zkCli.sh -server localhost:2181 ls /brokers/ids
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#查看有哪些topic：</span>
-</span></span><span class="line"><span class="cl">./kafka-topics.sh --list --zookeeper zk服务IP:2181
+</span></span><span class="line"><span class="cl">./kafka-topics.sh --list --bootstrap-server kafka服务IP:9092
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#创建topic：</span>
-</span></span><span class="line"><span class="cl">./kafka-topics.sh --create --zookeeper zk服务IP:2181 --replication-factor <span class="m">1</span> --partitions <span class="m">1</span> --topic test1
+</span></span><span class="line"><span class="cl">./kafka-topics.sh --create --bootstrap-server kafka服务IP:9092 --replication-factor <span class="m">1</span> --partitions <span class="m">1</span> --topic test1
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#topic分区数修改：</span>
-</span></span><span class="line"><span class="cl">./kafka-topics.sh --zookeeper zk服务IP:2181 -alter --partitions <span class="m">4</span> --topic test1
+</span></span><span class="line"><span class="cl">./kafka-topics.sh --bootstrap-server kafka服务IP:9092 -alter --partitions <span class="m">4</span> --topic test1
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#kafka生产(无key型消息)：</span>
 </span></span><span class="line"><span class="cl">./kafka-console-producer.sh --broker-list kafka服务IP:9092 --topic test1
@@ -216,10 +216,10 @@
 </span></span><span class="line"><span class="cl">./kafka-console-consumer.sh  --bootstrap-server kafka服务IP:9092 --from-beginning --topic test1 --property print.key<span class="o">=</span><span class="nb">true</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#删除topic：(要彻底删除必须把kafka中与当前topic相关的数据目录和zookeeper中与当前topic相关的路径一并删除)</span>
-</span></span><span class="line"><span class="cl">./kafka-topics.sh --zookeeper zk服务IP:2181 --delete --topic test1
+</span></span><span class="line"><span class="cl">./kafka-topics.sh --bootstrap-server kafka服务IP:9092 --delete --topic test1
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#查看topic分区数</span>
-</span></span><span class="line"><span class="cl">./bin/kafka-topics.sh --zookeeper zk服务IP:2181 --describe --topic 主题名称
+</span></span><span class="line"><span class="cl">./kafka-topics.sh --bootstrap-server kafka服务IP:9092 --describe --topic 主题名称
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#查看日志</span>
 </span></span><span class="line"><span class="cl">./kafka-run-class.sh kafka.tools.DumpLogSegments --files /kafka-logs/test-1/00000000000000000000.log --print-data-log
@@ -297,7 +297,7 @@ EXTERNAL_LISTENER://kafka03:18001表示Kafka在kafka03主机的18001端口上监
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
               data-sizes="auto"
               alt="Freeswitch 1.10.6的docker镜像构建"
               class="lazyload"
@@ -305,7 +305,7 @@ EXTERNAL_LISTENER://kafka03:18001表示Kafka在kafka03主机的18001端口上监
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Freeswitch 1.10.6的docker镜像构建</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg3.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
               data-sizes="auto"
               alt="Freeswitch"
               class="lazyload"
