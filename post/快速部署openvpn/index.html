@@ -198,8 +198,8 @@
 </span></span><span class="line"><span class="cl">topology subnet
 </span></span><span class="line"><span class="cl">server 10.5.5.0 255.255.255.0
 </span></span><span class="line"><span class="cl">ifconfig-pool-persist ipp.txt
-</span></span><span class="line"><span class="cl">push <span class="s2">&#34;route 172.29.77.0 255.255.255.0&#34;</span>
-</span></span><span class="line"><span class="cl">push <span class="s2">&#34;route 172.25.209.0 255.255.255.0&#34;</span>
+</span></span><span class="line"><span class="cl">push <span class="s2">&#34;route 10.9.0.0 255.255.255.0&#34;</span>
+</span></span><span class="line"><span class="cl">client-config-dir /etc/openvpn/ccd
 </span></span><span class="line"><span class="cl">dh none
 </span></span><span class="line"><span class="cl"><span class="c1">#从radius验证密码，不需要可不添加</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#plugin /etc/openvpn/radiusplugin.so /etc/openvpn/radiusplugin.cnf</span>
@@ -219,6 +219,23 @@
 </span></span><span class="line"><span class="cl">status /var/log/openvpn/status.log
 </span></span><span class="line"><span class="cl">verb <span class="m">3</span>
 </span></span><span class="line"><span class="cl">reneg-sec <span class="m">0</span>
+</span></span></code></pre></div><ul>
+<li>自定义不同的客户端推送不同的路由</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mkdir -p /etc/openvpn/ccd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">chown -R nobody:nobody /etc/openvpn/ccd/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 用户名在/etc/openvpn/ipp.txt中查看
+</span></span><span class="line"><span class="cl">cat &gt; /etc/openvpn/ccd/user1 &lt;&lt; EOF
+</span></span><span class="line"><span class="cl">push &#34;route 172.29.77.0 255.255.255.0&#34;
+</span></span><span class="line"><span class="cl">EOF
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat &gt; /etc/openvpn/ccd/user2 &lt;&lt; EOF
+</span></span><span class="line"><span class="cl">push &#34;route 172.25.209.0 255.255.255.0&#34;
+</span></span><span class="line"><span class="cl">EOF
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">chmod 644 /etc/openvpn/ccd/*
 </span></span></code></pre></div><ul>
 <li>配置iptables，内部流量通过openvpn服务端转发</li>
 </ul>
@@ -271,7 +288,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
               data-sizes="auto"
               alt="内网穿透frp"
               class="lazyload"
@@ -279,7 +296,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">内网穿透frp</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg3.webp"
               data-sizes="auto"
               alt="Golang"
               class="lazyload"
@@ -296,7 +313,7 @@
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;45.5k</span
+          >&nbsp;45.6k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:47</span>
