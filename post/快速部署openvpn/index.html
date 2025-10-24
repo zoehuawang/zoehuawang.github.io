@@ -185,7 +185,7 @@
 </ul>
 <p><a href="https://github.com/angristan/openvpn-install">https://github.com/angristan/openvpn-install</a></p>
 <ul>
-<li>配置文件/etc/openvpn/server.conf补充</li>
+<li>配置文件/etc/openvpn/server.conf</li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">port <span class="m">2305</span>
 </span></span><span class="line"><span class="cl">proto udp
@@ -220,13 +220,36 @@
 </span></span><span class="line"><span class="cl">verb <span class="m">3</span>
 </span></span><span class="line"><span class="cl">reneg-sec <span class="m">0</span>
 </span></span></code></pre></div><ul>
+<li>客户端配置文件模版/etc/openvpn/client-common.txt</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">client
+</span></span><span class="line"><span class="cl">dev tun
+</span></span><span class="line"><span class="cl">proto udp
+</span></span><span class="line"><span class="cl">sndbuf 0
+</span></span><span class="line"><span class="cl">rcvbuf 0
+</span></span><span class="line"><span class="cl">remote 1.1.1.1 2305
+</span></span><span class="line"><span class="cl">resolv-retry infinite
+</span></span><span class="line"><span class="cl">nobind
+</span></span><span class="line"><span class="cl">persist-key
+</span></span><span class="line"><span class="cl">persist-tun
+</span></span><span class="line"><span class="cl">remote-cert-tls server
+</span></span><span class="line"><span class="cl">auth SHA512
+</span></span><span class="line"><span class="cl">cipher AES-128-GCM
+</span></span><span class="line"><span class="cl">comp-lzo
+</span></span><span class="line"><span class="cl">key-direction 1
+</span></span><span class="line"><span class="cl">verb 3
+</span></span><span class="line"><span class="cl">#如果开启了radius验证就取消注释
+</span></span><span class="line"><span class="cl">#auth-user-pass
+</span></span><span class="line"><span class="cl">reneg-sec 86400
+</span></span><span class="line"><span class="cl">tls-version-min 1.2
+</span></span></code></pre></div><ul>
 <li>自定义不同的客户端推送不同的路由</li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mkdir -p /etc/openvpn/ccd
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">chown -R nobody:nobody /etc/openvpn/ccd/
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"># 用户名在/etc/openvpn/ipp.txt中查看
+</span></span><span class="line"><span class="cl"># user1、user2为客户端连接时的用户名
 </span></span><span class="line"><span class="cl">cat &gt; /etc/openvpn/ccd/user1 &lt;&lt; EOF
 </span></span><span class="line"><span class="cl">push &#34;route 172.29.77.0 255.255.255.0&#34;
 </span></span><span class="line"><span class="cl">EOF
@@ -288,7 +311,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
               data-sizes="auto"
               alt="内网穿透frp"
               class="lazyload"
@@ -313,7 +336,7 @@
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;45.6k</span
+          >&nbsp;45.7k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:47</span>
