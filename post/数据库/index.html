@@ -285,19 +285,20 @@
 </span></span></span><span class="line"><span class="cl"><span class="s1">printf &#34;+------------------------------------------+--------------------+\n&#34;
 </span></span></span><span class="line"><span class="cl"><span class="s1">}&#39;</span>
 </span></span></code></pre></div><ul>
-<li><strong>获取表最后一个分区名</strong></li>
+<li><strong>获取表最后三个分区名</strong></li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">TABLE_SCHEMA</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s1">&#39;数据库&#39;</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">TABLE_NAME</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s1">&#39;表名&#39;</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">GROUP_CONCAT</span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">CASE</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="k">WHEN</span><span class="w"> </span><span class="n">rn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">CONCAT</span><span class="p">(</span><span class="s1">&#39;最后一个: &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">PARTITION_NAME</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="k">WHEN</span><span class="w"> </span><span class="n">rn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">CONCAT</span><span class="p">(</span><span class="s1">&#39;倒数第一: &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">PARTITION_NAME</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="k">WHEN</span><span class="w"> </span><span class="n">rn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">CONCAT</span><span class="p">(</span><span class="s1">&#39;倒数第二: &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">PARTITION_NAME</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="k">WHEN</span><span class="w"> </span><span class="n">rn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">CONCAT</span><span class="p">(</span><span class="s1">&#39;倒数第三: &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">PARTITION_NAME</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">END</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">rn</span><span class="w"> </span><span class="n">SEPARATOR</span><span class="w"> </span><span class="s1">&#39;, &#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s1">&#39;最后两个分区&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s1">&#39;最后三个分区&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">SELECT</span><span class="w">
@@ -318,8 +319,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="k">AND</span><span class="w"> </span><span class="n">PARTITION_NAME</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="n">ranked</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">rn</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">2</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">rn</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="c1">-- 修改为获取最后三个分区
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">TABLE_SCHEMA</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">TABLE_NAME</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">HAVING</span><span class="w">
@@ -849,7 +850,7 @@ interface为网卡名称，不一样的话注意修改</p>
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg10.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg9.webp"
               data-sizes="auto"
               alt="Keepalived高可用配置"
               class="lazyload"
@@ -857,7 +858,7 @@ interface为网卡名称，不一样的话注意修改</p>
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Keepalived高可用配置</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
               data-sizes="auto"
               alt="Python"
               class="lazyload"
