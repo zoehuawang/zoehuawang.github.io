@@ -54,7 +54,7 @@
   <meta property="article:published_time" content="2023-06-08T11:22:21&#43;08:00" />
   <meta property="article:modified_time" content="2023-06-08T11:22:21&#43;08:00" /><meta property="article:tag" content="mysqloracle" /><meta name="twitter:card" content="summary" />
   <meta name="twitter:image" content="/" />
-<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.23d46c66c6ec16e18a24b0b67f282707f9baab8655d3a926988d8d1c074266db.css" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.b24c09f14226f6e0b1c5f7d2429eb9178ac7e4fa3a06ab1ca580a085f26946ea.css" />
 <link
     rel="preload"
     as="style"
@@ -577,11 +577,13 @@ mysql双主同步
 <p>192.168.7.54：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">CHANGE</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">MASTER_HOST</span><span class="o">=</span><span class="s1">&#39;192.168.7.55&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">MASTER_USER</span><span class="o">=</span><span class="s1">&#39;repl_user&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">MASTER_PASSWORD</span><span class="o">=</span><span class="s1">&#39;welljoint_789&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">MASTER_LOG_FILE</span><span class="o">=</span><span class="s1">&#39;mysql-bin.000003&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">MASTER_LOG_POS</span><span class="o">=</span><span class="mi">2047</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><blockquote>
-<p>其中MASTER_HOST为另外一个节点的IP，MASTER_LOG_FILE为192.168.7.55查询出来的File，MASTER_LOG_POS为192.168.7.55查询出来的Position</p></blockquote>
+<p>其中MASTER_HOST为另外一个节点的IP，MASTER_LOG_FILE为192.168.7.55查询出来的File，MASTER_LOG_POS为192.168.7.55查询出来的Position</p>
+</blockquote>
 <p>192.168.7.55：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">CHANGE</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">MASTER_HOST</span><span class="o">=</span><span class="s1">&#39;192.168.7.54&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">MASTER_USER</span><span class="o">=</span><span class="s1">&#39;repl_user&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">MASTER_PASSWORD</span><span class="o">=</span><span class="s1">&#39;welljoint_789&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">MASTER_LOG_FILE</span><span class="o">=</span><span class="s1">&#39;mysql-bin.000003&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">MASTER_LOG_POS</span><span class="o">=</span><span class="mi">2047</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><blockquote>
-<p>其中MASTER_HOST为另外一个节点的IP，MASTER_LOG_FILE为192.168.7.54查询出来的File，MASTER_LOG_POS为192.168.7.55查询出来的Position</p></blockquote>
+<p>其中MASTER_HOST为另外一个节点的IP，MASTER_LOG_FILE为192.168.7.54查询出来的File，MASTER_LOG_POS为192.168.7.55查询出来的Position</p>
+</blockquote>
 <ul>
 <li>将MySQL从只读设置为读写状态（两个节点都操作）</li>
 </ul>
@@ -611,7 +613,8 @@ mysql双主同步
 </span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="n">Replicate_Do_DB</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="n">Replicate_Ignore_DB</span><span class="p">:</span><span class="w">
 </span></span></span></code></pre></div><blockquote>
-<p>Slave_IO_Running 和 Slave_SQL_Running 都为Yes即表示正常</p></blockquote>
+<p>Slave_IO_Running 和 Slave_SQL_Running 都为Yes即表示正常</p>
+</blockquote>
 <h3 id="安装keepalived-135">
 <a class="header-anchor" href="#%e5%ae%89%e8%a3%85keepalived-135"></a>
 安装keepalived-1.3.5
@@ -690,7 +693,8 @@ mysql双主同步
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span></code></pre></div><blockquote>
 <p>两个配置文件除了 priority 这个代表权重的参数不一样，其他都一致，值越大权重越高的为主节点；
-interface为网卡名称，不一样的话注意修改</p></blockquote>
+interface为网卡名称，不一样的话注意修改</p>
+</blockquote>
 <ul>
 <li>开机启动keepalived，并启动keepalived（两个节点都操作）</li>
 </ul>
@@ -729,7 +733,8 @@ interface为网卡名称，不一样的话注意修改</p></blockquote>
 </span></span><span class="line"><span class="cl">    inet6 fe80::20c:29ff:fed2:93a2/64 scope link
 </span></span><span class="line"><span class="cl">       valid_lft forever preferred_lft forever
 </span></span></code></pre></div><blockquote>
-<p>VIP 192.168.7.58在192.168.7.55上，停掉192.168.7.55的mysql后VIP会漂移到192.168.7.54上</p></blockquote>
+<p>VIP 192.168.7.58在192.168.7.55上，停掉192.168.7.55的mysql后VIP会漂移到192.168.7.54上</p>
+</blockquote>
 <h1 id="oracle">
 <a class="header-anchor" href="#oracle"></a>
 &ndash;—————————Oracle—————————&ndash;
@@ -801,7 +806,7 @@ interface为网卡名称，不一样的话注意修改</p></blockquote>
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg10.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
               data-sizes="auto"
               alt="Keepalived高可用配置"
               class="lazyload"
@@ -809,7 +814,7 @@ interface为网卡名称，不一样的话注意修改</p></blockquote>
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Keepalived高可用配置</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg9.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg3.webp"
               data-sizes="auto"
               alt="Python"
               class="lazyload"

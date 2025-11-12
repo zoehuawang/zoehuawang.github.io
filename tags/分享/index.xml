@@ -219,5 +219,85 @@
       
     </item>
     
+    
+
+    <item>
+      <title>内网穿透frp</title>
+      <link>/post/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8Ffrp/</link>
+      <pubDate>Tue, 11 Oct 2022 11:02:07 &#43;0800</pubDate>
+      <author>w19891102@126.com (zoehuawang)</author>
+      <guid>/post/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8Ffrp/</guid>
+      <description>
+        <![CDATA[<h1>内网穿透frp</h1><p>作者：zoehuawang（w19891102@126.com）</p>
+        
+          
+        
+        <hr><p>本文2022-10-11首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2022-10-11</p>]]>
+      </description>
+      
+        <category></category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>rpmbuild将编译安装好的软件打成RPM包</title>
+      <link>/post/rpmbuild%E5%B0%86%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%A5%BD%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%89%93%E6%88%90rpm%E5%8C%85/</link>
+      <pubDate>Thu, 05 May 2022 10:29:50 &#43;0800</pubDate>
+      <author>w19891102@126.com (zoehuawang)</author>
+      <guid>/post/rpmbuild%E5%B0%86%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E5%A5%BD%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%89%93%E6%88%90rpm%E5%8C%85/</guid>
+      <description>
+        <![CDATA[<h1>rpmbuild将编译安装好的软件打成RPM包</h1><p>作者：zoehuawang（w19891102@126.com）</p>
+        
+          
+        
+        <hr><p>本文2022-05-05首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2022-05-05</p>]]>
+      </description>
+      
+        <category>运维</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>ffmpeg</title>
+      <link>/post/ffmpeg/</link>
+      <pubDate>Fri, 02 Jul 2021 11:05:49 &#43;0800</pubDate>
+      <author>w19891102@126.com (zoehuawang)</author>
+      <guid>/post/ffmpeg/</guid>
+      <description>
+        <![CDATA[<h1>ffmpeg</h1><p>作者：zoehuawang（w19891102@126.com）</p>
+        
+          
+        
+        <hr><p>本文2021-07-02首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2021-07-02</p>]]>
+      </description>
+      
+        <category></category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>银行项目实现微信告警</title>
+      <link>/post/%E9%93%B6%E8%A1%8C%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6/</link>
+      <pubDate>Tue, 08 Jun 2021 11:24:20 &#43;0800</pubDate>
+      <author>w19891102@126.com (zoehuawang)</author>
+      <guid>/post/%E9%93%B6%E8%A1%8C%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E5%91%8A%E8%AD%A6/</guid>
+      <description>
+        <![CDATA[<h1>银行项目实现微信告警</h1><p>作者：zoehuawang（w19891102@126.com）</p>
+        
+          
+        
+        <hr><p>本文2021-06-08首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2021-06-08</p>]]>
+      </description>
+      
+        <category></category>
+      
+    </item>
+    
   </channel>
 </rss>

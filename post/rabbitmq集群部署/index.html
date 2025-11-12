@@ -54,7 +54,7 @@
   <meta property="article:published_time" content="2023-06-11T11:33:00&#43;08:00" />
   <meta property="article:modified_time" content="2023-06-11T11:33:00&#43;08:00" /><meta property="article:tag" content="分享" /><meta name="twitter:card" content="summary" />
   <meta name="twitter:image" content="/" />
-<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.23d46c66c6ec16e18a24b0b67f282707f9baab8655d3a926988d8d1c074266db.css" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.b24c09f14226f6e0b1c5f7d2429eb9178ac7e4fa3a06ab1ca580a085f26946ea.css" />
 <link
     rel="preload"
     as="style"
@@ -237,7 +237,8 @@
 </span></span><span class="line"><span class="cl"><span class="n">vim</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">rabbitmq</span><span class="o">/</span><span class="n">rabbitmq</span><span class="o">.</span><span class="n">config</span>
 </span></span><span class="line"><span class="cl"><span class="p">[{</span><span class="n">rabbit</span><span class="p">,</span> <span class="p">[{</span><span class="n">loopback_users</span><span class="p">,</span> <span class="p">[]},{</span><span class="n">vm_memory_high_watermark</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">},{</span><span class="n">cluster_partition_handling</span><span class="p">,</span> <span class="n">pause_minority</span><span class="p">}]}]</span><span class="o">.</span>
 </span></span></code></pre></div><blockquote>
-<p>默认情况下，RabbitMQ使用内存超过40%的时候，会发出内存警告，阻塞所有发布消息的连接，一旦警告解除（例如：服务器paging消息到硬盘或者分发消息到消费者并且确认）服务会恢复正常。默认的内存阀值是40%，注意，这并不会阻止RabbitMQ Server使用不到40%，仅仅意味着到达这个点的时候，发布者会被阻塞block，最坏的情况下，Erlang虚拟机会引起双倍的内存使用（RAM的80%），强烈建议开启操作系统的SWAP和Page files.内存达到阀值后，发布者会被阻塞，但是消费者不会被阻塞，消费者继续消费消息，当内存降低到阀值以下后，发布者继续开始发布消息。</p></blockquote>
+<p>默认情况下，RabbitMQ使用内存超过40%的时候，会发出内存警告，阻塞所有发布消息的连接，一旦警告解除（例如：服务器paging消息到硬盘或者分发消息到消费者并且确认）服务会恢复正常。默认的内存阀值是40%，注意，这并不会阻止RabbitMQ Server使用不到40%，仅仅意味着到达这个点的时候，发布者会被阻塞block，最坏的情况下，Erlang虚拟机会引起双倍的内存使用（RAM的80%），强烈建议开启操作系统的SWAP和Page files.内存达到阀值后，发布者会被阻塞，但是消费者不会被阻塞，消费者继续消费消息，当内存降低到阀值以下后，发布者继续开始发布消息。</p>
+</blockquote>
 <ul>
 <li>重启(3个节点都操作)</li>
 </ul>
@@ -268,7 +269,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
               data-sizes="auto"
               alt="Freeswitch 1.4.26基本安装使用"
               class="lazyload"
@@ -276,7 +277,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Freeswitch 1.4.26基本安装使用</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
               data-sizes="auto"
               alt="Freeswitch 1.10.6的docker镜像构建"
               class="lazyload"

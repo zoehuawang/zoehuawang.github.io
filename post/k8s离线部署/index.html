@@ -54,7 +54,7 @@
   <meta property="article:published_time" content="2023-06-17T11:37:31&#43;08:00" />
   <meta property="article:modified_time" content="2023-06-17T11:37:31&#43;08:00" /><meta property="article:tag" content="k8s" /><meta name="twitter:card" content="summary" />
   <meta name="twitter:image" content="/" />
-<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.23d46c66c6ec16e18a24b0b67f282707f9baab8655d3a926988d8d1c074266db.css" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.b24c09f14226f6e0b1c5f7d2429eb9178ac7e4fa3a06ab1ca580a085f26946ea.css" />
 <link
     rel="preload"
     as="style"
@@ -429,7 +429,8 @@
 <a class="header-anchor" href="#%e4%b8%89%e9%83%a8%e7%bd%b2etcd%e9%9b%86%e7%be%a4"></a>
 三、部署Etcd集群
 </h2><blockquote>
-<p>注：为了节省机器，这里与 K8s 节点机器复用 ， 也可以独立于 k8s 集群之外部署，只要 apiserver 能连接到就行</p></blockquote>
+<p>注：为了节省机器，这里与 K8s 节点机器复用 ， 也可以独立于 k8s 集群之外部署，只要 apiserver 能连接到就行</p>
+</blockquote>
 <ul>
 <li>准备 cfssl 证书生成工具 ， 找任意一台服务器操作，这里用 Master 节点</li>
 </ul>
@@ -560,7 +561,8 @@
 </span></span><span class="line"><span class="cl">  <span class="o">]</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span></code></pre></div><blockquote>
-<p>注： 上述文件 hosts 字段中 IP 为所有 etcd 节点的集群内部通信 IP，一个都不能少！为了方便 后期扩容可以多写几个预留的 IP</p></blockquote>
+<p>注： 上述文件 hosts 字段中 IP 为所有 etcd 节点的集群内部通信 IP，一个都不能少！为了方便 后期扩容可以多写几个预留的 IP</p>
+</blockquote>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cfssl gencert -ca<span class="o">=</span>ca.pem -ca-key<span class="o">=</span>ca-key.pem -config<span class="o">=</span>ca-config.json -profile<span class="o">=</span>kubernetes etcd-csr.json <span class="p">|</span> cfssljson -bare etcd
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">ls etcd*pem
@@ -732,7 +734,8 @@
 </span></span><span class="line"><span class="cl">  <span class="o">]</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span></code></pre></div><blockquote>
-<p>注：上述文件 hosts 字段中 IP 为所有 Master/LB/VIP IP，一个都不能少！为了方便后期扩容 可以多写几个预留的 IP</p></blockquote>
+<p>注：上述文件 hosts 字段中 IP 为所有 Master/LB/VIP IP，一个都不能少！为了方便后期扩容 可以多写几个预留的 IP</p>
+</blockquote>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cfssl gencert -ca<span class="o">=</span>ca.pem -ca-key<span class="o">=</span>ca-key.pem -config<span class="o">=</span>ca-config.json -profile<span class="o">=</span>kubernetes server-csr.json <span class="p">|</span> cfssljson -bare server
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">ls server*pem
@@ -806,7 +809,8 @@
 <a class="header-anchor" href="#11%e4%bd%bf%e7%94%a8-tls-bootstraping-%e6%9c%ba%e5%88%b6%e6%9d%a5%e8%87%aa%e5%8a%a8%e9%a2%81%e5%8f%91%e5%ae%a2%e6%88%b7%e7%ab%af%e8%af%81%e4%b9%a6"></a>
 1.1、使用 TLS bootstraping 机制来自动颁发客户端证书
 </h3><blockquote>
-<p>TLS Bootstraping：Master apiserver 启用 TLS 认证后，Node 节点 kubelet 和 kube-proxy 要 与 kube-apiserver 进行通信，必须使用 CA 签发的有效证书才可以，当 Node 节点很多时，这 种客户端证书颁发需要大量工作，同样也会增加集群扩展复杂度。为了简化流程，Kubernetes 引入了 TLS bootstraping 机制来自动颁发客户端证书，kubelet 会以一个低权限用户自动向 apiserver 申请证书，kubelet 的证书由 apiserver 动态签署。所以强烈建议在 Node 上使用这 种方式，目前主要用于 kubelet，kube-proxy 还是由我们统一颁发一个证书。</p></blockquote>
+<p>TLS Bootstraping：Master apiserver 启用 TLS 认证后，Node 节点 kubelet 和 kube-proxy 要 与 kube-apiserver 进行通信，必须使用 CA 签发的有效证书才可以，当 Node 节点很多时，这 种客户端证书颁发需要大量工作，同样也会增加集群扩展复杂度。为了简化流程，Kubernetes 引入了 TLS bootstraping 机制来自动颁发客户端证书，kubelet 会以一个低权限用户自动向 apiserver 申请证书，kubelet 的证书由 apiserver 动态签署。所以强烈建议在 Node 上使用这 种方式，目前主要用于 kubelet，kube-proxy 还是由我们统一颁发一个证书。</p>
+</blockquote>
 <ul>
 <li>创建 token 文件</li>
 </ul>
@@ -1386,7 +1390,8 @@
 <a class="header-anchor" href="#2-%e9%83%a8%e7%bd%b2-coredns"></a>
 2、 部署 CoreDNS
 </h3><blockquote>
-<p>CoreDNS 用于集群内部 Service 名称解析</p></blockquote>
+<p>CoreDNS 用于集群内部 Service 名称解析</p>
+</blockquote>
 <ul>
 <li>修改资源包路径下yaml目录下的 coredns.yaml</li>
 </ul>
@@ -1469,7 +1474,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg9.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
               data-sizes="auto"
               alt="Ansible自动化"
               class="lazyload"
@@ -1477,7 +1482,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Ansible自动化</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
               data-sizes="auto"
               alt="ELK"
               class="lazyload"
