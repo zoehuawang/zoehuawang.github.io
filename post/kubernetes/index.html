@@ -222,8 +222,9 @@
 </span></span><span class="line"><span class="cl">kubectl get daemonset -A
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">########################### Pod管理 ###########################</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#1、将本地端口转发到pod中的端口</span>
-</span></span><span class="line"><span class="cl">kubectl port-forward &lt;pod-name&gt; 8888:8080
+</span></span><span class="line"><span class="cl"><span class="c1">#1、将本地端口转发到pod/svc中的端口</span>
+</span></span><span class="line"><span class="cl">kubectl port-forward -n &lt;namespace&gt; pod/&lt;pod-name&gt; 8088:8088 --address 0.0.0.0
+</span></span><span class="line"><span class="cl">kubectl port-forward -n &lt;namespace&gt; svc/&lt;svc-name&gt; 8080:8080 --address 0.0.0.0
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#2、查看pod的cpu和内存</span>
 </span></span><span class="line"><span class="cl">kubectl top pod -n &lt;namespace&gt;
@@ -663,7 +664,7 @@ minikube使用
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg10.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
               data-sizes="auto"
               alt="Kubernetes之StatefulSet部署etcd集群"
               class="lazyload"
@@ -671,7 +672,7 @@ minikube使用
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Kubernetes之StatefulSet部署etcd集群</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
               data-sizes="auto"
               alt="Kubernetes之proxysql集群"
               class="lazyload"
