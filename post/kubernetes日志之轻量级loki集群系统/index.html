@@ -415,8 +415,7 @@
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 使用kubectl将minio的pod端口通过本地端口临时代理出来</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># 访问页面(http://ip:3100/memberlist)</span>
-</span></span><span class="line"><span class="cl">nohup kubectl port-forward -n default svc/loki 3100:3100 --address 0.0.0.0 <span class="p">&amp;</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 确认后记得kill掉nohup进程</span>
+</span></span><span class="line"><span class="cl">kubectl port-forward -n default svc/loki 3100:3100 --address 0.0.0.0
 </span></span></code></pre></div><h1 id="三logstash部署">
 <a class="header-anchor" href="#%e4%b8%89logstash%e9%83%a8%e7%bd%b2"></a>
 三、logstash部署
