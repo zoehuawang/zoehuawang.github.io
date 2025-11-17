@@ -180,9 +180,9 @@
       >K8S</a
     ></div>
 </div>
-    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><h1 id="一minio部署提前安装配置好nfs使用nfs作为持久化存储">
-<a class="header-anchor" href="#%e4%b8%80minio%e9%83%a8%e7%bd%b2%e6%8f%90%e5%89%8d%e5%ae%89%e8%a3%85%e9%85%8d%e7%bd%ae%e5%a5%bdnfs%e4%bd%bf%e7%94%a8nfs%e4%bd%9c%e4%b8%ba%e6%8c%81%e4%b9%85%e5%8c%96%e5%ad%98%e5%82%a8"></a>
-一、Minio部署（提前安装配置好nfs，使用nfs作为持久化存储）
+    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><h1 id="一minio部署使用nfs作为持久化存储">
+<a class="header-anchor" href="#%e4%b8%80minio%e9%83%a8%e7%bd%b2%e4%bd%bf%e7%94%a8nfs%e4%bd%9c%e4%b8%ba%e6%8c%81%e4%b9%85%e5%8c%96%e5%ad%98%e5%82%a8"></a>
+一、Minio部署（使用nfs作为持久化存储）
 </h1><ul>
 <li>创建minio.yaml文件</li>
 </ul>
@@ -212,8 +212,6 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">minio</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">imagePullSecrets</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">jcr-pull-secret</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">minio</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">ccr.ccs.tencentyun.com/zoehuawang/minio:RELEASE.2025-09-07T16-13-09Z</span><span class="w">
@@ -370,8 +368,6 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">imagePullSecrets</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">jcr-pull-secret</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">ccr.ccs.tencentyun.com/zoehuawang/loki:3.5.7</span><span class="w">
@@ -608,7 +604,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg3.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
               data-sizes="auto"
               alt="MFA双因子认证服务端"
               class="lazyload"
