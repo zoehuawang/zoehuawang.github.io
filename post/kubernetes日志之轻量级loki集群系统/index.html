@@ -244,13 +244,10 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c">#  path: /mnt/disk1/data</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c">#  type: DirectoryOrCreate</span><span class="w">
 </span></span></span></code></pre></div><ul>
+<li>通过用户admin，密码Aa123456，访问minio页面(9090端口对应的nodeport端口)</li>
 <li>创建bucket，名称与Loki配置的bucketnames一致</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 使用kubectl将minio的pod端口通过本地端口临时代理出来</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 通过用户admin，密码Aa123456，访问minio页面(http://ip:9090)</span>
-</span></span><span class="line"><span class="cl">nohup kubectl port-forward -n default pod/minio 9090:9090 --address 0.0.0.0 <span class="p">&amp;</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 完成后记得kill掉nohup进程</span>
-</span></span></code></pre></div><h1 id="二loki部署">
+<h1 id="二loki部署">
 <a class="header-anchor" href="#%e4%ba%8cloki%e9%83%a8%e7%bd%b2"></a>
 二、Loki部署
 </h1><ul>
@@ -605,7 +602,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
               data-sizes="auto"
               alt="MFA双因子认证服务端"
               class="lazyload"
@@ -622,7 +619,7 @@
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;47.2k</span
+          >&nbsp;47.1k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:51</span>
