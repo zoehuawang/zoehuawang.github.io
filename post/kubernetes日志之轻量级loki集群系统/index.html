@@ -452,14 +452,14 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">    }
 </span></span></span><span class="line"><span class="cl"><span class="sd">    filter {
 </span></span></span><span class="line"><span class="cl"><span class="sd">      mutate {
-</span></span></span><span class="line"><span class="cl"><span class="sd">        add_field =&gt; { &#34;log_env&#34; =&gt; &#34;UAT&amp;SIT&#34;  }
+</span></span></span><span class="line"><span class="cl"><span class="sd">        add_field =&gt; { &#34;environment&#34; =&gt; &#34;UAT&amp;SIT&#34;  }
 </span></span></span><span class="line"><span class="cl"><span class="sd">      }
 </span></span></span><span class="line"><span class="cl"><span class="sd">    }
 </span></span></span><span class="line"><span class="cl"><span class="sd">    output {
 </span></span></span><span class="line"><span class="cl"><span class="sd">      loki {
 </span></span></span><span class="line"><span class="cl"><span class="sd">        url =&gt; &#34;http://loki:3100/loki/api/v1/push&#34;
 </span></span></span><span class="line"><span class="cl"><span class="sd">        include_fields =&gt; [
-</span></span></span><span class="line"><span class="cl"><span class="sd">          &#34;log_type&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="sd">          &#34;environment&#34;,
 </span></span></span><span class="line"><span class="cl"><span class="sd">          &#34;HOSTNAME&#34;,
 </span></span></span><span class="line"><span class="cl"><span class="sd">          &#34;threadId&#34;,
 </span></span></span><span class="line"><span class="cl"><span class="sd">          &#34;serviceld&#34;,
@@ -601,7 +601,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
               data-sizes="auto"
               alt="MFA双因子认证服务端"
               class="lazyload"
