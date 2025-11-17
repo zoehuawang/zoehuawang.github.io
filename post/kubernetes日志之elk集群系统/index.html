@@ -1,0 +1,1021 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  data-theme-mode="auto"
+  >
+  <head><meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/><title>
+  Kubernetes日志之ELK集群系统 | zoehuawang
+</title>
+<meta
+  name="description"
+  content="ELK版本：8.14.1"
+/><script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_4k4bc36ef96\",\"outdate\":{\"daysago\":14,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  
+</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+<link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_4k4bc36ef96.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  /><meta property="og:type" content="website" />
+  <meta property="og:title" content="Kubernetes日志之ELK集群系统 | zoehuawang" />
+  <meta
+    property="og:description"
+    content="ELK版本：8.14.1"
+  />
+  <meta property="og:url" content="/post/kubernetes%E6%97%A5%E5%BF%97%E4%B9%8Belk%E9%9B%86%E7%BE%A4%E7%B3%BB%E7%BB%9F/" />
+  <meta
+    property="og:site_name"
+    content="︶烟花散尽不问繁华┈┾"
+  />
+  <meta
+    property="og:image"
+    content="/"
+  />
+  <meta property="article:author" content="zoehuawang" />
+  <meta property="article:published_time" content="2024-12-16T11:03:17&#43;08:00" />
+  <meta property="article:modified_time" content="2024-12-16T11:03:17&#43;08:00" /><meta property="article:tag" content="分享elk" /><meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.b24c09f14226f6e0b1c5f7d2429eb9178ac7e4fa3a06ab1ca580a085f26946ea.css" />
+<link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei&#43;Zx/1oA/0l8ysE" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.22/dist/katex.min.css"
+    integrity="sha384-5TcZemv2l/9On385z///&#43;d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script><link
+    rel="stylesheet"
+    href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css"
+    integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous"/></head>
+  <body><div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+<div id="lang-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+本文章没有找到对应的语言版本
+</div>
+<div id="heatmap-tooltip"></div><div id="container">
+      <div id="wrap"><div id="header-nav">
+  <nav id="main-nav"><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span><a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav"></nav></div>
+<header id="header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="Kubernetes日志之ELK集群系统"><div id="header-outer">
+    <div id="header-title"><a href="/" id="logo">
+            <h1 data-aos="slide-up">Kubernetes日志之ELK集群系统</h1>
+          </a><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
+  </div>
+</header>
+<div id="content"
+          class="sidebar-left"
+            ><aside id="sidebar"><div class="sidebar-wrapper-container sticky"><div class="sidebar-wrapper">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    ><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents"></nav>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="zoehuawang"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">zoehuawang</div>
+  <div class="sidebar-description">牛马日记</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">33</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      7
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">18</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div></div>
+</div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div><div class="sidebar-widget"></div></div></aside>
+<section id="main"><article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta"><div class="article-date">
+  <span
+    class="article-date-link icon-calendar"
+    data-aos="zoom-in"
+  >
+    <time datetime="2024-12-16 11:03:17 &#43;0800 CST" itemprop="datePublished"
+      >2024-12-16</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2024-12-16</time
+    >
+  </span></div>
+<div class="article-category"><a
+      class="article-category-link"
+      href="/categories/k8s"
+      data-aos="zoom-in"
+      >K8S</a
+    ></div>
+</div>
+    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><h1 id="一elasticsearch集群3节点">
+<a class="header-anchor" href="#%e4%b8%80elasticsearch%e9%9b%86%e7%be%a43%e8%8a%82%e7%82%b9"></a>
+一、elasticsearch集群(3节点)
+</h1><ul>
+<li>es宿主机配置</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim /etc/sysctl.conf 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">vm.max_map_count<span class="o">=</span><span class="m">262144</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sysctl -p
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mkdir /mnt/es_data <span class="o">&amp;&amp;</span> chmod <span class="m">777</span> /mnt/es_data
+</span></span></code></pre></div><ul>
+<li>创建pv-sc-es.yaml文件</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">PersistentVolume</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch-pv0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">capacity</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l">10Gi</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">ReadWriteOnce</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">volumeMode</span><span class="p">:</span><span class="w"> </span><span class="l">Filesystem</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">persistentVolumeReclaimPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">Delete</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch-storage</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">local</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/mnt/es_data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">nodeAffinity</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">required</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">nodeSelectorTerms</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">matchExpressions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">es</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">In</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">values</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="l">pv0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">PersistentVolume</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch-pv1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">capacity</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l">10Gi</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">ReadWriteOnce</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">volumeMode</span><span class="p">:</span><span class="w"> </span><span class="l">Filesystem</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">persistentVolumeReclaimPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">Delete</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch-storage</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">local</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/mnt/es_data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">nodeAffinity</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">required</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">nodeSelectorTerms</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">matchExpressions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">es</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">In</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">values</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="l">pv1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">PersistentVolume</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch-pv2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">capacity</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l">10Gi</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">ReadWriteOnce</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">volumeMode</span><span class="p">:</span><span class="w"> </span><span class="l">Filesystem</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">persistentVolumeReclaimPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">Delete</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch-storage</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">local</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/mnt/es_data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">nodeAffinity</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">required</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">nodeSelectorTerms</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">matchExpressions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">es</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">In</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">values</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="l">pv2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">StorageClass</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">storage.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch-storage</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">provisioner</span><span class="p">:</span><span class="w"> </span><span class="l">kubernetes.io/no-provisioner</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">volumeBindingMode</span><span class="p">:</span><span class="w"> </span><span class="l">WaitForFirstConsumer</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>创建configmap-es.yaml文件</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ConfigMap</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">configmap-es</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">data</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">network.host</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0.0.0.0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">cluster.name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;es-cluster&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">elasticsearch.yml</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    cluster.name: es-cluster
+</span></span></span><span class="line"><span class="cl"><span class="sd">    network.host: &#34;0.0.0.0&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">    http.port: 9200
+</span></span></span><span class="line"><span class="cl"><span class="sd">    transport.port: 9300
+</span></span></span><span class="line"><span class="cl"><span class="sd">    node.roles: [ingest,master,data]
+</span></span></span><span class="line"><span class="cl"><span class="sd">    discovery.seed_hosts: [&#34;elasticsearch-0.elasticsearch.default.svc.cluster.local&#34;,&#34;elasticsearch-1.elasticsearch.default.svc.cluster.local&#34;,&#34;elasticsearch-2.elasticsearch.default.svc.cluster.local&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="sd">    cluster.initial_master_nodes: [&#34;elasticsearch-0&#34;,&#34;elasticsearch-1&#34;,&#34;elasticsearch-2&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="sd">    search.allow_expensive_queries: true
+</span></span></span><span class="line"><span class="cl"><span class="sd">    ingest.geoip.downloader.enabled: false
+</span></span></span><span class="line"><span class="cl"><span class="sd">    xpack.security.enabled: true
+</span></span></span><span class="line"><span class="cl"><span class="sd">    xpack.security.enrollment.enabled: true
+</span></span></span><span class="line"><span class="cl"><span class="sd">    xpack.security.http.ssl:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      enabled: true
+</span></span></span><span class="line"><span class="cl"><span class="sd">      keystore.path: /usr/share/elasticsearch/config/local-certs/http.p12
+</span></span></span><span class="line"><span class="cl"><span class="sd">      truststore.path: /usr/share/elasticsearch/config/local-certs/http.p12
+</span></span></span><span class="line"><span class="cl"><span class="sd">    xpack.security.transport.ssl:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      enabled: true
+</span></span></span><span class="line"><span class="cl"><span class="sd">      verification_mode: certificate
+</span></span></span><span class="line"><span class="cl"><span class="sd">      keystore.path: /usr/share/elasticsearch/config/local-certs/elastic-certificates.p12
+</span></span></span><span class="line"><span class="cl"><span class="sd">      truststore.path: /usr/share/elasticsearch/config/local-certs/elastic-certificates.p12</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>创建certificates-es.yaml</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Secret</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">es-certificates</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">data</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">elastic-certificates.p12</span><span class="p">:</span><span class="w"> </span><span class="l">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</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">http.p12</span><span class="p">:</span><span class="w"> </span><span class="l">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</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># elastic-certificates.p12的内容通过 cat elastic-certificates.p12 | base64 -w 0 获得</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># http.p12的内容通过 cat http.p12 | base64 -w 0 获得</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># elastic-certificates.p12 和 http.p12 通过文章末尾制作证书生成</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>创建statefulset-es.yaml</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">clusterIP</span><span class="p">:</span><span class="w"> </span><span class="l">None</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">9200</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">db</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">9300</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">inter</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">es-nodeport</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">NodePort</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">9200</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">db</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">nodePort</span><span class="p">:</span><span class="w"> </span><span class="m">30092</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">9300</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">inter</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">StatefulSet</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">podManagementPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">Parallel </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">serviceName</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">nodeSelector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">elasticsearch</span><span class="p">:</span><span class="w"> </span><span class="l">welles</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">ccr.ccs.tencentyun.com/zoehuawang/elasticsearch:8.14.1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">IfNotPresent</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">securityContext</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">privileged</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">limits</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">4Gi</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="m">0.5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">500Mi</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">network.host</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">configMapKeyRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">configmap-es</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">network.host</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">node.name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">fieldRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nt">fieldPath</span><span class="p">:</span><span class="w"> </span><span class="l">metadata.name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">db</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">9200</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">TCP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">inter</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">9300</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">TCP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">es-data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/usr/share/elasticsearch/data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">subPath</span><span class="p">:</span><span class="w"> </span><span class="l">es-data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">es-data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/usr/share/elasticsearch/logs</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">subPath</span><span class="p">:</span><span class="w"> </span><span class="l">es-logs</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">es-data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/usr/share/elasticsearch/.cache</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">subPath</span><span class="p">:</span><span class="w"> </span><span class="l">es-cache</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">es-data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/usr/share/elasticsearch/plugins</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">subPath</span><span class="p">:</span><span class="w"> </span><span class="l">es-plugins</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">es-cert-file</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/usr/share/elasticsearch/config/local-certs</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">es-config</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/usr/share/elasticsearch/config/elasticsearch.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">subPath</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">host-time</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/localtime</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">readOnly</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">es-config</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">configMap</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">configmap-es</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">defaultMode</span><span class="p">:</span><span class="w"> </span><span class="m">493</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">es-cert-file</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">secret</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">secretName</span><span class="p">:</span><span class="w"> </span><span class="l">es-certificates</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">host-time</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">hostPath</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/localtime</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">volumeClaimTemplates</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">es-data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">accessModes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;ReadWriteOnce&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l">10Gi</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch-storage</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>宿主机节点创建目录，打标签，然后启动</li>
+<li>初始化超级用户密码：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">kubectl exec -it elasticsearch-0 -- bash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">echo y | ./bin/elasticsearch-reset-password -u elastic --url https://elasticsearch.default.svc.cluster.local:9200</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>浏览器输入：https://nodeip:30092/_cat/node?v 检查elasticsearch集群是否正常</li>
+<li>浏览器输入：https://nodeip:30092/_cluster/state/master_node,nodes?pretty 检查elasticsearch集群详情</li>
+<li>创建新用户密码（kibana和logstash需要）</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">kubectl exec -it elasticsearch-0 -- bash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">curl -X POST -k -u elastic:$(echo y | /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic --url https://elasticsearch:9200 | grep &#34;New value&#34; | awk &#39;{print $NF}&#39;) &#34;https://elasticsearch:9200/_security/user/用户名&#34; -H &#39;Content-Type: application/json&#39; -d&#39;{&#34;password&#34;:&#34;用户密码&#34;,&#34;roles&#34;:[&#34;superuser&#34;,&#34;kibana_system&#34;]}&#39;</span><span class="w">
+</span></span></span></code></pre></div><h1 id="二kibana一个pod实例">
+<a class="header-anchor" href="#%e4%ba%8ckibana%e4%b8%80%e4%b8%aapod%e5%ae%9e%e4%be%8b"></a>
+二、kibana（一个pod实例）
+</h1><ul>
+<li>创建certificates-kibana.yaml文件</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Secret</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kibana-certificates</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">data</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">elasticsearch-ca.pem</span><span class="p">:</span><span class="w"> </span><span class="l">LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURTVENDQWpHZ0F3SUJBZ0lVVTRPaHFyUEFUK1BOTmh5ZUJKdC9NTit5ZnF3d0RRWUpLb1pJaHZjTkFRRUwKQlFBd05ERXlNREFHQTFVRUF4TXBSV3hoYzNScFl5QkRaWEowYVdacFkyRjBaU0JVYjI5c0lFRjFkRzluWlc1bApjbUYwWldRZ1EwRXdIaGNOTWpVd016RTVNRGMxTXpFNFdoY05Namd3TXpFNE1EYzFNekU0V2pBME1USXdNQVlEClZRUURFeWxGYkdGemRHbGpJRU5sY25ScFptbGpZWFJsSUZSdmIyd2dRWFYwYjJkbGJtVnlZWFJsWkNCRFFUQ0MKQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFMYjM4bksycFNFRkJHSVYySTJlSTFkOAowbmR6NkVVRzhQeGJ6cmpzbStYZENycENxdkh3R0NKekhCeDVTc1VZQ1UyZW9UOXA3YjFIK0RjK0E5TG9wZWdHCjE2WXZYcDlPYmRUMi9ueGJPUHlxaG1wdUd0akp6aFIxSFM4V1g4NThPcm5vKzdtdzYxVXdrYkgyQkRLMGFBd20KOE1qRi9zM21OZVpTNktSclBQb2lKVnoyUk1mMVc5WTVmc08zV0VQNVFEUkhxSldZc2k1M0s0dzcvczlhRGJERwp5MzZSYnlqZFdkWkdpZm5wVVg4djFIRnNSTGRoTnRmc3QwYWZkN2JqeDIyQlU4MXBxUlRlTHZHNlowTDJiaDhlCldhcjRuMzRhTktXSGxienZ6U2RUM1RraTJtYUxhS0tmWHJXcS80Mk1telQvc0hBWXVxUmRTL2l4eVdZMG9zOEMKQXdFQUFhTlRNRkV3SFFZRFZSME9CQllFRlBxSXlvenFaRFpNZVgrd3g2YnhWcmVHeFZnbU1COEdBMVVkSXdRWQpNQmFBRlBxSXlvenFaRFpNZVgrd3g2YnhWcmVHeFZnbU1BOEdBMVVkRXdFQi93UUZNQU1CQWY4d0RRWUpLb1pJCmh2Y05BUUVMQlFBRGdnRUJBR29wL3B6UGNYWnBKZEhjRGFNaDhEV054cDdaU0tOdnJSbnpKS0hwb1VVWTdhZHMKcDZUam9oVHhoaC9POG9EQ0h6TGZVZk1tblVKYmVNTEFhR3pYR092cTd0ZUlRa1d5cy9PQjVpTzVaZGRIVzRiUgoybWFNZXllNU13ZzhaZnc3ZkhHUTV5K1MvWExBMXkrbk82TThpbUlIZG04U2lwM3ZtTFNFR1NTY3FsL1ppWE43CkNySXFmT2ZHYWxtR1VPM2lpUmtWTTEvT09kbmhjZ3ZvYk5Iak53ODZ0dDdEWm9zOS9NVTNIZmRHYzZ3OWpjbHcKUnc1K0RLcldoU3VEUFhkRmJHZ3Nrc0RMc3F3WGxPRWRQQ3BMbzVydmc4MGREMHpoVEtLbERFVUFsa3J2MC95VgpIbmhTdndGU0tHUi90WjYyNTJnTm02c0kvVFBFOFR5RUJVdjNGSHc9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">kibana.crt</span><span class="p">:</span><span class="w"> </span><span class="l">LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNxVENDQVpFQ0ZEL2N6elc3a1ZaS3lGOEpBUXVsZkhBRW1COFVNQTBHQ1NxR1NJYjNEUUVCQ3dVQU1CRXgKRHpBTkJnTlZCQU1UQm10cFltRnVZVEFlRncweU5UQXpNVGt3TnpVNE16ZGFGdzB5TlRBME1UZ3dOelU0TXpkYQpNQkV4RHpBTkJnTlZCQU1UQm10cFltRnVZVENDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBS2NSZUJhOVhrVldaZ1Z6dUcrQjYvM1pQVDlUTGZpaUZpeFllMU9ZTW5MMDZNNzdXaHdQZHowQ280eDAKK1Q3SjFGS0pYWGxPS0ZQUm5EZHVZc1FESHl3c1RXSUJQQVcreXd4anB5SWNnRldVMncxV3JSZDhjaDZYQkdDRgpMTmZ1UnZ5a0NEL0dYUlBWVTlPT0NJTFJacHJVZmdqTHo1TDdzQVpleHFReHlYR0FWQ1BjUC9abUgzY2J3THVkCnA0ODZPdXR4QldwY2hSK05SYWk3cllVRUVNaHVON2x0UFZkYlZ4Vy9FY3RKZmpQa2s3Q0s5U09TQ2R0bms4Tm0KWDc0c1hNdnphclh1dnJtSGw5OWRlVTF3aDBZYWVUMkFmYlk0L2F6V21ST0grWHJSeVdMaUN2QVArUFFlMUlxVApsL3htdjRtVFZhM09jMmpNaHVzMGgreVd4bmNDQXdFQUFUQU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FRRUFObnRJCjB5MEhqcFdTV1g5NTJkUlBCZlBaRThiSTZ4UTdHSTNmRDFiOGR2YkpCT2IvNjdGNldqazExTGR6T2dvVG5rNlgKVU5oejEyNnBPMEI0RE9uRGdMUU5RL1ZBMmhaME0wT09NWGF6Tmw4ejk3QzZSS2RVeTF2endtUmdZSUwwcFZtaworNnZtME1LeUtVSG1xTlVUbHA5MUFVVGlWWGhzbi9Obkd4bEEvRUVTL01wWG9XK3FLYzgvTFdxNG5yaC9RZ3NnClRPbHZoZGJOeHM2SHBOejVrZHFGOTdnU1pVRFhUTlJjVEdnd29KYXBYUEtsTklRMDZoOGtQQmJ4R1lXUlJxTlAKN2doUDNCU3VLbTc3ZWI3SXNHR2xoLzVvRndkcWU0QjJiWXcxb0RINEFIZnVzNGsveklzK0dRVWVtUFRjU3l6NAp0d3VzOGJvamtVWEw4VGg4bHc9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">kibana.key</span><span class="p">:</span><span class="w"> </span><span class="l">LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcEFJQkFBS0NBUUVBcHhGNEZyMWVSVlptQlhPNGI0SHIvZGs5UDFNdCtLSVdMRmg3VTVneWN2VG96dnRhCkhBOTNQUUtqakhUNVBzblVVb2xkZVU0b1U5R2NOMjVpeEFNZkxDeE5ZZ0U4QmI3TERHT25JaHlBVlpUYkRWYXQKRjN4eUhwY0VZSVVzMSs1Ry9LUUlQOFpkRTlWVDA0NElndEZtbXRSK0NNdlBrdnV3Qmw3R3BESEpjWUJVSTl3Lwo5bVlmZHh2QXU1Mm5qem82NjNFRmFseUZINDFGcUx1dGhRUVF5RzQzdVcwOVYxdFhGYjhSeTBsK00rU1RzSXIxCkk1SUoyMmVUdzJaZnZpeGN5L05xdGU2K3VZZVgzMTE1VFhDSFJocDVQWUI5dGpqOXJOYVpFNGY1ZXRISll1SUsKOEEvNDlCN1VpcE9YL0dhL2laTlZyYzV6YU15RzZ6U0g3SmJHZHdJREFRQUJBb0lCQUVOV3c3Z3FzT1l5dW1GbApNTWhsTGlrOTJEVi9nZTZPNm5BS1kvOGdQK2xjOUwrRXlWKzVEaDhkd3EwWTh1T1BkMUNqUkhWaC90ZzJDd2krCnFmbUdwcGhuN1BMZE80TzNVT0ZZQTJRNDU3TlhFZW53NzBpaHBOL1dqL0dWakNzbXhCOE53TE52OFZGT3NZQjYKWmN6UXVWSWI1d2NGbTArTHVmbi9Wb0tVL0xTTjFLeDVjVzF5Snl3dkdlOGRIS1hhd1BmRzdPclYreVRvUnRaNgpndlFRcUVpc2Q1TXZpUDdXMkpsdzVlYkJsMnhQUXYwRElkNVdnYWNPUEVaNzN5ZWpyTVZmdzZlNTl5bFRDNERpCittSzVMVkJCL3J0clp6UGVQcktZN1ptVTNxZEJVNFRWc01ZaUVQRmd5RjNkd1F0MytvN1Fsd0pnUVd2M1VRRDkKK0NUejBxRUNnWUVBdHo4NWl6QkhrbVZ2UGNYYTFhSi9yaGRzQnlTWElqdWxleE5aUzhGaFp4TytTeW5VZjFNcApWczBocy9OS0RYbmtENG40UHhGTm1PR2NreHJSY3pMaXZSTmRBek5HdEJzak53b0VrUTNobFFTNzNhWGRYdC96CjVobnFuVE45d00zRjNPY2tsOEdWcWVVYkhVVXkvRnhNbmhWT2UxN2xBMUM0YXp3VExWK1FxQ0VDZ1lFQTZXWGcKbWJlSWZyYUdWT1V3UUZ5dHNRWmJaMWFJZU5GZkl4ZHRucDF3NVJKR0FYTHhmUWNqWGl6QjFPQVpqQUlyMHRzUwpid29XMEpxV1FTdld5TnNZMEl6U1JGL3ViMmU4Y3cyOGRvMldUVGZrc2trSTVhZmpUN0FkbGpmbi9WRFBYWG91CnZDN04wVjQrVHBnVHBUM282STNIb2ltQ3VnK0RsUmF2ekxjRU81Y0NnWUJjYTBHOVpsc2loWkFHS3F5RXhKRDYKbjR0M1NzZ0NsdXlOMXlOWkpxM1dTOG5VcE1Nc2VDZklSR3IwRkFiTUp5YVRnN1UxTWFmZUxDTkl1ZVRhNGRZagpJQW53SEVOVGdNQlErUGQycFBhWnJxcUZUaXNJdDVDT0E1SWxPSnY2eW8wNUxVWnlWMHNCUmJCWUlkZG1HYkwyCm82NVNZSGpHSkVidXBuelJqSG9yb1FLQmdRRGtKUi9kWXBoY05KTXUzVEhEV0ZTNG5Gd3dzVmVKc2kvckgzV1oKL0pCa2V1NVBjRW82U3dYNWdvcWVTY2p2SVJneGJzK2dGeDZpSHRvTkxvc3ZuMnVzUUZzeFZ3eTlmWXVxYzV6cgp6ZzlEd0FVZmVXRG5ES3VZTTdGWUs2SHI3bGdsS2RBUlJ6Y05GN0NVSnZmZEtKMUk1WDVsTjJwLzhiWlB2L05zCml1SHFWUUtCZ1FDSDI4T2JMMEtmWHYrVzhSaWgrR3JFWGJGdkJJSmpTSGRrRmpqVlNySEFUZFpZcU94RzMzVE8KUDJFOHp1NGVnVTJBelBHMGJ0NFhUVWo1alBXbFoybEh0bHg4SHovME5tSUFselBrczBHYmt1ZU5TaEcwVHlWeAp6ZGJCTklmWUgwSzR0MVJsRG1OMkdvc2hXYmgxTG45TEJkRm9NQnBVV3NPdHpyb0N4Ly9MeXc9PQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">Opaque</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># elasticsearch-ca.pem的内容通过 cat elasticsearch-ca.pem | base64 -w 0 获得</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># kibana.crt的内容通过 cat kibana.crt | base64 -w 0 获得</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># kibana.key的内容通过 cat kibana.key | base64 -w 0 获得</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># kibana.key、kibana.crt 和 elasticsearch-ca.pem 通过文章末尾制作证书生成</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>创建configmap-kibana.yaml文件</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ConfigMap</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">configmap-kibana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w">  </span><span class="l">default</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">data</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">kibana.yml</span><span class="p">:</span><span class="w"> </span><span class="l">| </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">server.port</span><span class="p">:</span><span class="w"> </span><span class="m">5601</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">server.host</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0.0.0.0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">elasticsearch.hosts</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&#34;https://elasticsearch-0.elasticsearch.default.svc.cluster.local:9200&#34;</span><span class="p">,</span><span class="s2">&#34;https://elasticsearch-1.elasticsearch.default.svc.cluster.local:9200&#34;</span><span class="p">,</span><span class="s2">&#34;https://elasticsearch-2.elasticsearch.default.svc.cluster.local:9200&#34;</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">elasticsearch.ssl.verificationMode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;full&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">elasticsearch.ssl.certificateAuthorities</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&#34;/config/local-certs/elasticsearch-ca.pem&#34;</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">server.ssl.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">server.ssl.certificate</span><span class="p">:</span><span class="w"> </span><span class="l">/config/local-certs/kibana.crt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">server.ssl.key</span><span class="p">:</span><span class="w"> </span><span class="l">/config/local-certs/kibana.key</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">elasticsearch.username</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;用户名&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">elasticsearch.password</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;用户密码&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path.data</span><span class="p">:</span><span class="w"> </span><span class="l">/usr/share/kibana/data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">pid.file</span><span class="p">:</span><span class="w"> </span><span class="l">/usr/share/kibana/kibana.pid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">logging.root.level</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;error&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">i18n.locale</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;zh-CN&#34;</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>创建deployment-kibana.yaml文件</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kibana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">kibana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">kibana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">NodePort</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">5601</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kibana-ui</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">nodePort</span><span class="p">:</span><span class="w"> </span><span class="m">30561</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Deployment</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w">   </span><span class="l">kibana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w">  </span><span class="l">default</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">kibana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w">  </span><span class="l">kibana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">         </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">kibana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">restartPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">Always </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">securityContext</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">runAsUser</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">nodeSelector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">feature</span><span class="p">:</span><span class="w"> </span><span class="l">app</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kibana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">ccr.ccs.tencentyun.com/zoehuawang/kibana:8.14.1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">IfNotPresent</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;500Mi&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1000m&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">limits</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;2Gi&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;2000m&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">ports</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">5601</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">TCP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;/bin/sh&#34;</span><span class="p">,</span><span class="s2">&#34;-c&#34;</span><span class="p">]</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">            cat /config/kibana.yml &gt; /usr/share/kibana/config/kibana.yml; 
+</span></span></span><span class="line"><span class="cl"><span class="sd">            su - kibana -c &#34;/usr/share/kibana/bin/kibana&#34;;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">POD_NAME</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">fieldRef</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nt">fieldPath</span><span class="p">:</span><span class="w"> </span><span class="l">metadata.name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">POD_IP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">fieldRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nt">fieldPath</span><span class="p">:</span><span class="w"> </span><span class="l">status.podIP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kibana-config</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/config</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kibana-cert-file</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/config/local-certs</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">host-time</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/localtime</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">readOnly</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">volumes</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kibana-config</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">configMap</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">configmap-kibana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">defaultMode</span><span class="p">:</span><span class="w"> </span><span class="m">420</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kibana-cert-file</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">secret</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">secretName</span><span class="p">:</span><span class="w"> </span><span class="l">kibana-certificates</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">host-time</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">hostPath</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/localtime</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span></span></span></code></pre></div><h1 id="三logstash三个pod实例">
+<a class="header-anchor" href="#%e4%b8%89logstash%e4%b8%89%e4%b8%aapod%e5%ae%9e%e4%be%8b"></a>
+三、logstash（三个pod实例）
+</h1><ul>
+<li>创建certificates-logstash.yaml文件</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Secret</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">logstash-certificates</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">data</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">elasticsearch-ca.pem</span><span class="p">:</span><span class="w"> </span><span class="l">LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURTVENDQWpHZ0F3SUJBZ0lVVTRPaHFyUEFUK1BOTmh5ZUJKdC9NTit5ZnF3d0RRWUpLb1pJaHZjTkFRRUwKQlFBd05ERXlNREFHQTFVRUF4TXBSV3hoYzNScFl5QkRaWEowYVdacFkyRjBaU0JVYjI5c0lFRjFkRzluWlc1bApjbUYwWldRZ1EwRXdIaGNOTWpVd016RTVNRGMxTXpFNFdoY05Namd3TXpFNE1EYzFNekU0V2pBME1USXdNQVlEClZRUURFeWxGYkdGemRHbGpJRU5sY25ScFptbGpZWFJsSUZSdmIyd2dRWFYwYjJkbGJtVnlZWFJsWkNCRFFUQ0MKQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFMYjM4bksycFNFRkJHSVYySTJlSTFkOAowbmR6NkVVRzhQeGJ6cmpzbStYZENycENxdkh3R0NKekhCeDVTc1VZQ1UyZW9UOXA3YjFIK0RjK0E5TG9wZWdHCjE2WXZYcDlPYmRUMi9ueGJPUHlxaG1wdUd0akp6aFIxSFM4V1g4NThPcm5vKzdtdzYxVXdrYkgyQkRLMGFBd20KOE1qRi9zM21OZVpTNktSclBQb2lKVnoyUk1mMVc5WTVmc08zV0VQNVFEUkhxSldZc2k1M0s0dzcvczlhRGJERwp5MzZSYnlqZFdkWkdpZm5wVVg4djFIRnNSTGRoTnRmc3QwYWZkN2JqeDIyQlU4MXBxUlRlTHZHNlowTDJiaDhlCldhcjRuMzRhTktXSGxienZ6U2RUM1RraTJtYUxhS0tmWHJXcS80Mk1telQvc0hBWXVxUmRTL2l4eVdZMG9zOEMKQXdFQUFhTlRNRkV3SFFZRFZSME9CQllFRlBxSXlvenFaRFpNZVgrd3g2YnhWcmVHeFZnbU1COEdBMVVkSXdRWQpNQmFBRlBxSXlvenFaRFpNZVgrd3g2YnhWcmVHeFZnbU1BOEdBMVVkRXdFQi93UUZNQU1CQWY4d0RRWUpLb1pJCmh2Y05BUUVMQlFBRGdnRUJBR29wL3B6UGNYWnBKZEhjRGFNaDhEV054cDdaU0tOdnJSbnpKS0hwb1VVWTdhZHMKcDZUam9oVHhoaC9POG9EQ0h6TGZVZk1tblVKYmVNTEFhR3pYR092cTd0ZUlRa1d5cy9PQjVpTzVaZGRIVzRiUgoybWFNZXllNU13ZzhaZnc3ZkhHUTV5K1MvWExBMXkrbk82TThpbUlIZG04U2lwM3ZtTFNFR1NTY3FsL1ppWE43CkNySXFmT2ZHYWxtR1VPM2lpUmtWTTEvT09kbmhjZ3ZvYk5Iak53ODZ0dDdEWm9zOS9NVTNIZmRHYzZ3OWpjbHcKUnc1K0RLcldoU3VEUFhkRmJHZ3Nrc0RMc3F3WGxPRWRQQ3BMbzVydmc4MGREMHpoVEtLbERFVUFsa3J2MC95VgpIbmhTdndGU0tHUi90WjYyNTJnTm02c0kvVFBFOFR5RUJVdjNGSHc9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">Opaque</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># elasticsearch-ca.pem的内容通过 cat elasticsearch-ca.pem | base64 -w 0 获得</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># elasticsearch-ca.pem 通过文章末尾制作证书生成</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>创建configmap-logstash.yaml文件</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ConfigMap</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">configmap-logstash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">logstash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">data</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">logstash.yml</span><span class="p">:</span><span class="w"> </span><span class="p">|+</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    path.config: /usr/share/logstash/config/logstash.conf</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">logstash.conf</span><span class="p">:</span><span class="w"> </span><span class="p">|+</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    input{
+</span></span></span><span class="line"><span class="cl"><span class="sd">      tcp {
+</span></span></span><span class="line"><span class="cl"><span class="sd">        port =&gt; 9601
+</span></span></span><span class="line"><span class="cl"><span class="sd">        codec =&gt; &#34;json&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">      }
+</span></span></span><span class="line"><span class="cl"><span class="sd">    }
+</span></span></span><span class="line"><span class="cl"><span class="sd">    output {
+</span></span></span><span class="line"><span class="cl"><span class="sd">        elasticsearch {
+</span></span></span><span class="line"><span class="cl"><span class="sd">          hosts =&gt; [&#34;https://elasticsearch-0.elasticsearch.default.svc.cluster.local:9200&#34;,&#34;https://elasticsearch-1.elasticsearch.default.svc.cluster.local:9200&#34;,&#34;https://elasticsearch-2.elasticsearch.default.svc.cluster.local:9200&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="sd">          ssl_enabled =&gt; true
+</span></span></span><span class="line"><span class="cl"><span class="sd">          ssl_verification_mode =&gt; &#34;full&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          ssl_certificate_authorities =&gt; &#34;/config/local-certs/elasticsearch-ca.pem&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          user =&gt; &#34;用户名&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          password =&gt; &#34;用户密码&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          index =&gt; &#34;logstash-%{+YYYY.MM.dd}&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        }
+</span></span></span><span class="line"><span class="cl"><span class="sd">    }</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">jvm.options</span><span class="p">:</span><span class="w"> </span><span class="l">|+ </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>-<span class="l">Xms2g</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>-<span class="l">Xmx2g</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="m">11-13</span><span class="p">:</span>-<span class="l">XX:+UseConcMarkSweepGC</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="m">11-13</span><span class="p">:</span>-<span class="l">XX:CMSInitiatingOccupancyFraction=75</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="m">11-13</span><span class="p">:</span>-<span class="l">XX:+UseCMSInitiatingOccupancyOnly</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>-<span class="l">Djava.awt.headless=true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>-<span class="l">Dfile.encoding=UTF-8</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>-<span class="l">Djruby.compile.invokedynamic=true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>-<span class="l">XX:+HeapDumpOnOutOfMemoryError</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>-<span class="l">Djava.security.egd=file:/dev/urandom</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>-<span class="l">Dlog4j2.isThreadContextMapInheritable=true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>-<span class="l">Dlogstash.jackson.stream-read-constraints.max-string-length=200000000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>-<span class="l">Dlogstash.jackson.stream-read-constraints.max-number-length=10000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>-<span class="l">Duser.timezone=Asia/Shanghai</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>创建deployment-logstash.yaml文件</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">logstash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">logstash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">logstash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">NodePort</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">9601</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">logs</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">nodePort</span><span class="p">:</span><span class="w"> </span><span class="m">30961</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Deployment</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">logstash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">logstash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">logstash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">securityContext</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">runAsUser</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">nodeSelector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">feature</span><span class="p">:</span><span class="w"> </span><span class="l">app</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">logstash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">ccr.ccs.tencentyun.com/zoehuawang/logstash:8.14.1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">IfNotPresent</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;500Mi&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;500m&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">limits</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;2Gi&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1000m&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">9601</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">TCP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">logstash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;/bin/sh&#34;</span><span class="p">,</span><span class="s2">&#34;-c&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          cat /config/logstash.yml &gt; /usr/share/logstash/config/logstash.yml;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          cat /config/logstash.conf &gt; /usr/share/logstash/config/logstash.conf;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          cat /config/jvm.options &gt; /usr/share/logstash/config/jvm.options;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          /usr/local/bin/docker-entrypoint</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">LOG_LEVEL</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;error&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">node.name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">fieldRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">fieldPath</span><span class="p">:</span><span class="w"> </span><span class="l">metadata.name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">logstash-config</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/config</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">logstash-cert-file</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/config/local-certs</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">host-time</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/localtime</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">readOnly</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">logstash-config</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">configMap</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">configmap-logstash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">defaultMode</span><span class="p">:</span><span class="w"> </span><span class="m">420</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">logstash-cert-file</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">secret</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">secretName</span><span class="p">:</span><span class="w"> </span><span class="l">logstash-certificates</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">host-time</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">hostPath</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/localtime</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span></span></span></code></pre></div><hr>
+<hr>
+<hr>
+<ul>
+<li>证书如何制作？⬇️</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#生成elastic集群所需的安全证书:</span>
+</span></span><span class="line"><span class="cl">docker run -it -d --name es ccr.ccs.tencentyun.com/zoehuawang/elasticsearch:8.14.1
+</span></span><span class="line"><span class="cl">docker <span class="nb">exec</span> -it es bash
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#生成CA证书:</span>
+</span></span><span class="line"><span class="cl">./bin/elasticsearch-certutil ca
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#使用CA证书生成 transport证书:</span>
+</span></span><span class="line"><span class="cl">./bin/elasticsearch-certutil cert --ca /usr/share/elasticsearch/elastic-stack-ca.p12
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#使用CA证书生成http证书:</span>
+</span></span><span class="line"><span class="cl">./bin/elasticsearch-certutil http
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#是否需要证书认证请求，选n</span>
+</span></span><span class="line"><span class="cl">Generate a CSR? <span class="o">[</span>y/N<span class="o">]</span>n
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#是否需要选择已存在得证书，选y</span>
+</span></span><span class="line"><span class="cl">Use an existing CA? <span class="o">[</span>y/N<span class="o">]</span>y
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#填入已存在ca证书路径</span>
+</span></span><span class="line"><span class="cl">CA Path: /usr/share/elasticsearch/elastic-stack-ca.p12
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#输入已存在证书密码，没有的话直接回车</span>
+</span></span><span class="line"><span class="cl">Password <span class="k">for</span> elastic-stack-ca.p12:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#证书有效时间</span>
+</span></span><span class="line"><span class="cl">For how long should your certificate be valid? <span class="o">[</span>5y<span class="o">]</span> 10y
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#是否每个节点都需要生成，选n，所有节点共用一个</span>
+</span></span><span class="line"><span class="cl">Generate a certificate per node? <span class="o">[</span>y/N<span class="o">]</span>n
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#输入集群所有节点主机名</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#使用 Kubernetes 中 Pod 的 DNS 名称,可以避免 Pod IP 变化带来的问题。</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#DNS 名称通常是 &lt;pod-name&gt;.&lt;service-name&gt;.&lt;namespace&gt;.svc.cluster.local形式</span>
+</span></span><span class="line"><span class="cl">*.elasticsearch.default.svc.cluster.local
+</span></span><span class="line"><span class="cl">elasticsearch.default.svc.cluster.local
+</span></span><span class="line"><span class="cl">elasticsearch.default
+</span></span><span class="line"><span class="cl">elasticsearch
+</span></span><span class="line"><span class="cl">*.elasticsearch
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#是否正确，选y</span>
+</span></span><span class="line"><span class="cl">Is this correct <span class="o">[</span>Y/n<span class="o">]</span>y
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#输入集群所有节点ip地址，由于上面使用的是DNS名称，所以不用再输入固定IP地址，直接回车</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Which IP addresses will be used to connect to your nodes?</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#是否正确，选y</span>
+</span></span><span class="line"><span class="cl">Is this correct <span class="o">[</span>Y/n<span class="o">]</span>y
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#是否修改证书配置，选n</span>
+</span></span><span class="line"><span class="cl">Do you wish to change any of these options? <span class="o">[</span>y/N<span class="o">]</span>n
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#输入密码,不想设置密码直接回车。建议为空，省点麻烦，这么多证书认证已经够够的了</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## What password do you want for your private key(s)?</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#证书文件保存位置</span>
+</span></span><span class="line"><span class="cl">Zip file written to /usr/share/elasticsearch/elasticsearch-ssl-http.zip
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#解压缩刚生成得证书zip文件</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#下面先生成kibana使用的安全证书 kibana.csr，kibana.key</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/usr/share/elasticsearch/bin/elasticsearch-certutil csr -name kibana -dns *.elasticsearch.default.svc.cluster.local -dns elasticsearch.default.svc.cluster.local -dns elasticsearch.default -dns elasticsearch -dns *.elasticsearch
+</span></span><span class="line"><span class="cl"><span class="c1">#执行后默认会生成 csr-bundle.zip</span>
+</span></span><span class="line"><span class="cl">unzip csr-bundle.zip
+</span></span><span class="line"><span class="cl"><span class="c1">#解压缩后得到kibana.csr ，kibana.key，用它2生成 kibana.crt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 生成crt文件</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> kibana/
+</span></span><span class="line"><span class="cl">openssl x509 -req -in kibana.csr -signkey kibana.key -out kibana.crt
+</span></span></code></pre></div></div>
+    <footer class="article-footer"><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e5%88%86%e4%ba%ab"
+        rel="tag"
+        >分享</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/elk"
+        rel="tag"
+        >ELK</a
+      >
+    </li></ul>
+</footer>
+  </div><nav
+    id="article-nav"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap article-nav-link-left"><img
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
+              data-sizes="auto"
+              alt="Etcd节点恢复操作"
+              class="lazyload"
+            /><a href="/post/etcd%E8%8A%82%E7%82%B9%E6%81%A2%E5%A4%8D%E6%93%8D%E4%BD%9C/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">Etcd节点恢复操作</h3>
+      </div><div class="article-nav-link-wrap article-nav-link-right"><img
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg3.webp"
+              data-sizes="auto"
+              alt="Docker快速部署jumpserver"
+              class="lazyload"
+            /><a href="/post/docker%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2jumpserver/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">Docker快速部署jumpserver</h3>
+      </div></nav></article></section>
+        </div><footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info"><div>
+      <span class="icon-copyright"></span>2020-2025<span class="footer-info-sep rotate"></span>
+      zoehuawang
+    </div><div>
+        <span class="icon-brush"
+          >&nbsp;47.2k</span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;01:51</span>
+      </div></div>
+</footer>
+<div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div><div id="mask" class="hide"></div>
+      </div><nav id="mobile-nav">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents"></nav>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="zoehuawang"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">zoehuawang</div>
+  <div class="sidebar-description">牛马日记</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">33</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      7
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">18</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div></div>
+</div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
+</div><script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" integrity="" crossorigin="anonymous" ></script><script src="/js/aos.js" integrity="" crossorigin="anonymous" ></script><script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script><script src="/js/pjax_main.js" integrity="" crossorigin="anonymous" data-pjax></script><script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"></script><script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+<div id="lazy-script">
+  <div><script data-pjax>
+        window.REIMU_POST = {
+          author: "zoehuawang",
+          title: "Kubernetes日志之ELK集群系统",
+          url: "\/post\/kubernetes%E6%97%A5%E5%BF%97%E4%B9%8Belk%E9%9B%86%E7%BE%A4%E7%B3%BB%E7%BB%9F\/",
+          description: "ELK版本：8.14.1",
+          cover: "\/images\/banner.webp",
+        };
+      </script><script src="/js/insert_highlight.js" integrity="" crossorigin="anonymous" data-pjax></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script></div>
+</div><script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script><script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script></body>
+</html>

@@ -12,12 +12,32 @@
     
     <copyright>本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！</copyright>
     
-    <lastBuildDate>Wed, 02 Jul 2025 10:31:47 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 17 Nov 2025 13:41:21 +0800</lastBuildDate>
     
     
     <atom:link href="/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
+    
+    
+
+    <item>
+      <title>Kubernetes日志之轻量级Loki集群系统</title>
+      <link>/post/kubernetes%E6%97%A5%E5%BF%97%E4%B9%8B%E8%BD%BB%E9%87%8F%E7%BA%A7loki%E9%9B%86%E7%BE%A4%E7%B3%BB%E7%BB%9F/</link>
+      <pubDate>Mon, 17 Nov 2025 13:41:21 &#43;0800</pubDate>
+      <author>w19891102@126.com (zoehuawang)</author>
+      <guid>/post/kubernetes%E6%97%A5%E5%BF%97%E4%B9%8B%E8%BD%BB%E9%87%8F%E7%BA%A7loki%E9%9B%86%E7%BE%A4%E7%B3%BB%E7%BB%9F/</guid>
+      <description>
+        <![CDATA[<h1>Kubernetes日志之轻量级Loki集群系统</h1><p>作者：zoehuawang（w19891102@126.com）</p>
+        
+          
+        
+        <hr><p>本文2025-11-17首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2025-11-17</p>]]>
+      </description>
+      
+        <category>k8s</category>
+      
+    </item>
     
     
 
@@ -102,13 +122,13 @@
     
 
     <item>
-      <title>Kubernetes之ELK集群</title>
-      <link>/post/kubernetes%E4%B9%8Belk%E9%9B%86%E7%BE%A4/</link>
+      <title>Kubernetes日志之ELK集群系统</title>
+      <link>/post/kubernetes%E6%97%A5%E5%BF%97%E4%B9%8Belk%E9%9B%86%E7%BE%A4%E7%B3%BB%E7%BB%9F/</link>
       <pubDate>Mon, 16 Dec 2024 11:03:17 &#43;0800</pubDate>
       <author>w19891102@126.com (zoehuawang)</author>
-      <guid>/post/kubernetes%E4%B9%8Belk%E9%9B%86%E7%BE%A4/</guid>
+      <guid>/post/kubernetes%E6%97%A5%E5%BF%97%E4%B9%8Belk%E9%9B%86%E7%BE%A4%E7%B3%BB%E7%BB%9F/</guid>
       <description>
-        <![CDATA[<h1>Kubernetes之ELK集群</h1><p>作者：zoehuawang（w19891102@126.com）</p>
+        <![CDATA[<h1>Kubernetes日志之ELK集群系统</h1><p>作者：zoehuawang（w19891102@126.com）</p>
         
           
         

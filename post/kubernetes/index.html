@@ -115,7 +115,7 @@
 </div>
 <div class="sidebar-state">
   <div class="sidebar-state-article">
-    <div>文章</div><div class="sidebar-state-number">32</div>
+    <div>文章</div><div class="sidebar-state-number">33</div>
   </div>
   <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
     <div>分类</div>
@@ -125,7 +125,7 @@
   </a>
   <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
     <div>标签</div>
-    <div class="sidebar-state-number">16</div>
+    <div class="sidebar-state-number">18</div>
   </a>
 </div>
 <div class="sidebar-social"></div>
@@ -223,8 +223,8 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">########################### Pod管理 ###########################</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#1、将本地端口转发到pod/svc中的端口</span>
-</span></span><span class="line"><span class="cl">kubectl port-forward -n &lt;namespace&gt; pod/&lt;pod-name&gt; 8088:8088 --address 0.0.0.0
-</span></span><span class="line"><span class="cl">kubectl port-forward -n &lt;namespace&gt; svc/&lt;svc-name&gt; 8080:8080 --address 0.0.0.0
+</span></span><span class="line"><span class="cl">nohup kubectl port-forward -n &lt;namespace&gt; pod/&lt;pod-name&gt; 8088:8088 --address 0.0.0.0 <span class="p">&amp;</span>
+</span></span><span class="line"><span class="cl">nohup kubectl port-forward -n &lt;namespace&gt; svc/&lt;svc-name&gt; 8080:8080 --address 0.0.0.0 <span class="p">&amp;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#2、查看pod的cpu和内存</span>
 </span></span><span class="line"><span class="cl">kubectl top pod -n &lt;namespace&gt;
@@ -664,7 +664,7 @@ minikube使用
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
               data-sizes="auto"
               alt="Kubernetes之StatefulSet部署etcd集群"
               class="lazyload"
@@ -672,7 +672,7 @@ minikube使用
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Kubernetes之StatefulSet部署etcd集群</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
               data-sizes="auto"
               alt="Kubernetes之proxysql集群"
               class="lazyload"
@@ -689,10 +689,10 @@ minikube使用
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;45.9k</span
+          >&nbsp;47.2k</span
         >
         &nbsp;|&nbsp;
-        <span class="icon-coffee">&nbsp;01:48</span>
+        <span class="icon-coffee">&nbsp;01:51</span>
       </div></div>
 </footer>
 <div class="sidebar-top">
@@ -716,7 +716,7 @@ minikube使用
 </div>
 <div class="sidebar-state">
   <div class="sidebar-state-article">
-    <div>文章</div><div class="sidebar-state-number">32</div>
+    <div>文章</div><div class="sidebar-state-number">33</div>
   </div>
   <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
     <div>分类</div>
@@ -726,7 +726,7 @@ minikube使用
   </a>
   <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
     <div>标签</div>
-    <div class="sidebar-state-number">16</div>
+    <div class="sidebar-state-number">18</div>
   </a>
 </div>
 <div class="sidebar-social"></div>
