@@ -245,10 +245,10 @@
 </span></span></span></code></pre></div><ul>
 <li>创建bucket，名称与Loki配置的bucketnames一致</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 使用kubectl将minio的pod端口通过本地端口临时代理出来
-</span></span><span class="line"><span class="cl"># 通过用户admin，密码Aa123456，访问minio页面(http://ip:9090)
-</span></span><span class="line"><span class="cl">nohup kubectl port-forward -n default pod/minio 9090:9090 --address 0.0.0.0 &amp;
-</span></span><span class="line"><span class="cl"># 完成后记得kill掉nohup进程
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 使用kubectl将minio的pod端口通过本地端口临时代理出来</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 通过用户admin，密码Aa123456，访问minio页面(http://ip:9090)</span>
+</span></span><span class="line"><span class="cl">nohup kubectl port-forward -n default pod/minio 9090:9090 --address 0.0.0.0 <span class="p">&amp;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 完成后记得kill掉nohup进程</span>
 </span></span></code></pre></div><h1 id="二loki部署">
 <a class="header-anchor" href="#%e4%ba%8cloki%e9%83%a8%e7%bd%b2"></a>
 二、Loki部署
@@ -415,10 +415,10 @@
 </span></span></span></code></pre></div><ul>
 <li>查看Loki集群成员状态</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 使用kubectl将minio的pod端口通过本地端口临时代理出来
-</span></span><span class="line"><span class="cl"># 访问页面(http://ip:3100/memberlist)
-</span></span><span class="line"><span class="cl">nohup kubectl port-forward -n default svc/loki 3100:3100 --address 0.0.0.0 &amp;
-</span></span><span class="line"><span class="cl"># 确认后记得kill掉nohup进程
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 使用kubectl将minio的pod端口通过本地端口临时代理出来</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 访问页面(http://ip:3100/memberlist)</span>
+</span></span><span class="line"><span class="cl">nohup kubectl port-forward -n default svc/loki 3100:3100 --address 0.0.0.0 <span class="p">&amp;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 确认后记得kill掉nohup进程</span>
 </span></span></code></pre></div><h1 id="三logstash部署">
 <a class="header-anchor" href="#%e4%b8%89logstash%e9%83%a8%e7%bd%b2"></a>
 三、logstash部署
@@ -604,7 +604,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
               data-sizes="auto"
               alt="MFA双因子认证服务端"
               class="lazyload"
