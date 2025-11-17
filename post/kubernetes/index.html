@@ -223,8 +223,8 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">########################### Pod管理 ###########################</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#1、将本地端口转发到pod/svc中的端口</span>
-</span></span><span class="line"><span class="cl">nohup kubectl port-forward -n &lt;namespace&gt; pod/&lt;pod-name&gt; 8088:8088 --address 0.0.0.0 <span class="p">&amp;</span>
-</span></span><span class="line"><span class="cl">nohup kubectl port-forward -n &lt;namespace&gt; svc/&lt;svc-name&gt; 8080:8080 --address 0.0.0.0 <span class="p">&amp;</span>
+</span></span><span class="line"><span class="cl">kubectl port-forward -n &lt;namespace&gt; pod/&lt;pod-name&gt; 8088:8088 --address 0.0.0.0
+</span></span><span class="line"><span class="cl">kubectl port-forward -n &lt;namespace&gt; svc/&lt;svc-name&gt; 8080:8080 --address 0.0.0.0
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#2、查看pod的cpu和内存</span>
 </span></span><span class="line"><span class="cl">kubectl top pod -n &lt;namespace&gt;
@@ -664,7 +664,7 @@ minikube使用
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
               data-sizes="auto"
               alt="Kubernetes之StatefulSet部署etcd集群"
               class="lazyload"

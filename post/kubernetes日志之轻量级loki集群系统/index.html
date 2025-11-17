@@ -192,8 +192,9 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">minio</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">clusterIP</span><span class="p">:</span><span class="w"> </span><span class="l">None</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">ClusterIP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#  clusterIP: None</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#  type: ClusterIP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">NodePort</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">minio</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ports</span><span class="p">:</span><span class="w">
@@ -455,7 +456,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">    }
 </span></span></span><span class="line"><span class="cl"><span class="sd">    filter {
 </span></span></span><span class="line"><span class="cl"><span class="sd">      mutate {
-</span></span></span><span class="line"><span class="cl"><span class="sd">        add_field =&gt; { &#34;log_type&#34; =&gt; &#34;UAT&amp;SIT&#34;  }
+</span></span></span><span class="line"><span class="cl"><span class="sd">        add_field =&gt; { &#34;log_env&#34; =&gt; &#34;UAT&amp;SIT&#34;  }
 </span></span></span><span class="line"><span class="cl"><span class="sd">      }
 </span></span></span><span class="line"><span class="cl"><span class="sd">    }
 </span></span></span><span class="line"><span class="cl"><span class="sd">    output {
@@ -604,7 +605,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
               data-sizes="auto"
               alt="MFA双因子认证服务端"
               class="lazyload"
