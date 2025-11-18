@@ -311,8 +311,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">    limits_config:
 </span></span></span><span class="line"><span class="cl"><span class="sd">      metric_aggregation_enabled: true
 </span></span></span><span class="line"><span class="cl"><span class="sd">      enable_multi_variant_queries: true
-</span></span></span><span class="line"><span class="cl"><span class="sd">      retention_period: 720h            # 全局的日志保留时间
-</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">      retention_period: 24h             # 全局的日志保留时间,建议大于等于索引分片时间period
+</span></span></span><span class="line"><span class="cl"><span class="sd">                                        # 这样分片结束时数据刚好过期清理，否则得等分片时间结束
 </span></span></span><span class="line"><span class="cl"><span class="sd">    schema_config:
 </span></span></span><span class="line"><span class="cl"><span class="sd">      configs:
 </span></span></span><span class="line"><span class="cl"><span class="sd">        - from: &#34;2000-01-01&#34;            # 固定不要改动
@@ -321,7 +321,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">          schema: v13
 </span></span></span><span class="line"><span class="cl"><span class="sd">          index:
 </span></span></span><span class="line"><span class="cl"><span class="sd">            prefix: index_              # 索引文件的前缀名
-</span></span></span><span class="line"><span class="cl"><span class="sd">            period: 24h                 # 索引按24小时分片</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="sd">            period: 24h                 # 索引按xx小时分片</span><span class="w">
 </span></span></span></code></pre></div><ul>
 <li>创建satefulset-loki.yaml文件</li>
 </ul>
@@ -571,6 +571,11 @@
 <a class="header-anchor" href="#%e5%9b%9b%e6%9f%a5%e8%af%a2%e6%97%a5%e5%bf%97%e6%96%b9%e5%bc%8f"></a>
 四、查询日志方式
 </h1><ul>
+<li>模拟日志推送</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -v -X POST http://loki:3100/loki/api/v1/push -H <span class="s2">&#34;Content-Type: application/json&#34;</span> -d <span class="s1">&#39;{&#34;streams&#34;: [{&#34;stream&#34;: {&#34;environment&#34;: 
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#34;UAT&amp;SIT&#34;},&#34;values&#34;: [[&#34;&#39;</span><span class="s2">&#34;</span><span class="k">$(</span>date +%s<span class="k">)</span><span class="s2">000000000&#34;</span><span class="s1">&#39;&#34;,&#34;测试推送日志到Loki3&#34;]]}]}&#39;</span>
+</span></span></code></pre></div><ul>
 <li>grafana添加数据源为Loki</li>
 <li>grafana点Explore,选择对应标签即可</li>
 </ul></div>
@@ -601,7 +606,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
               data-sizes="auto"
               alt="MFA双因子认证服务端"
               class="lazyload"
@@ -618,7 +623,7 @@
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;47.1k</span
+          >&nbsp;47.2k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:51</span>
