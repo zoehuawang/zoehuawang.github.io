@@ -12,7 +12,7 @@
 </title>
 <meta
   name="description"
-  content="logstash&#43;loki&#43;mino架构，其中Logstash: 数据收集、加工和分发管道； Loki: 日志索引和查询引擎；MinIO: 持久化存储层。logstash常用的输出到Loki方式有http、插件两种，http相较于插件性能较低，需要手动处理数据格式。本文采用插件的方式，专为Loki优化、自动批量处理、错误重试。插件安装方法下文会介绍"
+  content="微服务架构模式为 Logstash &#43; Loki &#43; Minio  , 其中 Loki是日志索引和查询引擎；MinIO是一款高性能、分布式开源对象存储系统，作为数据持久化存储层，而Logstash负责数据收集、加工和分发管道。Logstash日志输出到Loki方式常用的有http、插件两种，不过http相较于插件性能较低，需要手动处理数据格式。所以我们采用插件的方式，插件是官方专为Loki设计优化的，具备自动批量处理、错误重试机制，插件的具体安装方法下文会介绍"
 /><script>
   window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_4k4bc36ef96\",\"outdate\":{\"daysago\":14,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
   
@@ -39,7 +39,7 @@
   <meta property="og:title" content="Kubernetes日志之轻量级Loki集群系统 | zoehuawang" />
   <meta
     property="og:description"
-    content="logstash&#43;loki&#43;mino架构，其中Logstash: 数据收集、加工和分发管道； Loki: 日志索引和查询引擎；MinIO: 持久化存储层。logstash常用的输出到Loki方式有http、插件两种，http相较于插件性能较低，需要手动处理数据格式。本文采用插件的方式，专为Loki优化、自动批量处理、错误重试。插件安装方法下文会介绍"
+    content="微服务架构模式为 Logstash &#43; Loki &#43; Minio  , 其中 Loki是日志索引和查询引擎；MinIO是一款高性能、分布式开源对象存储系统，作为数据持久化存储层，而Logstash负责数据收集、加工和分发管道。Logstash日志输出到Loki方式常用的有http、插件两种，不过http相较于插件性能较低，需要手动处理数据格式。所以我们采用插件的方式，插件是官方专为Loki设计优化的，具备自动批量处理、错误重试机制，插件的具体安装方法下文会介绍"
   />
   <meta property="og:url" content="/post/kubernetes%E6%97%A5%E5%BF%97%E4%B9%8B%E8%BD%BB%E9%87%8F%E7%BA%A7loki%E9%9B%86%E7%BE%A4%E7%B3%BB%E7%BB%9F/" />
   <meta
@@ -192,8 +192,6 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">minio</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#  clusterIP: None</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#  type: ClusterIP</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">NodePort</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">minio</span><span class="w">
@@ -244,7 +242,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c">#  path: /mnt/disk1/data</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c">#  type: DirectoryOrCreate</span><span class="w">
 </span></span></span></code></pre></div><ul>
-<li>通过用户admin，密码Aa123456，访问minio页面(9090端口对应的nodeport端口)</li>
+<li>通过用户admin，密码Aa123456，访问minio的webui页面(9090端口对应的nodeport端口)</li>
 <li>创建bucket，名称与Loki配置的bucketnames一致</li>
 </ul>
 <h1 id="二loki部署">
@@ -274,8 +272,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">          endpoint: minio:9000
 </span></span></span><span class="line"><span class="cl"><span class="sd">          insecure: true
 </span></span></span><span class="line"><span class="cl"><span class="sd">          bucketnames: loki-data        # 需要提前在minio页面上提前创建好
-</span></span></span><span class="line"><span class="cl"><span class="sd">          access_key_id: admin
-</span></span></span><span class="line"><span class="cl"><span class="sd">          secret_access_key: Aa123456
+</span></span></span><span class="line"><span class="cl"><span class="sd">          access_key_id: admin          # minio.yaml中配置的用户名
+</span></span></span><span class="line"><span class="cl"><span class="sd">          secret_access_key: Aa123456   # minio.yaml中配置的密码
 </span></span></span><span class="line"><span class="cl"><span class="sd">          s3forcepathstyle: true
 </span></span></span><span class="line"><span class="cl"><span class="sd">      replication_factor: 1
 </span></span></span><span class="line"><span class="cl"><span class="sd">      ring:
@@ -432,7 +430,7 @@
 </h1><ul>
 <li>安装插件</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1.在可通互联网的机器上安装好logstash，然后在线安装</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1.在可通互联网的机器上安装好logstash</span>
 </span></span><span class="line"><span class="cl">/usr/share/logstash/bin/logstash-plugin install logstash-output-loki
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 2.通过离线打包的方式，将在线安装好的插件打包，生成插件包（logstash-offline-ouput-8.14.1.zip）</span>
@@ -616,7 +614,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg9.webp"
               data-sizes="auto"
               alt="MFA双因子认证服务端"
               class="lazyload"
@@ -730,7 +728,7 @@
           author: "zoehuawang",
           title: "Kubernetes日志之轻量级Loki集群系统",
           url: "\/post\/kubernetes%E6%97%A5%E5%BF%97%E4%B9%8B%E8%BD%BB%E9%87%8F%E7%BA%A7loki%E9%9B%86%E7%BE%A4%E7%B3%BB%E7%BB%9F\/",
-          description: "logstash\u002bloki\u002bmino架构，其中Logstash: 数据收集、加工和分发管道； Loki: 日志索引和查询引擎；MinIO: 持久化存储层。logstash常用的输出到Loki方式有http、插件两种，http相较于插件性能较低，需要手动处理数据格式。本文采用插件的方式，专为Loki优化、自动批量处理、错误重试。插件安装方法下文会介绍",
+          description: "微服务架构模式为 Logstash \u002b Loki \u002b Minio  , 其中 Loki是日志索引和查询引擎；MinIO是一款高性能、分布式开源对象存储系统，作为数据持久化存储层，而Logstash负责数据收集、加工和分发管道。Logstash日志输出到Loki方式常用的有http、插件两种，不过http相较于插件性能较低，需要手动处理数据格式。所以我们采用插件的方式，插件是官方专为Loki设计优化的，具备自动批量处理、错误重试机制，插件的具体安装方法下文会介绍",
           cover: "\/images\/banner.webp",
         };
       </script><script src="/js/insert_highlight.js" integrity="" crossorigin="anonymous" data-pjax></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const pswp = () => {
