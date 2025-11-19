@@ -271,12 +271,23 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">        s3:
 </span></span></span><span class="line"><span class="cl"><span class="sd">          endpoint: minio:9000
 </span></span></span><span class="line"><span class="cl"><span class="sd">          insecure: true
-</span></span></span><span class="line"><span class="cl"><span class="sd">          bucketnames: loki-data        # 需要提前在minio页面上提前创建好
-</span></span></span><span class="line"><span class="cl"><span class="sd">          access_key_id: admin          # minio.yaml中配置的用户名
-</span></span></span><span class="line"><span class="cl"><span class="sd">          secret_access_key: Aa123456   # minio.yaml中配置的密码
+</span></span></span><span class="line"><span class="cl"><span class="sd">          bucketnames: loki-data        	# 需要提前在minio页面上提前创建好
+</span></span></span><span class="line"><span class="cl"><span class="sd">          access_key_id: admin          	# minio.yaml中配置的用户名
+</span></span></span><span class="line"><span class="cl"><span class="sd">          secret_access_key: Aa123456   	# minio.yaml中配置的密码
 </span></span></span><span class="line"><span class="cl"><span class="sd">          s3forcepathstyle: true
 </span></span></span><span class="line"><span class="cl"><span class="sd">      replication_factor: 1
 </span></span></span><span class="line"><span class="cl"><span class="sd">      ring:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        kvstore:
+</span></span></span><span class="line"><span class="cl"><span class="sd">          store: memberlist
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    compactor:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      working_directory: /loki/compactor
+</span></span></span><span class="line"><span class="cl"><span class="sd">      compaction_interval: 30m                  # 执行清理间隔时间
+</span></span></span><span class="line"><span class="cl"><span class="sd">      retention_enabled: true                   # 启用清理
+</span></span></span><span class="line"><span class="cl"><span class="sd">      retention_delete_delay: 1h                # 延迟1h清理
+</span></span></span><span class="line"><span class="cl"><span class="sd">      retention_delete_worker_count: 10
+</span></span></span><span class="line"><span class="cl"><span class="sd">      delete_request_store: s3
+</span></span></span><span class="line"><span class="cl"><span class="sd">      compactor_ring:
 </span></span></span><span class="line"><span class="cl"><span class="sd">        kvstore:
 </span></span></span><span class="line"><span class="cl"><span class="sd">          store: memberlist
 </span></span></span><span class="line"><span class="cl"><span class="sd">
@@ -309,17 +320,18 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">    limits_config:
 </span></span></span><span class="line"><span class="cl"><span class="sd">      metric_aggregation_enabled: true
 </span></span></span><span class="line"><span class="cl"><span class="sd">      enable_multi_variant_queries: true
-</span></span></span><span class="line"><span class="cl"><span class="sd">      retention_period: 24h             # 全局的日志保留时间,建议大于等于索引分片时间period
-</span></span></span><span class="line"><span class="cl"><span class="sd">                                        # 这样分片结束时数据刚好过期清理，否则得等分片时间结束
-</span></span></span><span class="line"><span class="cl"><span class="sd">    schema_config:
-</span></span></span><span class="line"><span class="cl"><span class="sd">      configs:
-</span></span></span><span class="line"><span class="cl"><span class="sd">        - from: &#34;2000-01-01&#34;            # 固定不要改动
-</span></span></span><span class="line"><span class="cl"><span class="sd">          store: tsdb
-</span></span></span><span class="line"><span class="cl"><span class="sd">          object_store: s3
-</span></span></span><span class="line"><span class="cl"><span class="sd">          schema: v13
-</span></span></span><span class="line"><span class="cl"><span class="sd">          index:
-</span></span></span><span class="line"><span class="cl"><span class="sd">            prefix: index_              # 索引文件的前缀名
-</span></span></span><span class="line"><span class="cl"><span class="sd">            period: 24h                 # 索引分片时间,tsdb必须为24h,不能其他值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="sd">      retention_period: 24h             # 全局的日志保留时间,加上延迟时间实际会保留25h</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">					</span><span class="c"># 建议大于等于索引分片时间period</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                                        </span><span class="c"># 这样分片结束时数据刚好过期清理，否则得等分片时间结束</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">schema_config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">configs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">from</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;2000-01-01&#34;</span><span class="w">            </span><span class="c"># 固定不要改动</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">store</span><span class="p">:</span><span class="w"> </span><span class="l">tsdb</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">object_store</span><span class="p">:</span><span class="w"> </span><span class="l">s3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">schema</span><span class="p">:</span><span class="w"> </span><span class="l">v13</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">index</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">prefix</span><span class="p">:</span><span class="w"> </span><span class="l">index_             </span><span class="w"> </span><span class="c"># 索引文件的前缀名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">period</span><span class="p">:</span><span class="w"> </span><span class="l">24h                </span><span class="w"> </span><span class="c"># 索引分片时间,tsdb必须为24h,不能其他值</span><span class="w">
 </span></span></span></code></pre></div><ul>
 <li>创建satefulset-loki.yaml文件</li>
 </ul>
@@ -614,7 +626,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
               data-sizes="auto"
               alt="MFA双因子认证服务端"
               class="lazyload"
