@@ -280,6 +280,13 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">        kvstore:
 </span></span></span><span class="line"><span class="cl"><span class="sd">          store: memberlist
 </span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    storage_config:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      tsdb_shipper:
+</span></span></span><span class="line"><span class="cl"><span class="sd">        active_index_directory: /loki/tsdb-index
+</span></span></span><span class="line"><span class="cl"><span class="sd">        cache_location: /loki/tsdb-cache
+</span></span></span><span class="line"><span class="cl"><span class="sd">        cache_ttl: 30m
+</span></span></span><span class="line"><span class="cl"><span class="sd">        resync_interval: 10m
+</span></span></span><span class="line"><span class="cl"><span class="sd">
 </span></span></span><span class="line"><span class="cl"><span class="sd">    compactor:
 </span></span></span><span class="line"><span class="cl"><span class="sd">      working_directory: /loki/compactor
 </span></span></span><span class="line"><span class="cl"><span class="sd">      compaction_interval: 30m                  # 执行清理间隔时间
@@ -626,7 +633,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg10.webp"
               data-sizes="auto"
               alt="MFA双因子认证服务端"
               class="lazyload"
