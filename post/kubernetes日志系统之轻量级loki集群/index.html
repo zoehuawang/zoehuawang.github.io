@@ -322,7 +322,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">      enable_multi_variant_queries: true
 </span></span></span><span class="line"><span class="cl"><span class="sd">      retention_period: 24h             # 全局的日志保留时间,加上延迟时间实际会保留25h
 </span></span></span><span class="line"><span class="cl"><span class="sd">                                        # 建议大于等于索引分片时间period
-</span></span></span><span class="line"><span class="cl"><span class="sd">                                        # 这样分片结束时数据刚好过期清理，否则得等分片时间结束
+</span></span></span><span class="line"><span class="cl"><span class="sd">                                        # 否则得等分片时间结束才会清理
 </span></span></span><span class="line"><span class="cl"><span class="sd">    schema_config:
 </span></span></span><span class="line"><span class="cl"><span class="sd">      configs:
 </span></span></span><span class="line"><span class="cl"><span class="sd">        - from: &#34;2000-01-01&#34;            # 固定不要改动
@@ -626,7 +626,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
               data-sizes="auto"
               alt="MFA双因子认证服务端"
               class="lazyload"
