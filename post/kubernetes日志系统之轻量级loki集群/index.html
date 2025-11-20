@@ -610,7 +610,7 @@
 </span></span></code></pre></div><ul>
 <li>日志关键字查询</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -G <span class="s2">&#34;http://loki:3100/loki/api/v1/query_range&#34;</span> --data-urlencode <span class="s2">&#34;query={environment=\&#34;UAT&amp;SIT\&#34;} |= \&#34;测试推送日志到\&#34;&#34;</span> --data-urlencode <span class="s2">&#34;start=2025-11-20T00:00:00Z&#34;</span> --data-urlencode <span class="s2">&#34;end=2025-11-21T01:00:00Z&#34;</span> --data-urlencode <span class="s2">&#34;limit=50&#34;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -G <span class="s2">&#34;http://loki:3100/loki/api/v1/query_range&#34;</span> --data-urlencode <span class="s2">&#34;query={environment=\&#34;UAT&amp;SIT\&#34;} |= \&#34;测试推送日志到\&#34;&#34;</span> --data-urlencode <span class="s2">&#34;start=</span><span class="k">$(</span>date -d <span class="s1">&#39;2025-11-19 15:00:00&#39;</span> +%s<span class="k">)</span><span class="s2">000000000&#34;</span> --data-urlencode <span class="s2">&#34;end=</span><span class="k">$(</span>date -d <span class="s1">&#39;2025-11-19 15:30:00&#39;</span> +%s<span class="k">)</span><span class="s2">000000000&#34;</span> --data-urlencode <span class="s2">&#34;limit=50&#34;</span>
 </span></span></code></pre></div><ul>
 <li>在grafana中查看：</li>
 <li>1、添加数据源为Loki</li>
@@ -643,7 +643,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
               data-sizes="auto"
               alt="MFA双因子认证服务端"
               class="lazyload"
@@ -651,7 +651,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">MFA双因子认证服务端</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
               data-sizes="auto"
               alt="Kubernetes之Minio分布式集群"
               class="lazyload"
