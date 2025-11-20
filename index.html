@@ -52,8 +52,8 @@
     content="/"
   />
   <meta property="article:author" content="zoehuawang" />
-  <meta property="article:published_time" content="2025-11-17T13:41:21&#43;08:00" />
-  <meta property="article:modified_time" content="2025-11-17T13:41:21&#43;08:00" /><meta name="twitter:card" content="summary" />
+  <meta property="article:published_time" content="2025-11-20T13:41:21&#43;08:00" />
+  <meta property="article:modified_time" content="2025-11-20T13:41:21&#43;08:00" /><meta name="twitter:card" content="summary" />
   <meta name="twitter:image" content="/" /><link rel="alternate" type="application/rss+xml" href="/index.xml" title="︶烟花散尽不问繁华┈┾">
 <link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.b24c09f14226f6e0b1c5f7d2429eb9178ac7e4fa3a06ab1ca580a085f26946ea.css" />
 <link
@@ -112,7 +112,7 @@
 </div>
 <div class="sidebar-state">
   <div class="sidebar-state-article">
-    <div>文章</div><div class="sidebar-state-number">33</div>
+    <div>文章</div><div class="sidebar-state-number">34</div>
   </div>
   <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
     <div>分类</div>
@@ -160,15 +160,55 @@
     data-aos="fade-up"
   ><a
         class="post-link"
-        href="/post/kubernetes%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F%E4%B9%8B%E8%BD%BB%E9%87%8F%E7%BA%A7loki%E9%9B%86%E7%BE%A4/"
-        aria-label="Kubernetes日志系统之轻量级Loki集群"
+        href="/post/kubernetes%E4%B9%8Bminio%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4/"
+        aria-label="Kubernetes之Minio分布式集群"
       >
       </a><div
       class="
         post-cover-left
       "
     ><img
-            data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
+            data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
+            data-sizes="auto"
+            alt="Kubernetes之Minio分布式集群"
+            class="lazyload"
+          /></div>
+    <div class="post-info">
+      <div class="post-meta">
+        <span
+          ><span class="icon-calendar"></span
+          >2025-11-20</span
+        ><span
+          ><span class="icon-pencil"></span
+          >336 字</span
+        >
+        <span
+          ><span class="icon-clock"></span
+          >1 分钟</span
+        >
+      </div>
+      <h2 class="post-title">Kubernetes之Minio分布式集群</h2>
+      <article class="post-article">使用操作系统的文件系统作为存储介质，我们在向任意节点写数据的时候，minIO会自动同步数据到另外的节点，而机制叫做erasure code（纠删码）来保证集群的稳定，保证数据可用。如果一个N节点的分布式MinIO，只要有N/2节点在线(也就是一半节点正常)，数据就是安全的。但是要保证至少有N/2+1个节点来创建新的对象。比如：我们的集群有4个节点，每个节点上一块盘，就算有2两个节点宕机，这个集群仍然是可读的，但是，我们需要3个节点才能让集群写数据。所以至少要有4个节点来构建集群</article>
+    </div>
+  </div>
+</div>
+<div class="post-wrapper">
+  <div
+    class="
+      post-wrap-right
+    "
+    data-aos="fade-up"
+  ><a
+        class="post-link"
+        href="/post/kubernetes%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F%E4%B9%8B%E8%BD%BB%E9%87%8F%E7%BA%A7loki%E9%9B%86%E7%BE%A4/"
+        aria-label="Kubernetes日志系统之轻量级Loki集群"
+      >
+      </a><div
+      class="
+        post-cover-right
+      "
+    ><img
+            data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg10.webp"
             data-sizes="auto"
             alt="Kubernetes日志系统之轻量级Loki集群"
             class="lazyload"
@@ -195,7 +235,7 @@
 <div class="post-wrapper">
   <div
     class="
-      post-wrap-right
+      post-wrap-left
     "
     data-aos="fade-up"
   ><a
@@ -205,10 +245,10 @@
       >
       </a><div
       class="
-        post-cover-right
+        post-cover-left
       "
     ><img
-            data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg9.webp"
+            data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
             data-sizes="auto"
             alt="MFA双因子认证服务端"
             class="lazyload"
@@ -235,7 +275,7 @@
 <div class="post-wrapper">
   <div
     class="
-      post-wrap-left
+      post-wrap-right
     "
     data-aos="fade-up"
   ><a
@@ -245,10 +285,10 @@
       >
       </a><div
       class="
-        post-cover-left
+        post-cover-right
       "
     ><img
-            data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
+            data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg9.webp"
             data-sizes="auto"
             alt="Istio之灰度发布"
             class="lazyload"
@@ -275,7 +315,7 @@
 <div class="post-wrapper">
   <div
     class="
-      post-wrap-right
+      post-wrap-left
     "
     data-aos="fade-up"
   ><a
@@ -285,10 +325,10 @@
       >
       </a><div
       class="
-        post-cover-right
+        post-cover-left
       "
     ><img
-            data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
+            data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
             data-sizes="auto"
             alt="轻量级sip工具sipsak"
             class="lazyload"
@@ -312,46 +352,6 @@
     </div>
   </div>
 </div>
-<div class="post-wrapper">
-  <div
-    class="
-      post-wrap-left
-    "
-    data-aos="fade-up"
-  ><a
-        class="post-link"
-        href="/post/docker%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2jumpserver/"
-        aria-label="Docker快速部署jumpserver"
-      >
-      </a><div
-      class="
-        post-cover-left
-      "
-    ><img
-            data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
-            data-sizes="auto"
-            alt="Docker快速部署jumpserver"
-            class="lazyload"
-          /></div>
-    <div class="post-info">
-      <div class="post-meta">
-        <span
-          ><span class="icon-calendar"></span
-          >2025-01-23</span
-        ><span
-          ><span class="icon-pencil"></span
-          >453 字</span
-        >
-        <span
-          ><span class="icon-clock"></span
-          >1 分钟</span
-        >
-      </div>
-      <h2 class="post-title">Docker快速部署jumpserver</h2>
-      <article class="post-article">Jumpserver 是一款开源的 堡垒机（Jump Server） 系统，主要用于企业 IT 资产的运维安全管控。它通过集中化管理服务器、数据库、云资源等资产，提供安全的访问控制和审计功能，帮助企业实现运维操作的规范化和合规化</article>
-    </div>
-  </div>
-</div>
 <nav id="page-nav" data-aos="fade-up"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">
       下一页 &raquo;
     </a></nav>
@@ -365,10 +365,10 @@
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;47.3k</span
+          >&nbsp;47.7k</span
         >
         &nbsp;|&nbsp;
-        <span class="icon-coffee">&nbsp;01:51</span>
+        <span class="icon-coffee">&nbsp;01:52</span>
       </div></div>
 </footer>
 <div class="sidebar-top">
@@ -388,7 +388,7 @@
 </div>
 <div class="sidebar-state">
   <div class="sidebar-state-article">
-    <div>文章</div><div class="sidebar-state-number">33</div>
+    <div>文章</div><div class="sidebar-state-number">34</div>
   </div>
   <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
     <div>分类</div>
