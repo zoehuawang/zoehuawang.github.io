@@ -609,8 +609,13 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -v -X POST http://loki:3100/loki/api/v1/push -H <span class="s2">&#34;Content-Type: application/json&#34;</span> -d <span class="s1">&#39;{&#34;streams&#34;: [{&#34;stream&#34;: {&#34;environment&#34;: 
 </span></span></span><span class="line"><span class="cl"><span class="s1">&#34;UAT&amp;SIT&#34;},&#34;values&#34;: [[&#34;&#39;</span><span class="s2">&#34;</span><span class="k">$(</span>date +%s<span class="k">)</span><span class="s2">000000000&#34;</span><span class="s1">&#39;&#34;,&#34;测试推送日志到Loki3&#34;]]}]}&#39;</span>
 </span></span></code></pre></div><ul>
-<li>grafana添加数据源为Loki</li>
-<li>grafana点Explore,选择对应标签即可</li>
+<li>日志关键字查询</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -G <span class="s2">&#34;http://loki:3100/loki/api/v1/query_range&#34;</span> --data-urlencode <span class="s2">&#34;query={environment=\&#34;UAT&amp;SIT\&#34;} |= \&#34;测试推送日志到\&#34;&#34;</span> --data-urlencode <span class="s2">&#34;start=2025-11-20T00:00:00Z&#34;</span> --data-urlencode <span class="s2">&#34;end=2025-11-21T01:00:00Z&#34;</span> --data-urlencode <span class="s2">&#34;limit=50&#34;</span>
+</span></span></code></pre></div><ul>
+<li>在grafana中查看：</li>
+<li>1、添加数据源为Loki</li>
+<li>2、点击Explore,选择对应标签即可</li>
 </ul></div>
     <footer class="article-footer"><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
       <a
@@ -639,7 +644,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg9.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
               data-sizes="auto"
               alt="MFA双因子认证服务端"
               class="lazyload"
@@ -647,7 +652,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">MFA双因子认证服务端</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg10.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
               data-sizes="auto"
               alt="Kubernetes之Minio分布式集群"
               class="lazyload"
