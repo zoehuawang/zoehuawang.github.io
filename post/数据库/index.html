@@ -829,6 +829,9 @@ interface为网卡名称，不一样的话注意修改</p>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 获取Redis的所有配置信息</span>
 </span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;CONFIG GET *&#34;</span> <span class="p">|</span> redis-cli -h <span class="nv">$REDIS_HOST</span> -p <span class="nv">$REDIS_PORT</span> -n <span class="nv">$DB_INDEX</span> -a <span class="nv">$REDIS_PASSWORD</span> --no-auth-warning
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 统计特定前缀的 key 数量</span>
+</span></span><span class="line"><span class="cl">redis-cli -h <span class="nv">$REDIS_HOST</span> -p <span class="nv">$REDIS_PORT</span> -n <span class="nv">$DB_INDEX</span> -a <span class="nv">$REDIS_PASSWORD</span> --no-auth-warning --scan --pattern <span class="s2">&#34;test:task:*&#34;</span> <span class="p">|</span> wc -l
 </span></span></code></pre></div></div>
     <footer class="article-footer"><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
       <a
@@ -850,7 +853,7 @@ interface为网卡名称，不一样的话注意修改</p>
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg3.webp"
               data-sizes="auto"
               alt="Keepalived高可用配置"
               class="lazyload"
@@ -858,7 +861,7 @@ interface为网卡名称，不一样的话注意修改</p>
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Keepalived高可用配置</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
               data-sizes="auto"
               alt="Python"
               class="lazyload"
