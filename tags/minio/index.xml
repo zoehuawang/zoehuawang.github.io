@@ -39,25 +39,5 @@
       
     </item>
     
-    
-
-    <item>
-      <title>Kubernetes日志系统之轻量级Loki集群</title>
-      <link>/post/kubernetes%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F%E4%B9%8B%E8%BD%BB%E9%87%8F%E7%BA%A7loki%E9%9B%86%E7%BE%A4/</link>
-      <pubDate>Mon, 17 Nov 2025 13:41:21 &#43;0800</pubDate>
-      <author>w19891102@126.com (zoehuawang)</author>
-      <guid>/post/kubernetes%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F%E4%B9%8B%E8%BD%BB%E9%87%8F%E7%BA%A7loki%E9%9B%86%E7%BE%A4/</guid>
-      <description>
-        <![CDATA[<h1>Kubernetes日志系统之轻量级Loki集群</h1><p>作者：zoehuawang（w19891102@126.com）</p>
-        
-          
-        
-        <hr><p>本文2025-11-17首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2025-11-17</p>]]>
-      </description>
-      
-        <category>k8s</category>
-      
-    </item>
-    
   </channel>
 </rss>
