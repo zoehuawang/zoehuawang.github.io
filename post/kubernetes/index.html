@@ -197,6 +197,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#4、查看节点信息</span>
 </span></span><span class="line"><span class="cl">kubectl describe node &lt;node-name&gt;
+</span></span><span class="line"><span class="cl">kubectl describe node &lt;node-name&gt; <span class="p">|</span> grep -A10 <span class="s2">&#34;Allocatable&#34;</span>     <span class="c1">#查看节点的可分配资源上限</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#5、查看命名空间信息</span>
 </span></span><span class="line"><span class="cl">kubectl describe namespace &lt;namespace-name&gt;
@@ -664,7 +665,7 @@ minikube使用
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
               data-sizes="auto"
               alt="Kubernetes之StatefulSet部署etcd集群"
               class="lazyload"
@@ -672,7 +673,7 @@ minikube使用
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Kubernetes之StatefulSet部署etcd集群</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg10.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
               data-sizes="auto"
               alt="Kubernetes之proxysql集群"
               class="lazyload"
