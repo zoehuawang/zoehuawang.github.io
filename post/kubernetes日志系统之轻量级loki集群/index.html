@@ -675,12 +675,9 @@
 </ul>
 <hr>
 <hr>
-<hr>
-<hr>
-<ul>
-<li>知识补充：使用Promtail主动收集日志的镜像</li>
-</ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d --name promtail --network<span class="o">=</span>host -e <span class="nv">loki_ip_port</span><span class="o">=</span><span class="s2">&#34;172.23.26.69:3100&#34;</span> -v /logs:/var/log ccr.ccs.tencentyun.com/zoehuawang/promtail:3.2.1 --config.file<span class="o">=</span>/mnt/config/promtail-config.yaml --config.expand-env<span class="o">=</span><span class="nb">true</span>
+<p><strong>补充：使用Promtail主动收集日志发送到loki的镜像及用法如下:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 自定义的配置文件/mnt/config/promtail-config.yaml</span>
+</span></span><span class="line"><span class="cl">docker run -d --name promtail --network<span class="o">=</span>host -e <span class="nv">loki_ip_port</span><span class="o">=</span><span class="s2">&#34;172.23.26.69:3100&#34;</span> -v /logs:/var/log ccr.ccs.tencentyun.com/zoehuawang/promtail:3.2.1 --config.file<span class="o">=</span>/mnt/config/promtail-config.yaml --config.expand-env<span class="o">=</span><span class="nb">true</span>
 </span></span></code></pre></div></div>
     <footer class="article-footer"><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
       <a
@@ -709,7 +706,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg9.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
               data-sizes="auto"
               alt="MFA双因子认证服务端"
               class="lazyload"
@@ -717,7 +714,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">MFA双因子认证服务端</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg3.webp"
               data-sizes="auto"
               alt="Kubernetes之Minio分布式集群"
               class="lazyload"
@@ -734,7 +731,7 @@
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;48.0k</span
+          >&nbsp;48.1k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:53</span>
