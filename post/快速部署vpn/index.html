@@ -1,0 +1,645 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  data-theme-mode="auto"
+  >
+  <head><meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/><title>
+  快速部署vpn | zoehuawang
+</title>
+<meta
+  name="description"
+  content="快速部署vpn"
+/><script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_4k4bc36ef96\",\"outdate\":{\"daysago\":14,\"enable\":false,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  
+</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+<link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_4k4bc36ef96.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  /><meta property="og:type" content="website" />
+  <meta property="og:title" content="快速部署vpn | zoehuawang" />
+  <meta
+    property="og:description"
+    content="快速部署vpn"
+  />
+  <meta property="og:url" content="/post/%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2vpn/" />
+  <meta
+    property="og:site_name"
+    content="︶烟花散尽不问繁华┈┾"
+  />
+  <meta
+    property="og:image"
+    content="/"
+  />
+  <meta property="article:author" content="zoehuawang" />
+  <meta property="article:published_time" content="2023-01-02T10:54:44&#43;08:00" />
+  <meta property="article:modified_time" content="2023-01-02T10:54:44&#43;08:00" /><meta property="article:tag" content="运维分享" /><meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.b24c09f14226f6e0b1c5f7d2429eb9178ac7e4fa3a06ab1ca580a085f26946ea.css" />
+<link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei&#43;Zx/1oA/0l8ysE" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.22/dist/katex.min.css"
+    integrity="sha384-5TcZemv2l/9On385z///&#43;d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script><link
+    rel="stylesheet"
+    href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css"
+    integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous"/></head>
+  <body><div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+<div id="lang-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+本文章没有找到对应的语言版本
+</div>
+<div id="heatmap-tooltip"></div><div id="container">
+      <div id="wrap"><div id="header-nav">
+  <nav id="main-nav"><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span><a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav"></nav></div>
+<header id="header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="快速部署vpn"><div id="header-outer">
+    <div id="header-title"><a href="/" id="logo">
+            <h1 data-aos="slide-up">快速部署vpn</h1>
+          </a><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
+  </div>
+</header>
+<div id="content"
+          class="sidebar-left"
+            ><aside id="sidebar"><div class="sidebar-wrapper-container sticky"><div class="sidebar-wrapper">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    ><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一通过openvpn搭建基于tls的vpn">一、通过Openvpn搭建基于TLS的vpn</a></li>
+    <li><a href="#二通过strongswang搭建ikev2ipsec协议vpn默认端口5004500">二、通过strongswang搭建IKEv2/IPsec协议vpn（默认端口500、4500）</a></li>
+  </ul>
+</nav>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="zoehuawang"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">zoehuawang</div>
+  <div class="sidebar-description">牛马日记</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">34</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      7
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">19</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div></div>
+</div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div><div class="sidebar-widget"></div></div></aside>
+<section id="main"><article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta"><div class="article-date">
+  <span
+    class="article-date-link icon-calendar"
+    data-aos="zoom-in"
+  >
+    <time datetime="2023-01-02 10:54:44 &#43;0800 CST" itemprop="datePublished"
+      >2023-01-02</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2023-01-02</time
+    >
+  </span></div>
+<div class="article-category"><a
+      class="article-category-link"
+      href="/categories/"
+      data-aos="zoom-in"
+      ></a
+    ></div>
+</div>
+    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><h2 id="一通过openvpn搭建基于tls的vpn">
+<a class="header-anchor" href="#%e4%b8%80%e9%80%9a%e8%bf%87openvpn%e6%90%ad%e5%bb%ba%e5%9f%ba%e4%ba%8etls%e7%9a%84vpn"></a>
+一、通过Openvpn搭建基于TLS的vpn
+</h2><ul>
+<li>一键部署脚本下载:</li>
+</ul>
+<p><a href="https://github.com/angristan/openvpn-install">https://github.com/angristan/openvpn-install</a></p>
+<ul>
+<li>配置文件/etc/openvpn/server.conf</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">port <span class="m">2305</span>
+</span></span><span class="line"><span class="cl">proto udp
+</span></span><span class="line"><span class="cl">dev tun
+</span></span><span class="line"><span class="cl">user nobody
+</span></span><span class="line"><span class="cl">group nobody
+</span></span><span class="line"><span class="cl">persist-key
+</span></span><span class="line"><span class="cl">persist-tun
+</span></span><span class="line"><span class="cl">keepalive <span class="m">5</span> <span class="m">120</span>
+</span></span><span class="line"><span class="cl">topology subnet
+</span></span><span class="line"><span class="cl">server 10.5.5.0 255.255.255.0
+</span></span><span class="line"><span class="cl">ifconfig-pool-persist ipp.txt
+</span></span><span class="line"><span class="cl">push <span class="s2">&#34;route 10.5.5.0 255.255.255.0&#34;</span>
+</span></span><span class="line"><span class="cl">client-config-dir /etc/openvpn/ccd
+</span></span><span class="line"><span class="cl">dh none
+</span></span><span class="line"><span class="cl"><span class="c1">#从radius验证密码，不需要可不添加</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#plugin /etc/openvpn/radiusplugin.so /etc/openvpn/radiusplugin.cnf</span>
+</span></span><span class="line"><span class="cl">ecdh-curve prime256v1
+</span></span><span class="line"><span class="cl">tls-crypt tls-crypt.key
+</span></span><span class="line"><span class="cl">crl-verify crl.pem
+</span></span><span class="line"><span class="cl">ca ca.crt
+</span></span><span class="line"><span class="cl">cert server_e3IxyFUI3a4mnQXr.crt
+</span></span><span class="line"><span class="cl">key server_e3IxyFUI3a4mnQXr.key
+</span></span><span class="line"><span class="cl">auth SHA256
+</span></span><span class="line"><span class="cl">cipher AES-128-GCM
+</span></span><span class="line"><span class="cl">ncp-ciphers AES-128-GCM
+</span></span><span class="line"><span class="cl">tls-server
+</span></span><span class="line"><span class="cl">tls-version-min 1.2
+</span></span><span class="line"><span class="cl">tls-cipher TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256
+</span></span><span class="line"><span class="cl">client-config-dir /etc/openvpn/ccd
+</span></span><span class="line"><span class="cl">status /var/log/openvpn/status.log
+</span></span><span class="line"><span class="cl">verb <span class="m">3</span>
+</span></span><span class="line"><span class="cl">reneg-sec <span class="m">0</span>
+</span></span></code></pre></div><ul>
+<li>客户端配置文件模版/etc/openvpn/client-common.txt</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">client
+</span></span><span class="line"><span class="cl">dev tun
+</span></span><span class="line"><span class="cl">proto udp
+</span></span><span class="line"><span class="cl">sndbuf 0
+</span></span><span class="line"><span class="cl">rcvbuf 0
+</span></span><span class="line"><span class="cl">remote 1.1.1.1 2305
+</span></span><span class="line"><span class="cl">resolv-retry infinite
+</span></span><span class="line"><span class="cl">nobind
+</span></span><span class="line"><span class="cl">persist-key
+</span></span><span class="line"><span class="cl">persist-tun
+</span></span><span class="line"><span class="cl">remote-cert-tls server
+</span></span><span class="line"><span class="cl">auth SHA512
+</span></span><span class="line"><span class="cl">cipher AES-128-GCM
+</span></span><span class="line"><span class="cl">comp-lzo
+</span></span><span class="line"><span class="cl">key-direction 1
+</span></span><span class="line"><span class="cl">verb 3
+</span></span><span class="line"><span class="cl">#如果开启了radius验证就取消注释
+</span></span><span class="line"><span class="cl">#auth-user-pass
+</span></span><span class="line"><span class="cl">reneg-sec 86400
+</span></span><span class="line"><span class="cl">tls-version-min 1.2
+</span></span></code></pre></div><ul>
+<li>自定义不同的客户端推送不同的路由</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mkdir -p /etc/openvpn/ccd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">chown -R nobody:nobody /etc/openvpn/ccd/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># user1、user2为客户端连接时的用户名
+</span></span><span class="line"><span class="cl">cat &gt; /etc/openvpn/ccd/user1 &lt;&lt; EOF
+</span></span><span class="line"><span class="cl">push &#34;route 172.29.77.0 255.255.255.0&#34;
+</span></span><span class="line"><span class="cl">EOF
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat &gt; /etc/openvpn/ccd/user2 &lt;&lt; EOF
+</span></span><span class="line"><span class="cl">push &#34;route 172.25.209.0 255.255.255.0&#34;
+</span></span><span class="line"><span class="cl">EOF
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">chmod 644 /etc/openvpn/ccd/*
+</span></span></code></pre></div><ul>
+<li>配置iptables，内部流量通过openvpn服务端转发</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">iptables -t nat -A POSTROUTING -s 10.5.5.0/24 -d 172.29.77.0/24 -o eth0 -j MASQUERADE
+</span></span></code></pre></div><ul>
+<li>插件配置文件/etc/openvpn/radiusplugin.cnf</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">NAS-Identifier<span class="o">=</span>OpenVpn
+</span></span><span class="line"><span class="cl">Service-Type<span class="o">=</span><span class="m">5</span>
+</span></span><span class="line"><span class="cl">Framed-Protocol<span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl">NAS-Port-Type<span class="o">=</span><span class="m">5</span>
+</span></span><span class="line"><span class="cl">NAS-IP-Address<span class="o">=</span>127.0.0.1
+</span></span><span class="line"><span class="cl"><span class="nv">OpenVPNConfig</span><span class="o">=</span>/etc/openvpn/server.conf
+</span></span><span class="line"><span class="cl"><span class="nv">subnet</span><span class="o">=</span>255.255.255.0
+</span></span><span class="line"><span class="cl"><span class="nv">overwriteccfiles</span><span class="o">=</span><span class="nb">true</span>
+</span></span><span class="line"><span class="cl"><span class="nv">nonfatalaccounting</span><span class="o">=</span><span class="nb">false</span>
+</span></span><span class="line"><span class="cl">server
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># The UDP port for radius accounting.</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">acctport</span><span class="o">=</span><span class="m">1813</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># The UDP port for radius authentication.</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">authport</span><span class="o">=</span><span class="m">1812</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># The name or ip address of the radius server.</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">name</span><span class="o">=</span>1xx.1xx.1xx.1xx
+</span></span><span class="line"><span class="cl">        <span class="c1"># How many times should the plugin send the if there is no response?</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">retry</span><span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># How long should the plugin wait for a response?</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">wait</span><span class="o">=</span><span class="m">3</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># The shared secret.</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">sharedsecret</span><span class="o">=</span>Rad2023
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><hr>
+<hr>
+<h2 id="二通过strongswang搭建ikev2ipsec协议vpn默认端口5004500">
+<a class="header-anchor" href="#%e4%ba%8c%e9%80%9a%e8%bf%87strongswang%e6%90%ad%e5%bb%baikev2ipsec%e5%8d%8f%e8%ae%aevpn%e9%bb%98%e8%ae%a4%e7%ab%af%e5%8f%a35004500"></a>
+二、通过strongswang搭建IKEv2/IPsec协议vpn（默认端口500、4500）
+</h2><ul>
+<li>yum安装strongswan</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum install -y epel-release
+</span></span><span class="line"><span class="cl">yum install -y strongswan
+</span></span></code></pre></div><ul>
+<li>如需端口修改,否则忽略</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vi /etc/strongswan/strongswan.conf
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">charon <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">port</span> <span class="o">=</span> <span class="m">500</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">port_nat_t</span> <span class="o">=</span> <span class="m">4500</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 其他不变</span>
+</span></span><span class="line"><span class="cl">    ...
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><ul>
+<li>定义配置文件</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mv /etc/strongswan/swanctl/swanctl.conf /etc/strongswan/swanctl/swanctl.conf.bk
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat &gt; /etc/strongswan/swanctl/swanctl.conf <span class="s">&lt;&lt; EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">connections {
+</span></span></span><span class="line"><span class="cl"><span class="s">    iphone-connect {
+</span></span></span><span class="line"><span class="cl"><span class="s">        version = 2
+</span></span></span><span class="line"><span class="cl"><span class="s">        remote_addrs = %any
+</span></span></span><span class="line"><span class="cl"><span class="s">        local_addrs = 0.0.0.0
+</span></span></span><span class="line"><span class="cl"><span class="s">        pools = vpn_pool
+</span></span></span><span class="line"><span class="cl"><span class="s">        proposals = aes256-sha256-modp2048
+</span></span></span><span class="line"><span class="cl"><span class="s">        send_certreq = no
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">        local {
+</span></span></span><span class="line"><span class="cl"><span class="s">            auth = psk
+</span></span></span><span class="line"><span class="cl"><span class="s">            id = 公网ip
+</span></span></span><span class="line"><span class="cl"><span class="s">        }
+</span></span></span><span class="line"><span class="cl"><span class="s">        remote {
+</span></span></span><span class="line"><span class="cl"><span class="s">            auth = psk 
+</span></span></span><span class="line"><span class="cl"><span class="s">        }
+</span></span></span><span class="line"><span class="cl"><span class="s">        children {
+</span></span></span><span class="line"><span class="cl"><span class="s">            iphone-connect {
+</span></span></span><span class="line"><span class="cl"><span class="s">                local_ts = 0.0.0.0/0
+</span></span></span><span class="line"><span class="cl"><span class="s">                remote_ts = 0.0.0.0/0
+</span></span></span><span class="line"><span class="cl"><span class="s">                if_id_in = 1
+</span></span></span><span class="line"><span class="cl"><span class="s">                if_id_out = 1
+</span></span></span><span class="line"><span class="cl"><span class="s">                updown = /etc/strongswan/ipsec-updown.sh	# 网络配置脚本
+</span></span></span><span class="line"><span class="cl"><span class="s">                mode = tunnel
+</span></span></span><span class="line"><span class="cl"><span class="s">                rekey_time = 4h
+</span></span></span><span class="line"><span class="cl"><span class="s">                esp_proposals = aes256-sha256-modp2048
+</span></span></span><span class="line"><span class="cl"><span class="s">            }
+</span></span></span><span class="line"><span class="cl"><span class="s">        }
+</span></span></span><span class="line"><span class="cl"><span class="s">    }
+</span></span></span><span class="line"><span class="cl"><span class="s">}
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">pools {
+</span></span></span><span class="line"><span class="cl"><span class="s">    vpn_pool {
+</span></span></span><span class="line"><span class="cl"><span class="s">        addrs = 172.20.5.0/24	# 定义客户端的内网段
+</span></span></span><span class="line"><span class="cl"><span class="s">        dns = 8.8.8.8,8.8.4.4
+</span></span></span><span class="line"><span class="cl"><span class="s">    }
+</span></span></span><span class="line"><span class="cl"><span class="s">}
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">secrets {
+</span></span></span><span class="line"><span class="cl"><span class="s">    ike-iphone-connect {
+</span></span></span><span class="line"><span class="cl"><span class="s">        id = 公网ip
+</span></span></span><span class="line"><span class="cl"><span class="s">        secret = &#34;密码&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">    }
+</span></span></span><span class="line"><span class="cl"><span class="s">}
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span></code></pre></div><ul>
+<li>定义客户端连接的网络配置脚本</li>
+<li>注意修改变量:VPN_SUBNET（客户端的内网段）,要与/etc/strongswan/swanctl/swanctl.conf中addrs一致</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat &gt; /etc/strongswan/ipsec-updown.sh <span class="s">&lt;&lt; EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="s"># /etc/strongswan/ipsec-updown.sh
+</span></span></span><span class="line"><span class="cl"><span class="s"># 这个脚本在 IPsec SA 建立和删除时被调用
+</span></span></span><span class="line"><span class="cl"><span class="s"># StrongSwan 5.x+ 版本支持
+</span></span></span><span class="line"><span class="cl"><span class="s"># StrongSwan 传递的环境变量：
+</span></span></span><span class="line"><span class="cl"><span class="s"># PLUTO_VERB: 操作类型 (up-host, up-client, down-host, down-client)
+</span></span></span><span class="line"><span class="cl"><span class="s"># PLUTO_CONNECTION: 连接名称
+</span></span></span><span class="line"><span class="cl"><span class="s"># PLUTO_PEER_CLIENT: 对端客户端 IP (如果分配了虚拟IP)
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">set -o nounset
+</span></span></span><span class="line"><span class="cl"><span class="s">set -o errexit
+</span></span></span><span class="line"><span class="cl"><span class="s">sysctl -w net.ipv4.ip_forward=1
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">VPN_SUBNET=&#34;172.20.5.0/24&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">case &#34;${PLUTO_VERB}&#34; in
+</span></span></span><span class="line"><span class="cl"><span class="s">    up-client)
+</span></span></span><span class="line"><span class="cl"><span class="s">        echo &#34;VPN connected: ${PLUTO_CONNECTION}, Client: ${PLUTO_PEER_CLIENT}&#34; &gt;&amp;2
+</span></span></span><span class="line"><span class="cl"><span class="s">        
+</span></span></span><span class="line"><span class="cl"><span class="s">        # 创建 XFRM 接口（如果不存在）
+</span></span></span><span class="line"><span class="cl"><span class="s">        if ! ip link show ipsec0 2&gt;/dev/null; then
+</span></span></span><span class="line"><span class="cl"><span class="s">            ip link add ipsec0 type xfrm if_id 1
+</span></span></span><span class="line"><span class="cl"><span class="s">            ip link set ipsec0 up
+</span></span></span><span class="line"><span class="cl"><span class="s">        fi
+</span></span></span><span class="line"><span class="cl"><span class="s">        
+</span></span></span><span class="line"><span class="cl"><span class="s">        # 添加客户端子网路由
+</span></span></span><span class="line"><span class="cl"><span class="s">        ip route add $VPN_SUBNET dev ipsec0 2&gt;/dev/null || true
+</span></span></span><span class="line"><span class="cl"><span class="s">        
+</span></span></span><span class="line"><span class="cl"><span class="s">        # 获取默认网口
+</span></span></span><span class="line"><span class="cl"><span class="s">        INTERFACE=$(ip route | grep &#39;^default&#39; | awk &#39;{print $5}&#39;)
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">        # 设置 iptables 规则
+</span></span></span><span class="line"><span class="cl"><span class="s">        iptables -A FORWARD -s $VPN_SUBNET -j ACCEPT 2&gt;/dev/null || true
+</span></span></span><span class="line"><span class="cl"><span class="s">        iptables -t nat -A POSTROUTING -s $VPN_SUBNET -o $INTERFACE -j MASQUERADE 2&gt;/dev/null || true
+</span></span></span><span class="line"><span class="cl"><span class="s">        ;;
+</span></span></span><span class="line"><span class="cl"><span class="s">        
+</span></span></span><span class="line"><span class="cl"><span class="s">    down-client)
+</span></span></span><span class="line"><span class="cl"><span class="s">        echo &#34;VPN disconnected: ${PLUTO_CONNECTION}&#34; &gt;&amp;2
+</span></span></span><span class="line"><span class="cl"><span class="s">        
+</span></span></span><span class="line"><span class="cl"><span class="s">        # 删除路由
+</span></span></span><span class="line"><span class="cl"><span class="s">        ip route del $VPN_SUBNET dev ipsec0 2&gt;/dev/null || true
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">        # 获取默认网口
+</span></span></span><span class="line"><span class="cl"><span class="s">        INTERFACE=$(ip route | grep &#39;^default&#39; | awk &#39;{print $5}&#39;)
+</span></span></span><span class="line"><span class="cl"><span class="s">        
+</span></span></span><span class="line"><span class="cl"><span class="s">        # 清理 iptables 规则
+</span></span></span><span class="line"><span class="cl"><span class="s">        iptables -D FORWARD -s $VPN_SUBNET -j ACCEPT 2&gt;/dev/null || true
+</span></span></span><span class="line"><span class="cl"><span class="s">        iptables -t nat -D POSTROUTING -s $VPN_SUBNET -o $INTERFACE -j MASQUERADE 2&gt;/dev/null || true
+</span></span></span><span class="line"><span class="cl"><span class="s">        ;;
+</span></span></span><span class="line"><span class="cl"><span class="s">        
+</span></span></span><span class="line"><span class="cl"><span class="s">    up-host)
+</span></span></span><span class="line"><span class="cl"><span class="s">        echo &#34;Host connection established: ${PLUTO_CONNECTION}&#34; &gt;&amp;2
+</span></span></span><span class="line"><span class="cl"><span class="s">        ;;
+</span></span></span><span class="line"><span class="cl"><span class="s">        
+</span></span></span><span class="line"><span class="cl"><span class="s">    down-host)
+</span></span></span><span class="line"><span class="cl"><span class="s">        echo &#34;Host connection terminated: ${PLUTO_CONNECTION}&#34; &gt;&amp;2
+</span></span></span><span class="line"><span class="cl"><span class="s">        ;;
+</span></span></span><span class="line"><span class="cl"><span class="s">        
+</span></span></span><span class="line"><span class="cl"><span class="s">    *)
+</span></span></span><span class="line"><span class="cl"><span class="s">        echo &#34;Unknown verb: ${PLUTO_VERB}&#34; &gt;&amp;2
+</span></span></span><span class="line"><span class="cl"><span class="s">        exit 1
+</span></span></span><span class="line"><span class="cl"><span class="s">        ;;
+</span></span></span><span class="line"><span class="cl"><span class="s">esac
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">exit 0
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">chmod +x /etc/strongswan/ipsec-updown.sh
+</span></span></code></pre></div><ul>
+<li>启动服务并配置开机自启动</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl <span class="nb">enable</span> strongswan --now
+</span></span></code></pre></div></div>
+    <footer class="article-footer"><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e8%bf%90%e7%bb%b4"
+        rel="tag"
+        >运维</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e5%88%86%e4%ba%ab"
+        rel="tag"
+        >分享</a
+      >
+    </li></ul>
+</footer>
+  </div><nav
+    id="article-nav"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap article-nav-link-left"><img
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg3.webp"
+              data-sizes="auto"
+              alt="内网穿透frp"
+              class="lazyload"
+            /><a href="/post/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8Ffrp/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">内网穿透frp</h3>
+      </div><div class="article-nav-link-wrap article-nav-link-right"><img
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
+              data-sizes="auto"
+              alt="Golang"
+              class="lazyload"
+            /><a href="/post/golang/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">Golang</h3>
+      </div></nav></article></section>
+        </div><footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info"><div>
+      <span class="icon-copyright"></span>2020-2025<span class="footer-info-sep rotate"></span>
+      zoehuawang
+    </div><div>
+        <span class="icon-brush"
+          >&nbsp;48.8k</span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;01:55</span>
+      </div></div>
+</footer>
+<div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div><div id="mask" class="hide"></div>
+      </div><nav id="mobile-nav">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><h3 class="toc-title">文章目录</h3>
+<div class="sidebar-toc-wrapper toc-div-class">
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一通过openvpn搭建基于tls的vpn">一、通过Openvpn搭建基于TLS的vpn</a></li>
+    <li><a href="#二通过strongswang搭建ikev2ipsec协议vpn默认端口5004500">二、通过strongswang搭建IKEv2/IPsec协议vpn（默认端口500、4500）</a></li>
+  </ul>
+</nav>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.webp"
+    data-sizes="auto"
+    alt="zoehuawang"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">zoehuawang</div>
+  <div class="sidebar-description">牛马日记</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">34</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      7
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">19</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div></div>
+</div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
+</div><script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" integrity="" crossorigin="anonymous" ></script><script src="/js/aos.js" integrity="" crossorigin="anonymous" ></script><script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script><script src="/js/pjax_main.js" integrity="" crossorigin="anonymous" data-pjax></script><script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"></script><script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+<div id="lazy-script">
+  <div><script data-pjax>
+        window.REIMU_POST = {
+          author: "zoehuawang",
+          title: "快速部署vpn",
+          url: "\/post\/%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2vpn\/",
+          description: "快速部署vpn",
+          cover: "\/images\/banner.webp",
+        };
+      </script><script src="/js/insert_highlight.js" integrity="" crossorigin="anonymous" data-pjax></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script></div>
+</div><script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script><script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script></body>
+</html>
