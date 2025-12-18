@@ -198,7 +198,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c"># - REDIS_PORT = 6379                 # Redis 服务器 IP 地址
 </span></span></span><span class="line"><span class="cl"><span class="c"># - REDIS_PASSWORD = xxxx             # Redis 认证密码
 </span></span></span><span class="line"><span class="cl"><span class="c"></span>
-</span></span><span class="line"><span class="cl"><span class="c"># - VOLUME /opt/jumpserver/data       # Core 持久化目录, 存储录像日志
+</span></span><span class="line"><span class="cl"><span class="c"># - VOLUME /opt/data/jumpserver       # Core 持久化目录, 存储录像日志
 </span></span></span><span class="line"><span class="cl"><span class="c"># - VOLUME /opt/koko/data             # Koko 持久化目录
 </span></span></span><span class="line"><span class="cl"><span class="c"># - VOLUME /opt/lion/data             # Lion 持久化目录
 </span></span></span><span class="line"><span class="cl"><span class="c"># - VOLUME /opt/kael/data             # Kael 持久化目录
@@ -260,7 +260,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>        -e <span class="nv">REDIS_PORT</span><span class="o">=</span><span class="m">6379</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>        -e <span class="nv">REDIS_PASSWORD</span><span class="o">=</span><span class="k">$(</span>REDIS_PASSWORD<span class="k">)</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>        --privileged<span class="o">=</span><span class="nb">true</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -v <span class="k">$(</span>DATAPATH<span class="k">)</span>:/opt/jumpserver/data <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -v <span class="k">$(</span>DATAPATH<span class="k">)</span>:/opt/data/jumpserver <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>        <span class="k">$(</span>JMSIMAGE<span class="k">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nf">jms_restart</span><span class="o">:</span>
@@ -288,7 +288,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
               data-sizes="auto"
               alt="Kubernetes日志系统之ELK集群"
               class="lazyload"
@@ -296,7 +296,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Kubernetes日志系统之ELK集群</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
               data-sizes="auto"
               alt="轻量级sip工具sipsak"
               class="lazyload"
