@@ -244,6 +244,33 @@
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># 含rtmp、ffmpeg的nginx流媒体镜像------------------------------</span>
 </span></span></code></pre></div><ul>
+<li><strong>自建通过https访问的registry库</strong></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1"># 生成证书：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># openssl req -newkey rsa:4096 -nodes -sha256 -keyout certs/easzlab.io.local.key -x509 -days 3650 -out certs/easzlab.io.local.crt -subj &#34;/C=CN/ST=Beijing/L=Beijing/O=Test/OU=Test/CN=easzlab.io.local&#34; -addext &#34;subjectAltName = DNS:easzlab.io.local, DNS:localhost, IP:127.0.0.1&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 在k8s的node节点上创建证书目录:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># mkdir -p /etc/containerd/certs.d/easzlab.io.local:5000</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 复制证书到node节点 (Docker也一样，证书路径containerd换成docker就好了)：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># scp /root/wellcloud-2025.1/registry/certs/easzlab.io.local.crt 10.50.8.XX:/etc/containerd/certs.d/easzlab.io.local:5000/ca.crt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 重启node节点的containerd:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># systemctl restart containerd</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">local_registry</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-</span><span class="n">docker</span> <span class="n">rm</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_registry</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">d</span> <span class="o">--</span><span class="n">user</span> <span class="n">root</span> \
+</span></span><span class="line"><span class="cl">        <span class="o">--</span><span class="n">network</span><span class="o">=</span><span class="n">host</span> \
+</span></span><span class="line"><span class="cl">        <span class="o">--</span><span class="n">restart</span><span class="o">=</span><span class="n">always</span> \
+</span></span><span class="line"><span class="cl">        <span class="o">--</span><span class="n">name</span> <span class="n">local_registry</span> \
+</span></span><span class="line"><span class="cl">        <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">registry</span><span class="p">:</span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">registry</span> \
+</span></span><span class="line"><span class="cl">        <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">wellcloud</span><span class="o">-</span><span class="mf">2025.1</span><span class="o">/</span><span class="n">registry</span><span class="o">/</span><span class="n">certs</span><span class="p">:</span><span class="o">/</span><span class="n">certs</span> \
+</span></span><span class="line"><span class="cl">        <span class="o">-</span><span class="n">e</span> <span class="n">REGISTRY_HTTP_ADDR</span><span class="o">=</span><span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">5000</span> \
+</span></span><span class="line"><span class="cl">        <span class="o">-</span><span class="n">e</span> <span class="n">REGISTRY_HTTP_TLS_CERTIFICATE</span><span class="o">=/</span><span class="n">certs</span><span class="o">/</span><span class="n">easzlab</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">crt</span> \
+</span></span><span class="line"><span class="cl">        <span class="o">-</span><span class="n">e</span> <span class="n">REGISTRY_HTTP_TLS_KEY</span><span class="o">=/</span><span class="n">certs</span><span class="o">/</span><span class="n">easzlab</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">key</span> \
+</span></span><span class="line"><span class="cl">        <span class="n">registry</span><span class="p">:</span><span class="mi">2</span>
+</span></span></code></pre></div><ul>
 <li><strong>容器版centos7报错：Failed to get D-Bus connection: Operation not permitted  。解决方法</strong></li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">mv /usr/bin/systemctl /usr/bin/systemctl.old</span><span class="w">
@@ -272,7 +299,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
               data-sizes="auto"
               alt="Sip应答消息状态码"
               class="lazyload"
@@ -280,7 +307,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Sip应答消息状态码</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg10.webp"
               data-sizes="auto"
               alt="Etcd节点恢复操作"
               class="lazyload"
@@ -297,7 +324,7 @@
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;48.8k</span
+          >&nbsp;49.0k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:55</span>
