@@ -281,7 +281,17 @@
 </span></span><span class="line"><span class="cl"><span class="p">[</span><span class="n">backup</span><span class="p">:</span><span class="n">vars</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl"><span class="n">Abc</span><span class="o">=</span><span class="mi">123</span>
 </span></span></code></pre></div><p><strong>用法</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c">#  DEBUG调试输出变量</span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c">#  shell模块执行命令</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">all</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">tasks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">执行多个命令</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">shell</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">cmd</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">         cat /etc/passwd
+</span></span></span><span class="line"><span class="cl"><span class="sd">         systemctl status sshd
+</span></span></span><span class="line"><span class="cl"><span class="sd">         kubectl get pod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#-----------------------------------------</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#  DEBUG调试输出变量</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">all</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">tasks</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">注册变量</span><span class="w">
@@ -342,7 +352,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg9.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
               data-sizes="auto"
               alt="Kubernetes之proxysql集群"
               class="lazyload"
@@ -350,7 +360,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Kubernetes之proxysql集群</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
               data-sizes="auto"
               alt="K8s离线部署"
               class="lazyload"
