@@ -293,7 +293,28 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c">#  type: DirectoryOrCreate</span><span class="w">
 </span></span></span></code></pre></div><ul>
 <li>通过yaml配置中指定的用户admin，密码Aa123456，访问minio的webui页面(9090端口对应的nodeport端口)</li>
-</ul></div>
+</ul>
+<hr>
+<ul>
+<li>客户端工具mc</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装</span>
+</span></span><span class="line"><span class="cl">curl https://dl.minio.org.cn/client/mc/release/linux-amd64/mc -O /usr/local/bin/mc
+</span></span><span class="line"><span class="cl">chmod +x /usr/local/bin/mc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 首先需要使用 mc alias 命令将 S3 服务添加到 mc 配置 中</span>
+</span></span><span class="line"><span class="cl">mc <span class="nb">alias</span> <span class="nb">set</span> myminio http://12.34.56.78:9000 ACCESS_KEY SECRET_KEY
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mc admin info myminio                               <span class="c1"># 测试连接</span>
+</span></span><span class="line"><span class="cl">mc ls myminio                                       <span class="c1"># 列出存储桶</span>
+</span></span><span class="line"><span class="cl">mc mb myminio/bucket-by-mc                          <span class="c1"># 创建存储桶</span>
+</span></span><span class="line"><span class="cl">mc rb myminio/bucket-by-mc                          <span class="c1"># 删除存储桶</span>
+</span></span><span class="line"><span class="cl">mc rm myminio/bucket-by-mc/file_name                <span class="c1"># 删除存储桶中的文件</span>
+</span></span><span class="line"><span class="cl">mc cp file_name myminio/bucket-by-mc                <span class="c1"># 上传文件到存储桶</span>
+</span></span><span class="line"><span class="cl">mc get myminio/bucket-by-mc/file_name ./file_name   <span class="c1"># 下载存储桶中的文件</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 更多使用参考：https://minio.org.cn/docs/minio/linux/reference/minio-mc.html</span>
+</span></span></code></pre></div></div>
     <footer class="article-footer"><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
       <a
         class="article-tag-list-link"
@@ -314,7 +335,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
               data-sizes="auto"
               alt="Kubernetes日志系统之轻量级Loki集群"
               class="lazyload"
@@ -331,10 +352,10 @@
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;49.0k</span
+          >&nbsp;49.2k</span
         >
         &nbsp;|&nbsp;
-        <span class="icon-coffee">&nbsp;01:55</span>
+        <span class="icon-coffee">&nbsp;01:56</span>
       </div></div>
 </footer>
 <div class="sidebar-top">
