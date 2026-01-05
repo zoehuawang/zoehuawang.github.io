@@ -564,6 +564,17 @@ Pod 拓扑分布约束
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># maxSkew 是pod之间个数的最大允许差值。它必须大于零</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># topologyKey 是节点标签</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># labelSelector 用于查找匹配此标签的pod</span><span class="w">
+</span></span></span></code></pre></div><h1 id="service代理外部域名">
+<a class="header-anchor" href="#service%e4%bb%a3%e7%90%86%e5%a4%96%e9%83%a8%e5%9f%9f%e5%90%8d"></a>
+Service代理外部域名
+</h1><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rabbitmq-proxy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">cloud2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">ExternalName</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">externalName</span><span class="p">:</span><span class="w"> </span><span class="l">amqp-cn-rij4ky4bh001.ap-southeast-6.amqp-0.vpc.mq.amqp.yuncs.com</span><span class="w">
 </span></span></span></code></pre></div><h1 id="service代理外部服务">
 <a class="header-anchor" href="#service%e4%bb%a3%e7%90%86%e5%a4%96%e9%83%a8%e6%9c%8d%e5%8a%a1"></a>
 Service代理外部服务
@@ -665,7 +676,7 @@ minikube使用
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg9.webp"
               data-sizes="auto"
               alt="Kubernetes之StatefulSet部署etcd集群"
               class="lazyload"
@@ -673,7 +684,7 @@ minikube使用
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Kubernetes之StatefulSet部署etcd集群</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg10.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
               data-sizes="auto"
               alt="Kubernetes之proxysql集群"
               class="lazyload"
