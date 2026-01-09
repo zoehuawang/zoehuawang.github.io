@@ -421,6 +421,12 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#-t nat查看指定nat表下的规则，不指定-t默认是filter表</span>
 </span></span><span class="line"><span class="cl">iptables -vnL -t nat
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#iptables的mangle表对某个端口设置白名单</span>
+</span></span><span class="line"><span class="cl">iptables -t mangle -A PREROUTING -i lo -j ACCEPT
+</span></span><span class="line"><span class="cl">iptables -t mangle -A PREROUTING -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+</span></span><span class="line"><span class="cl">iptables -t mangle -A PREROUTING -s 172.16.200.53/32 -p tcp -m multiport --dports <span class="m">5000</span> -j ACCEPT
+</span></span><span class="line"><span class="cl">iptables -t mangle -A PREROUTING -p tcp -m multiport --dports <span class="m">5000</span> -j DROP
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#firewall-cmd添加富规则(参数--permanent代表永久配置，重启后仍存在)，添加后使用firewall-cmd --reload加载生效</span>
 </span></span><span class="line"><span class="cl">firewall-cmd --permanent --zone<span class="o">=</span>public --add-rich-rule<span class="o">=</span><span class="s1">&#39;rule family=&#34;ipv4&#34; source address=&#34;192.168.7.50&#34; port port=&#34;3389&#34; protocol=&#34;tcp&#34; accept&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --direct --get-all-rules						#查看所有直接规则</span>
@@ -565,7 +571,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
               data-sizes="auto"
               alt="银行项目实现微信告警"
               class="lazyload"
@@ -582,7 +588,7 @@
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;49.4k</span
+          >&nbsp;49.5k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:56</span>
