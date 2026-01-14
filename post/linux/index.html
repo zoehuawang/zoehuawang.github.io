@@ -392,7 +392,7 @@
 </span></span><span class="line"><span class="cl">tcpdump -i eth0 -w - <span class="p">|</span> pv -bert &gt; /dev/null
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#nc端口测试,-u UDP端口(不指定默认为TCP)</span>
-</span></span><span class="line"><span class="cl">nc -u -lp <span class="m">20682</span>                             	<span class="c1">#-l 开启监听模式</span>
+</span></span><span class="line"><span class="cl">nc -u -lp <span class="m">20682</span>                             <span class="c1">#-l 开启监听模式</span>
 </span></span><span class="line"><span class="cl">nc -u 192.168.7.51 <span class="m">20682</span>            		<span class="c1">#与对端192.168.7.51可以交互</span>
 </span></span><span class="line"><span class="cl">nc -u -vz 192.168.7.51 <span class="m">20682</span>         		<span class="c1">#检测udp端口20862是否可通</span>
 </span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;test&#34;</span> <span class="p">|</span> nc -u 192.168.7.51 20682		<span class="c1">#向udp端口发送一条test消息</span>
@@ -418,8 +418,14 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#与SNAT的区别是：MASQUERADE是动态的，可以自动选择IP；而SNAT静态的需要指定IP</span>
 </span></span><span class="line"><span class="cl">iptables -t nat -A POSTROUTING -s 10.9.0.0/24 -d 172.22.0.0/16 -o eth0 -j MASQUERADE
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#-t nat查看指定nat表下的规则，不指定-t默认是filter表</span>
-</span></span><span class="line"><span class="cl">iptables -vnL -t nat
+</span></span><span class="line"><span class="cl"><span class="c1">#查看nat表下的规则(不加-t默认是filter表,-L不指定链默认列出所有链,--line-numbers显示行号)</span>
+</span></span><span class="line"><span class="cl">iptables -vn -t nat -L --line-numbers
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#通过行号删除规则</span>
+</span></span><span class="line"><span class="cl">iptables -t nat -D PREROUTING <span class="m">2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#在nat表PREROUTING链的行号为1的规则前插入规则</span>
+</span></span><span class="line"><span class="cl">iptables -t nat -I PREROUTING <span class="m">1</span> <span class="o">[</span>规则详情<span class="o">]</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#iptables的mangle表对某个端口设置白名单</span>
 </span></span><span class="line"><span class="cl">iptables -t mangle -A PREROUTING -i lo -j ACCEPT
@@ -429,14 +435,14 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#firewall-cmd添加富规则(参数--permanent代表永久配置，重启后仍存在)，添加后使用firewall-cmd --reload加载生效</span>
 </span></span><span class="line"><span class="cl">firewall-cmd --permanent --zone<span class="o">=</span>public --add-rich-rule<span class="o">=</span><span class="s1">&#39;rule family=&#34;ipv4&#34; source address=&#34;192.168.7.50&#34; port port=&#34;3389&#34; protocol=&#34;tcp&#34; accept&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --direct --get-all-rules						#查看所有直接规则</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --get-zones  							#查看所有可用区域列表</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --get-active-zones						#当前活动的防火墙区域及其接口</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --get-default-zone						#查看默认区域（当前生效的区域）</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --direct --get-all-rules						                    #查看所有直接规则</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --get-zones  							                        #查看所有可用区域列表</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --get-active-zones						                        #当前活动的防火墙区域及其接口</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --get-default-zone						                        #查看默认区域（当前生效的区域）</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD 0 -j ACCEPT	#允许所有IPv4流量通过FORWARD路由转发</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --permanent --zone=public --set-target=DROP			#设置public区拒绝所有流入的包(ACCEPT则反之,REJECT拒绝所有流入并回复拒绝消息)</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --permanent --new-zone=k8spod					#创建新的区域</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --permanent --zone=k8spod --add-interface=tunl0 			#将网络接口tunl0永久地添加到名为k8spod的区域中</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --permanent --zone=public --set-target=DROP			            #设置public区拒绝所有流入的包(ACCEPT则反之,REJECT拒绝所有流入并回复拒绝消息)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --permanent --new-zone=k8spod					                #创建新的区域</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --permanent --zone=k8spod --add-interface=tunl0 			        #将网络接口tunl0永久地添加到名为k8spod的区域中</span>
 </span></span></code></pre></div><ul>
 <li>Linux开机自动启动脚本的方法</li>
 </ul>
@@ -571,7 +577,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
               data-sizes="auto"
               alt="银行项目实现微信告警"
               class="lazyload"
@@ -588,7 +594,7 @@
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;49.5k</span
+          >&nbsp;49.6k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:56</span>
