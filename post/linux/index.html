@@ -331,12 +331,12 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#开启重定向覆盖文件保护（比如重定向写入一个已经存在的文件时,给出一个警告并且不会执行该操作，需使用&#34;&gt;|&#34;才可以强制执行写入）</span>
 </span></span><span class="line"><span class="cl"><span class="nb">set</span> -o noclobber
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#用nsenter调取宿主机工具调试容器</span>
-</span></span><span class="line"><span class="cl">nsenter -u -n -m -i -p -t <span class="k">$(</span>docker inspect --format <span class="o">{{</span>.State.Pid<span class="o">}}</span> 容器名或容器ID<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#用nsenter在宿主机上进入容器的命名空间，调试容器</span>
+</span></span><span class="line"><span class="cl">nsenter -u -n -m -i -p -t <span class="k">$(</span>docker inspect --format <span class="o">{{</span>.State.Pid<span class="o">}}</span> 容器ID<span class="k">)</span>
 </span></span><span class="line"><span class="cl">或
-</span></span><span class="line"><span class="cl">nsenter -u -n -m -i -p -t <span class="k">$(</span>nerdctl -n k8s.io inspect --format <span class="o">{{</span>.State.Pid<span class="o">}}</span> 容器名或容器ID<span class="k">)</span>
+</span></span><span class="line"><span class="cl">nsenter -u -n -m -i -p -t <span class="k">$(</span>nerdctl -n k8s.io inspect --format <span class="o">{{</span>.State.Pid<span class="o">}}</span> 容器ID<span class="k">)</span>
 </span></span><span class="line"><span class="cl">或
-</span></span><span class="line"><span class="cl">nsenter -u -n -m -i -p -t <span class="k">$(</span>crictl inspect -o go-template --template <span class="s1">&#39;{{.info.pid}}&#39;</span> 容器名或容器ID<span class="k">)</span>
+</span></span><span class="line"><span class="cl">nsenter -u -n -m -i -p -t <span class="k">$(</span>crictl inspect -o go-template --template <span class="s1">&#39;{{.info.pid}}&#39;</span> 容器ID<span class="k">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#快速设置用户密码</span>
 </span></span><span class="line"><span class="cl"><span class="nb">echo</span> Aa.1234567 <span class="p">|</span> passwd --stdin root
@@ -577,7 +577,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
               data-sizes="auto"
               alt="银行项目实现微信告警"
               class="lazyload"
