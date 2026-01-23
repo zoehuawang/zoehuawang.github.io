@@ -384,6 +384,9 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#指定源ip(192.168.0.150)的ping</span>
 </span></span><span class="line"><span class="cl">ping -I 192.168.0.150 www.baidu.com
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#不分片发送1472字节的3个包到目标（测试MTU）</span>
+</span></span><span class="line"><span class="cl">ping -M <span class="k">do</span> -s <span class="m">1472</span> -c <span class="m">3</span> 192.168.7.50
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#抓包命令,-n不进行主机名解析,-q快速输出,-s 0表示包不截断抓完整的数据包</span>
 </span></span><span class="line"><span class="cl">tcpdump -nq -s <span class="m">0</span> -iany host 127.0.0.1 -XNnn
 </span></span><span class="line"><span class="cl">tcpdump -nq -s <span class="m">0</span> -iany port <span class="m">80</span> -XNnn
@@ -577,7 +580,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg3.webp"
               data-sizes="auto"
               alt="银行项目实现微信告警"
               class="lazyload"
@@ -597,7 +600,7 @@
           >&nbsp;49.6k</span
         >
         &nbsp;|&nbsp;
-        <span class="icon-coffee">&nbsp;01:56</span>
+        <span class="icon-coffee">&nbsp;01:57</span>
       </div></div>
 </footer>
 <div class="sidebar-top">
