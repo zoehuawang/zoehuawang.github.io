@@ -607,6 +607,58 @@ Service代理外部服务
 </span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">http</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">   </span>- <span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">5672</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">amqp</span><span class="w">
+</span></span></span></code></pre></div><h1 id="cronjobjob在所有node节点上同时执行定时任务">
+<a class="header-anchor" href="#cronjobjob%e5%9c%a8%e6%89%80%e6%9c%89node%e8%8a%82%e7%82%b9%e4%b8%8a%e5%90%8c%e6%97%b6%e6%89%a7%e8%a1%8c%e5%ae%9a%e6%97%b6%e4%bb%bb%e5%8a%a1"></a>
+cronjob+job在所有node节点上同时执行定时任务
+</h1><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">batch/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">CronJob</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l">定时任务描述</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">node-log-clean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">job</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">schedule</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;10 3 * * *&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">concurrencyPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">Forbid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">failedJobsHistoryLimit</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">successfulJobsHistoryLimit</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">suspend</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">jobTemplate</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">parallelism</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">                    </span><span class="c"># 同时运行多少个Pod任务，应该等于node节点数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">completions</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">                    </span><span class="c"># 需成功完成多少个Pod任务，等于parallelism</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">ttlSecondsAfterFinished</span><span class="p">:</span><span class="w"> </span><span class="m">300</span><span class="w">      </span><span class="c"># 所有pod任务执行完成后300秒自动删除Job资源</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">template</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">node-log-clean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">affinity</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">podAntiAffinity</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">requiredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="nt">labelSelector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="nt">matchExpressions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                      </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                        </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">In</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                        </span><span class="nt">values</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                          </span>- <span class="l">node-log-clean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                  </span><span class="nt">topologyKey</span><span class="p">:</span><span class="w"> </span><span class="l">kubernetes.io/hostname</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">hostNetwork</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">restartPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">Never</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">node-log-clean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">alpine:latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">IfNotPresent</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">command</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="l">/bin/bash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- -<span class="l">c</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">                find /logs/* -type f -mmin +${log_save_minutes} -name &#34;*.zip&#34;  -delete</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">log_save_minutes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1440&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="l">...省略后续yaml内容</span><span class="w">
 </span></span></span></code></pre></div><h1 id="minikube使用">
 <a class="header-anchor" href="#minikube%e4%bd%bf%e7%94%a8"></a>
 minikube使用
@@ -676,7 +728,7 @@ minikube使用
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg9.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
               data-sizes="auto"
               alt="Kubernetes之StatefulSet部署etcd集群"
               class="lazyload"
@@ -701,7 +753,7 @@ minikube使用
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;49.6k</span
+          >&nbsp;49.8k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:57</span>
