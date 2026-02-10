@@ -517,13 +517,13 @@
 <li>安装插件</li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1.在可通互联网的机器上安装好logstash</span>
-</span></span><span class="line"><span class="cl">/usr/share/logstash/bin/logstash-plugin install logstash-output-loki
+</span></span><span class="line"><span class="cl">/usr/share/logstash/bin/logstash-plugin install --version 1.1.0 logstash-output-loki
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 2.通过离线打包的方式，将在线安装好的插件打包，生成插件包（logstash-offline-ouput-8.14.1.zip）</span>
 </span></span><span class="line"><span class="cl">/usr/share/logstash/bin/logstash-plugin prepare-offline-pack logstash-output-loki
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 3.离线安装插件</span>
-</span></span><span class="line"><span class="cl">/usr/share/logstash/bin/logstash-plugin install logstash-offline-ouput-8.14.1.zip
+</span></span><span class="line"><span class="cl">/usr/share/logstash/bin/logstash-plugin install file:///tmp/logstash-offline-ouput-8.14.1.zip
 </span></span></code></pre></div><ul>
 <li>创建logstash-config.yaml文件</li>
 </ul>
@@ -714,7 +714,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
               data-sizes="auto"
               alt="MFA双因子认证服务端"
               class="lazyload"
@@ -722,7 +722,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">MFA双因子认证服务端</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
               data-sizes="auto"
               alt="Kubernetes之Minio分布式集群"
               class="lazyload"
