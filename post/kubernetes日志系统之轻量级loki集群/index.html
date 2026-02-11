@@ -335,6 +335,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">      http_listen_port: 3100
 </span></span></span><span class="line"><span class="cl"><span class="sd">      grpc_listen_port: 9096
 </span></span></span><span class="line"><span class="cl"><span class="sd">      log_level: info
+</span></span></span><span class="line"><span class="cl"><span class="sd">      grpc_server_max_recv_msg_size: 10485760
+</span></span></span><span class="line"><span class="cl"><span class="sd">      grpc_server_max_send_msg_size: 10485760
 </span></span></span><span class="line"><span class="cl"><span class="sd">
 </span></span></span><span class="line"><span class="cl"><span class="sd">    common:
 </span></span></span><span class="line"><span class="cl"><span class="sd">      path_prefix: /loki
@@ -392,6 +394,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">        dir: /loki/wal
 </span></span></span><span class="line"><span class="cl"><span class="sd">
 </span></span></span><span class="line"><span class="cl"><span class="sd">    limits_config:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      max_line_size: 1048576
 </span></span></span><span class="line"><span class="cl"><span class="sd">      metric_aggregation_enabled: true
 </span></span></span><span class="line"><span class="cl"><span class="sd">      enable_multi_variant_queries: true
 </span></span></span><span class="line"><span class="cl"><span class="sd">      max_entries_limit_per_query: 10000    # 单个查询可以返回的最大日志条目数
@@ -465,7 +468,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">ccr.ccs.tencentyun.com/zoehuawang/loki:3.5.7</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">resources</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">limits</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">2Gi</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">requests</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="m">0.5</span><span class="w">
@@ -535,8 +538,32 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">logstash</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">data</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">jvm.options</span><span class="p">:</span><span class="w"> </span><span class="p">|+</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    -Xms1g
+</span></span></span><span class="line"><span class="cl"><span class="sd">    -Xmx3g
+</span></span></span><span class="line"><span class="cl"><span class="sd">    -XX:+UseG1GC
+</span></span></span><span class="line"><span class="cl"><span class="sd">    -XX:MaxGCPauseMillis=200
+</span></span></span><span class="line"><span class="cl"><span class="sd">    -XX:G1HeapRegionSize=2m
+</span></span></span><span class="line"><span class="cl"><span class="sd">    -XX:InitiatingHeapOccupancyPercent=35
+</span></span></span><span class="line"><span class="cl"><span class="sd">    -XX:G1ReservePercent=15
+</span></span></span><span class="line"><span class="cl"><span class="sd">    -XX:+ParallelRefProcEnabled
+</span></span></span><span class="line"><span class="cl"><span class="sd">    -Djava.awt.headless=true
+</span></span></span><span class="line"><span class="cl"><span class="sd">    -Dfile.encoding=UTF-8
+</span></span></span><span class="line"><span class="cl"><span class="sd">    -Djruby.compile.invokedynamic=true
+</span></span></span><span class="line"><span class="cl"><span class="sd">    -XX:+HeapDumpOnOutOfMemoryError
+</span></span></span><span class="line"><span class="cl"><span class="sd">    -Djava.security.egd=file:/dev/urandom
+</span></span></span><span class="line"><span class="cl"><span class="sd">    -Dlog4j2.isThreadContextMapInheritable=true
+</span></span></span><span class="line"><span class="cl"><span class="sd">    -Dlogstash.jackson.stream-read-constraints.max-string-length=200000000
+</span></span></span><span class="line"><span class="cl"><span class="sd">    -Dlogstash.jackson.stream-read-constraints.max-number-length=10000
+</span></span></span><span class="line"><span class="cl"><span class="sd">    -Duser.timezone=Asia/Shanghai</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">logstash.yml</span><span class="p">:</span><span class="w"> </span><span class="p">|+</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">    path.config: /usr/share/logstash/config/logstash.conf</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    path.config: /usr/share/logstash/config/logstash.conf
+</span></span></span><span class="line"><span class="cl"><span class="sd">    pipeline.workers: 2
+</span></span></span><span class="line"><span class="cl"><span class="sd">    pipeline.batch.size: 1
+</span></span></span><span class="line"><span class="cl"><span class="sd">    pipeline.batch.delay: 0
+</span></span></span><span class="line"><span class="cl"><span class="sd">    queue.type: memory
+</span></span></span><span class="line"><span class="cl"><span class="sd">    queue.max_events: 200
+</span></span></span><span class="line"><span class="cl"><span class="sd">    queue.drain: false</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">logstash.conf</span><span class="p">:</span><span class="w"> </span><span class="p">|+</span><span class="sd">
 </span></span></span><span class="line"><span class="cl"><span class="sd">    input{
 </span></span></span><span class="line"><span class="cl"><span class="sd">      tcp {
@@ -544,41 +571,47 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">        codec =&gt; &#34;json&#34;
 </span></span></span><span class="line"><span class="cl"><span class="sd">      }
 </span></span></span><span class="line"><span class="cl"><span class="sd">    }
-</span></span></span><span class="line"><span class="cl"><span class="sd">    filter {
-</span></span></span><span class="line"><span class="cl"><span class="sd">      mutate {
-</span></span></span><span class="line"><span class="cl"><span class="sd">        add_field =&gt; { &#34;environment&#34; =&gt; &#34;UAT&amp;SIT&#34;  }
+</span></span></span><span class="line"><span class="cl"><span class="sd">    filter { 
+</span></span></span><span class="line"><span class="cl"><span class="sd">      ruby {
+</span></span></span><span class="line"><span class="cl"><span class="sd">        code =&gt; &#39;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          current_time_ns = (Time.now.to_f * 1_000_000_000).to_i.to_s
+</span></span></span><span class="line"><span class="cl"><span class="sd">          message = event.get(&#34;message&#34;) || &#34;unknown&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          labels = {
+</span></span></span><span class="line"><span class="cl"><span class="sd">            &#34;environment&#34; =&gt; event.get(&#34;environment&#34;) || &#34;UAT&amp;SIT&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="sd">            &#34;HOSTNAME&#34; =&gt; event.get(&#34;HOSTNAME&#34;) || &#34;unknown&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="sd">            &#34;threadId&#34; =&gt; event.get(&#34;threadId&#34;) || &#34;unknown&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="sd">            &#34;serviceId&#34; =&gt; event.get(&#34;serviceId&#34;) || &#34;unknown&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="sd">            &#34;level&#34; =&gt; event.get(&#34;level&#34;) || &#34;unknown&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          }
+</span></span></span><span class="line"><span class="cl"><span class="sd">          loki_data = {
+</span></span></span><span class="line"><span class="cl"><span class="sd">            &#34;streams&#34; =&gt; [
+</span></span></span><span class="line"><span class="cl"><span class="sd">              {
+</span></span></span><span class="line"><span class="cl"><span class="sd">                &#34;stream&#34; =&gt; labels,
+</span></span></span><span class="line"><span class="cl"><span class="sd">                &#34;values&#34; =&gt; [
+</span></span></span><span class="line"><span class="cl"><span class="sd">                  [current_time_ns, message]
+</span></span></span><span class="line"><span class="cl"><span class="sd">                ]
+</span></span></span><span class="line"><span class="cl"><span class="sd">              }
+</span></span></span><span class="line"><span class="cl"><span class="sd">            ]
+</span></span></span><span class="line"><span class="cl"><span class="sd">          }.to_json
+</span></span></span><span class="line"><span class="cl"><span class="sd">          event.set(&#34;[@metadata][loki_data]&#34;, loki_data)
+</span></span></span><span class="line"><span class="cl"><span class="sd">        &#39;
 </span></span></span><span class="line"><span class="cl"><span class="sd">      }
 </span></span></span><span class="line"><span class="cl"><span class="sd">    }
 </span></span></span><span class="line"><span class="cl"><span class="sd">    output {
-</span></span></span><span class="line"><span class="cl"><span class="sd">      loki {
+</span></span></span><span class="line"><span class="cl"><span class="sd">      http {
 </span></span></span><span class="line"><span class="cl"><span class="sd">        url =&gt; &#34;http://loki:3100/loki/api/v1/push&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">        include_fields =&gt; [
-</span></span></span><span class="line"><span class="cl"><span class="sd">          &#34;environment&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="sd">          &#34;HOSTNAME&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="sd">          &#34;threadId&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="sd">          &#34;serviceld&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="sd">          &#34;level&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">        ]
-</span></span></span><span class="line"><span class="cl"><span class="sd">        batch_size =&gt; 100000
-</span></span></span><span class="line"><span class="cl"><span class="sd">        batch_wait =&gt; 5
-</span></span></span><span class="line"><span class="cl"><span class="sd">        retries =&gt; 3
+</span></span></span><span class="line"><span class="cl"><span class="sd">        http_method =&gt; &#34;post&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        content_type =&gt; &#34;application/json&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        format =&gt; &#34;message&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        message =&gt; &#34;%{[@metadata][loki_data]}&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        retryable_codes =&gt; [429, 500, 502, 503, 504]
+</span></span></span><span class="line"><span class="cl"><span class="sd">        automatic_retries =&gt; 2
+</span></span></span><span class="line"><span class="cl"><span class="sd">        retry_failed =&gt; true
+</span></span></span><span class="line"><span class="cl"><span class="sd">        pool_max =&gt; 50
+</span></span></span><span class="line"><span class="cl"><span class="sd">        pool_max_per_route =&gt; 50
+</span></span></span><span class="line"><span class="cl"><span class="sd">        keepalive =&gt; true
 </span></span></span><span class="line"><span class="cl"><span class="sd">      }
 </span></span></span><span class="line"><span class="cl"><span class="sd">    }</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">jvm.options</span><span class="p">:</span><span class="w"> </span><span class="l">|+ </span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>-<span class="l">Xms2g</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>-<span class="l">Xmx2g</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="m">11-13</span><span class="p">:</span>-<span class="l">XX:+UseConcMarkSweepGC</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="m">11-13</span><span class="p">:</span>-<span class="l">XX:CMSInitiatingOccupancyFraction=75</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="m">11-13</span><span class="p">:</span>-<span class="l">XX:+UseCMSInitiatingOccupancyOnly</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>-<span class="l">Djava.awt.headless=true</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>-<span class="l">Dfile.encoding=UTF-8</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>-<span class="l">Djruby.compile.invokedynamic=true</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>-<span class="l">XX:+HeapDumpOnOutOfMemoryError</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>-<span class="l">Djava.security.egd=file:/dev/urandom</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>-<span class="l">Dlog4j2.isThreadContextMapInheritable=true</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>-<span class="l">Dlogstash.jackson.stream-read-constraints.max-string-length=200000000</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>-<span class="l">Dlogstash.jackson.stream-read-constraints.max-number-length=10000</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>-<span class="l">Duser.timezone=Asia/Shanghai</span><span class="w">
 </span></span></span></code></pre></div><ul>
 <li>创建logstash-deployment.yaml文件</li>
 </ul>
@@ -619,7 +652,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">feature</span><span class="p">:</span><span class="w"> </span><span class="l">app</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">logstash</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">ccr.ccs.tencentyun.com/zoehuawang/logstash:8.14.1-loki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">ccr.ccs.tencentyun.com/zoehuawang/logstash:8.14.1</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">IfNotPresent</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">resources</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">requests</span><span class="p">:</span><span class="w">
@@ -714,7 +747,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg10.webp"
               data-sizes="auto"
               alt="MFA双因子认证服务端"
               class="lazyload"
@@ -722,7 +755,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">MFA双因子认证服务端</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
               data-sizes="auto"
               alt="Kubernetes之Minio分布式集群"
               class="lazyload"
@@ -739,7 +772,7 @@
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;49.8k</span
+          >&nbsp;49.9k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:57</span>
