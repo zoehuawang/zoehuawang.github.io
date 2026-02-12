@@ -308,7 +308,6 @@
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 子目录名称必须与pod名一致</span>
 </span></span><span class="line"><span class="cl">mkdir -p /data/rustfs/<span class="o">{</span>rustfs-0,rustfs-1,rustfs-2,rustfs-3<span class="o">}</span>
-</span></span><span class="line"><span class="cl">chmod <span class="m">777</span> /data/rustfs/<span class="o">{</span>rustfs-0,rustfs-1,rustfs-2,rustfs-3<span class="o">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 启动rustfs</span>
 </span></span><span class="line"><span class="cl">kubectl apply -f rustfs-satefulset.yaml
@@ -579,9 +578,9 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">          labels = {
 </span></span></span><span class="line"><span class="cl"><span class="sd">            &#34;environment&#34; =&gt; event.get(&#34;environment&#34;) || &#34;UAT&amp;SIT&#34;,
 </span></span></span><span class="line"><span class="cl"><span class="sd">            &#34;HOSTNAME&#34; =&gt; event.get(&#34;HOSTNAME&#34;) || &#34;unknown&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="sd">            &#34;threadId&#34; =&gt; event.get(&#34;threadId&#34;) || &#34;unknown&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="sd">            &#34;serviceId&#34; =&gt; event.get(&#34;serviceId&#34;) || &#34;unknown&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="sd">            &#34;level&#34; =&gt; event.get(&#34;level&#34;) || &#34;unknown&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">            &#34;threadId&#34; =&gt; event.get(&#34;threadId&#34;) || &#34;&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="sd">            &#34;serviceId&#34; =&gt; event.get(&#34;serviceId&#34;) || &#34;&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="sd">            &#34;level&#34; =&gt; event.get(&#34;level&#34;) || &#34;&#34;
 </span></span></span><span class="line"><span class="cl"><span class="sd">          }
 </span></span></span><span class="line"><span class="cl"><span class="sd">          loki_data = {
 </span></span></span><span class="line"><span class="cl"><span class="sd">            &#34;streams&#34; =&gt; [
@@ -747,7 +746,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg10.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
               data-sizes="auto"
               alt="MFA双因子认证服务端"
               class="lazyload"
@@ -755,7 +754,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">MFA双因子认证服务端</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
               data-sizes="auto"
               alt="Kubernetes之Minio分布式集群"
               class="lazyload"
