@@ -334,8 +334,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">      http_listen_port: 3100
 </span></span></span><span class="line"><span class="cl"><span class="sd">      grpc_listen_port: 9096
 </span></span></span><span class="line"><span class="cl"><span class="sd">      log_level: info
-</span></span></span><span class="line"><span class="cl"><span class="sd">      grpc_server_max_recv_msg_size: 10485760
-</span></span></span><span class="line"><span class="cl"><span class="sd">      grpc_server_max_send_msg_size: 10485760
+</span></span></span><span class="line"><span class="cl"><span class="sd">      grpc_server_max_recv_msg_size: 10485760   # 限制请求(如查询请求)的最大大小,10MB
+</span></span></span><span class="line"><span class="cl"><span class="sd">      grpc_server_max_send_msg_size: 10485760   # 限制响应(如查询结果)的最大大小,10MB
 </span></span></span><span class="line"><span class="cl"><span class="sd">
 </span></span></span><span class="line"><span class="cl"><span class="sd">    common:
 </span></span></span><span class="line"><span class="cl"><span class="sd">      path_prefix: /loki
@@ -393,9 +393,11 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">        dir: /loki/wal
 </span></span></span><span class="line"><span class="cl"><span class="sd">
 </span></span></span><span class="line"><span class="cl"><span class="sd">    limits_config:
-</span></span></span><span class="line"><span class="cl"><span class="sd">      max_line_size: 1048576
 </span></span></span><span class="line"><span class="cl"><span class="sd">      metric_aggregation_enabled: true
 </span></span></span><span class="line"><span class="cl"><span class="sd">      enable_multi_variant_queries: true
+</span></span></span><span class="line"><span class="cl"><span class="sd">      split_queries_by_interval: 30m
+</span></span></span><span class="line"><span class="cl"><span class="sd">      query_timeout: 300s
+</span></span></span><span class="line"><span class="cl"><span class="sd">      max_line_size: 1048576                # 单行日志的写入最大长度限制，1MB 
 </span></span></span><span class="line"><span class="cl"><span class="sd">      max_entries_limit_per_query: 10000    # 单个查询可以返回的最大日志条目数
 </span></span></span><span class="line"><span class="cl"><span class="sd">      retention_period: 24h                 # 全局日志保留时间,加上延迟时间实际会保留25h
 </span></span></span><span class="line"><span class="cl"><span class="sd">                                            # 建议大于等于索引分片时间period
@@ -515,103 +517,95 @@
 </span></span></code></pre></div><h1 id="三logstash部署">
 <a class="header-anchor" href="#%e4%b8%89logstash%e9%83%a8%e7%bd%b2"></a>
 三、logstash部署
-</h1><ul>
-<li>安装插件</li>
-</ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1.在可通互联网的机器上安装好logstash</span>
-</span></span><span class="line"><span class="cl">/usr/share/logstash/bin/logstash-plugin install --version 1.1.0 logstash-output-loki
+</h1><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">-</span> <span class="err">创建</span><span class="n">logstash</span><span class="o">-</span><span class="n">config</span><span class="o">.</span><span class="n">yaml文件</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 2.通过离线打包的方式，将在线安装好的插件打包，生成插件包（logstash-offline-ouput-8.14.1.zip）</span>
-</span></span><span class="line"><span class="cl">/usr/share/logstash/bin/logstash-plugin prepare-offline-pack logstash-output-loki
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 3.离线安装插件</span>
-</span></span><span class="line"><span class="cl">/usr/share/logstash/bin/logstash-plugin install file:///tmp/logstash-offline-ouput-8.14.1.zip
+</span></span><span class="line"><span class="cl"><span class="err">```</span><span class="n">yaml</span>
+</span></span><span class="line"><span class="cl"><span class="n">apiVersion</span><span class="p">:</span> <span class="n">v1</span>
+</span></span><span class="line"><span class="cl"><span class="n">kind</span><span class="p">:</span> <span class="n">ConfigMap</span>
+</span></span><span class="line"><span class="cl"><span class="n">metadata</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">name</span><span class="p">:</span> <span class="n">logstash</span><span class="o">-</span><span class="n">config</span>
+</span></span><span class="line"><span class="cl">  <span class="n">namespace</span><span class="p">:</span> <span class="n">default</span>
+</span></span><span class="line"><span class="cl">  <span class="n">labels</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">app</span><span class="p">:</span> <span class="n">logstash</span>
+</span></span><span class="line"><span class="cl"><span class="n">data</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">jvm</span><span class="o">.</span><span class="n">options</span><span class="p">:</span> <span class="o">|+</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="n">Xms1g</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="n">Xmx3g</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="n">XX</span><span class="p">:</span><span class="o">+</span><span class="n">UseG1GC</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="n">XX</span><span class="p">:</span><span class="n">MaxGCPauseMillis</span><span class="o">=</span><span class="mi">200</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="n">XX</span><span class="p">:</span><span class="n">G1HeapRegionSize</span><span class="o">=</span><span class="mi">2</span><span class="n">m</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="n">XX</span><span class="p">:</span><span class="n">InitiatingHeapOccupancyPercent</span><span class="o">=</span><span class="mi">35</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="n">XX</span><span class="p">:</span><span class="n">G1ReservePercent</span><span class="o">=</span><span class="mi">15</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="n">XX</span><span class="p">:</span><span class="o">+</span><span class="n">ParallelRefProcEnabled</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="n">Djava</span><span class="o">.</span><span class="n">awt</span><span class="o">.</span><span class="n">headless</span><span class="o">=</span><span class="bp">true</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="n">Dfile</span><span class="o">.</span><span class="n">encoding</span><span class="o">=</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="n">Djruby</span><span class="o">.</span><span class="n">compile</span><span class="o">.</span><span class="n">invokedynamic</span><span class="o">=</span><span class="bp">true</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="n">XX</span><span class="p">:</span><span class="o">+</span><span class="n">HeapDumpOnOutOfMemoryError</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="n">Djava</span><span class="o">.</span><span class="n">security</span><span class="o">.</span><span class="n">egd</span><span class="o">=</span><span class="n">file</span><span class="p">:</span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">urandom</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="n">Dlog4j2</span><span class="o">.</span><span class="n">isThreadContextMapInheritable</span><span class="o">=</span><span class="bp">true</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="n">Dlogstash</span><span class="o">.</span><span class="n">jackson</span><span class="o">.</span><span class="n">stream</span><span class="o">-</span><span class="n">read</span><span class="o">-</span><span class="n">constraints</span><span class="o">.</span><span class="n">max</span><span class="o">-</span><span class="n">string</span><span class="o">-</span><span class="n">length</span><span class="o">=</span><span class="mi">200000000</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="n">Dlogstash</span><span class="o">.</span><span class="n">jackson</span><span class="o">.</span><span class="n">stream</span><span class="o">-</span><span class="n">read</span><span class="o">-</span><span class="n">constraints</span><span class="o">.</span><span class="n">max</span><span class="o">-</span><span class="n">number</span><span class="o">-</span><span class="n">length</span><span class="o">=</span><span class="mi">10000</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span><span class="n">Duser</span><span class="o">.</span><span class="n">timezone</span><span class="o">=</span><span class="n">Asia</span><span class="o">/</span><span class="n">Shanghai</span>
+</span></span><span class="line"><span class="cl">  <span class="n">logstash</span><span class="o">.</span><span class="n">yml</span><span class="p">:</span> <span class="o">|+</span>
+</span></span><span class="line"><span class="cl">    <span class="n">path</span><span class="o">.</span><span class="n">config</span><span class="p">:</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">logstash</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">logstash</span><span class="o">.</span><span class="n">conf</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pipeline</span><span class="o">.</span><span class="n">workers</span><span class="p">:</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pipeline</span><span class="o">.</span><span class="n">batch</span><span class="o">.</span><span class="n">size</span><span class="p">:</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pipeline</span><span class="o">.</span><span class="n">batch</span><span class="o">.</span><span class="n">delay</span><span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="n">queue</span><span class="o">.</span><span class="n">type</span><span class="p">:</span> <span class="n">memory</span>
+</span></span><span class="line"><span class="cl">    <span class="n">queue</span><span class="o">.</span><span class="n">max_events</span><span class="p">:</span> <span class="mi">200</span>
+</span></span><span class="line"><span class="cl">    <span class="n">queue</span><span class="o">.</span><span class="n">drain</span><span class="p">:</span> <span class="bp">false</span>
+</span></span><span class="line"><span class="cl">  <span class="n">logstash</span><span class="o">.</span><span class="n">conf</span><span class="p">:</span> <span class="o">|+</span>
+</span></span><span class="line"><span class="cl">    <span class="n">input</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">tcp</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">port</span> <span class="o">=&gt;</span> <span class="mi">9601</span>
+</span></span><span class="line"><span class="cl">        <span class="n">codec</span> <span class="o">=&gt;</span> <span class="s2">&#34;json&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">filter</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">mutate</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">remove_field</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s2">&#34;detected_level&#34;</span><span class="p">,</span> <span class="s2">&#34;service_name&#34;</span><span class="p">,</span> <span class="s2">&#34;@version&#34;</span><span class="p">,</span> <span class="s2">&#34;version&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="n">ruby</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">code</span> <span class="o">=&gt;</span> <span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">          <span class="n">current_time_ns</span> <span class="o">=</span> <span class="p">(</span><span class="n">Time</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">to_f</span> <span class="o">*</span> <span class="mi">1</span><span class="n">_000_000_000</span><span class="p">)</span><span class="o">.</span><span class="n">to_i</span><span class="o">.</span><span class="n">to_s</span>
+</span></span><span class="line"><span class="cl">          <span class="n">message</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;message&#34;</span><span class="p">)</span> <span class="o">||</span> <span class="s2">&#34;unknown&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="n">labels</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;environment&#34;</span> <span class="o">=&gt;</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;environment&#34;</span><span class="p">)</span> <span class="o">||</span> <span class="s2">&#34;UAT&amp;SIT&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;HOSTNAME&#34;</span> <span class="o">=&gt;</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;HOSTNAME&#34;</span><span class="p">)</span> <span class="o">||</span> <span class="s2">&#34;unknown&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;threadId&#34;</span> <span class="o">=&gt;</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;threadId&#34;</span><span class="p">)</span> <span class="o">||</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;serviceId&#34;</span> <span class="o">=&gt;</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;serviceId&#34;</span><span class="p">)</span> <span class="o">||</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;level&#34;</span> <span class="o">=&gt;</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;level&#34;</span><span class="p">)</span> <span class="o">||</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="n">loki_data</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;streams&#34;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">              <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;stream&#34;</span> <span class="o">=&gt;</span> <span class="n">labels</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;values&#34;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">[</span><span class="n">current_time_ns</span><span class="p">,</span> <span class="n">message</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="p">]</span>
+</span></span><span class="line"><span class="cl">              <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">]</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span><span class="o">.</span><span class="n">to_json</span>
+</span></span><span class="line"><span class="cl">          <span class="n">event</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&#34;[@metadata][loki_data]&#34;</span><span class="p">,</span> <span class="n">loki_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">output</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">http</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">url</span> <span class="o">=&gt;</span> <span class="s2">&#34;http://loki:3100/loki/api/v1/push&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">http_method</span> <span class="o">=&gt;</span> <span class="s2">&#34;post&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">content_type</span> <span class="o">=&gt;</span> <span class="s2">&#34;application/json&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">format</span> <span class="o">=&gt;</span> <span class="s2">&#34;message&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">message</span> <span class="o">=&gt;</span> <span class="s2">&#34;%{[@metadata][loki_data]}&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">retryable_codes</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="mi">429</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">502</span><span class="p">,</span> <span class="mi">503</span><span class="p">,</span> <span class="mi">504</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">automatic_retries</span> <span class="o">=&gt;</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">        <span class="n">retry_failed</span> <span class="o">=&gt;</span> <span class="bp">true</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pool_max</span> <span class="o">=&gt;</span> <span class="mi">50</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pool_max_per_route</span> <span class="o">=&gt;</span> <span class="mi">50</span>
+</span></span><span class="line"><span class="cl">        <span class="n">keepalive</span> <span class="o">=&gt;</span> <span class="bp">true</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span></code></pre></div><ul>
-<li>创建logstash-config.yaml文件</li>
-</ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ConfigMap</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">logstash-config</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">logstash</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">data</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">jvm.options</span><span class="p">:</span><span class="w"> </span><span class="p">|+</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">    -Xms1g
-</span></span></span><span class="line"><span class="cl"><span class="sd">    -Xmx3g
-</span></span></span><span class="line"><span class="cl"><span class="sd">    -XX:+UseG1GC
-</span></span></span><span class="line"><span class="cl"><span class="sd">    -XX:MaxGCPauseMillis=200
-</span></span></span><span class="line"><span class="cl"><span class="sd">    -XX:G1HeapRegionSize=2m
-</span></span></span><span class="line"><span class="cl"><span class="sd">    -XX:InitiatingHeapOccupancyPercent=35
-</span></span></span><span class="line"><span class="cl"><span class="sd">    -XX:G1ReservePercent=15
-</span></span></span><span class="line"><span class="cl"><span class="sd">    -XX:+ParallelRefProcEnabled
-</span></span></span><span class="line"><span class="cl"><span class="sd">    -Djava.awt.headless=true
-</span></span></span><span class="line"><span class="cl"><span class="sd">    -Dfile.encoding=UTF-8
-</span></span></span><span class="line"><span class="cl"><span class="sd">    -Djruby.compile.invokedynamic=true
-</span></span></span><span class="line"><span class="cl"><span class="sd">    -XX:+HeapDumpOnOutOfMemoryError
-</span></span></span><span class="line"><span class="cl"><span class="sd">    -Djava.security.egd=file:/dev/urandom
-</span></span></span><span class="line"><span class="cl"><span class="sd">    -Dlog4j2.isThreadContextMapInheritable=true
-</span></span></span><span class="line"><span class="cl"><span class="sd">    -Dlogstash.jackson.stream-read-constraints.max-string-length=200000000
-</span></span></span><span class="line"><span class="cl"><span class="sd">    -Dlogstash.jackson.stream-read-constraints.max-number-length=10000
-</span></span></span><span class="line"><span class="cl"><span class="sd">    -Duser.timezone=Asia/Shanghai</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">logstash.yml</span><span class="p">:</span><span class="w"> </span><span class="p">|+</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">    path.config: /usr/share/logstash/config/logstash.conf
-</span></span></span><span class="line"><span class="cl"><span class="sd">    pipeline.workers: 2
-</span></span></span><span class="line"><span class="cl"><span class="sd">    pipeline.batch.size: 1
-</span></span></span><span class="line"><span class="cl"><span class="sd">    pipeline.batch.delay: 0
-</span></span></span><span class="line"><span class="cl"><span class="sd">    queue.type: memory
-</span></span></span><span class="line"><span class="cl"><span class="sd">    queue.max_events: 200
-</span></span></span><span class="line"><span class="cl"><span class="sd">    queue.drain: false</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">logstash.conf</span><span class="p">:</span><span class="w"> </span><span class="p">|+</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">    input{
-</span></span></span><span class="line"><span class="cl"><span class="sd">      tcp {
-</span></span></span><span class="line"><span class="cl"><span class="sd">        port =&gt; 9601
-</span></span></span><span class="line"><span class="cl"><span class="sd">        codec =&gt; &#34;json&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">      }
-</span></span></span><span class="line"><span class="cl"><span class="sd">    }
-</span></span></span><span class="line"><span class="cl"><span class="sd">    filter { 
-</span></span></span><span class="line"><span class="cl"><span class="sd">      ruby {
-</span></span></span><span class="line"><span class="cl"><span class="sd">        code =&gt; &#39;
-</span></span></span><span class="line"><span class="cl"><span class="sd">          current_time_ns = (Time.now.to_f * 1_000_000_000).to_i.to_s
-</span></span></span><span class="line"><span class="cl"><span class="sd">          message = event.get(&#34;message&#34;) || &#34;unknown&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">          labels = {
-</span></span></span><span class="line"><span class="cl"><span class="sd">            &#34;environment&#34; =&gt; event.get(&#34;environment&#34;) || &#34;UAT&amp;SIT&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="sd">            &#34;HOSTNAME&#34; =&gt; event.get(&#34;HOSTNAME&#34;) || &#34;unknown&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="sd">            &#34;threadId&#34; =&gt; event.get(&#34;threadId&#34;) || &#34;&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="sd">            &#34;serviceId&#34; =&gt; event.get(&#34;serviceId&#34;) || &#34;&#34;,
-</span></span></span><span class="line"><span class="cl"><span class="sd">            &#34;level&#34; =&gt; event.get(&#34;level&#34;) || &#34;&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">          }
-</span></span></span><span class="line"><span class="cl"><span class="sd">          loki_data = {
-</span></span></span><span class="line"><span class="cl"><span class="sd">            &#34;streams&#34; =&gt; [
-</span></span></span><span class="line"><span class="cl"><span class="sd">              {
-</span></span></span><span class="line"><span class="cl"><span class="sd">                &#34;stream&#34; =&gt; labels,
-</span></span></span><span class="line"><span class="cl"><span class="sd">                &#34;values&#34; =&gt; [
-</span></span></span><span class="line"><span class="cl"><span class="sd">                  [current_time_ns, message]
-</span></span></span><span class="line"><span class="cl"><span class="sd">                ]
-</span></span></span><span class="line"><span class="cl"><span class="sd">              }
-</span></span></span><span class="line"><span class="cl"><span class="sd">            ]
-</span></span></span><span class="line"><span class="cl"><span class="sd">          }.to_json
-</span></span></span><span class="line"><span class="cl"><span class="sd">          event.set(&#34;[@metadata][loki_data]&#34;, loki_data)
-</span></span></span><span class="line"><span class="cl"><span class="sd">        &#39;
-</span></span></span><span class="line"><span class="cl"><span class="sd">      }
-</span></span></span><span class="line"><span class="cl"><span class="sd">    }
-</span></span></span><span class="line"><span class="cl"><span class="sd">    output {
-</span></span></span><span class="line"><span class="cl"><span class="sd">      http {
-</span></span></span><span class="line"><span class="cl"><span class="sd">        url =&gt; &#34;http://loki:3100/loki/api/v1/push&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">        http_method =&gt; &#34;post&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">        content_type =&gt; &#34;application/json&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">        format =&gt; &#34;message&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">        message =&gt; &#34;%{[@metadata][loki_data]}&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">        retryable_codes =&gt; [429, 500, 502, 503, 504]
-</span></span></span><span class="line"><span class="cl"><span class="sd">        automatic_retries =&gt; 2
-</span></span></span><span class="line"><span class="cl"><span class="sd">        retry_failed =&gt; true
-</span></span></span><span class="line"><span class="cl"><span class="sd">        pool_max =&gt; 50
-</span></span></span><span class="line"><span class="cl"><span class="sd">        pool_max_per_route =&gt; 50
-</span></span></span><span class="line"><span class="cl"><span class="sd">        keepalive =&gt; true
-</span></span></span><span class="line"><span class="cl"><span class="sd">      }
-</span></span></span><span class="line"><span class="cl"><span class="sd">    }</span><span class="w">
-</span></span></span></code></pre></div><ul>
 <li>创建logstash-deployment.yaml文件</li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
@@ -711,13 +705,55 @@
 </ul>
 <hr>
 <hr>
-<p><strong>补充：使用Promtail主动收集日志发送到loki的镜像及用法如下:</strong></p>
+<hr>
+<p><strong>补充一：使用Promtail主动收集日志发送到loki的镜像及用法如下:</strong></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 自定义的配置文件/mnt/config/promtail-config.yaml</span>
 </span></span><span class="line"><span class="cl">docker run -d --name promtail --network<span class="o">=</span>host --restart<span class="o">=</span>always <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-e <span class="nv">loki_ip_port</span><span class="o">=</span><span class="s2">&#34;172.23.26.69:3100&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>-v /logs:/var/log/hrsync -v /mnt/logs:/var/log/fs <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>ccr.ccs.tencentyun.com/zoehuawang/promtail:3.2.1 <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>--config.file<span class="o">=</span>/mnt/config/promtail-config.yaml --config.expand-env<span class="o">=</span><span class="nb">true</span>
+</span></span></code></pre></div><p><strong>补充二：Logstash通过loki插件方式推送日志:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># logstash也有可以直接使用的loki插件，不过好像有内存泄漏问题，后续有修复内存泄漏的插件可以直接使用</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 插件版本地址：https://rubygems.org/gems/logstash-output-loki/versions</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 插件安装：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1.在可通互联网的机器上安装好logstash</span>
+</span></span><span class="line"><span class="cl">/usr/share/logstash/bin/logstash-plugin install --version 1.2.0 logstash-output-loki
+</span></span><span class="line"><span class="cl">      
+</span></span><span class="line"><span class="cl"><span class="c1"># 2.通过离线打包的方式，将在线安装好的插件打包，生成插件包（logstash-offline-ouput-8.14.1.zip）</span>
+</span></span><span class="line"><span class="cl">/usr/share/logstash/bin/logstash-plugin prepare-offline-pack logstash-output-loki
+</span></span><span class="line"><span class="cl">          
+</span></span><span class="line"><span class="cl"><span class="c1"># 3.离线安装插件 </span>
+</span></span><span class="line"><span class="cl">/usr/share/logstash/bin/logstash-plugin install file:///tmp/logstash-offline-ouput-8.14.1.zip
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 插件使用，配置如下：</span>
+</span></span><span class="line"><span class="cl">  logstash.conf: <span class="p">|</span>+
+</span></span><span class="line"><span class="cl">    input<span class="o">{</span>
+</span></span><span class="line"><span class="cl">      tcp <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">port</span> <span class="o">=</span>&gt; <span class="m">9601</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">codec</span> <span class="o">=</span>&gt; <span class="s2">&#34;json&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    filter <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">      mutate <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">        <span class="nv">add_field</span> <span class="o">=</span>&gt; <span class="o">{</span> <span class="s2">&#34;environment&#34;</span> <span class="o">=</span>&gt; <span class="s2">&#34;UAT&amp;SIT&#34;</span>  <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">      <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    output <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      loki <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">url</span> <span class="o">=</span>&gt; <span class="s2">&#34;http://loki:3100/loki/api/v1/push&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">include_fields</span> <span class="o">=</span>&gt; <span class="o">[</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;environment&#34;</span>,
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;HOSTNAME&#34;</span>,
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;threadId&#34;</span>,
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;serviceld&#34;</span>,
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;level&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">]</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">batch_size</span> <span class="o">=</span>&gt; <span class="m">100</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">batch_wait</span> <span class="o">=</span>&gt; <span class="m">5</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">retries</span> <span class="o">=</span>&gt; <span class="m">3</span>
+</span></span><span class="line"><span class="cl">      <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
 </span></span></code></pre></div></div>
     <footer class="article-footer"><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
       <a
@@ -746,7 +782,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
               data-sizes="auto"
               alt="MFA双因子认证服务端"
               class="lazyload"
@@ -754,7 +790,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">MFA双因子认证服务端</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg10.webp"
               data-sizes="auto"
               alt="Kubernetes之Minio分布式集群"
               class="lazyload"
@@ -771,10 +807,10 @@
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;49.9k</span
+          >&nbsp;50.2k</span
         >
         &nbsp;|&nbsp;
-        <span class="icon-coffee">&nbsp;01:57</span>
+        <span class="icon-coffee">&nbsp;01:58</span>
       </div></div>
 </footer>
 <div class="sidebar-top">
