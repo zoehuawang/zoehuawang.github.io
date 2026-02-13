@@ -343,9 +343,9 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">        s3:
 </span></span></span><span class="line"><span class="cl"><span class="sd">          endpoint: rustfs:9000
 </span></span></span><span class="line"><span class="cl"><span class="sd">          insecure: true
-</span></span></span><span class="line"><span class="cl"><span class="sd">          bucketnames: loki-logs                # 需要提前在rustfs页面上提前创建好
-</span></span></span><span class="line"><span class="cl"><span class="sd">          access_key_id: admin                  # rustfs的yaml中配置的用户名
-</span></span></span><span class="line"><span class="cl"><span class="sd">          secret_access_key: Aa123456           # rustfs的yaml中配置的密码
+</span></span></span><span class="line"><span class="cl"><span class="sd">          bucketnames: loki-logs1,loki-logs2,loki-logs3,loki-logs4      # 需要提前在rustfs页面上提前创建好
+</span></span></span><span class="line"><span class="cl"><span class="sd">          access_key_id: admin                                          # rustfs的yaml中配置的用户名
+</span></span></span><span class="line"><span class="cl"><span class="sd">          secret_access_key: Aa123456                                   # rustfs的yaml中配置的密码
 </span></span></span><span class="line"><span class="cl"><span class="sd">          s3forcepathstyle: true
 </span></span></span><span class="line"><span class="cl"><span class="sd">      replication_factor: 1
 </span></span></span><span class="line"><span class="cl"><span class="sd">      ring:
@@ -383,9 +383,9 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">      abort_if_cluster_join_fails: false
 </span></span></span><span class="line"><span class="cl"><span class="sd">
 </span></span></span><span class="line"><span class="cl"><span class="sd">    ingester:
-</span></span></span><span class="line"><span class="cl"><span class="sd">      chunk_encoding: gzip                      # 日志块在存储前的压缩编码方式
+</span></span></span><span class="line"><span class="cl"><span class="sd">      chunk_encoding: snappy                    # 日志块在存储前的压缩编码方式
 </span></span></span><span class="line"><span class="cl"><span class="sd">      max_chunk_age: 30m                        # 日志块在存储前的的最大时间
-</span></span></span><span class="line"><span class="cl"><span class="sd">      chunk_target_size: 524288                 # 日志块在存储前的的目标大小
+</span></span></span><span class="line"><span class="cl"><span class="sd">      chunk_target_size: 3145728                # 日志块在存储前的的目标大小,3MB
 </span></span></span><span class="line"><span class="cl"><span class="sd">      chunk_idle_period: 2m                     # 日志块在存储前的空闲时间
 </span></span></span><span class="line"><span class="cl"><span class="sd">      chunk_retain_period: 30s                  # 日志块关闭后在内存的保留时间
 </span></span></span><span class="line"><span class="cl"><span class="sd">      lifecycler:
@@ -793,7 +793,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg3.webp"
               data-sizes="auto"
               alt="MFA双因子认证服务端"
               class="lazyload"
@@ -801,7 +801,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">MFA双因子认证服务端</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg9.webp"
               data-sizes="auto"
               alt="Kubernetes之Minio分布式集群"
               class="lazyload"
