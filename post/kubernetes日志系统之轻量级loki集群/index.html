@@ -334,18 +334,18 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">      http_listen_port: 3100
 </span></span></span><span class="line"><span class="cl"><span class="sd">      grpc_listen_port: 9096
 </span></span></span><span class="line"><span class="cl"><span class="sd">      log_level: info
-</span></span></span><span class="line"><span class="cl"><span class="sd">      grpc_server_max_recv_msg_size: 10485760   # 限制请求(如查询请求)的最大大小,10MB
-</span></span></span><span class="line"><span class="cl"><span class="sd">      grpc_server_max_send_msg_size: 10485760   # 限制响应(如查询结果)的最大大小,10MB
-</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">      grpc_server_max_recv_msg_size: 10485760
+</span></span></span><span class="line"><span class="cl"><span class="sd">      grpc_server_max_send_msg_size: 10485760
+</span></span></span><span class="line"><span class="cl"><span class="sd">     
 </span></span></span><span class="line"><span class="cl"><span class="sd">    common:
 </span></span></span><span class="line"><span class="cl"><span class="sd">      path_prefix: /loki
 </span></span></span><span class="line"><span class="cl"><span class="sd">      storage:
 </span></span></span><span class="line"><span class="cl"><span class="sd">        s3:
 </span></span></span><span class="line"><span class="cl"><span class="sd">          endpoint: rustfs:9000
 </span></span></span><span class="line"><span class="cl"><span class="sd">          insecure: true
-</span></span></span><span class="line"><span class="cl"><span class="sd">          bucketnames: loki-data        	# 需要提前在rustfs页面上提前创建好
-</span></span></span><span class="line"><span class="cl"><span class="sd">          access_key_id: admin          	# rustfs的yaml中配置的用户名
-</span></span></span><span class="line"><span class="cl"><span class="sd">          secret_access_key: Aa123456   	# rustfs的yaml中配置的密码
+</span></span></span><span class="line"><span class="cl"><span class="sd">          bucketnames: loki-logs                # 需要提前在rustfs页面上提前创建好
+</span></span></span><span class="line"><span class="cl"><span class="sd">          access_key_id: admin                  # rustfs的yaml中配置的用户名
+</span></span></span><span class="line"><span class="cl"><span class="sd">          secret_access_key: Aa123456           # rustfs的yaml中配置的密码
 </span></span></span><span class="line"><span class="cl"><span class="sd">          s3forcepathstyle: true
 </span></span></span><span class="line"><span class="cl"><span class="sd">      replication_factor: 1
 </span></span></span><span class="line"><span class="cl"><span class="sd">      ring:
@@ -356,15 +356,15 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">      tsdb_shipper:
 </span></span></span><span class="line"><span class="cl"><span class="sd">        active_index_directory: /loki/tsdb-index
 </span></span></span><span class="line"><span class="cl"><span class="sd">        cache_location: /loki/tsdb-cache
-</span></span></span><span class="line"><span class="cl"><span class="sd">        cache_ttl: 30m
-</span></span></span><span class="line"><span class="cl"><span class="sd">        resync_interval: 10m
+</span></span></span><span class="line"><span class="cl"><span class="sd">        cache_ttl: 1h
+</span></span></span><span class="line"><span class="cl"><span class="sd">        resync_interval: 20m
 </span></span></span><span class="line"><span class="cl"><span class="sd">
 </span></span></span><span class="line"><span class="cl"><span class="sd">    compactor:
 </span></span></span><span class="line"><span class="cl"><span class="sd">      working_directory: /loki/compactor
-</span></span></span><span class="line"><span class="cl"><span class="sd">      compaction_interval: 30m                  # 执行清理间隔时间
+</span></span></span><span class="line"><span class="cl"><span class="sd">      compaction_interval: 2h                   # 执行清理间隔时间
 </span></span></span><span class="line"><span class="cl"><span class="sd">      retention_enabled: true                   # 启用清理
 </span></span></span><span class="line"><span class="cl"><span class="sd">      retention_delete_delay: 1h                # 延迟1h清理
-</span></span></span><span class="line"><span class="cl"><span class="sd">      retention_delete_worker_count: 15
+</span></span></span><span class="line"><span class="cl"><span class="sd">      retention_delete_worker_count: 3
 </span></span></span><span class="line"><span class="cl"><span class="sd">      delete_request_store: s3
 </span></span></span><span class="line"><span class="cl"><span class="sd">      compactor_ring:
 </span></span></span><span class="line"><span class="cl"><span class="sd">        kvstore:
@@ -383,6 +383,11 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">      abort_if_cluster_join_fails: false
 </span></span></span><span class="line"><span class="cl"><span class="sd">
 </span></span></span><span class="line"><span class="cl"><span class="sd">    ingester:
+</span></span></span><span class="line"><span class="cl"><span class="sd">      chunk_encoding: gzip                      # 日志块在存储前的压缩编码方式
+</span></span></span><span class="line"><span class="cl"><span class="sd">      max_chunk_age: 30m                        # 日志块在存储前的的最大时间
+</span></span></span><span class="line"><span class="cl"><span class="sd">      chunk_target_size: 524288                 # 日志块在存储前的的目标大小
+</span></span></span><span class="line"><span class="cl"><span class="sd">      chunk_idle_period: 2m                     # 日志块在存储前的空闲时间
+</span></span></span><span class="line"><span class="cl"><span class="sd">      chunk_retain_period: 30s                  # 日志块关闭后在内存的保留时间
 </span></span></span><span class="line"><span class="cl"><span class="sd">      lifecycler:
 </span></span></span><span class="line"><span class="cl"><span class="sd">        ring:
 </span></span></span><span class="line"><span class="cl"><span class="sd">          kvstore:
@@ -393,24 +398,25 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">        dir: /loki/wal
 </span></span></span><span class="line"><span class="cl"><span class="sd">
 </span></span></span><span class="line"><span class="cl"><span class="sd">    limits_config:
-</span></span></span><span class="line"><span class="cl"><span class="sd">      metric_aggregation_enabled: true
-</span></span></span><span class="line"><span class="cl"><span class="sd">      enable_multi_variant_queries: true
+</span></span></span><span class="line"><span class="cl"><span class="sd">      max_line_size: 1048576
 </span></span></span><span class="line"><span class="cl"><span class="sd">      split_queries_by_interval: 30m
 </span></span></span><span class="line"><span class="cl"><span class="sd">      query_timeout: 300s
-</span></span></span><span class="line"><span class="cl"><span class="sd">      max_line_size: 1048576                # 单行日志的写入最大长度限制，1MB 
-</span></span></span><span class="line"><span class="cl"><span class="sd">      max_entries_limit_per_query: 10000    # 单个查询可以返回的最大日志条目数
-</span></span></span><span class="line"><span class="cl"><span class="sd">      retention_period: 24h                 # 全局日志保留时间,加上延迟时间实际会保留25h
-</span></span></span><span class="line"><span class="cl"><span class="sd">                                            # 建议大于等于索引分片时间period
-</span></span></span><span class="line"><span class="cl"><span class="sd">                                            # 否则得等分片时间结束才会清理
+</span></span></span><span class="line"><span class="cl"><span class="sd">      metric_aggregation_enabled: true
+</span></span></span><span class="line"><span class="cl"><span class="sd">      enable_multi_variant_queries: true
+</span></span></span><span class="line"><span class="cl"><span class="sd">      max_entries_limit_per_query: 10000        # 单个查询可以返回的最大日志条目数 
+</span></span></span><span class="line"><span class="cl"><span class="sd">      retention_period: 168h                    # 全局日志保留时间,加上延迟时间实际会保留25h
+</span></span></span><span class="line"><span class="cl"><span class="sd">                                                # 建议大于等于索引分片时间period
+</span></span></span><span class="line"><span class="cl"><span class="sd">                                                # 否则得等分片时间结束才会清理
+</span></span></span><span class="line"><span class="cl"><span class="sd">
 </span></span></span><span class="line"><span class="cl"><span class="sd">    schema_config:
 </span></span></span><span class="line"><span class="cl"><span class="sd">      configs:
-</span></span></span><span class="line"><span class="cl"><span class="sd">        - from: &#34;2000-01-01&#34;            # 固定不要改动
+</span></span></span><span class="line"><span class="cl"><span class="sd">        - from: &#34;2000-01-01&#34;
 </span></span></span><span class="line"><span class="cl"><span class="sd">          store: tsdb
 </span></span></span><span class="line"><span class="cl"><span class="sd">          object_store: s3
 </span></span></span><span class="line"><span class="cl"><span class="sd">          schema: v13
 </span></span></span><span class="line"><span class="cl"><span class="sd">          index:
-</span></span></span><span class="line"><span class="cl"><span class="sd">            prefix: index_              # 索引文件的前缀名
-</span></span></span><span class="line"><span class="cl"><span class="sd">            period: 24h                 # 索引分片时间,tsdb必须为24h,不能其他值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="sd">            prefix: index_               # 索引文件的前缀名
+</span></span></span><span class="line"><span class="cl"><span class="sd">            period: 24h                  # 索引分片时间,tsdb必须为24h,不能为其他值</span><span class="w">
 </span></span></span></code></pre></div><ul>
 <li>创建loki-deployment.yaml文件</li>
 </ul>
@@ -464,13 +470,18 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="nt">values</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">                      </span>- <span class="l">loki</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">topologyKey</span><span class="p">:</span><span class="w"> </span><span class="l">kubernetes.io/hostname</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">imagePullSecrets</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">jcr-pull-secret</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">nodeSelector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">feature</span><span class="p">:</span><span class="w"> </span><span class="l">app</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">ccr.ccs.tencentyun.com/zoehuawang/loki:3.5.7</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">harbor-welljoint-cn-east-2.jcr.service.jdcloud.com/loki:3.5.7</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">IfNotPresent</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">resources</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">limits</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">2Gi</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">4Gi</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">requests</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="m">0.5</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l">256Mi</span><span class="w">
@@ -782,7 +793,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
               data-sizes="auto"
               alt="MFA双因子认证服务端"
               class="lazyload"
@@ -790,7 +801,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">MFA双因子认证服务端</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg10.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
               data-sizes="auto"
               alt="Kubernetes之Minio分布式集群"
               class="lazyload"
