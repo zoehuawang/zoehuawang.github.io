@@ -198,6 +198,11 @@
 </span></span><span class="line"><span class="cl">-vn             禁用视频录制（纯音频输出）
 </span></span><span class="line"><span class="cl">-an             禁用音频录制（纯视频输出）
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#将原始音频数据raw格式文件转换为wav格式音频文件，-i 之前的参数是输入文件的，之后的参数输出文件的</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -f s16le -ar 8000 -ac 1表示输入文件是16位小端、8000Hz、单声道</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -acodec pcm_s16le -ar 8000 -ac 1 表示输出文件编码为16位PCM、采样率为8000Hz、单声道</span>
+</span></span><span class="line"><span class="cl">ffmpeg -f s16le -ar <span class="m">8000</span> -ac <span class="m">1</span> -i input.raw -acodec pcm_s16le -ar <span class="m">8000</span> -ac <span class="m">1</span> output.wav
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#下载音频媒体流（不转码）</span>
 </span></span><span class="line"><span class="cl">ffmpeg -i <span class="s2">&#34;音频流媒体URL&#34;</span> -c:a copy output.mp3
 </span></span><span class="line"><span class="cl">
@@ -230,9 +235,6 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#将input.wav文件转换为GSM_MS编码的单声道音频文件output.wav，并指定了比特率为13k</span>
 </span></span><span class="line"><span class="cl">ffmpeg -i input.wav -vn -acodec libgsm_ms -ac <span class="m">1</span> -ab 13k -y output.wav
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#将原始音频数据raw格式文件转换为wav格式音频文件(-f s16le表示16bit的pcm音频格式，-ar 8000表示采样率为8000Hz，-ac 1表示单声道)</span>
-</span></span><span class="line"><span class="cl">ffmpeg -f s16le -ar <span class="m">8000</span> -ac <span class="m">1</span> -i input.raw output.wav
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#截取音频（00:00:10开始时间，00:05:30结束时间）</span>
 </span></span><span class="line"><span class="cl">ffmpeg -i input.mp3 -vn -acodec copy -ss 00:00:10 -t 00:05:30 output.mp3
@@ -272,7 +274,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg9.webp"
               data-sizes="auto"
               alt="银行项目实现微信告警"
               class="lazyload"
@@ -280,7 +282,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">银行项目实现微信告警</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
               data-sizes="auto"
               alt="rpmbuild将编译安装好的软件打成RPM包"
               class="lazyload"
@@ -297,7 +299,7 @@
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;50.3k</span
+          >&nbsp;50.4k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:58</span>
