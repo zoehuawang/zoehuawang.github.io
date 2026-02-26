@@ -232,7 +232,7 @@
 </span></span><span class="line"><span class="cl">ffmpeg -i input.wav -vn -acodec libgsm_ms -ac <span class="m">1</span> -ab 13k -y output.wav
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#将原始音频数据raw格式文件转换为wav格式音频文件(-f s16le表示16bit的pcm音频格式，-ar 8000表示采样率为8000Hz，-ac 1表示单声道)</span>
-</span></span><span class="line"><span class="cl">ffmpeg -i input.raw -f s16le -ar <span class="m">8000</span> -ac <span class="m">1</span> output.wav
+</span></span><span class="line"><span class="cl">ffmpeg -f s16le -ar <span class="m">8000</span> -ac <span class="m">1</span> -i input.raw output.wav
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#截取音频（00:00:10开始时间，00:05:30结束时间）</span>
 </span></span><span class="line"><span class="cl">ffmpeg -i input.mp3 -vn -acodec copy -ss 00:00:10 -t 00:05:30 output.mp3
@@ -272,7 +272,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
               data-sizes="auto"
               alt="银行项目实现微信告警"
               class="lazyload"
@@ -280,7 +280,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">银行项目实现微信告警</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg10.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
               data-sizes="auto"
               alt="rpmbuild将编译安装好的软件打成RPM包"
               class="lazyload"
