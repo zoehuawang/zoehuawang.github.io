@@ -829,6 +829,12 @@ interface为网卡名称，不一样的话注意修改</p>
 </span></span><span class="line"><span class="cl"><span class="c1"># 获取Redis的所有配置信息</span>
 </span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;CONFIG GET *&#34;</span> <span class="p">|</span> redis-cli -h <span class="nv">$REDIS_HOST</span> -p <span class="nv">$REDIS_PORT</span> -n <span class="nv">$DB_INDEX</span> -a <span class="nv">$REDIS_PASSWORD</span> --no-auth-warning
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 读取 cms:instances:active 有序集合的全部成员</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;ZRANGE cms:instances:active 0 -1&#39;</span> <span class="p">|</span> redis-cli -h <span class="nv">$REDIS_HOST</span> -p <span class="nv">$REDIS_PORT</span> -n <span class="nv">$DB_INDEX</span> -a <span class="nv">$REDIS_PASSWORD</span> --no-auth-warning
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 从cms:instances:active 有序集合中精准删除指定成员,必须和集合中存储的内容完全一致（包括特殊字符)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;ZREM cms:instances:active &#34;xxx&#34;&#39;</span> <span class="p">|</span> redis-cli -h <span class="nv">$REDIS_HOST</span> -p <span class="nv">$REDIS_PORT</span> -n <span class="nv">$DB_INDEX</span> -a <span class="nv">$REDIS_PASSWORD</span> --no-auth-warning
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 统计特定前缀的 key 数量</span>
 </span></span><span class="line"><span class="cl">redis-cli -h <span class="nv">$REDIS_HOST</span> -p <span class="nv">$REDIS_PORT</span> -n <span class="nv">$DB_INDEX</span> -a <span class="nv">$REDIS_PASSWORD</span> --no-auth-warning --scan --pattern <span class="s2">&#34;test:task:*&#34;</span> <span class="p">|</span> wc -l
 </span></span></code></pre></div></div>
@@ -852,7 +858,7 @@ interface为网卡名称，不一样的话注意修改</p>
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg10.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
               data-sizes="auto"
               alt="Keepalived高可用配置"
               class="lazyload"
@@ -877,7 +883,7 @@ interface为网卡名称，不一样的话注意修改</p>
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;50.4k</span
+          >&nbsp;50.5k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:58</span>
