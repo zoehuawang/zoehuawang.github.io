@@ -1,6 +1,6 @@
 <!doctype html>
 <html
-  lang="zh-cn" 
+  lang="zh-CN" 
   data-theme-mode="auto"
   >
   <head><meta charset="utf-8" />
@@ -182,29 +182,29 @@
 </div>
     <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="c"># https://github.com/jumpserver/Dockerfile
 </span></span></span><span class="line"><span class="cl"><span class="c"># https://hub.docker.com/r/jumpserver/jms_all
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c"># - SECRET_KEY = xxxxx                # 自行生成随机的字符串, 不要包含特殊字符串, 长度推荐大于等于 50
 </span></span></span><span class="line"><span class="cl"><span class="c"># - BOOTSTRAP_TOKEN = xxxxx           # 自行生成随机的字符串, 不要包含特殊字符串, 长度推荐大于等于 24
 </span></span></span><span class="line"><span class="cl"><span class="c"># - LOG_LEVEL = ERROR                 # 日志等级, 测试环境推荐设置为 DEBUG
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c"># - DB_ENGINE = mysql                 # 使用 MySQL 数据库
 </span></span></span><span class="line"><span class="cl"><span class="c"># - DB_HOST = mysql_host              # MySQL 数据库 IP 地址
 </span></span></span><span class="line"><span class="cl"><span class="c"># - DB_PORT = 3306                    # MySQL 数据库 端口
 </span></span></span><span class="line"><span class="cl"><span class="c"># - DB_USER = xxx                     # MySQL 数据库认证用户
 </span></span></span><span class="line"><span class="cl"><span class="c"># - DB_PASSWORD = xxxx                # MySQL 数据库认证密码
 </span></span></span><span class="line"><span class="cl"><span class="c"># - DB_NAME = jumpserver              # JumpServer 使用的数据库名称
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c"># - REDIS_HOST = redis_host           # 使用 Redis 缓存
 </span></span></span><span class="line"><span class="cl"><span class="c"># - REDIS_PORT = 6379                 # Redis 服务器 IP 地址
 </span></span></span><span class="line"><span class="cl"><span class="c"># - REDIS_PASSWORD = xxxx             # Redis 认证密码
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c"># - VOLUME /opt/data/jumpserver       # Core 持久化目录, 存储录像日志
 </span></span></span><span class="line"><span class="cl"><span class="c"># - VOLUME /opt/koko/data             # Koko 持久化目录
 </span></span></span><span class="line"><span class="cl"><span class="c"># - VOLUME /opt/lion/data             # Lion 持久化目录
 </span></span></span><span class="line"><span class="cl"><span class="c"># - VOLUME /opt/kael/data             # Kael 持久化目录
 </span></span></span><span class="line"><span class="cl"><span class="c"># - VOLUME /opt/chen/data             # Chen 持久化目录
 </span></span></span><span class="line"><span class="cl"><span class="c"># - VOLUME /var/log/nginx             # Nginx 日志持久化目录
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nv">MARIADB_PASSWORD</span><span class="o">=</span><span class="s2">&#34;nu4x599Wq7u0Bn8EABh3J55G&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="nv">REDIS_PASSWORD</span><span class="o">=</span><span class="s2">&#34;8URXPL2x3HZMi7xoGTd55Upj&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="nv">SECRET_KEY</span><span class="o">=</span><span class="s2">&#34;B3f2w8P2PfxIAS7s4URrD9YmSbtqX4vXdPUL555kL9XPUOWrmy&#34;</span>
@@ -223,45 +223,45 @@
 </span></span><span class="line"><span class="cl"><span class="nf">jms_mariadb</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">        -docker rm -f jms_mariadb<span class="p">;</span>
 </span></span><span class="line"><span class="cl">        docker run -d -m 384M --network <span class="k">$(</span>NET_NAME<span class="k">)</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        --name jms_mariadb --restart always <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -e <span class="nv">TZ</span><span class="o">=</span>Asia/Shanghai <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -e <span class="nv">MARIADB_ROOT_PASSWORD</span><span class="o">=</span><span class="k">$(</span>MARIADB_PASSWORD<span class="k">)</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -e <span class="nv">MARIADB_USER</span><span class="o">=</span>jumpserver <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -e <span class="nv">MARIADB_PASSWORD</span><span class="o">=</span><span class="k">$(</span>MARIADB_PASSWORD<span class="k">)</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -e <span class="nv">MARIADB_DATABASE</span><span class="o">=</span>jumpserver <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -v <span class="k">$(</span>DBPATH<span class="k">)</span>:/var/lib/mysql <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        <span class="k">$(</span>DBIMAGE<span class="k">)</span>
+</span></span></span><span class="line"><span class="cl">        --name jms_mariadb --restart always <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -e <span class="nv">TZ</span><span class="o">=</span>Asia/Shanghai <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -e <span class="nv">MARIADB_ROOT_PASSWORD</span><span class="o">=</span><span class="k">$(</span>MARIADB_PASSWORD<span class="k">)</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -e <span class="nv">MARIADB_USER</span><span class="o">=</span>jumpserver <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -e <span class="nv">MARIADB_PASSWORD</span><span class="o">=</span><span class="k">$(</span>MARIADB_PASSWORD<span class="k">)</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -e <span class="nv">MARIADB_DATABASE</span><span class="o">=</span>jumpserver <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -v <span class="k">$(</span>DBPATH<span class="k">)</span>:/var/lib/mysql <span class="se">\
+</span></span></span><span class="line"><span class="cl">        <span class="k">$(</span>DBIMAGE<span class="k">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nf">jms_redis</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">        -docker rm -f jms_redis<span class="p">;</span>
 </span></span><span class="line"><span class="cl">        docker run -d -m 64M --network <span class="k">$(</span>NET_NAME<span class="k">)</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        --name jms_redis --restart always <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -e <span class="nv">TZ</span><span class="o">=</span>Asia/Shanghai <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        <span class="k">$(</span>REDISIMAGE<span class="k">)</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        redis-server --requirepass <span class="k">$(</span>REDIS_PASSWORD<span class="k">)</span> --loglevel warning --maxmemory-policy allkeys-lru
+</span></span></span><span class="line"><span class="cl">        --name jms_redis --restart always <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -e <span class="nv">TZ</span><span class="o">=</span>Asia/Shanghai <span class="se">\
+</span></span></span><span class="line"><span class="cl">        <span class="k">$(</span>REDISIMAGE<span class="k">)</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">        redis-server --requirepass <span class="k">$(</span>REDIS_PASSWORD<span class="k">)</span> --loglevel warning --maxmemory-policy allkeys-lru
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nf">jms_all</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">        -docker rm -f jms_all<span class="p">;</span>
 </span></span><span class="line"><span class="cl">        -docker run -d -m 3G --name jms_all --restart always --network <span class="k">$(</span>NET_NAME<span class="k">)</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -p <span class="k">$(</span>URL_PORT<span class="k">)</span>:80 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -p 2222:2222 <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -e <span class="nv">TZ</span><span class="o">=</span>Asia/Shanghai <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -e <span class="nv">DOMAINS</span><span class="o">=</span><span class="k">$(</span>URL_IP<span class="k">)</span>:<span class="k">$(</span>URL_PORT<span class="k">)</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -e <span class="nv">SECRET_KEY</span><span class="o">=</span><span class="k">$(</span>SECRET_KEY<span class="k">)</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -e <span class="nv">BOOTSTRAP_TOKEN</span><span class="o">=</span><span class="k">$(</span>BOOTSTRAP_TOKEN<span class="k">)</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -e <span class="nv">LOG_LEVEL</span><span class="o">=</span>ERROR <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -e <span class="nv">DB_ENGINE</span><span class="o">=</span>mysql <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -e <span class="nv">DB_HOST</span><span class="o">=</span>jms_mariadb <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -e <span class="nv">DB_PORT</span><span class="o">=</span><span class="m">3306</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -e <span class="nv">DB_USER</span><span class="o">=</span>jumpserver <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -e <span class="nv">DB_PASSWORD</span><span class="o">=</span><span class="k">$(</span>MARIADB_PASSWORD<span class="k">)</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -e <span class="nv">DB_NAME</span><span class="o">=</span>jumpserver <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -e <span class="nv">REDIS_HOST</span><span class="o">=</span>jms_redis <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -e <span class="nv">REDIS_PORT</span><span class="o">=</span><span class="m">6379</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -e <span class="nv">REDIS_PASSWORD</span><span class="o">=</span><span class="k">$(</span>REDIS_PASSWORD<span class="k">)</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        --privileged<span class="o">=</span><span class="nb">true</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        -v <span class="k">$(</span>DATAPATH<span class="k">)</span>:/opt/data/jumpserver <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>        <span class="k">$(</span>JMSIMAGE<span class="k">)</span>
+</span></span></span><span class="line"><span class="cl">        -p <span class="k">$(</span>URL_PORT<span class="k">)</span>:80 <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -p 2222:2222 <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -e <span class="nv">TZ</span><span class="o">=</span>Asia/Shanghai <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -e <span class="nv">DOMAINS</span><span class="o">=</span><span class="k">$(</span>URL_IP<span class="k">)</span>:<span class="k">$(</span>URL_PORT<span class="k">)</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -e <span class="nv">SECRET_KEY</span><span class="o">=</span><span class="k">$(</span>SECRET_KEY<span class="k">)</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -e <span class="nv">BOOTSTRAP_TOKEN</span><span class="o">=</span><span class="k">$(</span>BOOTSTRAP_TOKEN<span class="k">)</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -e <span class="nv">LOG_LEVEL</span><span class="o">=</span>ERROR <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -e <span class="nv">DB_ENGINE</span><span class="o">=</span>mysql <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -e <span class="nv">DB_HOST</span><span class="o">=</span>jms_mariadb <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -e <span class="nv">DB_PORT</span><span class="o">=</span><span class="m">3306</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -e <span class="nv">DB_USER</span><span class="o">=</span>jumpserver <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -e <span class="nv">DB_PASSWORD</span><span class="o">=</span><span class="k">$(</span>MARIADB_PASSWORD<span class="k">)</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -e <span class="nv">DB_NAME</span><span class="o">=</span>jumpserver <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -e <span class="nv">REDIS_HOST</span><span class="o">=</span>jms_redis <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -e <span class="nv">REDIS_PORT</span><span class="o">=</span><span class="m">6379</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -e <span class="nv">REDIS_PASSWORD</span><span class="o">=</span><span class="k">$(</span>REDIS_PASSWORD<span class="k">)</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">        --privileged<span class="o">=</span><span class="nb">true</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -v <span class="k">$(</span>DATAPATH<span class="k">)</span>:/opt/data/jumpserver <span class="se">\
+</span></span></span><span class="line"><span class="cl">        <span class="k">$(</span>JMSIMAGE<span class="k">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nf">jms_restart</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">        -make jms_mariadb<span class="p">;</span>
@@ -288,7 +288,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
               data-sizes="auto"
               alt="Kubernetes日志系统之ELK集群"
               class="lazyload"
@@ -296,7 +296,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Kubernetes日志系统之ELK集群</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg3.webp"
               data-sizes="auto"
               alt="轻量级sip工具sipsak"
               class="lazyload"

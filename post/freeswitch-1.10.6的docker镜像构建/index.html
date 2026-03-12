@@ -1,6 +1,6 @@
 <!doctype html>
 <html
-  lang="zh-cn" 
+  lang="zh-CN" 
   data-theme-mode="auto"
   >
   <head><meta charset="utf-8" />
@@ -197,22 +197,22 @@
 </span></span><span class="line"><span class="cl">RUN <span class="nb">echo</span> <span class="s2">&#34;deb-src http://mirrors.163.com/debian/ buster-updates main non-free contrib&#34;</span> &gt;&gt; /etc/apt/sources.list
 </span></span><span class="line"><span class="cl">RUN apt-get update <span class="o">&amp;&amp;</span> apt-get upgrade -y
 </span></span><span class="line"><span class="cl">RUN apt-get install gcc g++ autoconf automake make libtool libtool-bin pkg-config <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    sngrep uuid-dev libtiff-dev libsqlite3-dev libvpx-dev libldns-dev <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    libpcre3-dev libspeex-dev libedit-dev libcurl4-openssl-dev libshout3-dev <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    libavformat-dev libswscale-dev ca-certificates <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    libspeexdsp-dev libssl-dev yasm liblua5.1-0-dev libopus-dev libmpg123-dev <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    libmp3lame-dev libsndfile1-dev git -y --no-install-recommends <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> rm -rf /var/lib/apt/lists/*
+</span></span></span><span class="line"><span class="cl">    sngrep uuid-dev libtiff-dev libsqlite3-dev libvpx-dev libldns-dev <span class="se">\
+</span></span></span><span class="line"><span class="cl">    libpcre3-dev libspeex-dev libedit-dev libcurl4-openssl-dev libshout3-dev <span class="se">\
+</span></span></span><span class="line"><span class="cl">    libavformat-dev libswscale-dev ca-certificates <span class="se">\
+</span></span></span><span class="line"><span class="cl">    libspeexdsp-dev libssl-dev yasm liblua5.1-0-dev libopus-dev libmpg123-dev <span class="se">\
+</span></span></span><span class="line"><span class="cl">    libmp3lame-dev libsndfile1-dev git -y --no-install-recommends <span class="se">\
+</span></span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> rm -rf /var/lib/apt/lists/*
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">RUN <span class="nb">cd</span> /usr/local/ <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> git clone https://gitee.com/zoewang/spandsp.git <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> git clone https://gitee.com/zoewang/sofia-sip.git <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> git clone https://gitee.com/zoewang/freeswitch.git freeswitch-1.10.6
+</span></span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> git clone https://gitee.com/zoewang/spandsp.git <span class="se">\
+</span></span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> git clone https://gitee.com/zoewang/sofia-sip.git <span class="se">\
+</span></span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> git clone https://gitee.com/zoewang/freeswitch.git freeswitch-1.10.6
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">RUN <span class="nb">cd</span> /usr/local/spandsp/ <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> ./bootstrap.sh -j <span class="o">&amp;&amp;</span> ./configure <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install <span class="o">&amp;&amp;</span> ldconfig
+</span></span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> ./bootstrap.sh -j <span class="o">&amp;&amp;</span> ./configure <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install <span class="o">&amp;&amp;</span> ldconfig
 </span></span><span class="line"><span class="cl">RUN <span class="nb">cd</span> /usr/local/sofia-sip/ <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> ./bootstrap.sh -j <span class="o">&amp;&amp;</span> ./configure <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install <span class="o">&amp;&amp;</span> ldconfig
+</span></span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> ./bootstrap.sh -j <span class="o">&amp;&amp;</span> ./configure <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install <span class="o">&amp;&amp;</span> ldconfig
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">COPY modules.conf /usr/local/freeswitch-1.10.6
 </span></span><span class="line"><span class="cl">
@@ -221,8 +221,8 @@
 </span></span><span class="line"><span class="cl">RUN ./configure --disable-dependency-tracking
 </span></span><span class="line"><span class="cl">RUN make <span class="o">&amp;&amp;</span> make install
 </span></span><span class="line"><span class="cl">RUN rm -rf /etc/localtime <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s1">&#39;export PATH=&#34;/usr/local/freeswitch/bin:$PATH&#34;&#39;</span> &gt;&gt; /root/.bashrc
+</span></span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime <span class="se">\
+</span></span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s1">&#39;export PATH=&#34;/usr/local/freeswitch/bin:$PATH&#34;&#39;</span> &gt;&gt; /root/.bashrc
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">WORKDIR /usr/local/freeswitch
 </span></span><span class="line"><span class="cl">ENTRYPOINT <span class="o">[</span><span class="s2">&#34;/usr/local/freeswitch/bin/freeswitch&#34;</span>,<span class="s2">&#34;-c&#34;</span>,<span class="s2">&#34;-nonat&#34;</span><span class="o">]</span>
@@ -437,7 +437,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
               data-sizes="auto"
               alt="RabbitMQ集群部署"
               class="lazyload"
@@ -445,7 +445,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">RabbitMQ集群部署</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg9.webp"
               data-sizes="auto"
               alt="Kafka"
               class="lazyload"

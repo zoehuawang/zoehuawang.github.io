@@ -1,6 +1,6 @@
 <!doctype html>
 <html
-  lang="zh-cn" 
+  lang="zh-CN" 
   data-theme-mode="auto"
   >
   <head><meta charset="utf-8" />
@@ -243,22 +243,22 @@ Nginx代理Kafka集群
 <li><strong>Kafka配置不同的部分</strong></li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># ##########################  10.88.0.81节点  ##########################</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">broker.id=1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">listener.security.protocol.map=LOCAL_LISTENER:PLAINTEXT,INTERNAL_LISTENER:SASL_PLAINTEXT,EXTERNAL_LISTENER:SSL</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">listeners=LOCAL_LISTENER://127.0.0.1:9092,INTERNAL_LISTENER://kafka01:9093,EXTERNAL_LISTENER://kafka01:18001</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">advertised.listeners=INTERNAL_LISTENER://kafka01:9093,EXTERNAL_LISTENER://kafka01:18001</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="l">broker.id=1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="l">listener.security.protocol.map=LOCAL_LISTENER:PLAINTEXT,INTERNAL_LISTENER:SASL_PLAINTEXT,EXTERNAL_LISTENER:SSL</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="l">listeners=LOCAL_LISTENER://127.0.0.1:9092,INTERNAL_LISTENER://kafka01:9093,EXTERNAL_LISTENER://kafka01:18001</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="l">advertised.listeners=INTERNAL_LISTENER://kafka01:9093,EXTERNAL_LISTENER://kafka01:18001</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># ##########################  10.88.0.82节点  ##########################</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">broker.id=2</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">listener.security.protocol.map=LOCAL_LISTENER:PLAINTEXT,INTERNAL_LISTENER:SASL_PLAINTEXT,EXTERNAL_LISTENER:SSL</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">listeners=LOCAL_LISTENER://127.0.0.1:9092,INTERNAL_LISTENER://kafka02:9093,EXTERNAL_LISTENER://kafka02:18001</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">advertised.listeners=INTERNAL_LISTENER://kafka02:9093,EXTERNAL_LISTENER://kafka02:18001</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c"># ##########################  10.88.0.82节点  ##########################</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="l">broker.id=2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="l">listener.security.protocol.map=LOCAL_LISTENER:PLAINTEXT,INTERNAL_LISTENER:SASL_PLAINTEXT,EXTERNAL_LISTENER:SSL</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="l">listeners=LOCAL_LISTENER://127.0.0.1:9092,INTERNAL_LISTENER://kafka02:9093,EXTERNAL_LISTENER://kafka02:18001</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="l">advertised.listeners=INTERNAL_LISTENER://kafka02:9093,EXTERNAL_LISTENER://kafka02:18001</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># ##########################  10.88.0.83节点  ##########################</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">broker.id=1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">listener.security.protocol.map=LOCAL_LISTENER:PLAINTEXT,INTERNAL_LISTENER:SASL_PLAINTEXT,EXTERNAL_LISTENER:SSL</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">listeners=LOCAL_LISTENER://127.0.0.1:9092,INTERNAL_LISTENER://kafka03:9093,EXTERNAL_LISTENER://kafka03:18001</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">advertised.listeners=INTERNAL_LISTENER://kafka03:9093,EXTERNAL_LISTENER://kafka03:18001</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c"># ##########################  10.88.0.83节点  ##########################</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="l">broker.id=1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="l">listener.security.protocol.map=LOCAL_LISTENER:PLAINTEXT,INTERNAL_LISTENER:SASL_PLAINTEXT,EXTERNAL_LISTENER:SSL</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="l">listeners=LOCAL_LISTENER://127.0.0.1:9092,INTERNAL_LISTENER://kafka03:9093,EXTERNAL_LISTENER://kafka03:18001</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="l">advertised.listeners=INTERNAL_LISTENER://kafka03:9093,EXTERNAL_LISTENER://kafka03:18001</span><span class="w">
 </span></span></span></code></pre></div><p>listeners配置项 指定了Kafka实际监听的网络地址和端口
 LOCAL_LISTENER://127.0.0.1:9092表示Kafka在本地环回地址上的9092端口监听，仅对本机可用。
 INTERNAL_LISTENER://kafka03:9093表示Kafka在kafka03主机的9093端口上监听，用于内部通信。
@@ -268,8 +268,8 @@ EXTERNAL_LISTENER://kafka03:18001表示Kafka在kafka03主机的18001端口上监
 <li><strong>nginx节点必须配置hosts</strong></li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="m">10.88.0.11</span><span class="w"> </span><span class="l">kafka01</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">10.88.0.11</span><span class="w"> </span><span class="l">kafka02</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">10.88.0.11</span><span class="w"> </span><span class="l">kafka03</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="m">10.88.0.11</span><span class="w"> </span><span class="l">kafka02</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="m">10.88.0.11</span><span class="w"> </span><span class="l">kafka03</span><span class="w">
 </span></span></span></code></pre></div><ul>
 <li><strong>nginx配置</strong></li>
 </ul>
@@ -299,7 +299,7 @@ EXTERNAL_LISTENER://kafka03:18001表示Kafka在kafka03主机的18001端口上监
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg9.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
               data-sizes="auto"
               alt="Freeswitch 1.10.6的docker镜像构建"
               class="lazyload"
@@ -307,7 +307,7 @@ EXTERNAL_LISTENER://kafka03:18001表示Kafka在kafka03主机的18001端口上监
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Freeswitch 1.10.6的docker镜像构建</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg3.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
               data-sizes="auto"
               alt="Freeswitch"
               class="lazyload"

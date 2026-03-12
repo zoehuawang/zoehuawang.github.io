@@ -1,6 +1,6 @@
 <!doctype html>
 <html
-  lang="zh-cn" 
+  lang="zh-CN" 
   data-theme-mode="auto"
   >
   <head><meta charset="utf-8" />
@@ -222,12 +222,12 @@ ELK-8.14.1集群安装(使用用户密码认证)
 <li>/etc/elasticsearch/elasticsearch.yml，配置文件配置保留部分，其余的全部可以删除</li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">path.data</span><span class="p">:</span><span class="w"> </span><span class="l">/var/lib/elasticsearch</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">path.logs</span><span class="p">:</span><span class="w"> </span><span class="l">/var/log/elasticsearch</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">http.port</span><span class="p">:</span><span class="w"> </span><span class="m">9200</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">http.host</span><span class="p">:</span><span class="w"> </span><span class="m">0.0.0.0</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">xpack.security.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">xpack.security.transport.ssl.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">xpack.security.http.ssl.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">path.logs</span><span class="p">:</span><span class="w"> </span><span class="l">/var/log/elasticsearch</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">http.port</span><span class="p">:</span><span class="w"> </span><span class="m">9200</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">http.host</span><span class="p">:</span><span class="w"> </span><span class="m">0.0.0.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">xpack.security.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">xpack.security.transport.ssl.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">xpack.security.http.ssl.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span></span></span></code></pre></div><ul>
 <li>配置文件/etc/elasticsearch/jvm.options设置JVM
 jvm.options #设置-Xmx不要大于物理内存的50%</li>
@@ -242,7 +242,7 @@ jvm.options #设置-Xmx不要大于物理内存的50%</li>
 <li>/etc/logstash/logstash.yml，配置文件配置保留部分，其余的全部可以删除</li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">path.data</span><span class="p">:</span><span class="w"> </span><span class="l">/data/logstash    			#数据存储路径</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">path.config</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/logstash/conf.d/*.conf 	#配置文件目录</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">path.config</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/logstash/conf.d/*.conf 	#配置文件目录</span><span class="w">
 </span></span></span></code></pre></div><ul>
 <li>/etc/logstash/jvm.options，末尾添加</li>
 </ul>
@@ -268,27 +268,27 @@ jvm.options #设置-Xmx不要大于物理内存的50%</li>
 <li>/etc/kibana/kibana.yml，配置文件配置保留部分，其余的全部可以删除</li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">server.port</span><span class="p">:</span><span class="w"> </span><span class="m">5601</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">server.host</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0.0.0.0&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">pid.file</span><span class="p">:</span><span class="w"> </span><span class="l">/run/kibana/kibana.pid</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">path.data</span><span class="p">:</span><span class="w"> </span><span class="l">/run/kibana</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">i18n.locale</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;zh-CN&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">elasticsearch.hosts</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;http://127.0.0.1:9200&#34;</span><span class="p">]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">elasticsearch.username</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;用户名&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">elasticsearch.password</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;用户密码&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">server.host</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0.0.0.0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">pid.file</span><span class="p">:</span><span class="w"> </span><span class="l">/run/kibana/kibana.pid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">path.data</span><span class="p">:</span><span class="w"> </span><span class="l">/run/kibana</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">i18n.locale</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;zh-CN&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">elasticsearch.hosts</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;http://127.0.0.1:9200&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">elasticsearch.username</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;用户名&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">elasticsearch.password</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;用户密码&#34;</span><span class="w">
 </span></span></span></code></pre></div><h1 id="filebeatlogstash组合方案配置">
 <a class="header-anchor" href="#filebeatlogstash%e7%bb%84%e5%90%88%e6%96%b9%e6%a1%88%e9%85%8d%e7%bd%ae"></a>
 filebeat+logstash组合方案配置
 </h1><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c">#logstash.conf配置文件，内容如下：</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">input {</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#    stdin {}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="l">input {</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c">#    stdin {}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">kafka {</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="l">bootstrap_servers  =&gt; &#34;192.168.8.100:9092&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="l">topics =&gt; [&#34;logstash&#34;]</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="l">type =&gt; &#34;test&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span>}<span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span><span class="line"><span class="cl">}<span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">filter {</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="l">filter {</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">if [type] == &#34;test&#34; {</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="l">json {</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="l">source =&gt; &#34;message&#34;</span><span class="w">
@@ -300,40 +300,40 @@ filebeat+logstash组合方案配置
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="l">remove_field =&gt; [&#34;@timestamp&#34;,&#34;@version&#34;,&#34;jsoncontent&#34;]</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span>}<span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span>}<span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span><span class="line"><span class="cl">}<span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">output {</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="l">output {</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">if [type] == &#34;test&#34; {</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#        stdout {codec =&gt; rubydebug}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c">#        stdout {codec =&gt; rubydebug}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="l">elasticsearch {</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="l">hosts =&gt; &#34;http://172.17.0.2:9200&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="l">manage_template =&gt; false</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="l">index =&gt; &#34;test-%{+yyyy.MM}&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span>}<span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span>}<span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span><span class="line"><span class="cl">}<span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#检查配置文件语法是否正确</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">/usr/share/logstash/bin/logstash -f logstash.conf --config.test_and_exit</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c">#检查配置文件语法是否正确</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="l">/usr/share/logstash/bin/logstash -f logstash.conf --config.test_and_exit</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#--config.reload.automatic可以在Logstash不重启的情况下自动加载配置文件</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">/usr/share/logstash/bin/logstash -f conf.d/logstash.conf --config.reload.automatic</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c">#--config.reload.automatic可以在Logstash不重启的情况下自动加载配置文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="l">/usr/share/logstash/bin/logstash -f conf.d/logstash.conf --config.reload.automatic</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#---------------------------------------------------------------------------------------------</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c">#---------------------------------------------------------------------------------------------</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#配置文件filebeat.yml里面的内容：</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">filebeat.inputs</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">log</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c">#配置文件filebeat.yml里面的内容：</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">filebeat.inputs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">log</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">paths</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">/tmp/logs/*.log</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">output.kafka</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">output.kafka</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;192.168.8.100:9092&#34;</span><span class="p">]</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l">logstash</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#启动（最好先启动logstash不然没有消费者会崩）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c">#启动（最好先启动logstash不然没有消费者会崩）</span><span class="w">
 </span></span></span></code></pre></div><h1 id="elasticsearch接口">
 <a class="header-anchor" href="#elasticsearch%e6%8e%a5%e5%8f%a3"></a>
 Elasticsearch接口
@@ -418,7 +418,7 @@ Logstash打包和离线安装插件
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg3.webp"
               data-sizes="auto"
               alt="K8s离线部署"
               class="lazyload"
@@ -426,7 +426,7 @@ Logstash打包和离线安装插件
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">K8s离线部署</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
               data-sizes="auto"
               alt="Sip应答消息状态码"
               class="lazyload"

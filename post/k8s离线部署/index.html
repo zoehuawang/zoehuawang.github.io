@@ -1,6 +1,6 @@
 <!doctype html>
 <html
-  lang="zh-cn" 
+  lang="zh-CN" 
   data-theme-mode="auto"
   >
   <head><meta charset="utf-8" />
@@ -585,13 +585,13 @@
 </span></span><span class="line"><span class="cl"><span class="nv">Type</span><span class="o">=</span>notify
 </span></span><span class="line"><span class="cl"><span class="nv">EnvironmentFile</span><span class="o">=</span>/opt/etcd/cfg/etcd.conf
 </span></span><span class="line"><span class="cl"><span class="nv">ExecStart</span><span class="o">=</span>/opt/etcd/bin/etcd <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>--cert-file<span class="o">=</span>/opt/etcd/ssl/etcd.pem <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>--key-file<span class="o">=</span>/opt/etcd/ssl/etcd-key.pem <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>--peer-cert-file<span class="o">=</span>/opt/etcd/ssl/etcd.pem <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>--peer-key-file<span class="o">=</span>/opt/etcd/ssl/etcd-key.pem <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>--trusted-ca-file<span class="o">=</span>/opt/etcd/ssl/ca.pem <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>--peer-trusted-ca-file<span class="o">=</span>/opt/etcd/ssl/ca.pem <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>--logger<span class="o">=</span>zap
+</span></span></span><span class="line"><span class="cl">--cert-file<span class="o">=</span>/opt/etcd/ssl/etcd.pem <span class="se">\
+</span></span></span><span class="line"><span class="cl">--key-file<span class="o">=</span>/opt/etcd/ssl/etcd-key.pem <span class="se">\
+</span></span></span><span class="line"><span class="cl">--peer-cert-file<span class="o">=</span>/opt/etcd/ssl/etcd.pem <span class="se">\
+</span></span></span><span class="line"><span class="cl">--peer-key-file<span class="o">=</span>/opt/etcd/ssl/etcd-key.pem <span class="se">\
+</span></span></span><span class="line"><span class="cl">--trusted-ca-file<span class="o">=</span>/opt/etcd/ssl/ca.pem <span class="se">\
+</span></span></span><span class="line"><span class="cl">--peer-trusted-ca-file<span class="o">=</span>/opt/etcd/ssl/ca.pem <span class="se">\
+</span></span></span><span class="line"><span class="cl">--logger<span class="o">=</span>zap
 </span></span><span class="line"><span class="cl"><span class="nv">Restart</span><span class="o">=</span>on-failure
 </span></span><span class="line"><span class="cl"><span class="nv">LimitNOFILE</span><span class="o">=</span><span class="m">65536</span>
 </span></span><span class="line"><span class="cl"><span class="o">[</span>Install<span class="o">]</span>
@@ -997,17 +997,17 @@
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">vim /opt/kubernetes/cfg/kubelet-config.yml</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">KubeletConfiguration</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">kubelet.config.k8s.io/v1beta1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="m">0.0.0.0</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">10250</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">readOnlyPort</span><span class="p">:</span><span class="w"> </span><span class="m">10255</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">cgroupDriver</span><span class="p">:</span><span class="w"> </span><span class="l">cgroupfs</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">clusterDNS</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="m">10.69.0.2</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">clusterDomain</span><span class="p">:</span><span class="w"> </span><span class="l">cluster.local</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">failSwapOn</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">authentication</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">KubeletConfiguration</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">kubelet.config.k8s.io/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="m">0.0.0.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">10250</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">readOnlyPort</span><span class="p">:</span><span class="w"> </span><span class="m">10255</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">cgroupDriver</span><span class="p">:</span><span class="w"> </span><span class="l">cgroupfs</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">clusterDNS</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="m">10.69.0.2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">clusterDomain</span><span class="p">:</span><span class="w"> </span><span class="l">cluster.local</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">failSwapOn</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">authentication</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">anonymous</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">webhook</span><span class="p">:</span><span class="w">
@@ -1015,46 +1015,46 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">x509</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">clientCAFile</span><span class="p">:</span><span class="w"> </span><span class="l">/opt/kubernetes/ssl/ca.pem</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">authorization</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">authorization</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l">Webhook</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">webhook</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">cacheAuthorizedTTL</span><span class="p">:</span><span class="w"> </span><span class="l">5m0s</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">cacheUnauthorizedTTL</span><span class="p">:</span><span class="w"> </span><span class="l">30s</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">evictionHard</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">evictionHard</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">imagefs.available</span><span class="p">:</span><span class="w"> </span><span class="m">15</span><span class="l">%</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">memory.available</span><span class="p">:</span><span class="w"> </span><span class="l">100Mi</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">nodefs.available</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="l">%</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">nodefs.inodesFree</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="l">%</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">maxOpenFiles</span><span class="p">:</span><span class="w"> </span><span class="m">1000000</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">maxPods</span><span class="p">:</span><span class="w"> </span><span class="m">110</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">maxOpenFiles</span><span class="p">:</span><span class="w"> </span><span class="m">1000000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">maxPods</span><span class="p">:</span><span class="w"> </span><span class="m">110</span><span class="w">
 </span></span></span></code></pre></div><ul>
 <li>生成 bootstrap.kubeconfig 文件</li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">vim /opt/kubernetes/cfg/bootstrap.kubeconfig</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">clusters</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">cluster</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">clusters</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">cluster</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">certificate-authority</span><span class="p">:</span><span class="w"> </span><span class="l">/opt/kubernetes/ssl/ca.pem</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="l">https://192.168.14.101:6443</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kubernetes</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">contexts</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">context</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">contexts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">context</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">cluster</span><span class="p">:</span><span class="w"> </span><span class="l">kubernetes</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l">kubelet-bootstrap</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">current-context</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Config</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">preferences</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">users</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kubelet-bootstrap</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">current-context</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Config</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">preferences</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">users</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kubelet-bootstrap</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">user</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">token</span><span class="p">:</span><span class="w"> </span><span class="l">ce571d7d7d2f0ff49456fb3469331dd0</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">###############################</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#token与 token.csv 里保持一致</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#server是apiserver IP:PORT</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">###############################</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c">###############################</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c">#token与 token.csv 里保持一致</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c">#server是apiserver IP:PORT</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c">###############################</span><span class="w">
 </span></span></span></code></pre></div><ul>
 <li>systemd 管理 kubelet</li>
 </ul>
@@ -1397,7 +1397,7 @@
 </ul>
 <p>a、修改集群域名</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># $DNS_DOMAIN修改为集群的域名,可从kubelet-config.yml文件查看</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">data</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">data</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">Corefile</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
 </span></span></span><span class="line"><span class="cl"><span class="sd">    .:53 {
 </span></span></span><span class="line"><span class="cl"><span class="sd">        errors
@@ -1417,7 +1417,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="sd">    }</span><span class="w">
 </span></span></span></code></pre></div><p>b、 修改coredns 容器资源限制</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">containers</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">coredns</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">coredns</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">registry:5000/coredns       </span><span class="w"> </span><span class="c">#修改下载地址为本地镜像</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">IfNotPresent</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w">
@@ -1474,7 +1474,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
               data-sizes="auto"
               alt="Ansible自动化"
               class="lazyload"
@@ -1482,7 +1482,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Ansible自动化</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
               data-sizes="auto"
               alt="ELK"
               class="lazyload"
