@@ -314,7 +314,19 @@
 </span></span></span><span class="line"><span class="cl"><span class="o">|</span><span class="w"> </span><span class="n">group_replication_applier</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">418</span><span class="n">d32d0</span><span class="o">-</span><span class="n">da8c</span><span class="o">-</span><span class="mi">11</span><span class="n">ed</span><span class="o">-</span><span class="n">a069</span><span class="o">-</span><span class="mi">000</span><span class="n">c29b15814</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="mi">7</span><span class="p">.</span><span class="mi">52</span><span class="w">     </span><span class="o">|</span><span class="w">        </span><span class="mi">3306</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ONLINE</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="n">SECONDARY</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="mi">8</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">36</span><span class="w">         </span><span class="o">|</span><span class="w"> </span><span class="n">XCom</span><span class="w">                       </span><span class="o">|</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="o">+</span><span class="c1">---------------------------+--------------------------------------+-------------+-------------+--------------+-------------+----------------+----------------------------+
 </span></span></span></code></pre></div><ul>
-<li>9.克隆（在有问题的节点上执行）</li>
+<li>9.查看主从应用事务延迟情况</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mysql -uroot -pAa.1234567 -e&#34;SELECT m.member_host as 节点IP,m.member_role as 角色,m.member_state as 状态,@@global.gtid_executed as GTID集合,s.COUNT_TRANSACTIONS_REMOTE_IN_APPLIER_QUEUE as 延迟事务数,s.VIEW_ID as 视图ID FROM performance_schema.replication_group_members m LEFT JOIN performance_schema.replication_group_member_stats s ON m.member_id = s.member_id ORDER BY CASE m.member_role WHEN &#39;PRIMARY&#39; THEN 1 WHEN &#39;SECONDARY&#39; THEN 2 ELSE 3 END,m.member_host;&#34;
+</span></span><span class="line"><span class="cl">mysql: [Warning] Using a password on the command line interface can be insecure.
+</span></span><span class="line"><span class="cl">+--------------+-----------+--------+-------------------------------------------+-----------------+---------------------+
+</span></span><span class="line"><span class="cl">| 节点IP       | 角色      | 状态   | GTID集合                                  | 延迟事务数      | 视图ID              |
+</span></span><span class="line"><span class="cl">+--------------+-----------+--------+-------------------------------------------+-----------------+---------------------+
+</span></span><span class="line"><span class="cl">| 192.168.7.53 | PRIMARY   | ONLINE | 11dbbdea-c8b2-4069-9ecc-61700d6c89d3:1-20 |               0 | 17739841252336808:7 |
+</span></span><span class="line"><span class="cl">| 192.168.7.54 | SECONDARY | ONLINE | 11dbbdea-c8b2-4069-9ecc-61700d6c89d3:1-20 |               0 | 17739841252336808:7 |
+</span></span><span class="line"><span class="cl">| 192.168.7.52 | SECONDARY | ONLINE | 11dbbdea-c8b2-4069-9ecc-61700d6c89d3:1-20 |               0 | 17739841252336808:7 |
+</span></span><span class="line"><span class="cl">+--------------+-----------+--------+-------------------------------------------+-----------------+---------------------+
+</span></span></code></pre></div><ul>
+<li>10.克隆（在有问题的节点上执行）</li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">#</span><span class="err">查询是否有安装克隆插件</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PLUGINS</span><span class="p">;</span><span class="w"> 
@@ -371,7 +383,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
               data-sizes="auto"
               alt="Freeswitch"
               class="lazyload"
@@ -379,7 +391,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Freeswitch</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
               data-sizes="auto"
               alt="Kubernetes之StatefulSet部署etcd集群"
               class="lazyload"
@@ -396,7 +408,7 @@
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;50.5k</span
+          >&nbsp;50.8k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:58</span>
