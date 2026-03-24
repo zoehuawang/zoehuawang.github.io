@@ -404,16 +404,16 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">init:
 </span></span><span class="line"><span class="cl">        -docker rm -f fs<span class="p">;</span>
-</span></span><span class="line"><span class="cl">        docker run -d --network host <span class="se">\\</span>
-</span></span><span class="line"><span class="cl">        --name fs freeswitch:1.10.6
+</span></span><span class="line"><span class="cl">        docker run -d --network host <span class="se">\
+</span></span></span><span class="line"><span class="cl">        --name fs freeswitch:1.10.6
 </span></span><span class="line"><span class="cl">copy-conf:
 </span></span><span class="line"><span class="cl">        docker cp fs:/usr/local/freeswitch/conf ./
 </span></span><span class="line"><span class="cl">run:
 </span></span><span class="line"><span class="cl">        -docker rm -f fs<span class="p">;</span>
-</span></span><span class="line"><span class="cl">        docker run -d --network host <span class="se">\\</span>
-</span></span><span class="line"><span class="cl">        -v <span class="nv">$$</span>PWD/conf:/usr/local/freeswitch/conf <span class="se">\\</span>
-</span></span><span class="line"><span class="cl">        -v <span class="nv">$$</span>PWD/log:/usr/local/freeswitch/log <span class="se">\\</span>
-</span></span><span class="line"><span class="cl">        --name fs freeswitch:1.10.6
+</span></span><span class="line"><span class="cl">        docker run -d --network host <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -v <span class="nv">$$</span>PWD/conf:/usr/local/freeswitch/conf <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -v <span class="nv">$$</span>PWD/log:/usr/local/freeswitch/log <span class="se">\
+</span></span></span><span class="line"><span class="cl">        --name fs freeswitch:1.10.6
 </span></span><span class="line"><span class="cl"><span class="c1">#fs_cli:</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#	docker exec -it fs /usr/local/freeswitch/bin/fs_cli</span>
 </span></span></code></pre></div></div>
@@ -437,7 +437,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
               data-sizes="auto"
               alt="RabbitMQ集群部署"
               class="lazyload"
@@ -445,7 +445,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">RabbitMQ集群部署</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
               data-sizes="auto"
               alt="Kafka"
               class="lazyload"
