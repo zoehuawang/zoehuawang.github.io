@@ -180,14 +180,15 @@
       >FREESWITCH</a
     ></div>
 </div>
-    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><p><a href="https://gitee.com/zoewang/download-resources/blob/master/FreeSWITCH%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97.pdf">freeswitch权威指南</a></p>
+    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><p><a href="https://raw.githubusercontent.com/zoehuawang/files/main/FreeSWITCH%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97.pdf">freeswitch权威指南</a></p>
 <p><a href="https://developer.signalwire.com/freeswitch/">FreeSWITCH 文档</a></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#各配置文件作用</span>
 </span></span><span class="line"><span class="cl">vars.xml                             <span class="p">|</span> 一些经常使用变量
-</span></span><span class="line"><span class="cl">dialplan/default.xml                 <span class="p">|</span> 缺省的拨号计划
 </span></span><span class="line"><span class="cl">directory/default/*.xml              <span class="p">|</span> SIP用户，每用户一个文件
-</span></span><span class="line"><span class="cl">sip_profiles/internal.xml            <span class="p">|</span> 一个SIP profile，或称做一个SIP-UA，监听在本地IP及端口5060，通常供内网用户使用
-</span></span><span class="line"><span class="cl">sip_profiles/externa.xml             <span class="p">|</span> 另外一个SIP-UA，用做外部链接，端口5080
+</span></span><span class="line"><span class="cl">dialplan/default.xml                 <span class="p">|</span> 通常用于处理内部、可信任的呼叫
+</span></span><span class="line"><span class="cl">dialplan/public.xml                  <span class="p">|</span> 通常用于处理来自外部的、不受信任的呼叫
+</span></span><span class="line"><span class="cl">sip_profiles/internal.xml            <span class="p">|</span> 一个SIP profile，或称做一个SIP-UA，默认端口5060，通常供内网用户使用
+</span></span><span class="line"><span class="cl">sip_profiles/externa.xml             <span class="p">|</span> 另外一个SIP-UA，用做外部链接，默认端口5080
 </span></span><span class="line"><span class="cl">autoload_configs/modules.conf.xml    <span class="p">|</span> 配置当FreeSWITCH启动时自动装载哪些模块
 </span></span><span class="line"><span class="cl">autoload_configs/switch.conf.xml     <span class="p">|</span> 主要用于配置全局参数
 </span></span><span class="line"><span class="cl">
@@ -227,10 +228,10 @@
 </span></span></code></pre></div><ul>
 <li>fs_cli控制台命令：</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">/help                          </span><span class="w"> </span><span class="c">#列出可用的fs_cli命令</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="l">/quit 或 /exit 或 /bye 或 ...   </span><span class="w"> </span><span class="c">#都会退出控制台</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="l">console loglevel 0  	       </span><span class="w"> </span><span class="c">#控制台日志级别，级别从0-7，级别越高日志越大。比如6设置成INFO级别；7设置成DEBUG级别</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="l">status                         </span><span class="w"> </span><span class="c">#显示当前FreeSWITCH的运行状态</span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">/help				#列出可用的fs_cli命令</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="l">/quit 或 /exit 或 /bye 或 ...	#都会退出控制台</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="l">console loglevel 0  	  	#控制台日志级别，级别从0-7，级别越高日志越大。比如6设置成INFO级别；7设置成DEBUG级别</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="l">status				#显示当前FreeSWITCH的运行状态</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="l">reload MODNAME			#重新加载模块</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="l">reloadxml 			#重新加载XML配置文件</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="l">reloadacl 			#更新鉴权</span><span class="w">
@@ -241,7 +242,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="l">originate {origination_caller_id_number=6688}user/1001 &amp;park			#拨打1001用户，主叫号码为6688（park表示挂起）</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="l">originate {origination_caller_id_number=6688}user/1001 &amp;hold			#拨打1001用户，主叫号码为6688（hold表示保持）</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="l">originate {origination_caller_id_number=6688}user/1001 &amp;echo			#拨打1001用户，主叫号码为6688（echo表示有回声）</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="l">originate {origination_caller_id_number=400009xxxx}sofia/external/008617xxxx3967@10.21.254.72 &amp;echo() 	#通过SIP协议连接到外部网关拨打电话</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="l">originate {origination_caller_id_number=400009xxxx}sofia/external/008617xxxx3967@10.21.254.72 &amp;echo()	#通过SIP协议连接到外部网关拨打电话</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="l">uuid_kill UUID												#挂断一个用户</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="l">hupall													#挂断所有用户</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="l">originate user/1001 &amp;playback(/usr/local/freeswitch/sounds/wait.wav)					#拨打1001，接通后直接播放wav文件</span><span class="w">
@@ -307,7 +308,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
               data-sizes="auto"
               alt="Kafka"
               class="lazyload"
@@ -315,7 +316,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Kafka</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
               data-sizes="auto"
               alt="MGR单主"
               class="lazyload"
@@ -332,7 +333,7 @@
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;50.8k</span
+          >&nbsp;50.6k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:58</span>
