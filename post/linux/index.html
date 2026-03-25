@@ -196,7 +196,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">sort file1 file2 <span class="p">|</span> uniq -u	<span class="c1">#去除两个文件重复部分</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">ln –s 源文件 目标文件    	<span class="c1">#软链接</span>
+</span></span><span class="line"><span class="cl">ln –s 源文件 目标文件 		<span class="c1">#软链接</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">ls --full-time filename  	<span class="c1">#查看文件生成全部时间</span>
 </span></span><span class="line"><span class="cl">
@@ -217,8 +217,13 @@
 </span></span><span class="line"><span class="cl">Ctrl+A再按D                	<span class="c1">#会话后台运行</span>
 </span></span><span class="line"><span class="cl">Ctrl+D或执行exit           	<span class="c1">#退出会话</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#/home/oracle/下存放连接mysql的用户名密码文件.my.cnf，然后以安全方式连接mysql</span>
-</span></span><span class="line"><span class="cl"><span class="nv">HOME</span><span class="o">=</span>/home/oracle mysql -e <span class="s2">&#34;sql语句&#34;</span>  或 mysql --defaults-file<span class="o">=</span>/home/oracle/.my.cnf
+</span></span><span class="line"><span class="cl"><span class="c1"># scp后台运行</span>
+</span></span><span class="line"><span class="cl">ctrl+z      		<span class="c1">#挂起当前任务</span>
+</span></span><span class="line"><span class="cl"><span class="nb">bg</span> %1       		<span class="c1">#将编号为1的任务转后台运行</span>
+</span></span><span class="line"><span class="cl"><span class="nb">disown</span> -h %1   		<span class="c1">#将编号为1这个作业忽略HUP信号，也就是可以退出终端不影响scp</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#/home/test/下存放连接mysql的用户名密码文件.my.cnf，然后以安全方式连接mysql</span>
+</span></span><span class="line"><span class="cl"><span class="nv">HOME</span><span class="o">=</span>/home/test mysql -e <span class="s2">&#34;sql语句&#34;</span>  或 mysql --defaults-file<span class="o">=</span>/home/test/.my.cnf
 </span></span><span class="line"><span class="cl"><span class="c1">#.my.cnf文件内容：</span>
 </span></span><span class="line"><span class="cl"><span class="o">[</span>client<span class="o">]</span>
 </span></span><span class="line"><span class="cl"><span class="nv">user</span><span class="o">=</span>root
@@ -231,11 +236,6 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#xargs 用作替换工具，读取输入数据重新格式化后输出</span>
 </span></span><span class="line"><span class="cl"><span class="p">|</span>xargs -i -t  		<span class="c1">#-t 表示先打印命令，然后再执行；-i 一般是一行一行赋值给 {}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># scp后台运行</span>
-</span></span><span class="line"><span class="cl">ctrl+z      		<span class="c1">#挂起当前任务</span>
-</span></span><span class="line"><span class="cl"><span class="nb">bg</span> %1       		<span class="c1">#将编号为1的任务转后台运行</span>
-</span></span><span class="line"><span class="cl"><span class="nb">disown</span> -h %1   		<span class="c1">#将编号为1这个作业忽略HUP信号，也就是可以退出终端不影响scp</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#Linux下清除文件系统缓存</span>
 </span></span><span class="line"><span class="cl">1、sync
@@ -395,7 +395,7 @@
 </span></span><span class="line"><span class="cl">tcpdump -i eth0 -w - <span class="p">|</span> pv -bert &gt; /dev/null
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#nc端口测试,-u UDP端口(不指定默认为TCP)</span>
-</span></span><span class="line"><span class="cl">nc -u -lp <span class="m">20682</span>                             <span class="c1">#-l 开启监听模式</span>
+</span></span><span class="line"><span class="cl">nc -u -lp <span class="m">20682</span>                        		<span class="c1">#-l 开启监听模式</span>
 </span></span><span class="line"><span class="cl">nc -u 192.168.7.51 <span class="m">20682</span>            		<span class="c1">#与对端192.168.7.51可以交互</span>
 </span></span><span class="line"><span class="cl">nc -u -vz 192.168.7.51 <span class="m">20682</span>         		<span class="c1">#检测udp端口20862是否可通</span>
 </span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;test&#34;</span> <span class="p">|</span> nc -u 192.168.7.51 20682		<span class="c1">#向udp端口发送一条test消息</span>
@@ -438,14 +438,14 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#firewall-cmd添加富规则(参数--permanent代表永久配置，重启后仍存在)，添加后使用firewall-cmd --reload加载生效</span>
 </span></span><span class="line"><span class="cl">firewall-cmd --permanent --zone<span class="o">=</span>public --add-rich-rule<span class="o">=</span><span class="s1">&#39;rule family=&#34;ipv4&#34; source address=&#34;192.168.7.50&#34; port port=&#34;3389&#34; protocol=&#34;tcp&#34; accept&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --direct --get-all-rules						                    #查看所有直接规则</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --get-zones  							                        #查看所有可用区域列表</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --get-active-zones						                        #当前活动的防火墙区域及其接口</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --get-default-zone						                        #查看默认区域（当前生效的区域）</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD 0 -j ACCEPT	#允许所有IPv4流量通过FORWARD路由转发</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --permanent --zone=public --set-target=DROP			            #设置public区拒绝所有流入的包(ACCEPT则反之,REJECT拒绝所有流入并回复拒绝消息)</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --permanent --new-zone=k8spod					                #创建新的区域</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --permanent --zone=k8spod --add-interface=tunl0 			        #将网络接口tunl0永久地添加到名为k8spod的区域中</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --direct --get-all-rules				   			#查看所有直接规则</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --get-zones  								#查看所有可用区域列表</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --get-active-zones							#当前活动的防火墙区域及其接口</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --get-default-zone							#查看默认区域（当前生效的区域）</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD 0 -j ACCEPT		#允许所有IPv4流量通过FORWARD路由转发</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --permanent --zone=public --set-target=DROP				#设置public区拒绝所有流入的包(ACCEPT则反之,REJECT拒绝所有流入并回复拒绝消息)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --permanent --new-zone=k8spod						#创建新的区域</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># firewall-cmd --permanent --zone=k8spod --add-interface=tunl0				#将网络接口tunl0永久地添加到名为k8spod的区域中</span>
 </span></span></code></pre></div><ul>
 <li>Linux开机自动启动脚本的方法</li>
 </ul>
@@ -587,7 +587,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
               data-sizes="auto"
               alt="银行项目实现微信告警"
               class="lazyload"
