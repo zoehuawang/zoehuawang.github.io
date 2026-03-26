@@ -306,11 +306,11 @@
 </span></span></span></code></pre></div><ul>
 <li>在172.16.200.53的nfs共享目录下创建数据目录</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 子目录名称必须与pod名一致</span>
-</span></span><span class="line"><span class="cl">mkdir -p /data/rustfs/<span class="o">{</span>rustfs-0,rustfs-1,rustfs-2,rustfs-3<span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 启动rustfs</span>
-</span></span><span class="line"><span class="cl">kubectl apply -f rustfs-satefulset.yaml
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mkdir -p /data/rustfs
+</span></span></code></pre></div><ul>
+<li>启动rustfs</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">kubectl apply -f rustfs-satefulset.yaml
 </span></span></code></pre></div><ul>
 <li>通过用户admin，密码Aa123456，访问rustfs的webui页面(9001端口对应的nodeport端口)</li>
 <li>创建存储桶，名称与Loki配置的bucketnames一致</li>
@@ -793,7 +793,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg9.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg3.webp"
               data-sizes="auto"
               alt="MFA双因子认证服务端"
               class="lazyload"
@@ -801,7 +801,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">MFA双因子认证服务端</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg10.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
               data-sizes="auto"
               alt="Kubernetes之Minio分布式集群"
               class="lazyload"
