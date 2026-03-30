@@ -350,6 +350,9 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#通过重定向符号在远程主机执行脚本</span>
 </span></span><span class="line"><span class="cl">ssh root@192.168.7.50 <span class="s1">&#39;bash -s&#39;</span> &lt; install.sh
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#ssh隧道访问远程服务器上监听本地端口的服务(172.16.200.58目标主机)</span>
+</span></span><span class="line"><span class="cl">ssh -N -L 18789:127.0.0.1:18789 root@172.16.200.58
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#查询文件名对应的RPM包名</span>
 </span></span><span class="line"><span class="cl">rpm -qf 文件名
 </span></span><span class="line"><span class="cl">
@@ -594,7 +597,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg10.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg3.webp"
               data-sizes="auto"
               alt="银行项目实现微信告警"
               class="lazyload"
@@ -611,7 +614,7 @@
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;50.6k</span
+          >&nbsp;50.7k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:58</span>
