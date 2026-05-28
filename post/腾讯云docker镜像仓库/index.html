@@ -271,6 +271,52 @@
 </span></span><span class="line"><span class="cl">        <span class="o">-</span><span class="n">e</span> <span class="n">REGISTRY_HTTP_TLS_KEY</span><span class="o">=/</span><span class="n">certs</span><span class="o">/</span><span class="n">easzlab</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">local</span><span class="o">.</span><span class="n">key</span> \
 </span></span><span class="line"><span class="cl">        <span class="n">registry</span><span class="p">:</span><span class="mi">2</span>
 </span></span></code></pre></div><ul>
+<li><strong>轻量及镜像仓库zot，带UI界面</strong></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">zot:
+</span></span><span class="line"><span class="cl">        -docker rm -f zot<span class="p">;</span>
+</span></span><span class="line"><span class="cl">        -docker run -d --name zot <span class="se">\
+</span></span></span><span class="line"><span class="cl">        --restart<span class="o">=</span>unless-stopped <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -p 5000:5000 <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -v /export/zot/config/config.json:/etc/zot/config.json:ro <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -v /export/zot/auth:/auth:ro <span class="se">\
+</span></span></span><span class="line"><span class="cl">        -v /export/zot/data:/var/lib/zot <span class="se">\
+</span></span></span><span class="line"><span class="cl">        ghcr.io/project-zot/zot-linux-amd64:v2.1.17
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建用户密码文件：htpasswd -Bc /export/zot/auth/htpasswd admin</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 首次自动创建htpasswd文件要加-c，后续添加用户不需要</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 配置文件模版:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#cat /export/zot/config/config.json</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  &#34;distSpecVersion&#34;: &#34;1.1.0&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  &#34;storage&#34;: {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    &#34;rootDirectory&#34;: &#34;/var/lib/zot&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    &#34;dedupe&#34;: true,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    &#34;gc&#34;: true</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  },</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  &#34;http&#34;: {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    &#34;address&#34;: &#34;0.0.0.0&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    &#34;port&#34;: &#34;5000&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    &#34;compat&#34;: [&#34;docker2s2&#34;],</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    &#34;auth&#34;: {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#      &#34;htpasswd&#34;: {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#        &#34;path&#34;: &#34;/auth/htpasswd&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#      }</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    }</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  },</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  &#34;log&#34;: {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    &#34;level&#34;: &#34;info&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  },</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  &#34;extensions&#34;: {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    &#34;search&#34;: {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#      &#34;enable&#34;: true</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    },</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    &#34;ui&#34;: {</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#      &#34;enable&#34;: true</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    }</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  }</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#}</span>
+</span></span></code></pre></div><ul>
 <li><strong>容器版centos7报错：Failed to get D-Bus connection: Operation not permitted  。解决方法</strong></li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">mv /usr/bin/systemctl /usr/bin/systemctl.old</span><span class="w">
@@ -307,7 +353,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Sip应答消息状态码</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
               data-sizes="auto"
               alt="Etcd节点恢复操作"
               class="lazyload"
@@ -324,7 +370,7 @@
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;50.7k</span
+          >&nbsp;50.9k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:58</span>
