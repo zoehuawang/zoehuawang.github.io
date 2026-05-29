@@ -286,36 +286,39 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># 创建用户密码文件：htpasswd -Bc /export/zot/auth/htpasswd admin</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># 首次自动创建htpasswd文件要加-c，后续添加用户不需要</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># 配置文件模版:</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#cat /export/zot/config/config.json</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#{</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#  &#34;distSpecVersion&#34;: &#34;1.1.0&#34;,</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#  &#34;storage&#34;: {</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#    &#34;rootDirectory&#34;: &#34;/var/lib/zot&#34;,</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#    &#34;dedupe&#34;: true,</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#    &#34;gc&#34;: true</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#  },</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#  &#34;http&#34;: {</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#    &#34;address&#34;: &#34;0.0.0.0&#34;,</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#    &#34;port&#34;: &#34;5000&#34;,</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#    &#34;compat&#34;: [&#34;docker2s2&#34;],</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#    &#34;auth&#34;: {</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#      &#34;htpasswd&#34;: {</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#        &#34;path&#34;: &#34;/auth/htpasswd&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#      }</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#    }</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#  },</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#  &#34;log&#34;: {</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#    &#34;level&#34;: &#34;info&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#  },</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#  &#34;extensions&#34;: {</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#    &#34;search&#34;: {</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#      &#34;enable&#34;: true</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#    },</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#    &#34;ui&#34;: {</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#      &#34;enable&#34;: true</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#    }</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#  }</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#}</span>
+</span></span><span class="line"><span class="cl">cat /export/zot/config/config.json
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;distSpecVersion&#34;</span>: <span class="s2">&#34;1.1.0&#34;</span>,
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;storage&#34;</span>: <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;rootDirectory&#34;</span>: <span class="s2">&#34;/var/lib/zot&#34;</span>,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;dedupe&#34;</span>: true,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;gc&#34;</span>: <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>,
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;http&#34;</span>: <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;address&#34;</span>: <span class="s2">&#34;0.0.0.0&#34;</span>,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;port&#34;</span>: <span class="s2">&#34;5000&#34;</span>,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;readTimeout&#34;</span>: <span class="s2">&#34;600s&#34;</span>,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;writeTimeout&#34;</span>: <span class="s2">&#34;600s&#34;</span>,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;compat&#34;</span>: <span class="o">[</span><span class="s2">&#34;docker2s2&#34;</span><span class="o">]</span>,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;auth&#34;</span>: <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;htpasswd&#34;</span>: <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;path&#34;</span>: <span class="s2">&#34;/auth/htpasswd&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>,
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;log&#34;</span>: <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;level&#34;</span>: <span class="s2">&#34;info&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>,
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;extensions&#34;</span>: <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;search&#34;</span>: <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;enable&#34;</span>: <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;ui&#34;</span>: <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;enable&#34;</span>: <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span></code></pre></div><ul>
 <li><strong>容器版centos7报错：Failed to get D-Bus connection: Operation not permitted  。解决方法</strong></li>
 </ul>
@@ -345,7 +348,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
               data-sizes="auto"
               alt="Sip应答消息状态码"
               class="lazyload"
@@ -353,7 +356,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Sip应答消息状态码</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg10.webp"
               data-sizes="auto"
               alt="Etcd节点恢复操作"
               class="lazyload"
