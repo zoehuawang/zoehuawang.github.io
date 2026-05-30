@@ -12,12 +12,32 @@
     
     <copyright>本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！</copyright>
     
-    <lastBuildDate>Sat, 17 Jun 2023 11:27:50 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 30 May 2026 11:32:05 +0800</lastBuildDate>
     
     
     <atom:link href="/tags/%E8%BF%90%E7%BB%B4/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
+    
+    
+
+    <item>
+      <title>Kubernetes</title>
+      <link>/post/kubernetes%E4%B9%8Bkuboard%E9%9D%A2%E6%9D%BF/</link>
+      <pubDate>Sat, 30 May 2026 11:32:05 &#43;0800</pubDate>
+      <author>w19891102@126.com (zoehuawang)</author>
+      <guid>/post/kubernetes%E4%B9%8Bkuboard%E9%9D%A2%E6%9D%BF/</guid>
+      <description>
+        <![CDATA[<h1>Kubernetes</h1><p>作者：zoehuawang（w19891102@126.com）</p>
+        
+          
+        
+        <hr><p>本文2026-05-30首发于<a href='/'>︶烟花散尽不问繁华┈┾</a>，最后修改于2026-05-30</p>]]>
+      </description>
+      
+        <category>K8S</category>
+      
+    </item>
     
     
 
