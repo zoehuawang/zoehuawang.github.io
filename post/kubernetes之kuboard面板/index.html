@@ -189,6 +189,17 @@ kuboard在k8s中一件部署
 </span></span></span><span class="line"><span class="cl"><span class="c">#  grant all privileges on kuboard.* to &#39;kuboard&#39;@&#39;%&#39;;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="c">#  FLUSH PRIVILEGES;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="c">#</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c"># 环境变量DB_DRIVER：</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c"># com.mysql.cj.jdbc.Driver 对应 mysql 数据库</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c"># org.mariadb.jdbc.Driver 对应 MariaDB 数据库</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c"># org.postgresql.Driver 对应 Postgre / OpenGauss 数据库</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c">#</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c"># 环境变量DB_DRIVER：</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c"># MYSQL: jdbc:mysql://10.99.0.8:3306/kuboard?serverTimezone=Asia/Shanghai</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c"># MariaDB: jdbc:mariadb://10.99.0.8:3306/kuboard?&amp;timezone=Asia/Shanghai</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c"># OpenGauss jdbc:postgresql://localhost:5432/kuboard?currentSchema=kuboard&amp;characterEncoding=UTF8</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c">#</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c">#</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="c">#  默认用户密码：admin / Kuboard123</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
@@ -210,9 +221,9 @@ kuboard在k8s中一件部署
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">env</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">DB_DRIVER</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;org.mariadb.jdbc.Driver&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;com.mysql.cj.jdbc.Driver&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">DB_URL</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;jdbc:mariadb://mysql-0.mysql.middleware:3306/kuboard?serverTimezone=Asia/Shanghai&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;jdbc:mysql://mysql-0.mysql.middleware:3306/kuboard?serverTimezone=Asia/Shanghai&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">DB_USERNAME</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;kubboard&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">DB_PASSWORD</span><span class="w">
@@ -261,7 +272,7 @@ kuboard在k8s中一件部署
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
               data-sizes="auto"
               alt="Kubernetes之Minio分布式集群"
               class="lazyload"
@@ -278,7 +289,7 @@ kuboard在k8s中一件部署
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;51.0k</span
+          >&nbsp;51.1k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;01:59</span>
