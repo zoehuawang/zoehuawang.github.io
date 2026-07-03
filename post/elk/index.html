@@ -236,7 +236,7 @@ jvm.options #设置-Xmx不要大于物理内存的50%</li>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#先启动服务</span>
 </span></span><span class="line"><span class="cl">systemctl start elasticsearch
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#然后创建用户，其中 $(echo y | /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic echo y | ./elasticsearch-reset-password -u elastic --url http://127.0.0.1:9200 | grep &#34;New value&#34; | awk &#39;{print $NF}&#39;) 为elastic超级用户重置的密码</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#然后创建用户，其中 $(echo y | /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic --url http://127.0.0.1:9200 | grep &#34;New value&#34; | awk &#39;{print $NF}&#39;) 为elastic超级用户重置的密码</span>
 </span></span><span class="line"><span class="cl">curl -X POST -u elastic:<span class="k">$(</span><span class="nb">echo</span> y <span class="p">|</span> /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic --url http://127.0.0.1:9200 <span class="p">|</span> grep <span class="s2">&#34;New value&#34;</span> <span class="p">|</span> awk <span class="s1">&#39;{print $NF}&#39;</span><span class="k">)</span> <span class="s2">&#34;http://127.0.0.1:9200/_security/user/用户名&#34;</span> -H <span class="s1">&#39;Content-Type: application/json&#39;</span> -d<span class="s1">&#39;{&#34;password&#34;:&#34;用户密码&#34;,&#34;roles&#34;:[&#34;superuser&#34;,&#34;kibana_system&#34;]}&#39;</span>
 </span></span></code></pre></div><ul>
 <li>/etc/logstash/logstash.yml，配置文件配置保留部分，其余的全部可以删除</li>
@@ -369,6 +369,39 @@ Elasticsearch接口
 </span></span></span><span class="line"><span class="cl"><span class="s1">    }
 </span></span></span><span class="line"><span class="cl"><span class="s1">  }
 </span></span></span><span class="line"><span class="cl"><span class="s1">}&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#清理es索引数据脚本</span>
+</span></span><span class="line"><span class="cl">cat &gt; /opt/del_elk.sh <span class="s">&lt;&lt; EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="s">elk_ip=&#34;127.0.0.1&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">retainLogStashArr=();
+</span></span></span><span class="line"><span class="cl"><span class="s"># 需要保留多少天就修改i&lt;多少
+</span></span></span><span class="line"><span class="cl"><span class="s">for((i=0;i&lt;30;i++));  
+</span></span></span><span class="line"><span class="cl"><span class="s">do   
+</span></span></span><span class="line"><span class="cl"><span class="s">        retainLogStashArr[\$i]=\`date +%Y.%m.%d --date=&#34;-\$i day&#34;\`
+</span></span></span><span class="line"><span class="cl"><span class="s">done
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">curl -s &#34;http://\${elk_ip}:9200/_cat/indices&#34; | grep logstash | awk &#39;{print \$3}&#39; &gt; /tmp/logstash.txt
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">for i in \`cat /tmp/logstash.txt\`
+</span></span></span><span class="line"><span class="cl"><span class="s">do
+</span></span></span><span class="line"><span class="cl"><span class="s">#       result=\$(echo \${retainLogStashArr[*]} | grep &#34;\$i&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="s">        result=\$(echo \${retainLogStashArr[*]})
+</span></span></span><span class="line"><span class="cl"><span class="s">        indexDate=\$(echo \$i | awk -F&#34;-&#34; &#39;{print \$2}&#39;)
+</span></span></span><span class="line"><span class="cl"><span class="s">        if [[ \$result == *\$indexDate* ]];then
+</span></span></span><span class="line"><span class="cl"><span class="s">                echo &#34;索引 \${i} 保留&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">        else
+</span></span></span><span class="line"><span class="cl"><span class="s">                echo &#34;索引 \${i} 需要删除&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">                delete_url=&#34;curl -s -XDELETE &#39;&#34;&#34;http://\${elk_ip}:9200/&#34;&#34;\${i}&#34;&#34;&#39;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">                resultDelete=\$(eval  \${delete_url} |grep acknowledged\&#34;:true)
+</span></span></span><span class="line"><span class="cl"><span class="s">                if [[ &#34;\$resultDelete&#34; != &#34;&#34; ]];then
+</span></span></span><span class="line"><span class="cl"><span class="s">                        echo &#34;删除索引 \${i} 成功&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">                else
+</span></span></span><span class="line"><span class="cl"><span class="s">                        echo &#34;删除索引 \${i} 失败&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">                fi
+</span></span></span><span class="line"><span class="cl"><span class="s">        fi
+</span></span></span><span class="line"><span class="cl"><span class="s">done
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
 </span></span></code></pre></div><h1 id="logstash接口">
 <a class="header-anchor" href="#logstash%e6%8e%a5%e5%8f%a3"></a>
 Logstash接口
@@ -418,7 +451,7 @@ Logstash打包和离线安装插件
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg9.webp"
               data-sizes="auto"
               alt="K8s离线部署"
               class="lazyload"
@@ -443,10 +476,10 @@ Logstash打包和离线安装插件
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;51.8k</span
+          >&nbsp;52.0k</span
         >
         &nbsp;|&nbsp;
-        <span class="icon-coffee">&nbsp;02:00</span>
+        <span class="icon-coffee">&nbsp;02:01</span>
       </div></div>
 </footer>
 <div class="sidebar-top">
