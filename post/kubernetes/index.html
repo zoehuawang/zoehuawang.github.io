@@ -280,72 +280,117 @@
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
 </span></span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">USER</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -e
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">USER</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="nv">NAMESPACE</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$2</span><span class="s2">&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[[</span> <span class="s2">&#34;</span><span class="nv">$NAMESPACE</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;&#34;</span> <span class="o">]]</span><span class="p">;</span><span class="k">then</span>
-</span></span><span class="line"><span class="cl"> <span class="nb">echo</span> <span class="s2">&#34;the namespace is not found, please set it.&#34;</span>
-</span></span><span class="line"><span class="cl"> <span class="nb">exit</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[[</span> -z <span class="s2">&#34;</span><span class="nv">$NAMESPACE</span><span class="s2">&#34;</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;usage: </span><span class="nv">$0</span><span class="s2"> &lt;username&gt; &lt;namespace&gt;&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">exit</span> <span class="m">1</span>
 </span></span><span class="line"><span class="cl"><span class="k">fi</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">openssl genrsa -out <span class="nv">$USER</span>.key <span class="m">2048</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Creating user: </span><span class="nv">$USER</span><span class="s2"> (namespace: </span><span class="nv">$NAMESPACE</span><span class="s2">)&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">openssl req -new -key <span class="nv">$USER</span>.key -out <span class="nv">$USER</span>.csr -subj <span class="s2">&#34;/CN=</span><span class="nv">$USER</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1. 生成证书</span>
+</span></span><span class="line"><span class="cl">openssl genrsa -out <span class="s2">&#34;</span><span class="nv">$USER</span><span class="s2">.key&#34;</span> <span class="m">2048</span>
+</span></span><span class="line"><span class="cl">openssl req -new -key <span class="s2">&#34;</span><span class="nv">$USER</span><span class="s2">.key&#34;</span> -out <span class="s2">&#34;</span><span class="nv">$USER</span><span class="s2">.csr&#34;</span> -subj <span class="s2">&#34;/CN=</span><span class="nv">$USER</span><span class="s2">&#34;</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 创建 CSR</span>
 </span></span><span class="line"><span class="cl">cat <span class="s">&lt;&lt;EOF | kubectl apply -f -
 </span></span></span><span class="line"><span class="cl"><span class="s">apiVersion: certificates.k8s.io/v1
 </span></span></span><span class="line"><span class="cl"><span class="s">kind: CertificateSigningRequest
 </span></span></span><span class="line"><span class="cl"><span class="s">metadata:
-</span></span></span><span class="line"><span class="cl"><span class="s">  name: $USER-csr
+</span></span></span><span class="line"><span class="cl"><span class="s">  name: ${USER}-csr
 </span></span></span><span class="line"><span class="cl"><span class="s">spec:
 </span></span></span><span class="line"><span class="cl"><span class="s">  signerName: kubernetes.io/kube-apiserver-client
-</span></span></span><span class="line"><span class="cl"><span class="s">  request: $(cat $USER.csr | base64 | tr -d &#39;\n&#39;)
+</span></span></span><span class="line"><span class="cl"><span class="s">  request: $(cat &#34;$USER.csr&#34; | base64 | tr -d &#39;\n&#39;)
 </span></span></span><span class="line"><span class="cl"><span class="s">  usages:
 </span></span></span><span class="line"><span class="cl"><span class="s">  - client auth
 </span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">kubectl certificate approve <span class="nv">$USER</span>-csr
-</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">kubectl certificate approve <span class="s2">&#34;</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">-csr&#34;</span>
 </span></span><span class="line"><span class="cl">sleep <span class="m">5</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">kubectl get csr <span class="nv">$USER</span>-csr -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.status.certificate}&#39;</span> <span class="p">|</span> base64 -d &gt; <span class="nv">$USER</span>.crt
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 导出证书</span>
+</span></span><span class="line"><span class="cl">kubectl get csr <span class="s2">&#34;</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">-csr&#34;</span> -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.status.certificate}&#39;</span> <span class="p">|</span> base64 -d &gt; <span class="s2">&#34;</span><span class="nv">$USER</span><span class="s2">.crt&#34;</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. 集群信息</span>
 </span></span><span class="line"><span class="cl"><span class="nv">CLUSTER_NAME</span><span class="o">=</span><span class="k">$(</span>kubectl config view --minify -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.clusters[0].name}&#39;</span><span class="k">)</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nv">API_SERVER</span><span class="o">=</span><span class="k">$(</span>kubectl config view --minify -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.clusters[0].cluster.server}&#39;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">kubectl config view --flatten -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.clusters[0].cluster.certificate-authority-data}&#39;</span> <span class="p">|</span> base64 -d &gt; <span class="s2">&#34;</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">-ca.crt&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">kubectl config view --flatten -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.clusters[0].cluster.certificate-authority-data}&#39;</span> <span class="p">|</span> base64 -d &gt; <span class="nv">$USER</span>-ca.crt
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">kubectl config set-cluster <span class="nv">$CLUSTER_NAME</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --certificate-authority<span class="o">=</span><span class="nv">$USER</span>-ca.crt <span class="se">\
+</span></span><span class="line"><span class="cl"><span class="c1"># 5. 生成 kubeconfig</span>
+</span></span><span class="line"><span class="cl">kubectl config set-cluster <span class="s2">&#34;</span><span class="nv">$CLUSTER_NAME</span><span class="s2">&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --certificate-authority<span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">-ca.crt&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --embed-certs<span class="o">=</span><span class="nb">true</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --server<span class="o">=</span><span class="nv">$API_SERVER</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --kubeconfig<span class="o">=</span><span class="nv">$USER</span>-config
+</span></span></span><span class="line"><span class="cl">  --server<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$API_SERVER</span><span class="s2">&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --kubeconfig<span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">-config&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">kubectl config set-credentials <span class="nv">$USER</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --client-certificate<span class="o">=</span><span class="nv">$USER</span>.crt <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --client-key<span class="o">=</span><span class="nv">$USER</span>.key <span class="se">\
+</span></span><span class="line"><span class="cl">kubectl config set-credentials <span class="s2">&#34;</span><span class="nv">$USER</span><span class="s2">&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --client-certificate<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$USER</span><span class="s2">.crt&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --client-key<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$USER</span><span class="s2">.key&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="cl">  --embed-certs<span class="o">=</span><span class="nb">true</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --kubeconfig<span class="o">=</span><span class="nv">$USER</span>-config
+</span></span></span><span class="line"><span class="cl">  --kubeconfig<span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">-config&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">kubectl config set-context <span class="nv">$USER</span>-context <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --cluster<span class="o">=</span><span class="nv">$CLUSTER_NAME</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --namespace<span class="o">=</span><span class="nv">$NAMESPACE</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --user<span class="o">=</span><span class="nv">$USER</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --kubeconfig<span class="o">=</span><span class="nv">$USER</span>-config
+</span></span><span class="line"><span class="cl">kubectl config set-context <span class="s2">&#34;</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">-context&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --cluster<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$CLUSTER_NAME</span><span class="s2">&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --namespace<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$NAMESPACE</span><span class="s2">&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --user<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$USER</span><span class="s2">&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --kubeconfig<span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">-config&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">kubectl config use-context <span class="nv">$USER</span>-context --kubeconfig<span class="o">=</span><span class="nv">$USER</span>-config
+</span></span><span class="line"><span class="cl">kubectl config use-context <span class="s2">&#34;</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">-context&#34;</span> --kubeconfig<span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">-config&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">kubectl create role <span class="nv">$USER</span>-role -n <span class="nv">$NAMESPACE</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --verb<span class="o">=</span>* <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --resource<span class="o">=</span>*
+</span></span><span class="line"><span class="cl"><span class="c1"># 6. 创建 Role（关键修正点）</span>
+</span></span><span class="line"><span class="cl">kubectl apply -f - <span class="s">&lt;&lt;EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">apiVersion: rbac.authorization.k8s.io/v1
+</span></span></span><span class="line"><span class="cl"><span class="s">kind: Role
+</span></span></span><span class="line"><span class="cl"><span class="s">metadata:
+</span></span></span><span class="line"><span class="cl"><span class="s">  name: ${USER}-role
+</span></span></span><span class="line"><span class="cl"><span class="s">  namespace: ${NAMESPACE}
+</span></span></span><span class="line"><span class="cl"><span class="s">rules:
+</span></span></span><span class="line"><span class="cl"><span class="s"># core API group
+</span></span></span><span class="line"><span class="cl"><span class="s">- apiGroups: [&#34;&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s">  resources: [&#34;*&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s">  verbs: [&#34;*&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s"># apps
+</span></span></span><span class="line"><span class="cl"><span class="s">- apiGroups: [&#34;apps&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s">  resources: [&#34;*&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s">  verbs: [&#34;*&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s"># networking
+</span></span></span><span class="line"><span class="cl"><span class="s">- apiGroups: [&#34;networking.k8s.io&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s">  resources: [&#34;*&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s">  verbs: [&#34;*&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s"># batch
+</span></span></span><span class="line"><span class="cl"><span class="s">- apiGroups: [&#34;batch&#34;, &#34;batch.volcano.sh&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s">  resources: [&#34;*&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s">  verbs: [&#34;*&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s"># autoscaling
+</span></span></span><span class="line"><span class="cl"><span class="s">- apiGroups: [&#34;autoscaling&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s">  resources: [&#34;*&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s">  verbs: [&#34;*&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s"># policy
+</span></span></span><span class="line"><span class="cl"><span class="s">- apiGroups: [&#34;policy&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s">  resources: [&#34;*&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s">  verbs: [&#34;*&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s"># metrics.k8s.io（如果需要 kubectl top）
+</span></span></span><span class="line"><span class="cl"><span class="s">- apiGroups: [&#34;metrics.k8s.io&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s">  resources: [&#34;*&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s">  verbs: [&#34;*&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">kubectl create rolebinding <span class="nv">$USER</span>-binding -n <span class="nv">$NAMESPACE</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --role<span class="o">=</span><span class="nv">$USER</span>-role <span class="se">\
-</span></span></span><span class="line"><span class="cl">  --user<span class="o">=</span><span class="nv">$USER</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 7. RoleBinding</span>
+</span></span><span class="line"><span class="cl">kubectl create rolebinding <span class="s2">&#34;</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">-binding&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -n <span class="s2">&#34;</span><span class="nv">$NAMESPACE</span><span class="s2">&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --role<span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">-role&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --user<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$USER</span><span class="s2">&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">rm -f <span class="nv">$USER</span>-ca.crt <span class="nv">$USER</span>.crt <span class="nv">$USER</span>.csr <span class="nv">$USER</span>.key
+</span></span><span class="line"><span class="cl"><span class="c1"># 8. 清理中间文件</span>
+</span></span><span class="line"><span class="cl">rm -f <span class="s2">&#34;</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">-ca.crt&#34;</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">.crt&#34;</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">.csr&#34;</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">.key&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;✅ User </span><span class="nv">$USER</span><span class="s2"> created&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;✅ Kubeconfig: </span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">-config&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;✅ Namespace:  </span><span class="nv">$NAMESPACE</span><span class="s2"> (full access)&#34;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># ---删除清理</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># kubectl delete csr $USER-csr</span>
@@ -745,7 +790,7 @@ minikube使用
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Kubernetes之StatefulSet部署etcd集群</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
               data-sizes="auto"
               alt="Kubernetes之proxysql集群"
               class="lazyload"
@@ -762,10 +807,10 @@ minikube使用
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;52.0k</span
+          >&nbsp;52.1k</span
         >
         &nbsp;|&nbsp;
-        <span class="icon-coffee">&nbsp;02:01</span>
+        <span class="icon-coffee">&nbsp;02:02</span>
       </div></div>
 </footer>
 <div class="sidebar-top">
