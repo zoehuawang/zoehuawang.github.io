@@ -276,7 +276,7 @@
 <a class="header-anchor" href="#%e5%88%9b%e5%bb%bakubeconfig%e6%96%87%e4%bb%b6"></a>
 创建kubeconfig文件
 </h1><ul>
-<li>一键创建user1用户操作namespace1命名空间的kubeconfig文件脚本: sh createKubeConfig.sh user1 namespace1</li>
+<li>一键创建user1用户操作namespace1命名空间的kubeconfig文件脚本: sh createKubeConfig.sh user namespace1 namespace2</li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
 </span></span></span><span class="line"><span class="cl">
@@ -408,11 +408,6 @@
 </span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;✅ Available contexts:&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="k">for</span> NS in <span class="s2">&#34;</span><span class="si">${</span><span class="nv">NAMESPACES</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="k">do</span>
 </span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;   - </span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">-
-</span></span></span><span class="line"><span class="cl"><span class="s2">
-</span></span></span><span class="line"><span class="cl"><span class="s2"># ---删除清理
-</span></span></span><span class="line"><span class="cl"><span class="s2"># kubectl delete csr </span><span class="nv">$USER</span><span class="s2">-csr
-</span></span></span><span class="line"><span class="cl"><span class="s2"># kubectl delete rolebindings </span><span class="nv">$USER</span><span class="s2">-binding -n </span><span class="nv">$NAMESPACE</span><span class="s2">
-</span></span></span><span class="line"><span class="cl"><span class="s2"># kubectl delete roles </span><span class="nv">$USER</span><span class="s2">-role -n </span><span class="nv">$NAMESPACE</span><span class="s2">
 </span></span></span></code></pre></div><h1 id="问题记录">
 <a class="header-anchor" href="#%e9%97%ae%e9%a2%98%e8%ae%b0%e5%bd%95"></a>
 问题记录
@@ -799,7 +794,7 @@ minikube使用
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg10.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
               data-sizes="auto"
               alt="Kubernetes之StatefulSet部署etcd集群"
               class="lazyload"
@@ -807,7 +802,7 @@ minikube使用
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Kubernetes之StatefulSet部署etcd集群</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg3.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
               data-sizes="auto"
               alt="Kubernetes之proxysql集群"
               class="lazyload"
