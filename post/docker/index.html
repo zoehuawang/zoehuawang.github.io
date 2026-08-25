@@ -220,6 +220,9 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#docker删除none标签镜像</span>
 </span></span><span class="line"><span class="cl">docker images<span class="p">|</span>grep none<span class="p">|</span>awk <span class="s1">&#39;{print $3 }&#39;</span><span class="p">|</span>xargs docker rmi
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#列出所有容器并显示其磁盘大小</span>
+</span></span><span class="line"><span class="cl">docker ps -a --size --format <span class="s2">&#34;table {{.ID}}\t{{.Names}}\t{{.Size}}&#34;</span> <span class="p">|</span> sort -k <span class="m">3</span> -hr
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#docker容器指定固定ip</span>
 </span></span><span class="line"><span class="cl">1、创建自定义网络
 </span></span><span class="line"><span class="cl">docker network create --driver bridge --subnet<span class="o">=</span>172.16.12.0/16 --gateway<span class="o">=</span>172.16.1.1 newnet
@@ -450,7 +453,7 @@ docker-compose用法
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Git</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg1.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
               data-sizes="auto"
               alt="Keepalived高可用配置"
               class="lazyload"
