@@ -109,6 +109,7 @@
         <li><a href="#安装mysql-8026">安装mysql-8.0.26</a></li>
         <li><a href="#mysql双主同步">mysql双主同步</a></li>
         <li><a href="#安装keepalived-135">安装keepalived-1.3.5</a></li>
+        <li><a href="#xtrabackup快速迁移mysql数据库">xtrabackup快速迁移mysql数据库</a></li>
       </ul>
     </li>
   </ul>
@@ -779,7 +780,59 @@ interface为网卡名称，不一样的话注意修改</p>
 </span></span></code></pre></div><blockquote>
 <p>VIP 192.168.7.58在192.168.7.55上，停掉192.168.7.55的mysql后VIP会漂移到192.168.7.54上</p>
 </blockquote>
-<h1 id="oracle">
+<h3 id="xtrabackup快速迁移mysql数据库">
+<a class="header-anchor" href="#xtrabackup%e5%bf%ab%e9%80%9f%e8%bf%81%e7%a7%bbmysql%e6%95%b0%e6%8d%ae%e5%ba%93"></a>
+xtrabackup快速迁移mysql数据库
+</h3><ul>
+<li>/export/Data/mysql-0 代表老数据库物理机上的存储路径</li>
+<li>/export/Data/mysql-recover 代表新数据库物理机上的存储路径</li>
+<li>备份的时候，参数 &ndash;databases-exclude 代表排除不备份的库</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 0. 老库备份</span>
+</span></span><span class="line"><span class="cl">docker run --rm <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --user root <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -v /export/Data/mysql-0:/var/lib/mysql:ro <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -v /export/bk:/backup <span class="se">\
+</span></span></span><span class="line"><span class="cl">  swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/perconalab/percona-xtrabackup:8.0 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  xtrabackup --backup <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --host<span class="o">=</span>172.20.164.138 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --user<span class="o">=</span>root --password<span class="o">=</span><span class="s1">&#39;yanx!AI2yw&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --databases-exclude<span class="o">=</span><span class="s1">&#39;mysql sys&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --target-dir<span class="o">=</span>/backup/full
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 1. Prepare</span>
+</span></span><span class="line"><span class="cl">docker run --rm --user root <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -v /export/bk:/backup <span class="se">\
+</span></span></span><span class="line"><span class="cl">  swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/perconalab/percona-xtrabackup:8.0 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  xtrabackup --prepare --target-dir<span class="o">=</span>/backup/full
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 新库停止 MySQL</span>
+</span></span><span class="line"><span class="cl">docker stop &lt;mysql容器名&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 新库备份：mysql、sys（通过mv命令移走）</span>
+</span></span><span class="line"><span class="cl">mv /export/Data/mysql-recover/mysql /tmp/
+</span></span><span class="line"><span class="cl">mv /export/Data/mysql-recover/sys /tmp/
+</span></span><span class="line"><span class="cl">rm -rf /export/Data/mysql-recover/*
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. 数据恢复</span>
+</span></span><span class="line"><span class="cl">docker run --rm --user root <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -v /export/bk:/backup <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -v /export/Data/mysql-recover:/var/lib/mysql <span class="se">\
+</span></span></span><span class="line"><span class="cl">  swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/perconalab/percona-xtrabackup:8.0 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  xtrabackup --copy-back <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --datadir<span class="o">=</span>/var/lib/mysql <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --target-dir<span class="o">=</span>/backup/full
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 5. 新库节点上修复权限</span>
+</span></span><span class="line"><span class="cl">mv /tmp/mysql /export/Data/mysql-recover/
+</span></span><span class="line"><span class="cl">mv /tmp/sys /export/Data/mysql-recover/
+</span></span><span class="line"><span class="cl">chown -R 999:999 /export/Data/mysql-recover
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 6. 启动新库</span>
+</span></span><span class="line"><span class="cl">docker start &lt;mysql容器名&gt;
+</span></span></code></pre></div><h1 id="oracle">
 <a class="header-anchor" href="#oracle"></a>
 &ndash;—————————Oracle—————————&ndash;
 </h1><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">lsnrctl</span><span class="w"> </span><span class="k">start</span><span class="w">                          		</span><span class="o">#</span><span class="err">打开</span><span class="n">oracle监听</span><span class="w">
@@ -858,7 +911,7 @@ interface为网卡名称，不一样的话注意修改</p>
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg2.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
               data-sizes="auto"
               alt="Keepalived高可用配置"
               class="lazyload"
@@ -866,7 +919,7 @@ interface为网卡名称，不一样的话注意修改</p>
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Keepalived高可用配置</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg9.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
               data-sizes="auto"
               alt="Python"
               class="lazyload"
@@ -883,10 +936,10 @@ interface为网卡名称，不一样的话注意修改</p>
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;52.2k</span
+          >&nbsp;52.5k</span
         >
         &nbsp;|&nbsp;
-        <span class="icon-coffee">&nbsp;02:02</span>
+        <span class="icon-coffee">&nbsp;02:03</span>
       </div></div>
 </footer>
 <div class="sidebar-top">
@@ -904,6 +957,7 @@ interface为网卡名称，不一样的话注意修改</p>
         <li><a href="#安装mysql-8026">安装mysql-8.0.26</a></li>
         <li><a href="#mysql双主同步">mysql双主同步</a></li>
         <li><a href="#安装keepalived-135">安装keepalived-1.3.5</a></li>
+        <li><a href="#xtrabackup快速迁移mysql数据库">xtrabackup快速迁移mysql数据库</a></li>
       </ul>
     </li>
   </ul>
