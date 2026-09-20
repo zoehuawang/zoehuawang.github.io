@@ -833,7 +833,19 @@ xtrabackup快速迁移mysql数据库
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 6. 启动新库</span>
 </span></span><span class="line"><span class="cl">docker start &lt;mysql容器名&gt;
-</span></span></code></pre></div><h1 id="oracle">
+</span></span></code></pre></div><ul>
+<li>对于不需要恢复的库，也可同mysql、sys库一样移动走再移回来，但是会报错没有表空间，需要执行下面语句生成sql并执行</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">#</span><span class="w"> </span><span class="err">生成</span><span class="w"> </span><span class="n">DISCARD</span><span class="w"> </span><span class="err">语句</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">CONCAT</span><span class="p">(</span><span class="s1">&#39;ALTER TABLE `&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">table_schema</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;`.`&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">table_name</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;` DISCARD TABLESPACE;&#39;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">tables</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">WHERE</span><span class="w"> </span><span class="n">table_schema</span><span class="o">=</span><span class="s1">&#39;库名&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">engine</span><span class="o">=</span><span class="s1">&#39;InnoDB&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="o">#</span><span class="w"> </span><span class="err">生成</span><span class="w"> </span><span class="n">IMPORT</span><span class="w"> </span><span class="err">语句</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">CONCAT</span><span class="p">(</span><span class="s1">&#39;ALTER TABLE `&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">table_schema</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;`.`&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">table_name</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;` IMPORT TABLESPACE;&#39;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">tables</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">WHERE</span><span class="w"> </span><span class="n">table_schema</span><span class="o">=</span><span class="s1">&#39;库名&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">engine</span><span class="o">=</span><span class="s1">&#39;InnoDB&#39;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h1 id="oracle">
 <a class="header-anchor" href="#oracle"></a>
 &ndash;—————————Oracle—————————&ndash;
 </h1><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">lsnrctl</span><span class="w"> </span><span class="k">start</span><span class="w">                          		</span><span class="o">#</span><span class="err">打开</span><span class="n">oracle监听</span><span class="w">
@@ -912,7 +924,7 @@ xtrabackup快速迁移mysql数据库
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg10.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
               data-sizes="auto"
               alt="Keepalived高可用配置"
               class="lazyload"
@@ -920,7 +932,7 @@ xtrabackup快速迁移mysql数据库
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Keepalived高可用配置</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg3.webp"
               data-sizes="auto"
               alt="Python"
               class="lazyload"
@@ -937,7 +949,7 @@ xtrabackup快速迁移mysql数据库
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;52.5k</span
+          >&nbsp;52.7k</span
         >
         &nbsp;|&nbsp;
         <span class="icon-coffee">&nbsp;02:03</span>
