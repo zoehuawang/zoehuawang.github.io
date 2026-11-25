@@ -192,7 +192,16 @@
       ></a
     ></div>
 </div>
-    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><h1 id="mysql">
+    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><h1 id="postgresql">
+<a class="header-anchor" href="#postgresql"></a>
+&ndash;—————————Postgresql—————————&ndash;
+</h1><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 备份整个库</span>
+</span></span><span class="line"><span class="cl">pg_dump -U username -h 172.16.200.150 -P <span class="m">5322</span> -d dbname -Fp --no-owner --no-privileges -f /tmp/backup.sql
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 恢复整个库</span>
+</span></span><span class="line"><span class="cl">pgsql -U username -h 172.16.200.150 -P <span class="m">5322</span> -d dbname -f /tmp/backup.sql
+</span></span></code></pre></div><h1 id="mysql">
 <a class="header-anchor" href="#mysql"></a>
 &ndash;—————————Mysql—————————&ndash;
 </h1><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">select</span><span class="w"> </span><span class="k">version</span><span class="p">();</span><span class="w">      </span><span class="o">#</span><span class="err">查看</span><span class="n">mysql版本</span><span class="w">
@@ -924,7 +933,7 @@ xtrabackup快速迁移mysql数据库
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg10.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg7.webp"
               data-sizes="auto"
               alt="Keepalived高可用配置"
               class="lazyload"
@@ -932,7 +941,7 @@ xtrabackup快速迁移mysql数据库
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Keepalived高可用配置</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
               data-sizes="auto"
               alt="Python"
               class="lazyload"
