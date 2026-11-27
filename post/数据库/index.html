@@ -201,6 +201,30 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 恢复整个库</span>
 </span></span><span class="line"><span class="cl">pgsql -U username -h 172.16.200.150 -P <span class="m">5322</span> -d dbname -f /tmp/backup.sql
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 清空 public 下所有对象</span>
+</span></span><span class="line"><span class="cl">drop schema public cascade<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 重新创建 public schema</span>
+</span></span><span class="line"><span class="cl">create schema public<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 把 public schema 的所有者改为角色 voicemodule</span>
+</span></span><span class="line"><span class="cl">alter schema public owner to voicemodule<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 允许角色 voicemodulerw 使用/访问 public schema。</span>
+</span></span><span class="line"><span class="cl">grant usage on schema public to voicemodulerw<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 对 public 中当前已存在的所有表授予查询、插入、更新、删除权限。不影响以后新建的表。</span>
+</span></span><span class="line"><span class="cl">grant <span class="k">select</span>, insert, update, delete on all tables in schema public to voicemodulerw<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 对 public 中当前已存在的所有序列授予 USAGE 和 SELECT。通常用于让应用能调用 nextval()、currval() 等。</span>
+</span></span><span class="line"><span class="cl">grant usage, <span class="k">select</span> on all sequences in schema public to voicemodulerw<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置默认权限：以后由当前执行该语句的角色在 public 中创建的表，自动授予 voicemodulerw 增删改查权限。</span>
+</span></span><span class="line"><span class="cl">alter default privileges in schema public grant <span class="k">select</span>, insert, update, delete on tables to voicemodulerw<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置默认权限：未来由当前执行角色创建的序列，自动授予 USAGE, SELECT。</span>
+</span></span><span class="line"><span class="cl">alter default privileges in schema public grant usage, <span class="k">select</span> on sequences to voicemodulerw<span class="p">;</span>
 </span></span></code></pre></div><h1 id="mysql">
 <a class="header-anchor" href="#mysql"></a>
 &ndash;—————————Mysql—————————&ndash;
@@ -941,7 +965,7 @@ xtrabackup快速迁移mysql数据库
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Keepalived高可用配置</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg8.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg4.webp"
               data-sizes="auto"
               alt="Python"
               class="lazyload"
@@ -958,10 +982,10 @@ xtrabackup快速迁移mysql数据库
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;52.7k</span
+          >&nbsp;53.1k</span
         >
         &nbsp;|&nbsp;
-        <span class="icon-coffee">&nbsp;02:03</span>
+        <span class="icon-coffee">&nbsp;02:04</span>
       </div></div>
 </footer>
 <div class="sidebar-top">

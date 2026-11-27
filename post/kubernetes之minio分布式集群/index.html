@@ -310,15 +310,17 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># 首先需要使用 mc alias 命令将 S3 服务添加到 mc 别名配置 中</span>
 </span></span><span class="line"><span class="cl">mc <span class="nb">alias</span> <span class="nb">set</span> myminio http://12.34.56.78:9000 ACCESS_KEY SECRET_KEY
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">mc admin info myminio				    <span class="c1"># 查看集群信息</span>
+</span></span><span class="line"><span class="cl">mc admin info myminio				                <span class="c1"># 查看集群信息</span>
 </span></span><span class="line"><span class="cl">mc <span class="nb">alias</span> ls myminio                                 <span class="c1"># 查看别名的配置</span>
 </span></span><span class="line"><span class="cl">mc <span class="nb">alias</span> rm myminio                                 <span class="c1"># 删除别名配置</span>
 </span></span><span class="line"><span class="cl">mc ls myminio                                       <span class="c1"># 列出存储桶</span>
 </span></span><span class="line"><span class="cl">mc mb myminio/bucket-by-mc                          <span class="c1"># 创建存储桶</span>
 </span></span><span class="line"><span class="cl">mc rb myminio/bucket-by-mc                          <span class="c1"># 删除存储桶</span>
 </span></span><span class="line"><span class="cl">mc rm myminio/bucket-by-mc/file_name                <span class="c1"># 删除存储桶中的文件</span>
+</span></span><span class="line"><span class="cl">mc anonymous public myminio/bucket-by-mc            <span class="c1"># 设置桶为公有</span>
+</span></span><span class="line"><span class="cl">mc anonymous <span class="nb">set</span> none myminio/bucket-by-mc          <span class="c1"># 取消公有访问</span>
 </span></span><span class="line"><span class="cl">mc cp file_name myminio/bucket-by-mc                <span class="c1"># 上传文件到存储桶</span>
-</span></span><span class="line"><span class="cl">mc get myminio/bucket-by-mc/file_name ./file_name   <span class="c1"># 下载存储桶中的文件</span>
+</span></span><span class="line"><span class="cl">mc cp myminio/bucket-by-mc/file_name ./file_name    <span class="c1"># 下载存储桶中的文件</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 更多使用参考：https://minio.org.cn/docs/minio/linux/reference/minio-mc.html</span>
 </span></span></code></pre></div></div>
@@ -350,7 +352,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Kubernetes日志系统之轻量级Loki集群</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg5.webp"
+              data-src="https://raw.githubusercontent.com/zoehuawang/images/main/bg6.webp"
               data-sizes="auto"
               alt="Kubernetes之kuboard面板"
               class="lazyload"
@@ -367,10 +369,10 @@
       zoehuawang
     </div><div>
         <span class="icon-brush"
-          >&nbsp;52.7k</span
+          >&nbsp;53.1k</span
         >
         &nbsp;|&nbsp;
-        <span class="icon-coffee">&nbsp;02:03</span>
+        <span class="icon-coffee">&nbsp;02:04</span>
       </div></div>
 </footer>
 <div class="sidebar-top">
